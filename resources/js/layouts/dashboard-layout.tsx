@@ -12,8 +12,7 @@ import LanguageSelector from '@/components/LanguageSelector';
 
 export function DashboardLayout({ children }: PropsWithChildren) {
 
-    const { auth ,translations,locale} = usePage<PagePropsData>().props;
-    console.log('🚀 ~ DashboardLayout ~ auth:', auth);
+    const { auth, translations, locale } = usePage<PagePropsData>().props;
 
     const [isFetching, setIsFetching] = useState(false);
     router.on('start', () => {
@@ -44,15 +43,12 @@ export function DashboardLayout({ children }: PropsWithChildren) {
               <div className="flex items-center gap-x-4 ">
                 {/* <DatabaseNotificationsProvider /> */}
                 <div className="flex items-center gap-x-2">
-                  {/* <Button appearance="plain" aria-label="Search..." size="square-petite">
-                            <IconSearch />
-                        </Button> */}
                   <LanguageSelector currentLocale={locale} />
                   {/* mobile view menu */}
                   <Menu>
                     <Menu.Trigger
                       aria-label="Profile"
-                      className="flex items-center  border-2 border-primary overflow-hidden rounded-full gap-x-2 group"
+                      className="flex items-center overflow-hidden border-2 rounded-full border-primary gap-x-2 group"
                     >
                       <Avatar
                         className="overflow-hidden "

@@ -41,18 +41,14 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
         <Navbar.Section>
           {navigations.map((item) => (
             <Navbar.Item isCurrent={item.href === page.url} key={item.href} href={item.href}>
-              {__(translations,item.name)}
-              
+              {__(translations, item.name)}
             </Navbar.Item>
           ))}
         </Navbar.Section>
-     
-        <Navbar.Section className="ml-auto ">
-          <div className='hidden ml-auto gap-x-1 lg:flex'>
-          {auth.user ? <UserMenu /> : <LoginMenu />}
-          </div>
-        <LanguageSelector currentLocale={page.props.locale}/>
 
+        <Navbar.Section className="ml-auto ">
+          <div className="hidden ml-auto gap-x-1 lg:flex">{auth.user ? <UserMenu /> : <LoginMenu />}</div>
+          <LanguageSelector currentLocale={page.props.locale} />
         </Navbar.Section>
       </Navbar.Nav>
 
@@ -61,13 +57,10 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
           <Navbar.Trigger />
           <Separator className="h-6" orientation="vertical" />
           <Navbar.Logo aria-label="Logo">
-            <Logo className='!size-8'/>
+            <Logo className="!size-8" />
           </Navbar.Logo>
         </Navbar.Flex>
-        <Navbar.Flex className="gap-x-1">
-          {!auth.user && <ThemeSwitcher />}
-          {auth.user ? <UserMenu /> : <LoginMenu />}
-        </Navbar.Flex>
+        <Navbar.Flex className="gap-x-1">{auth.user ? <UserMenu /> : <LoginMenu />}</Navbar.Flex>
       </Navbar.Compact>
 
       {children}
