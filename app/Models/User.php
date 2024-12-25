@@ -16,7 +16,7 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable implements HasMedia
 {
     use HasFactory, Notifiable,  InteractsWithMedia;
 
@@ -79,7 +79,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
             // Allow sorting on specific columns
             ->allowedSorts([
                 'id',
-            "name",
+            'name',
                 'email',
                 'created_at',
                 'updated_at',

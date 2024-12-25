@@ -78,25 +78,25 @@ export const columns: ColumnDef<UserData>[] = [
     }
   },
 
-  {
-    accessorKey: 'email_verified_at',
-    header: ({ column }) => (
-      <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Email_verified_at'} />
-    ),
-    cell: ({ row }) => {
-      const date: string = row.getValue('email_verified_at');
-      const translations = usePage<PagePropsData>().props.translations;
-      return (
-        <div className="flex items-center">
-          {date ? (
-            <Badge intent="success">{date}</Badge>
-          ) : (
-            <Badge intent="danger">{__(translations, 'Unverified')}</Badge>
-          )}
-        </div>
-      );
-    }
-  },
+  // {
+  //   accessorKey: 'email_verified_at',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Email_verified_at'} />
+  //   ),
+  //   cell: ({ row }) => {
+  //     const date: string = row.getValue('email_verified_at');
+  //     const translations = usePage<PagePropsData>().props.translations;
+  //     return (
+  //       <div className="flex items-center">
+  //         {date ? (
+  //           <Badge intent="success">{date}</Badge>
+  //         ) : (
+  //           <Badge intent="danger">{__(translations, 'Unverified')}</Badge>
+  //         )}
+  //       </div>
+  //     );
+  //   }
+  // },
   {
     accessorKey: 'created_at',
     header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created_at'} />,
