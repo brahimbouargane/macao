@@ -6,7 +6,7 @@ import { usePage } from '@inertiajs/react';
 
 import { Logo } from '@/components/logo';
 import { MdCategory, MdDashboard, MdSupervisedUserCircle } from 'react-icons/md';
-import { Link, Separator, Sidebar  } from 'ui';
+import { Input, Link, Separator, Sidebar, useMediaQuery, useSidebar } from 'ui';
 import { FaBoxOpen, FaTags } from 'react-icons/fa';
 
 export default function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
@@ -21,17 +21,7 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
       collapsible="dock"
       className="!shadow-xl border-none dark:border-solid  border-zinc-700  bg-accent "
     >
-      <Sidebar.Header className="!bg-colors-primary/80 !h-[3.3rem] !w-full  !m-0 !p-0 !py-0 items-center justify-center     dark:bg-accent">
-        <Link
-          className=" w-full     flex items-center justify-center group-data-[collapsible=dock]:size-10 group-data-[collapsible=dock]:justify-center gap-x-2 "
-          href={route('dashboard')}
-        >
-          {() => {
-            return <Logo className={'!size-8'} />;
-          }}
-          {/* <strong className="font-medium group-data-[collapsible=dock]:hidden">Logo</strong> */}
-        </Link>
-      </Sidebar.Header>
+      <Sidebar.Header className="!bg-colors-primary/80 !h-[3.3rem] !w-full  !m-0 !p-0 !py-0 items-center justify-center     dark:bg-accent"></Sidebar.Header>
       <Sidebar.Content className="p-2 dark:bg-accent">
         <Sidebar.Section className={'mt-4'}>
           <Sidebar.Item
@@ -53,7 +43,7 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           >
             {__(translations, 'Products')}
           </Sidebar.Item>
-          <Separator />
+
           <Sidebar.Item
             isCurrent={component.includes('Dashboard/brands')}
             icon={FaTags}
@@ -62,7 +52,6 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           >
             {__(translations, 'Brands')}
           </Sidebar.Item>
-          <Separator />
           <Sidebar.Item
             isCurrent={component.includes('Dashboard/categories')}
             icon={MdCategory}
@@ -71,7 +60,6 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           >
             {__(translations, 'Categories')}
           </Sidebar.Item>
-          <Separator />
           <Sidebar.Item
             isCurrent={component.includes('Dashboard/users')}
             icon={MdSupervisedUserCircle}
@@ -91,6 +79,16 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
       </Sidebar.Content>
 
       {/* sidebar footer */}
+      <Sidebar.Footer>
+        <section className="bg-white dark:bg-gray-900">
+          <div className="max-w-screen-xl p-2 mx-auto ">
+            <p className="max-w-2xl mx-auto mb-8 font-light text-gray-500 dark:text-gray-400">
+              Stay up to date with the roadmap progress, announcements and exclusive discounts feel free to sign up with
+              your email.
+            </p>
+          </div>
+        </section>
+      </Sidebar.Footer>
       {/* <Sidebar.Footer className="items-center hidden w-full lg:flex lg:flex-row bg-accent">
                 <Menu>
                     <Button appearance="plain" aria-label="Profile" slot="close" className="group ">

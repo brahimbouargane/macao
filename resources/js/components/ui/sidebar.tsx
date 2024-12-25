@@ -4,11 +4,13 @@ import { IconChevronDown, IconChevronRight, IconHamburger, IconSidebarFill } fro
 import type { DisclosureProps, LinkProps } from 'react-aria-components';
 import { Disclosure, DisclosurePanel, Link } from 'react-aria-components';
 import { tv } from 'tailwind-variants';
-
+import { Link as InertiaLink } from '@inertiajs/react';
 import { Button, ButtonPrimitive } from './button';
 import { cn, cr, useMediaQuery } from './primitive';
 import { Sheet } from './sheet';
 import { Tooltip } from './tooltip';
+import { Logo } from '../logo';
+import { LargeLogo } from '../logo-large';
 
 type SidebarContextProps = {
   state: 'expanded' | 'collapsed';
@@ -373,7 +375,14 @@ const Header = ({ className, ...props }: React.HtmlHTMLAttributes<HTMLDivElement
       {...props}
       className={header({ collapsed: state === 'collapsed', className })}
       {...props}
-    />
+    >
+      <InertiaLink
+        className=" w-full     flex items-center justify-center group-data-[collapsible=dock]:size-10 group-data-[collapsible=dock]:justify-center gap-x-2 "
+        href={route('dashboard')}
+      >
+        {state === 'collapsed' ? <Logo className={'!size-8'} /> : <LargeLogo />}
+      </InertiaLink>
+    </div>
   );
 };
 
