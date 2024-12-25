@@ -5,6 +5,8 @@ import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { Card } from 'ui';
 import { CategoryProductsCount } from '..';
 
+import NoDataImage from '@/assets/images/no-data.png';
+
 type CategoryDistributionPieChartProps = {
   productsCountByCategory: CategoryProductsCount[];
 };
@@ -25,40 +27,44 @@ export function CategoryDistributionPieChart({ productsCountByCategory }: Catego
     <Card className="w-full h-full bg-bg">
       <Card.Header>
         <Card.Title>{__(translations, 'Category Distribution by Product Percentage')}</Card.Title>
-        {/* <Card.Description>{__(translations, 'Top 10 categories by product count')}</Card.Description> */}
+        <Card.Description>{__(translations, 'Top 10 categories by product count')}</Card.Description>
       </Card.Header>
-      <Card.Content className="pb-0 h-96">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Tooltip content={CustomToolTip} />
-            <Legend content={CustomLegend} />
+      <Card.Content className="flex items-center justify-center pb-0 h-96">
+        {productsCountByCategory.length == 0 ? (
+          <img src={NoDataImage} className="size-52" alt="chart data not available" />
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Tooltip content={CustomToolTip} />
+              <Legend content={CustomLegend} />
 
-            <Pie
-              data={pieData}
-              dataKey="value"
-              nameKey="name"
-              innerRadius={50}
-              outerRadius={100} // Radius of the outer circle
-              cornerRadius={0} // Make the segments rounded
-              paddingAngle={1} // Space between segments
-              label={({ payload, ...props }) => {
-                return (
-                  <text
-                    cx={props.cx}
-                    cy={props.cy}
-                    x={props.x}
-                    y={props.y}
-                    textAnchor={props.textAnchor}
-                    dominantBaseline={props.dominantBaseline}
-                    className="dark:fill-white"
-                  >
-                    {payload.percentage} %
-                  </text>
-                );
-              }}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+              <Pie
+                data={pieData}
+                dataKey="value"
+                nameKey="name"
+                innerRadius={50}
+                outerRadius={100} // Radius of the outer circle
+                cornerRadius={0} // Make the segments rounded
+                paddingAngle={1} // Space between segments
+                label={({ payload, ...props }) => {
+                  return (
+                    <text
+                      cx={props.cx}
+                      cy={props.cy}
+                      x={props.x}
+                      y={props.y}
+                      textAnchor={props.textAnchor}
+                      dominantBaseline={props.dominantBaseline}
+                      className="dark:fill-white"
+                    >
+                      {payload.percentage} %
+                    </text>
+                  );
+                }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        )}
       </Card.Content>
     </Card>
   );

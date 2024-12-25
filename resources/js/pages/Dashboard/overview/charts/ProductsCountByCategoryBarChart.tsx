@@ -5,6 +5,7 @@ import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { usePage } from '@inertiajs/react';
 import { Bar, BarChart, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import NoDataImage from '@/assets/images/no-data.png';
 
 type ProductsCountByCategoryBarChartProps = {
   productsCountByCategory: CategoryProductsCount[];
@@ -12,45 +13,50 @@ type ProductsCountByCategoryBarChartProps = {
 
 export function ProductsCountByCategoryBarChart({ productsCountByCategory }: ProductsCountByCategoryBarChartProps) {
   const translations = usePage<PagePropsData>().props.translations;
+
   return (
     <Card className="w-full h-full bg-bg">
       <Card.Header>
         <Card.Title>{__(translations, 'Categories by products count')}</Card.Title>
         <Card.Description>{__(translations, 'Top 10 categories by product count')}</Card.Description>
       </Card.Header>
-      <Card.Content className="h-96">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart layout="vertical" height={100} data={productsCountByCategory} margin={{ right: 0, left: 10 }}>
-            {/* <CartesianGrid strokeDasharray="4 4" /> */}
-            <Legend />
-            <Tooltip content={CustomToolTip} />
+      <Card.Content className="flex items-center justify-center h-96">
+        {productsCountByCategory.length === 0 ? (
+          <img src={NoDataImage} className="size-52" alt="chart data not available" />
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart layout="vertical" height={100} data={productsCountByCategory} margin={{ right: 0, left: 10 }}>
+              {/* <CartesianGrid strokeDasharray="4 4" /> */}
+              <Legend />
+              <Tooltip content={CustomToolTip} />
 
-            <YAxis dataKey="name" type="category" hide />
-            <XAxis type="number" hide />
-            <Bar
-              isAnimationActive={true}
-              dataKey="products_count"
-              type="monotone"
-              fill="#FE0002"
-              background={{ radius: 6, fill: 'var(--chart-1)', opacity: 0.2 }}
-              radius={5}
-              name={__(translations, 'Products Count')}
-              shape={(props: any) => {
-                return (
-                  <>
-                    <Rectangle {...props} />
-                    <text x={props.x + 10} y={props.y + 18} fill="white">
-                      {props.name}
-                    </text>
-                    <text x={props.background.width - 20} y={props.y + 15} className="text-lg dark:fill-white ">
-                      {props.products_count.toLocaleString()}
-                    </text>
-                  </>
-                );
-              }}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+              <YAxis dataKey="name" type="category" hide />
+              <XAxis type="number" hide />
+              <Bar
+                isAnimationActive={true}
+                dataKey="products_count"
+                type="monotone"
+                fill="#FE0002"
+                background={{ radius: 6, fill: 'var(--chart-1)', opacity: 0.2 }}
+                radius={5}
+                name={__(translations, 'Products Count')}
+                shape={(props: any) => {
+                  return (
+                    <>
+                      <Rectangle {...props} />
+                      <text x={props.x + 10} y={props.y + 18} fill="white">
+                        {props.name}
+                      </text>
+                      <text x={props.background.width - 20} y={props.y + 15} className="text-lg dark:fill-white ">
+                        {props.products_count.toLocaleString()}
+                      </text>
+                    </>
+                  );
+                }}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        )}
       </Card.Content>
     </Card>
   );
