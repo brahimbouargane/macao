@@ -107,8 +107,8 @@ class UsersController extends Controller implements HasMiddleware
 
         $validated = $request->validate([
             'name' => ['required', 'min:5', 'max:255'],
-            "email" => ['required', "lowercase", 'email', Rule::unique(User::class)->ignore($user->id)],
-            "password" => ['nullable', 'min:8', 'confirmed'],
+            "email" => ['required', "lowercase", 'max:255', 'email', Rule::unique(User::class)->ignore($user->id)],
+            "password" => ['nullable', 'min:8', 'confirmed', 'max:255'],
         ]);
 
 

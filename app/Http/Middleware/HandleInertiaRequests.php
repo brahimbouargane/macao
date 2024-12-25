@@ -47,6 +47,8 @@ class HandleInertiaRequests extends Middleware
             "modelsCount" => [
                 "user" => Cache::get('user_count') ?? 0,
                 "category" => Cache::get('category_count') ?? 0,
+                "product" => Cache::get('product_count') ?? 0,
+                "brand" => Cache::get('brand_count') ?? 0,
             ],
             // Pass the current locale
             'locale' => function () {

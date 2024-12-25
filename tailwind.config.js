@@ -8,7 +8,8 @@ const config = withTV({
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     './storage/framework/views/*.php',
     './resources/views/**/*.blade.php',
-    './resources/js/**/*.{js,jsx,ts,tsx}'
+    './resources/js/**/*.{js,jsx,ts,tsx}',
+    './node_modules/@inertiaui/modal-react/src/**/*.{js,jsx}'
   ],
   theme: {
     extend: {

@@ -7,9 +7,10 @@ import { usePage } from '@inertiajs/react';
 import { Logo } from '@/components/logo';
 import { MdCategory, MdDashboard, MdSupervisedUserCircle } from 'react-icons/md';
 import { Link, Separator, Sidebar  } from 'ui';
+import { FaBoxOpen, FaTags } from 'react-icons/fa';
 
 export default function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
-  const {  modelsCount, translations, locale } = usePage<PagePropsData>().props;
+  const { modelsCount, translations, locale } = usePage<PagePropsData>().props;
   const component = usePage().component;
 
   return (
@@ -31,15 +32,37 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           {/* <strong className="font-medium group-data-[collapsible=dock]:hidden">Logo</strong> */}
         </Link>
       </Sidebar.Header>
-      <Sidebar.Content className="pl-0 dark:bg-accent p-2">
+      <Sidebar.Content className="p-2 dark:bg-accent">
         <Sidebar.Section className={'mt-4'}>
-          <Sidebar.Item isCurrent={component === 'Dashboard/index'} icon={MdDashboard} href={route('dashboard')}>
+          <Sidebar.Item
+            isCurrent={component === 'Dashboard/overview/index'}
+            icon={MdDashboard}
+            href={route('dashboard')}
+          >
             {__(translations, 'Dashboard')}
           </Sidebar.Item>
         </Sidebar.Section>
 
         {/* Ressource management */}
         <Sidebar.Section collapsible title={__(translations, 'Resource management')}>
+          <Sidebar.Item
+            isCurrent={component.includes('Dashboard/products')}
+            icon={FaBoxOpen}
+            href={route('products.index')}
+            badge={String(modelsCount.product)}
+          >
+            {__(translations, 'Products')}
+          </Sidebar.Item>
+          <Separator />
+          <Sidebar.Item
+            isCurrent={component.includes('Dashboard/brands')}
+            icon={FaTags}
+            href={route('brands.index')}
+            badge={String(modelsCount.product)}
+          >
+            {__(translations, 'Brands')}
+          </Sidebar.Item>
+          <Separator />
           <Sidebar.Item
             isCurrent={component.includes('Dashboard/categories')}
             icon={MdCategory}

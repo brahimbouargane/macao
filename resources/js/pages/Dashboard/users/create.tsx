@@ -1,151 +1,149 @@
 import { Button, Card, Container, Form, ProgressCircle, TextField } from '@/components/ui';
 import { DashboardLayout } from '@/layouts';
 import { PagePropsData } from '@/types';
+import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
 import { Head, useForm, usePage } from '@inertiajs/react';
-import DashboardBreadCrumbs from '../partials/dashboard-breadcrumbs';
-import { toast } from 'sonner';
-import { cn } from '@/utils/classes';
-import { IconKey, IconMail } from 'justd-icons';
+import { IconKey } from 'justd-icons';
 import { MdAlternateEmail, MdDriveFileRenameOutline, MdOutlinePassword } from 'react-icons/md';
-
+import toast from 'react-hot-toast';
+import DashboardBreadCrumbs from '../partials/dashboard-breadcrumbs';
 
 function Create() {
-    const translations = usePage<PagePropsData>().props.translations
+  const translations = usePage<PagePropsData>().props.translations;
 
-    const form = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
+  const form = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+  });
+
+  function createOtherRole(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    form.post(route('users.store'), {
+      onSuccess: () => {
+        toast.success(__(translations, 'User created successfully'));
+        form.reset();
+      }
     });
-    console.log("🚀 ~ Create ~ form:", form.errors)
+  }
 
-    function createOtherRole(e:React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
+  return (
+    <>
+      <Head title={__(translations, 'Create') + ' ' + __(translations, 'Users')} />
 
-        form.post(route('users.store'), {
-            onSuccess: () => {
-                toast.success(__(translations,'User created successfully'));
-                form.reset();
-            }
-        });
-    }
-
-    return (
-        <>
-            <Head title={__(translations,'Create') + ' ' + __(translations,'Users')} />
-
-            {/* <DashboardBreadCrumbs /> */}
-            <Container className="p-6 max-w-screen">
-                <DashboardBreadCrumbs resource="Users" />
-                <div className="flex items-center justify-between py-4">
-                    <h1 className="text-2xl"> {__(translations,'Create') + ' ' + __(translations,'User')}</h1>
-                </div>
-                <Card className="w-full dark:bg-accent">
-                    <div className="p-4 space-y-8">
-                    <Form onSubmit={createOtherRole} validationErrors={form.errors} className={cn('space-y-8')}>
-            <div className="grid md:grid-cols-3 md:gap-x-6 gap-y-6 ">
-            <TextField
-                type="text"
-                name="name"
-                label="Name"
-                value={form.data.name}
-                className="mt-1"
-                autoComplete="name"
-                autoFocus
-                onChange={(v) => form.setData('name', v)}
-                errorMessage={form.errors.name}
-                isRequired
-                prefix={
+      {/* <DashboardBreadCrumbs /> */}
+      <Container className="p-6 max-w-screen">
+        <DashboardBreadCrumbs resource="Users" />
+        <div className="flex items-center justify-between py-4">
+          <h1 className="text-2xl"> {__(translations, 'Create') + ' ' + __(translations, 'User')}</h1>
+        </div>
+        <Card className="w-full dark:bg-accent">
+          <div className="p-4 space-y-8">
+            <Form onSubmit={createOtherRole} validationErrors={form.errors} className={cn('space-y-8')}>
+              <div className="grid md:grid-cols-3 md:gap-x-6 gap-y-6 ">
+                <TextField
+                  type="text"
+                  name="name"
+                  label="Name"
+                  value={form.data.name}
+                  className="mt-1"
+                  autoComplete="name"
+                  autoFocus
+                  onChange={(v) => form.setData('name', v)}
+                  errorMessage={form.errors.name}
+                  isRequired
+                  prefix={
                     <div className="p-2 border-r-2 ">
-                        <MdDriveFileRenameOutline className="text-colors-primary" />
+                      <MdDriveFileRenameOutline className="text-colors-primary" />
                     </div>
-                }
-              />
-                <TextField
-                    isDisabled={form.processing}
-                    type="email"
-                    name="email"
-                    description=""
-                    prefix={
-                        <div className="p-2 border-r-2 ">
-                            <MdAlternateEmail className="text-colors-primary" />
-                        </div>
-                    }
-                    className=" !pl-0"
-                    label={__(translations,'Email')}
-                    value={form.data.email}
-                    autoComplete="username"
-                    onChange={function (v) {
-                        form.setData('email', v);
-                        if (form.errors.email) {
-                            form.clearErrors('email');
-                        }
-                    }}
-                    errorMessage={form.errors.email}
-                    isRequired
+                  }
                 />
                 <TextField
-                    isDisabled={form.processing}
-                    type="password"
-                    name="password"
-                    description={__(translations,'Minimum length : 8')}
-                    label={__(translations,'Password')}
-                    isRevealable
-                    prefix={
-                        <div className="p-2 border-r-2 ">
-                            <MdOutlinePassword className="text-colors-primary f " />
-                        </div>
+                  isDisabled={form.processing}
+                  type="email"
+                  name="email"
+                  description=""
+                  prefix={
+                    <div className="p-2 border-r-2 ">
+                      <MdAlternateEmail className="text-colors-primary" />
+                    </div>
+                  }
+                  className=" !pl-0"
+                  label={__(translations, 'Email')}
+                  value={form.data.email}
+                  autoComplete="username"
+                  onChange={function (v) {
+                    form.setData('email', v);
+                    if (form.errors.email) {
+                      form.clearErrors('email');
                     }
-                    className=" !pl-0"
-                    value={form.data.password}
-                    autoComplete="current-password"
-                    onChange={function (v) {
-                        form.setData('password', v);
-                        if (form.errors.password) {
-                            form.clearErrors('password');
-                        }
-                    }}
-                    errorMessage={form.errors.password}
-                    isRequired
+                  }}
+                  errorMessage={form.errors.email}
+                  isRequired
                 />
                 <TextField
-                    isDisabled={form.processing}
-                    type="password"
-                    name="password_confirmation"
-                    isRevealable
-                    label={__(translations,'Password confirmation')}
-                    prefix={
-                        <div className="p-2 border-r-2 ">
-                            <IconKey className="text-colors-primary f " />
-                        </div>
+                  isDisabled={form.processing}
+                  type="password"
+                  name="password"
+                  description={__(translations, 'Minimum length : 8')}
+                  label={__(translations, 'Password')}
+                  isRevealable
+                  prefix={
+                    <div className="p-2 border-r-2 ">
+                      <MdOutlinePassword className="text-colors-primary f " />
+                    </div>
+                  }
+                  className=" !pl-0"
+                  value={form.data.password}
+                  autoComplete="current-password"
+                  onChange={function (v) {
+                    form.setData('password', v);
+                    if (form.errors.password) {
+                      form.clearErrors('password');
                     }
-                    value={form.data.password_confirmation}
-                    className=" !pl-0"
-                    onChange={function (v) {
-                        form.setData('password_confirmation', v);
-                        if (form.errors.password) {
-                            form.clearErrors('password');
-                        }
-                    }}
-                    errorMessage={form.errors.password_confirmation}
-                    isRequired
+                  }}
+                  errorMessage={form.errors.password}
+                  isRequired
                 />
-            </div>
+                <TextField
+                  isDisabled={form.processing}
+                  type="password"
+                  name="password_confirmation"
+                  isRevealable
+                  label={__(translations, 'Password confirmation')}
+                  prefix={
+                    <div className="p-2 border-r-2 ">
+                      <IconKey className="text-colors-primary f " />
+                    </div>
+                  }
+                  value={form.data.password_confirmation}
+                  className=" !pl-0"
+                  onChange={function (v) {
+                    form.setData('password_confirmation', v);
+                    if (form.errors.password) {
+                      form.clearErrors('password');
+                    }
+                  }}
+                  errorMessage={form.errors.password_confirmation}
+                  isRequired
+                />
+              </div>
 
-            <div className="flex items-center justify-between !mt-8">
+              <div className="flex items-center justify-between !mt-8">
                 <Button type="submit" isDisabled={form.processing}>
-                    {form.processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
-                    {__(translations,'Create')}
+                  {form.processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
+                  {__(translations, 'Create')}
                 </Button>
-            </div>
-                      </Form>
-                    </div>
-                </Card>
-            </Container>
-        </>
-    );
+              </div>
+            </Form>
+          </div>
+        </Card>
+      </Container>
+    </>
+  );
 }
 
 Create.layout = (page: any) => <DashboardLayout children={page} />;
