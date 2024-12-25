@@ -16,6 +16,17 @@ install: vendor/autoload.php public/storage .env  public/build/manifest.json
 		php artisan typescript:transform --force
 
 
+reset-cache:
+		php artisan cache:clear
+		php artisan config:clear
+		php artisan route:clear
+		php artisan view:clear
+		php artisan event:clear
+		php artisan clear-compiled
+		php artisan optimize
+		php artisan ziggy:generate
+		php artisan typescript:transform --force
+
 # if .env does not exist, make a copy and generate encryption key.
 .env:
 		cp .env.example .env

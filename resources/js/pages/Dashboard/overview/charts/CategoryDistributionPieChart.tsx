@@ -42,7 +42,6 @@ export function CategoryDistributionPieChart({ productsCountByCategory }: Catego
               cornerRadius={0} // Make the segments rounded
               paddingAngle={1} // Space between segments
               label={({ payload, ...props }) => {
-                console.log('🚀 ~ CategoryDistributionPieChart ~ payload:', payload);
                 return (
                   <text
                     cx={props.cx}
