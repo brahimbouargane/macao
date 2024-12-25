@@ -5,6 +5,7 @@ deploy:
 # to run the install command the below files must first exist
 # if not run the associated commands to create them
 install: vendor/autoload.php public/storage .env  public/build/manifest.json
+
 		php artisan cache:clear
 		php artisan config:clear
 		php artisan route:clear
@@ -14,7 +15,7 @@ install: vendor/autoload.php public/storage .env  public/build/manifest.json
 		php artisan optimize
 		php artisan ziggy:generate
 		php artisan typescript:transform --force
-
+		npm run build
 
 reset-cache:
 		php artisan cache:clear
