@@ -387,7 +387,7 @@ const Header = ({ className, ...props }: React.HtmlHTMLAttributes<HTMLDivElement
 };
 
 const footer = tv({
-  base: 'flex flex-col mt-auto',
+  base: 'flex flex-col mt-auto bg-accent',
   variants: {
     collapsed: {
       false: [

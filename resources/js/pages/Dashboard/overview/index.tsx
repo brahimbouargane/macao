@@ -26,7 +26,7 @@ export default function Dashboard({ productsCountByCategory, modelsCount }: Dash
       {/* charts and widgets */}
       <div className="p-6 space-y-6">
         <h1 className="text-3xl font-bold tracking-tight">{__(translations, 'Dashboard')}</h1>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-4">
           <ModelCountWidget title={__(translations, 'Products')} value={modelsCount.product} icon={FaBoxOpen} />
           <ModelCountWidget title={__(translations, 'Categories')} value={modelsCount.category} icon={MdCategory} />
           <ModelCountWidget title={__(translations, 'Brands')} value={modelsCount.brand} icon={FaTags} />

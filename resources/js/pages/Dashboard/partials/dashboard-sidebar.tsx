@@ -4,10 +4,10 @@ import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { usePage } from '@inertiajs/react';
 
-import { Logo } from '@/components/logo';
 import { MdCategory, MdDashboard, MdSupervisedUserCircle } from 'react-icons/md';
-import { Input, Link, Separator, Sidebar, useMediaQuery, useSidebar } from 'ui';
+import { Sidebar } from 'ui';
 import { FaBoxOpen, FaTags } from 'react-icons/fa';
+import MacaoChef from '@/assets/images/macao_chef.png';
 
 export default function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const { modelsCount, translations, locale } = usePage<PagePropsData>().props;
@@ -80,14 +80,9 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
 
       {/* sidebar footer */}
       <Sidebar.Footer>
-        <section className="bg-white dark:bg-gray-900">
-          <div className="max-w-screen-xl p-2 mx-auto ">
-            <p className="max-w-2xl mx-auto mb-8 font-light text-gray-500 dark:text-gray-400">
-              Stay up to date with the roadmap progress, announcements and exclusive discounts feel free to sign up with
-              your email.
-            </p>
-          </div>
-        </section>
+        <div className="">
+          <img src={MacaoChef} className="object-contain w-full h-32 " alt="Macao chef" />
+        </div>
       </Sidebar.Footer>
       {/* <Sidebar.Footer className="items-center hidden w-full lg:flex lg:flex-row bg-accent">
                 <Menu>
