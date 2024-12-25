@@ -105,7 +105,7 @@ export const columns: ColumnDef<UserData>[] = [
         <div className="flex items-center">
           <span>{row.getValue('created_at') ?? 'N/A'}</span>
         </div>
-      );
+      );  
     }
     // filterFn: (row, id, value) => {
     //     return value.includes(row.getValue(id));
