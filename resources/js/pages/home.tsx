@@ -10,20 +10,9 @@ export default function Home() {
     <>
       <Head title="Macao" />
       <Container>
-        <div className="overflow-hidden rounded-lg border lg:border-border border-transparent">
-      <Logo/>
-      <Carousel className="w-full [&_.xrkr]:h-56 [&_.xrkr]:overflow-hidden [&_.xrkr]:flex [&_.xrkr]:flex-col max-w-xs">
-  <Carousel.Content>
-    <Carousel.Item className="basis-1/2">1</Carousel.Item>
-    <Carousel.Item className="basis-1/2">2</Carousel.Item>
-    <Carousel.Item className="basis-1/2">3</Carousel.Item>
-  </Carousel.Content>
- 
-  <Carousel.Handler>
-    <Carousel.Button slot="previous" />
-    <Carousel.Button slot="next" />
-  </Carousel.Handler>
-</Carousel>
+        <div className="flex flex-col items-center justify-center pt-8 overflow-hidden border border-transparent rounded-lg lg:border-border">
+          <h1 className="text-3xl text-center">WORK IN PROGRESS</h1>
+          <img src="/images/progress.svg" alt="" className="h-96" />
         </div>
       </Container>
     </>

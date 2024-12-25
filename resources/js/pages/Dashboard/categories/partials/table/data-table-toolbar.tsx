@@ -17,7 +17,7 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
     const translations = usePage<PagePropsData>().props.translations
 
-    const builder = useQueryBuilderCategoriesContext();
+    const { builder } = useQueryBuilderCategoriesContext();
     const { searchTerm, setSearchTerm, isLoading } = useSearchWithDebounce({
         route: route('categories.index') + builder.build(),
         initialSearchTerm: builder.hasFilter('search') ? (route().queryParams?.filter?.search as unknown as string) : ''

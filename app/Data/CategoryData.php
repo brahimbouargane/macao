@@ -2,7 +2,10 @@
 
 namespace App\Data;
 
+use App\Models\Category;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\DataCollection;
 
 class CategoryData extends Data
 {
@@ -11,8 +14,12 @@ class CategoryData extends Data
     public string $name,
     public ?string $description,
     public ?string $image,
-    public ?CategoryData $parentCategory,
-    public ?string $parent_id,
+        public ?string $optimizedImage,
+
+        #[DataCollectionOf(CategoryData::class)]
+        public ?DataCollection $parentCategories,
+        public ?array $childCategoriesNames,
+        public ?array $parentCategoriesNames,    
     public ?string $created_at,
     public ?string $updated_at,
     ) {}

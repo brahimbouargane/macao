@@ -10,130 +10,161 @@ import { DataTableColumnHeader } from './data-table-column-header';
 import { usePage } from '@inertiajs/react';
 
 export const columns: ColumnDef<CategoryData>[] = [
-    {
-        id: 'select',
-        header: ({ table }) => (
-            <Checkbox
-                isSelected={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
-                onChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-                className="translate-y-[2px]"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                isSelected={row.getIsSelected()}
-                onChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-                className="translate-y-[2px]"
-            />
-        ),
-        size: 5,
+  // {
+  //   id: 'select',
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       isSelected={table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()}
+  //       onChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //       className="translate-y-[2px]"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       isSelected={row.getIsSelected()}
+  //       onChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //       className="translate-y-[2px]"
+  //     />
+  //   ),
+  //   size: 5,
 
-        enableSorting: false,
-        enableHiding: false
+  //   enableSorting: false,
+  //   enableHiding: false
+  // },
+  {
+    accessorKey: 'id',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Id" />,
+    cell: ({ row }) => <div className="w-fit">{row.getValue('id')}</div>,
+    size: 5,
+    enableSorting: true,
+    enableHiding: true
+  },
+  {
+    accessorKey: 'image',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Image'} />,
+    cell: ({ row }) => {
+      const image: string = row.original.image ?? '/images/no-image-placeholder.webp';
+      return (
+        <div className="flex ">
+          <Avatar src={image} size={'large'} className="overflow-hidden border-2 border-zinc-300 shadow-lg" />
+        </div>
+      );
     },
-    {
-        accessorKey: 'id',
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Id" />,
-        cell: ({ row }) => <div className="w-fit">{row.getValue('id')}</div>,
-        size: 5,
-        enableSorting: true,
-        enableHiding: true
-    },
-    {
-        accessorKey: 'image',
-        header: ({ column }) => <DataTableColumnHeader column={column} title={'Image'} />,
-        cell: ({ row }) => {
-            const image: string = row.original.image ?? '/images/avatar-placeholder.svg';
-            return (
-                <div className="flex space-x-2">
-                    <Avatar src={image} shape="circle" className="object-contain size-12 overflow-hidden" />
-                </div>
-            );
-        },
-        enableSorting: false,
-        size : 10
-
-    },
-    {
-        accessorKey: 'name',
-        header: ({ column }) => <DataTableColumnHeader column={column} title={'Name'} />,
-        cell: ({ row }) => {
-            let name: string = row.getValue('name') ?? 'N/A';
-            if (name != 'N/A' && name.length > 20) {
-                name = name.substring(0, 20) + '...';
-            }
-            return (
-                <div className="flex space-x-2">
-                    <span className="font-medium truncate">{name}</span>
-                </div>
-            );
-        }
-    },
-    {
-        accessorKey: 'description',
-        header: ({ column }) => <DataTableColumnHeader column={column} title={'Description'} />,
-        cell: ({ row }) => {
-            let description: string = row.getValue('description') ?? '';
-            if (description != 'N/A' && description.length > 20) {
-                description = description.substring(0, 20) + '...';
-            }
-            return (
-                <div className="flex space-x-2">
-                    <span className="font-medium truncate">{description}</span>
-                </div>
-            );
-        }
-    },
-    {
-        accessorKey: 'parentCategory',
-        header: ({ column }) => <DataTableColumnHeader column={column} title={'Parent'} />,
-        cell: ({ row }) => {
-            let parentCategory = row.getValue('parentCategory') ? (row.getValue('parentCategory') as CategoryData).name  : '';
-           
-            return (
-                <div className="flex space-x-2">
-                    <span className="font-medium truncate">{parentCategory}</span>
-                </div>
-            );
-        }
-    },
-  
-    {
-        accessorKey: 'created_at',
-        header: ({ column }) => (
-            <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created_at'} />
-        ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex items-center">
-                    <span>{row.getValue('created_at') ?? 'N/A'}</span>
-                </div>
-            );
-        }
-     
-    },
-    {
-        accessorKey: 'updated_at',
-        header: ({ column }) => (
-            <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Updated_at'} />
-        ),
-        cell: ({ row }) => {
-            return (
-                <div className="flex items-center">
-                    <span>{row.getValue('updated_at') ?? 'N/A'}</span>
-                </div>
-            );
-        }
-        // filterFn: (row, id, value) => {
-        //     return value.includes(row.getValue(id));
-        // }
-    },
-    {
-        id: 'actions',
-        header: 'Actions',
-        cell: ({ row }) => <DataTableRowActions row={row} />,
-        size: 10
+    enableSorting: false,
+    size: 5
+  },
+  {
+    accessorKey: 'name',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Name'} />,
+    cell: ({ row }) => {
+      let name: string = row.getValue('name') ?? 'N/A';
+      if (name != 'N/A' && name.length > 20) {
+        name = name.substring(0, 20) + '...';
+      }
+      return (
+        <div className="flex space-x-2">
+          <span className="font-medium truncate">{name}</span>
+        </div>
+      );
     }
+  },
+  {
+    accessorKey: 'description',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Description'} />,
+    cell: ({ row }) => {
+      let description: string = row.getValue('description') ?? '';
+      if (description != 'N/A' && description.length > 20) {
+        description = description.substring(0, 20) + '...';
+      }
+      return (
+        <div className="flex space-x-2">
+          <span className="font-medium truncate">{description}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'parentCategoriesNames',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Parent Categories'} />,
+    cell: ({ row }) => {
+      let parentCategoriesNames = row.getValue('parentCategoriesNames')
+        ? (row.getValue('parentCategoriesNames') as string[])
+        : null;
+      if (parentCategoriesNames == null) {
+        return <div className="flex space-x-2"></div>;
+      } else {
+        const firstTwo =
+          parentCategoriesNames.length > 2
+            ? [parentCategoriesNames[0], parentCategoriesNames[1], `+ ${parentCategoriesNames.length - 2}`]
+            : parentCategoriesNames;
+        return (
+          <div className="flex flex-wrap gap-2">
+            {firstTwo.map((childCatName, index, array) => (
+              <Badge
+                className={array.length > 2 && index == array.length - 1 && 'rounded-full size-8'}
+                key={childCatName}
+              >
+                {childCatName}
+              </Badge>
+            ))}
+          </div>
+        );
+      }
+    },
+    enableSorting: false
+  },
+  // {
+  //   accessorKey: 'childCategoriesNames',
+  //   header: ({ column }) => <DataTableColumnHeader column={column} title={'childCategoriesNames'} />,
+  //   cell: ({ row }) => {
+  //     let childCategoriesNames = row.getValue('childCategoriesNames')
+  //       ? (row.getValue('childCategoriesNames') as string[])
+  //       : null;
+  //     if (childCategoriesNames == null) {
+  //       return <div className="flex space-x-2"></div>;
+  //     } else {
+  //       return (
+  //         <>
+  //           {childCategoriesNames.map((child) => (
+  //             <Badge className="font-medium truncate">{child}</Badge>
+  //           ))}
+  //         </>
+  //       );
+  //     }
+  //   }
+  // },
+
+  {
+    accessorKey: 'created_at',
+    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created_at'} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          <span>{row.getValue('created_at') ?? 'N/A'}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'updated_at',
+    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Updated_at'} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          <span>{row.getValue('updated_at') ?? 'N/A'}</span>
+        </div>
+      );
+    }
+    // filterFn: (row, id, value) => {
+    //     return value.includes(row.getValue(id));
+    // }
+  },
+  {
+    id: 'actions',
+    header: 'Actions',
+    cell: ({ row }) => <DataTableRowActions row={row} />,
+    size: 10
+  }
 ];

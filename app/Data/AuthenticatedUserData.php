@@ -10,7 +10,7 @@ class AuthenticatedUserData extends Data
         public int $id,
         public string $email,
         public string $name,
-        public ?string $avatar,
+        public ?ImageConversionData $avatar,
         public ?string $email_verified_at,
     ) {}
 }

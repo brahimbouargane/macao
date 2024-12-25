@@ -77,13 +77,10 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
 
 function UserMenu() {
   const { auth } = usePage<PagePropsData>().props;
-  const { theme, setTheme } = useTheme();
-  const currentTheme = theme || 'system';
-  const [selectedTheme, setSelectedTheme] = React.useState<Selection>(new Set([currentTheme]));
   return (
     <Menu>
       <Menu.Trigger aria-label="Open menu">
-        <Avatar status="online" size="medium" src={auth.user.avatar} className="size-8" />
+        <Avatar size="medium" src={auth.user.avatar.thumbnail} className="size-8" />
       </Menu.Trigger>
       <Menu.Content showArrow placement="bottom end" className="sm:min-w-56">
         <Menu.Section>
@@ -93,47 +90,7 @@ function UserMenu() {
           </Menu.Header>
         </Menu.Section>
         <Menu.Item href={route('dashboard')}>Dashboard</Menu.Item>
-        <Menu.Item href={route('profile.edit')} className="justify-between">
-          Settings
-          <IconSettings />
-        </Menu.Item>
-        <Menu.Submenu>
-          <Menu.Item>Preferences</Menu.Item>
-          <Menu.Content
-            selectionMode="single"
-            selectedKeys={selectedTheme}
-            onSelectionChange={(keys) => {
-              setSelectedTheme(keys);
-              // @ts-ignore
-              setTheme(keys.has('system') ? 'system' : keys.has('dark') ? 'dark' : 'light');
-            }}
-            items={[
-              { name: 'Light', value: 'light' },
-              { name: 'Dark', value: 'dark' },
-              { name: 'System', value: 'system' }
-            ]}
-          >
-            {(item) => (
-              <Menu.Checkbox id={item.value} textValue={item.name}>
-                {item.name}
-              </Menu.Checkbox>
-            )}
-          </Menu.Content>
-        </Menu.Submenu>
-        <Menu.Separator />
-        <Menu.Item target="_blank" href="https://laravel.com" className="justify-between">
-          Documentation
-          <IconBrandLaravel />
-        </Menu.Item>
-        <Menu.Item target="_blank" href="https://getjustd.com" className="justify-between">
-          Components
-          <IconBrandJustd />
-        </Menu.Item>
-        <Menu.Item target="_blank" href="https://getjustd.com/colors" className="justify-between">
-          Colors
-          <IconColorSwatch />
-        </Menu.Item>
-        <Menu.Separator />
+
         <Menu.Item routerOptions={{ method: 'post' }} href={route('logout')}>
           <span>Logout</span>
         </Menu.Item>

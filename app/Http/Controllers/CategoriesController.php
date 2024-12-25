@@ -25,6 +25,7 @@ class CategoriesController extends Controller
             return Inertia::render('Dashboard/categories/index', [
                 'paginationData' => CategoryData::collect(
                     Category::query()
+                ->with(['parentCategories'])
                         // Apply advanced filtering
                         ->advancedFilter()
                         // Paginate with configurable per page
@@ -32,7 +33,7 @@ class CategoriesController extends Controller
                         // Preserve query parameters in pagination links
                         ->withQueryString()
                 ),
-
+            "categories" => CategoryData::collect(Category::with(['parentCategories'])->get())
             ]);
        
     }
@@ -53,34 +54,44 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        
 
-        $validated =  $request->validate([
-            'name' => ['required', Rule::unique(Category::class, 'name')],
-            'description' => ['nullable'],
-            'image' => [
-                'nullable',
+        $validated = $request->validate([
+            'name' => ['required', Rule::unique(Category::class, 'name'), 'lowercase', 'max:255'],
+            'description' => ['nullable', 'max:255'],
+            'image' => ['nullable', 'array'], // Validate 'image' as an array
+            'image.0' => [
                 'file',
-                'image',            
-                'mimes:jpeg,png,jpg',
-                'max:2048',
+                'image',
+                'mimes:jpeg,png,jpg,webp,svg',
+                'max:5120', // Max size 5MB
             ],
-            "parent_id" => ["nullable", 'integer'], 
+            'selected_ParentCategoriesIds' => ['nullable', 'array'],
+            'selected_ParentCategoriesIds.*' => ['exists:categories,id'],
         ]);
 
+        $category = Category::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+        ]);
 
-        $category = Category::create($validated);
-
-
-
-        if ($request->hasFile('image')) {
-
-            $media = $category->addMediaFromRequest("image")->toMediaCollection('category_images');
-            // optimize the uploaded image
+        if ($request->hasFile('image.0')) {
+            $image = $validated['image'][0]; // Get the first image
+            $media = $category->addMedia($image)->toMediaCollection('category_images');
+            // Optimize the uploaded image
             Image::load($media->getPath())->format('webp')->optimize()->save();
-        }       
+        }
 
-        return \to_route('categories.index');
+        if (!empty($validated['selected_ParentCategoriesIds'])) {
+            $category->parentCategories()->attach($validated['selected_ParentCategoriesIds']);
+        }
+
+        if ($request->withBack) {
+            return  \back();
+        } else {
+
+            return \to_route('categories.index');
+        }
+        
     }
 
     /**
@@ -110,31 +121,47 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $validated =  $request->validate([
-            'name' => ['required', Rule::unique(Category::class, 'name')->ignore($category->id)],
-            'description' => ['nullable'],
-            'image' => [
-                'nullable',
-                'file',
-                'image',            
-                'mimes:jpeg,png,jpg',
-                'max:2048',
-            ],
-            "parent_id" => ["nullable", 'integer'], 
-        ]);
 
-        $category->name = $validated['name'];
-        $category->description = $validated['description'];
-        $category->parent_id = $validated['parent_id'] == $category->id ? null : $validated['parent_id'];
-
-        if ($request->hasFile('image')) {
-
-            $media = $category->addMediaFromRequest("image")->toMediaCollection('category_images');
-
-        Image::load($media->getPath())->format('webp')->optimize()->save();
+        if (\is_array($request->image) && empty($request->image)) {
+            // THE USER MANUALLY DELETED THE CATEGORY IMAGE
+            $category->clearMediaCollection('category_images');
+        } else if (isset($request->image[0]) && is_string($request->image[0])) {
+            // THE USER SUBMITTED AN ALREADY EXISTING IMAGE (A STRING)
+            $request->merge(['image' => null]);
         }
 
-        $category->save();
+
+        // Validate the request with the dynamically built rules
+        $validated = $request->validate([
+            'name' => ['required', Rule::unique(Category::class, 'name')->ignore($category->id), "lowercase", 'max:255'],
+            'description' => ['nullable', 'max:255'],
+            'selected_ParentCategoriesIds' => ['nullable', 'array'],
+            'selected_ParentCategoriesIds.*' => ['exists:categories,id'],
+            'image' => ['nullable', 'array'], // Validate 'image' as an array
+            'image.0' => [
+                'file',
+                'image',
+                'mimes:jpeg,png,jpg,webp,svg',
+                'max:5120', // Max size 5MB
+            ],
+        ]);
+
+
+        $category->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+        ]);
+
+
+        $category->parentCategories()->sync($validated['selected_ParentCategoriesIds'] ?? []);
+
+        if ($request->hasFile('image.0')) {
+            $image = $validated['image'][0]; // Get the first image
+            $media = $category->addMedia($image)->toMediaCollection('category_images');
+            // Optimize the uploaded image
+            Image::load($media->getPath())->format('webp')->optimize()->save();
+        } 
+
 
         return \to_route('categories.index');
     }
@@ -144,6 +171,8 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
     }
+
+    
 }
