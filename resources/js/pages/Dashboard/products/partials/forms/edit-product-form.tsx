@@ -75,6 +75,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
               <div className="col-span-1 space-y-6">
                 <div className="grid grid-cols-3 gap-x-4">
                   <TextField
+                    isDisabled={form.processing}
                     type="text"
                     name="ref"
                     label={__(translations, 'Ref')}
@@ -141,7 +142,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                         placeholder={__(translations, 'Select a category')}
                         label={__(translations, 'Categories')}
                         name="parentCategories"
-                        className="min-w-full  w-full"
+                        className="w-full min-w-full"
                         selectedItems={selectedCategoriesIds}
                         items={categories}
                         isDisabled={form.processing}
@@ -166,7 +167,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                         onPress={() => setIsCategoryModalOpen(true)}
                         size="square-petite"
                         intent="secondary"
-                        className="self-end mb-1  size-6 absolute top-0 right-0"
+                        className="absolute top-0 right-0 self-end mb-1 size-6"
                       >
                         <FaPlus size={10} />
                       </Button>
@@ -204,7 +205,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                       onPress={() => setIsBrandModalOpen(true)}
                       size="square-petite"
                       intent="secondary"
-                      className="self-end mb-1  size-6 absolute top-0 right-0"
+                      className="absolute top-0 right-0 self-end mb-1 size-6"
                     >
                       <FaPlus size={10} />
                     </Button>
@@ -367,13 +368,13 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
               </div>
             </fieldset>
           </div>
+          <div className="flex items-center justify-between !mt-8">
+            <Button type="submit" isDisabled={form.processing} className="w-full">
+              {form.processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
+              {form.processing ? __(translations, 'Loading...') : __(translations, 'Modify')}
+            </Button>
+          </div>
         </ScrollArea>
-        <div className="flex items-center justify-between !mt-8">
-          <Button type="submit" isDisabled={form.processing} className="w-full">
-            {form.processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
-            {form.processing ? __(translations, 'Loading...') : __(translations, 'Modify')}
-          </Button>
-        </div>
       </Form>
       <FormModal
         onOpenChange={setIsBrandModalOpen}

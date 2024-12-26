@@ -74,6 +74,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
               <div className="col-span-1 space-y-6">
                 <div className="grid grid-cols-3 gap-x-4 ">
                   <TextField
+                    isDisabled={form.processing}
                     type="text"
                     name="ref"
                     label={__(translations, 'Ref')}
@@ -141,7 +142,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                         placeholder={__(translations, 'Select a category')}
                         label={__(translations, 'Categories')}
                         name="parentCategories"
-                        className="min-w-full  w-full"
+                        className="w-full min-w-full"
                         selectedItems={selectedCategoriesIds}
                         items={categories}
                         isDisabled={form.processing}
@@ -166,7 +167,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                         onPress={() => setIsCategoryModalOpen(true)}
                         size="square-petite"
                         intent="secondary"
-                        className="self-end mb-1  size-6 absolute top-0 right-0"
+                        className="absolute top-0 right-0 self-end mb-1 size-6"
                         isDisabled={form.processing}
                       >
                         <FaPlus size={10} />
@@ -205,7 +206,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                       onPress={() => setIsBrandModalOpen(true)}
                       size="square-petite"
                       intent="secondary"
-                      className="self-end mb-1  size-6 absolute top-0 right-0"
+                      className="absolute top-0 right-0 self-end mb-1 size-6"
                       isDisabled={form.processing}
                     >
                       <FaPlus size={10} />
@@ -347,14 +348,13 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
               </div>
             </fieldset>
           </div>
+          <div className="flex items-center justify-between !mt-8">
+            <Button type="submit" isDisabled={form.processing} className="w-full">
+              {form.processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
+              {form.processing ? __(translations, 'Loading...') : __(translations, 'Create')}
+            </Button>
+          </div>
         </ScrollArea>
-
-        <div className="flex items-center justify-between !mt-8">
-          <Button type="submit" isDisabled={form.processing} className="w-full">
-            {form.processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
-            {form.processing ? __(translations, 'Loading...') : __(translations, 'Create')}
-          </Button>
-        </div>
       </Form>
 
       <FormModal
