@@ -96,12 +96,12 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
           <span className="sr-only">Open menu</span>
         </Menu.Trigger>
         <Menu.Content placement="bottom end" className="dark:bg-accent">
-          {!user.email_verified_at && (
+          {/* {!user.email_verified_at && (
             <Menu.Item className="hover:bg-red-600 hover:text-white" onAction={() => setVerifyEmailModal(true)}>
               <MdEmail  className="hover:fill-white" />
               <span className="pl-2 "> {__(translations, 'Manually verify email')}</span>
             </Menu.Item>
-          )}
+          )} */}
           {/* <>
                             <Menu.Separator />
                             <Menu.Item
