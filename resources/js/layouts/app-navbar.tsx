@@ -24,8 +24,7 @@ const navigations = [
 
 export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Navbar>) {
   const page = usePage<PagePropsData>();
-  const translations = page.props.translations
-  console.log('🚀 ~ AppNavbar ~ translations:', translations);
+  const translations = page.props.translations;
   const { auth } = page.props
   const [isOpen, setIsOpen] = React.useState(false);
   React.useEffect(() => setIsOpen(false), [page.url]);

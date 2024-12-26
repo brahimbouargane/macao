@@ -25,7 +25,6 @@ export default function ErrorPage({ status }) {
     403: 'Sorry, you are forbidden from accessing this page.'
   }[status];
 
-  console.log('🚀 ~ ErrorPage ~ description.status:', status);
 
   return (
     <main className="relative flex flex-col items-center justify-center w-full h-full text-xl bg-red-500 max-md:px-6">
@@ -39,7 +38,14 @@ export default function ErrorPage({ status }) {
       <p className="bg-primary/80 max-w-[800px] p-2  rounded mt-24 mb-4  text-white">{__(translations, description)}</p>
       <div className="flex gap-4">
         <Button className="mt-5 transition-all duration-200 hover:-rotate-3">
-          <Link href="#" className="flex items-center justify-between gap-2" onClick={() => window.history.back()}>
+          <Link
+            href="#"
+            className="flex items-center justify-between gap-2"
+            onClick={() => {
+              window.history.back();
+              return false;
+            }}
+          >
             {__(translations, 'Go Back')}
             <FaBackspace className="size-6" />
           </Link>
