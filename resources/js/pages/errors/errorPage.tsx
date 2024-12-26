@@ -4,9 +4,12 @@ import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { Link, usePage } from '@inertiajs/react';
 
+import macaoImage from '@/assets/images/macao_logo.jpg'
+
+
 export default function ErrorPage({ status }) {
-  console.log('I WAS HERRE §§§§§§§§§§§§');
   const translations = usePage<PagePropsData>().props.translations;
+  
   const title = {
     503: '503: Service Unavailable',
     500: '500: Server Error',
@@ -24,7 +27,8 @@ export default function ErrorPage({ status }) {
   console.log('🚀 ~ ErrorPage ~ description.status:', status);
 
   return (
-    <main className="h-[calc(100vh-64px)] w-full flex flex-col justify-center items-center max-md:px-6   text-xl bg-red-500">
+    <main className="relative flex flex-col items-center justify-center w-full h-full text-xl bg-red-500 max-md:px-6">
+      <img src={macaoImage} alt='macao logo' className='mb-8'/>
       <div className="relative">
         <h1 className="font-extrabold tracking-widest text-red-300 text-[10rem]">{status}</h1>
         <span className="top-[50%] left-[20%]  bg-primary px-2 text-sm rounded rotate-12 text-white    absolute">
@@ -39,4 +43,4 @@ export default function ErrorPage({ status }) {
   );
 }
 
-ErrorPage.layout = (page: any) => <AppLayout children={page} />;
+// ErrorPage.layout = (page: any) => <AppLayout children={page} />;
