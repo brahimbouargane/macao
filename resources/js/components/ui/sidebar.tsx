@@ -292,7 +292,7 @@ const Item = ({ isCurrent, children, className, icon: Icon, ...props }: ItemProp
           <span className="col-start-2 group-data-[collapsible=dock]:hidden">
             {typeof children === 'function' ? children(values) : children}
             {props.badge && (
-              <div className="bdx h-[1.40rem] w-auto px-1 rounded-md text-primary text-xs font-medium ring-1 ring-fg/20 grid place-content-center  inset-y-1/2 -translate-y-1/2 absolute right-1.5 bg-primary/[0.02] dark:bg-fg/10">
+              <div className="bdx h-[1.40rem] w-auto px-1 rounded-md text-primary text-xs font-medium ring-1 ring-fg/20   grid place-content-center  inset-y-1/2 -translate-y-1/2 absolute right-1.5 bg-primary/[0.1] dark:bg-fg/10">
                 {props.badge}
               </div>
             )}

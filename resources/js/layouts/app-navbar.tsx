@@ -3,11 +3,7 @@ import { Logo } from '@/components/logo';
 import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { Link, usePage } from '@inertiajs/react';
-import { useTheme } from 'components/theme-provider';
-import { ThemeSwitcher } from 'components/theme-switcher';
-import { IconBrandJustd, IconBrandLaravel, IconChevronDown, IconColorSwatch, IconSettings } from 'justd-icons';
 import React from 'react';
-import { Selection } from 'react-aria-components';
 import { Avatar, Button, Menu, Navbar, Separator } from 'ui';
 
 const navigations = [
@@ -29,6 +25,7 @@ const navigations = [
 export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Navbar>) {
   const page = usePage<PagePropsData>();
   const translations = page.props.translations
+  console.log('🚀 ~ AppNavbar ~ translations:', translations);
   const { auth } = page.props
   const [isOpen, setIsOpen] = React.useState(false);
   React.useEffect(() => setIsOpen(false), [page.url]);
