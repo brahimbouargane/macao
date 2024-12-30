@@ -267,5 +267,6 @@
   "Go Home": "À l'accueil",
   "Change lang to English": "Changer la langue en anglais",
   "Change lang to French": "Changer la langue en français",
-  "Failed to send reset password email": "Échec de l'envoi de l'e-mail de réinitialisation du mot de passe"
+  "Failed to send reset password email": "Échec de l'envoi de l'e-mail de réinitialisation du mot de passe",
+  "Password was reset successfully": "Le mot de passe a été réinitialisé avec succès"
 }   

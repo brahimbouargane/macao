@@ -5,6 +5,7 @@ import __ from '@/utils/translations';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { AppLayout } from 'layouts';
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 import { Button, Card, Form, Loader, TextField } from 'ui';
 
 interface ResetPasswordProps {
@@ -33,7 +34,11 @@ export default function ResetPassword(args: ResetPasswordProps) {
 
   const submit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    post('/reset-password');
+    post('/reset-password', {
+      onSuccess: () => {
+        toast.success(__(translations, 'Password was reset successfully'));
+      }
+    });
   };
 
   return (
