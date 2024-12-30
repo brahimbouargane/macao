@@ -63,7 +63,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
   return (
     <>
       <Form onSubmit={createProduct} validationErrors={form.errors} className="pb-4 space-y-8 ">
-        <ScrollArea className="h-auto [600px] max-md:h-[600px]  p-2">
+        <ScrollArea className=" max-md:h-[600px]  p-2">
           <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
             {/* General */}
 
@@ -212,7 +212,8 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
               </div>
             </fieldset>
 
-            {/* IMAGES */}
+                   {/* File Upload */}
+
             <div className="space-y-3 max-md:pt-2 ">
               <FileUploadDropzone
                 inputPreviewText={__(translations, 'Click to upload an image')}
