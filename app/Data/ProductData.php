@@ -12,7 +12,7 @@ class ProductData extends Data
     public string $id,
     public string $ref,
     public string $name,
-    public string $type,
+    public ?string $type,
     public ?string $description,
     public ?ImageConversionData $primaryImage,
 

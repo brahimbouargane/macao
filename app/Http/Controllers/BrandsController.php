@@ -47,8 +47,7 @@ class BrandsController extends Controller
     public function store(Request $request)
     {
 
-        $validated = $request->validate([
-            'name' => ['required', Rule::unique(Brand::class, 'name'), 'lowercase', 'max:255'],
+        $validated = $request->validate(['name' => ['required', Rule::unique(Brand::class, 'name'), 'max:255'],
         ]);
 
         $brand = Brand::create([
@@ -73,7 +72,8 @@ class BrandsController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+     
+
     }
 
     /**
@@ -81,7 +81,13 @@ class BrandsController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', Rule::unique(Brand::class, 'name'), 'max:255'],
+        ]);
+
+        $brand->update([
+            "name" => $validated['name']
+        ]);
     }
 
     /**
@@ -89,6 +95,6 @@ class BrandsController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
     }
 }

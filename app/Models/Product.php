@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Data\ImageConversionData;
 use App\Sorts\CategoryNameSort;
+use App\Sorts\ProductCountSort;
 use App\Sorts\ReferenceCountSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,8 +63,8 @@ class Product extends Model implements HasMedia
                 'description',
                 'created_at',
                 'updated_at',
-                AllowedSort::custom('category', new CategoryNameSort()),
-                AllowedSort::custom('ref_count', new ReferenceCountSort()),
+            AllowedSort::custom('category', new CategoryNameSort()),
+
             ])
             ->defaultSort('-created_at')
         ;

@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
+use App\Sorts\ProductCountSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Ramsey\Uuid\Type\Integer;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class Brand extends Model
 {
 
     protected $fillable = ['name'];
+    protected $append = ['productsCount'];
 
 
     //-----------Relationships--------------------------------
@@ -40,17 +44,29 @@ class Brand extends Model
             // Allow sorting on specific columns
             ->allowedSorts([
                 'id',
-                'name',
-                'created_at',
-                'updated_at',
+            'name',
+            'created_at',
+            'updated_at',
+            AllowedSort::custom('prod_count', new ProductCountSort()),
             ])
             ->defaultSort('-created_at')
         ;
     }
 
+
+    //-----------Custom attributes--------------------------------
+
+    public function getProductsCountAttribute()
+    {
+        return $this->products()->count();
+    }
+
+
+
+    //--------------Caching----------------
     public static function booted()
     {
-        //--------------Caching----------------
+
         static::created(function ($model) {
             $count = $model::count();
             $modelName = strtolower(basename(str_replace('\\', '/', get_class($model))));
