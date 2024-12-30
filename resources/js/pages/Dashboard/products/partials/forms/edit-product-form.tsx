@@ -64,7 +64,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
   return (
     <>
       <Form onSubmit={updateCategory} validationErrors={form.errors} className="pb-4 space-y-8 ">
-        <ScrollArea className=" max-h-[600px] max-md:h-[600px]  p-2 ">
+        <ScrollArea className="  max-md:h-[600px]  p-2 ">
           <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
             {/* PRIMARY PRODUCT IMAGE */}
 
@@ -73,7 +73,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
             <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
               <legend className="font-semibold ">{__(translations, 'General')}</legend>
               <div className="col-span-1 space-y-6">
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-1">
                   <TextField
                     isDisabled={form.processing}
                     type="text"
@@ -81,7 +81,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     label={__(translations, 'Ref')}
                     value={form.data.ref}
                     autoComplete="ref"
-                    autoFocus
                     onChange={(v) => form.setData('ref', v)}
                     errorMessage={form.errors.ref}
                     isRequired
@@ -105,7 +104,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     autoComplete="name"
                     onChange={(v) => form.setData('name', v)}
                     errorMessage={form.errors.name}
-                    isRequired
                   />
                   <TextField
                     isDisabled={form.processing}
@@ -167,6 +165,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                         size="square-petite"
                         intent="secondary"
                         className="absolute top-0 right-0 self-end mb-1 size-6"
+                        isDisabled={form.processing}
                       >
                         <FaPlus size={10} />
                       </Button>
@@ -205,6 +204,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                       size="square-petite"
                       intent="secondary"
                       className="absolute top-0 right-0 self-end mb-1 size-6"
+                      isDisabled={form.processing}
                     >
                       <FaPlus size={10} />
                     </Button>
@@ -212,6 +212,8 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                 </div>
               </div>
             </fieldset>
+
+            {/* File Upload */}
             <div className="pt-2 space-y-2">
               <FileUploadDropzone
                 inputPreviewText={__(translations, 'Click to upload an image')}

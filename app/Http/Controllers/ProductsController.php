@@ -60,9 +60,8 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
-        $validated =  $request->validate([
-            'ref' => ['required', 'string', Rule::unique(Product::class, 'ref'), 'max:255'],
-            'name' => ['required', 'string', Rule::unique(Product::class, 'name'), 'max:255'],
+        $validated =  $request->validate(['ref' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', "max:2000"],
             'selected_CategoriesIds' => ['nullable', 'array'],
@@ -193,9 +192,8 @@ class ProductsController extends Controller
             $request->merge(['primary_image' => null]);
         }
 
-        $validated =  $request->validate([
-            'ref' => ['required', 'string', Rule::unique(Product::class, 'id')->ignore($product->id), 'max:255'],
-            'name' => ['required', 'string', Rule::unique(Product::class, 'id')->ignore($product->id), 'max:255'],
+        $validated =  $request->validate(['ref' => ['required', 'string',  'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
             'type' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', "max:2000"],
             'selected_CategoriesIds' => ['nullable', 'array'],
