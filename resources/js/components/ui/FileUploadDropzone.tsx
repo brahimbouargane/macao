@@ -46,12 +46,12 @@ const FileUploadDropzone = ({
         setFiles(fieldName, value);
       }}
       dropzoneOptions={defaultOptions}
-      className="w-full rounded-md h-52"
+      className="w-full rounded-md h-80"
       isLoading={isLoading}
     >
       {files?.length !== defaultOptions.maxFiles && (
         <FileInput className="w-full h-full ">
-          <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg cursor-pointer h-52 md:w-full border-foreground bg-gray-50 dark:hover:bg-bray-800 dark:bg-bg hover:bg-gray-100 dark:border-card-foreground dark:hover:border-gray-500 dark:hover:bg-zinc-800">
+          <div className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg cursor-pointer bg-zinc-50 h-80 md:w-full border-foreground dark:hover:bg-bray-800 dark:bg-bg hover:bg-zinc-100 dark:border-card-foreground dark:border-zinc-500 border-zinc-300 dark:hover:bg-zinc-800">
             <svg
               className={'w-10 h-10  text-gray-400'}
               fill="none"

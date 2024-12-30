@@ -66,8 +66,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
       <Form onSubmit={updateCategory} validationErrors={form.errors} className="pb-4 space-y-8 ">
         <ScrollArea className="  max-md:h-[600px]  p-2 ">
           <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
-            {/* PRIMARY PRODUCT IMAGE */}
-
             {/* General */}
 
             <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
@@ -214,7 +212,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
             </fieldset>
 
             {/* File Upload */}
-            <div className="pt-2 space-y-2">
+            <div className="space-y-3 max-md:pt-2 ">
               <FileUploadDropzone
                 inputPreviewText={__(translations, 'Click to upload an image')}
                 fieldName="primary_image"

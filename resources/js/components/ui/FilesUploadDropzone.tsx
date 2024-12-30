@@ -32,9 +32,9 @@ const FilesUploadDropzone = ({ fieldName, files, setFiles, isLoading, reSelect =
       dropzoneOptions={defaultOptions}
       // reSelect={reSelect}
       isLoading={isLoading}
-      className="!space-y-0  rounded-md !gap-0 h-30"
+      className="!space-y-0  rounded-md !gap-0 h-32"
     >
-      <FileUploaderContent className="grid items-center w-full grid-cols-4 p-1 border-2 border-dashed rounded-md cursor-pointer h-30 border-foreground bg-gray-50 dark:hover:bg-bray-800 dark:bg-bg hover:bg-gray-100 dark:border-card-foreground dark:hover:border-gray-500 dark:hover:bg-zinc-800">
+      <FileUploaderContent className="grid items-center w-full h-32 grid-cols-4 p-1 border-2 border-dashed rounded-md cursor-pointer border-foreground bg-zinc-50 dark:hover:bg-bray-800 dark:bg-bg hover:bg-zinc-100 dark:border-card-foreground dark:border-zinc-500 border-zinc-300 dark:hover:bg-zinc-800">
         {files?.map((file, i) => (
           <FileUploaderItem
             key={i}
