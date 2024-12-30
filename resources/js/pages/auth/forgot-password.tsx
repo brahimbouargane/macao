@@ -14,7 +14,7 @@ interface ForgotPasswordProps {
 export default function ForgotPassword({ status }: ForgotPasswordProps) {
   const translations = usePage<PagePropsData>().props.translations;
 
-  const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
+  const { data, setData, post, processing, errors, reset, recentlySuccessful, clearErrors } = useForm({
     email: ''
   });
 
@@ -62,7 +62,12 @@ export default function ForgotPassword({ status }: ForgotPasswordProps) {
                 isRequired
                 errorMessage={errors.email}
                 autoFocus
-                onChange={(v) => setData('email', v)}
+                onChange={(v) => {
+                  setData('email', v);
+                  if (errors.email) {
+                    clearErrors('email');
+                  }
+                }}
               />
 
               <div className="flex items-center justify-end mt-4">

@@ -5,7 +5,7 @@ import __ from '@/utils/translations';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { AppLayout } from 'layouts';
 import { useEffect } from 'react';
-import { Button, Card, Form, TextField } from 'ui';
+import { Button, Card, Form, Loader, TextField } from 'ui';
 
 interface ResetPasswordProps {
   token: string;
@@ -49,6 +49,7 @@ export default function ResetPassword(args: ResetPasswordProps) {
           <Card.Content>
             <Form className="space-y-6" validationErrors={errors} onSubmit={submit}>
               <TextField
+                isDisabled={true}
                 label="Email"
                 isRequired
                 errorMessage={errors.email}
@@ -60,6 +61,7 @@ export default function ResetPassword(args: ResetPasswordProps) {
               />
 
               <TextField
+                isDisabled={processing}
                 label="Password"
                 isRequired
                 errorMessage={errors.password}
@@ -72,6 +74,7 @@ export default function ResetPassword(args: ResetPasswordProps) {
               />
 
               <TextField
+                isDisabled={processing}
                 label="Confirm Password"
                 type="password"
                 name="password_confirmation"
@@ -84,7 +87,7 @@ export default function ResetPassword(args: ResetPasswordProps) {
 
               <div className="flex items-center justify-end mt-4">
                 <Button type="submit" className="ml-4" isDisabled={processing}>
-                  Reset Password
+                  {processing ? <Loader /> : __(translations, 'Reset Password')}
                 </Button>
               </div>
             </Form>
