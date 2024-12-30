@@ -2,6 +2,7 @@ import { BrandData } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
+import { Badge } from '@/components/ui';
 
 export const columns: ColumnDef<BrandData>[] = [
   // {
@@ -49,6 +50,18 @@ export const columns: ColumnDef<BrandData>[] = [
         </div>
       );
     }
+  },
+  {
+    accessorKey: 'prod_count',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Prodcuts count'} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center justify-center space-x-2">
+          <Badge className="font-medium truncate">{(row.original as BrandData)?.productsCount}</Badge>
+        </div>
+      );
+    },
+    size: 2
   },
 
   {

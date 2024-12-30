@@ -22,7 +22,7 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
       className="!shadow-xl border-none dark:border-solid  border-zinc-700  bg-accent "
     >
       <Sidebar.Header className="!bg-colors-primary/80 !h-[3.3rem] !w-full  !m-0 !p-0 !py-0 items-center justify-center     dark:bg-accent"></Sidebar.Header>
-      <Sidebar.Content className="p-2 dark:bg-accent">
+      <Sidebar.Content className="p-2 dark:bg-accent min-h-[400px]">
         <Sidebar.Section className={'mt-4'}>
           <Sidebar.Item
             isCurrent={component === 'Dashboard/overview/index'}
@@ -48,7 +48,7 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
             isCurrent={component.includes('Dashboard/brands')}
             icon={FaTags}
             href={route('brands.index')}
-            badge={String(modelsCount.product)}
+            badge={String(modelsCount.brand)}
           >
             {__(translations, 'Brands')}
           </Sidebar.Item>

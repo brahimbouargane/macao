@@ -64,9 +64,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
     <>
       <Form onSubmit={createProduct} validationErrors={form.errors} className="pb-4 space-y-8 ">
         <ScrollArea className="h-auto [600px] max-md:h-[600px]  p-2">
-          <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-8">
-            {/* PRIMARY PRODUCT IMAGE */}
-
+          <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
             {/* General */}
 
             <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
@@ -215,6 +213,8 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                 </div>
               </div>
             </fieldset>
+
+            {/* IMAGES */}
             <div className="pt-2 space-y-2">
               <FileUploadDropzone
                 inputPreviewText={__(translations, 'Click to upload an image')}
@@ -225,12 +225,14 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
               />
 
               {/* --------------------------------- */}
-              <FilesUploadDropzone
-                fieldName="secondary_images"
-                isLoading={form.processing}
-                files={form.data.secondary_images}
-                setFiles={form.setData}
-              />
+              <div className="bg-blue-500">
+                <FilesUploadDropzone
+                  fieldName="secondary_images"
+                  isLoading={form.processing}
+                  files={form.data.secondary_images}
+                  setFiles={form.setData}
+                />
+              </div>
               {/* --------------------------------- */}
             </div>
             {/* Details */}
@@ -357,6 +359,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
         </ScrollArea>
       </Form>
 
+      {/* Brand modal */}
       <FormModal
         onOpenChange={setIsBrandModalOpen}
         state={isBrandModalOpen}
@@ -365,6 +368,8 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
       >
         <CreateBrandForm setIsCreateFormModalOpen={setIsBrandModalOpen} />
       </FormModal>
+
+      {/* Category modal */}
       <FormModal
         onOpenChange={setIsCategoryModalOpen}
         state={isCategoryModalOpen}

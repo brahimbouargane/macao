@@ -24,7 +24,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
 
   return (
     <div>
-      <div className="flex justify-between p-4 pr-8 md:items-center max-md:flex-col max-md:gap-y-3">
+      <div className="flex justify-between p-4 md:items-center max-md:flex-col max-md:gap-y-3">
         <SearchField
           placeholder={__(translations, 'Search') + '...'}
           name="search"

@@ -27,6 +27,7 @@ interface DataTableProps<TData, TValue> {
 }
 
 export function BrandsDataTable<TData, TValue>({ columns, data, pd, translations }: DataTableProps<TData, TValue>) {
+  console.log('🚀 ~ pd:', pd);
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 

@@ -63,9 +63,9 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
 
   return (
     <>
-      <Form onSubmit={updateCategory} validationErrors={form.errors} className="p-4 space-y-8 ">
+      <Form onSubmit={updateCategory} validationErrors={form.errors} className="pb-4 space-y-8 ">
         <ScrollArea className=" max-h-[600px] max-md:h-[600px]  p-2 ">
-          <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-8">
+          <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
             {/* PRIMARY PRODUCT IMAGE */}
 
             {/* General */}
@@ -121,7 +121,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     autoComplete="type"
                     onChange={(v) => form.setData('type', v)}
                     errorMessage={form.errors.type}
-                    isRequired
                   />
                 </div>
 
@@ -277,7 +276,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     }
                   }}
                   errorMessage={form.errors.price}
-                  isRequired
                 />
                 <TextField
                   isDisabled={form.processing}
@@ -298,7 +296,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     }
                   }}
                   errorMessage={form.errors.weight}
-                  isRequired
                 />
 
                 <TextField
@@ -321,7 +318,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     }
                   }}
                   errorMessage={form.errors.packaging}
-                  isRequired
                 />
                 <TextField
                   isDisabled={form.processing}
@@ -342,7 +338,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     }
                   }}
                   errorMessage={form.errors.tc_20}
-                  isRequired
                 />
                 <TextField
                   isDisabled={form.processing}
@@ -363,7 +358,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     }
                   }}
                   errorMessage={form.errors.tc_40}
-                  isRequired
                 />
               </div>
             </fieldset>
