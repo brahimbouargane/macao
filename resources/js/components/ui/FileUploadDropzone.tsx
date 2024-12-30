@@ -77,7 +77,7 @@ const FileUploadDropzone = ({
         </FileInput>
       )}
 
-      <FileUploaderContent className="flex flex-row items-center gap-2 p-0 rounded-md size-full h-52 md:w-full bg-secondary">
+      <FileUploaderContent className="flex flex-row items-center gap-2 p-0 rounded-md size-full h-80 md:w-full bg-secondary">
         {files?.map((file, i) => (
           <FileUploaderItem
             key={i}
