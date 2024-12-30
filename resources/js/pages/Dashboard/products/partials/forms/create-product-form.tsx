@@ -63,7 +63,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
   return (
     <>
       <Form onSubmit={createProduct} validationErrors={form.errors} className="pb-4 space-y-8 ">
-        <ScrollArea className="h-auto [600px] max-md:h-[600px]  p-2 ">
+        <ScrollArea className="h-auto [600px] max-md:h-[600px]  p-2">
           <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-8">
             {/* PRIMARY PRODUCT IMAGE */}
 
@@ -72,7 +72,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
             <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
               <legend className="font-semibold ">{__(translations, 'General')}</legend>
               <div className="col-span-1 space-y-6">
-                <div className="grid grid-cols-3 gap-x-4 ">
+                <div className="grid gap-4 md:grid-cols-3 ">
                   <TextField
                     isDisabled={form.processing}
                     type="text"
@@ -134,7 +134,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                   errorMessage={form.errors.description}
                 />
 
-                <div className="grid grid-cols-2 gap-x-4 ">
+                <div className="grid gap-4 md:grid-cols-2 ">
                   <div className="w-full">
                     <div className="relative ">
                       <MultipleSelect

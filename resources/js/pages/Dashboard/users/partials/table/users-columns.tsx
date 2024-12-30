@@ -1,13 +1,8 @@
+import { Avatar } from '@/components/ui';
+import { UserData } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
-
-
-import { DataTableRowActions } from './data-table-row-actions';
-
-import { Avatar, Badge, Checkbox } from '@/components/ui';
-import {  PagePropsData, UserData } from '@/types';
-import __ from '@/utils/translations';
 import { DataTableColumnHeader } from './data-table-column-header';
-import { usePage } from '@inertiajs/react';
+import { DataTableRowActions } from './data-table-row-actions';
 
 export const columns: ColumnDef<UserData>[] = [
   // {
@@ -105,7 +100,7 @@ export const columns: ColumnDef<UserData>[] = [
         <div className="flex items-center">
           <span>{row.getValue('created_at') ?? 'N/A'}</span>
         </div>
-      );  
+      );
     }
     // filterFn: (row, id, value) => {
     //     return value.includes(row.getValue(id));

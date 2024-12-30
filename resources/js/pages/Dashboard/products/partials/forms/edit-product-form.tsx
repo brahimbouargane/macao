@@ -73,7 +73,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
             <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
               <legend className="font-semibold ">{__(translations, 'General')}</legend>
               <div className="col-span-1 space-y-6">
-                <div className="grid grid-cols-3 gap-x-4">
+                <div className="grid gap-4 md:grid-cols-3">
                   <TextField
                     isDisabled={form.processing}
                     type="text"
@@ -135,7 +135,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                   errorMessage={form.errors.description}
                 />
 
-                <div className="grid grid-cols-2 gap-x-4 ">
+                <div className="grid gap-4 md:grid-cols-2 ">
                   <div className="w-full">
                     <div className="relative ">
                       <MultipleSelect
