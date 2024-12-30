@@ -22,7 +22,7 @@ export default function EditBrandForm({ setIsModalOpen, brand }: EditBrandFormPr
   function updateBrand(e) {
     e.preventDefault();
 
-    post(route('brnads.update', brand.id), {
+    post(route('brands.update', brand.id), {
       onSuccess: () => {
         toast.success(__(translations, 'Brand updated successfully'));
         reset();

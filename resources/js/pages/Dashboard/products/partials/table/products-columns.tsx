@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { DataTableRowActions } from './data-table-row-actions';
 
 import { Avatar, Badge } from '@/components/ui';
-import { ProductData } from '@/types';
+import { BrandData, ProductData } from '@/types';
 import { DataTableColumnHeader } from './data-table-column-header';
 
 export const columns: ColumnDef<ProductData>[] = [
@@ -130,6 +130,19 @@ export const columns: ColumnDef<ProductData>[] = [
       return (
         <div className="flex space-x-2">
           <Badge className="font-medium truncate">{type}</Badge>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'brand',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Brand'} />,
+    cell: ({ row }) => {
+      let brand: BrandData = row.getValue('brand');
+
+      return (
+        <div className="flex space-x-2">
+          <Badge className="font-medium truncate">{brand?.name ?? 'N/A'}</Badge>
         </div>
       );
     }

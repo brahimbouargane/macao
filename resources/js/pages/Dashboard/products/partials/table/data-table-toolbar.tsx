@@ -14,9 +14,10 @@ import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvide
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
   toggleViewMode: (key: 'List' | 'Grid') => void;
+  viewMode: 'List' | 'Grid';
 }
 
-export function DataTableToolbar<TData>({ table, toggleViewMode }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table, toggleViewMode, viewMode }: DataTableToolbarProps<TData>) {
   const translations = usePage<PagePropsData>().props.translations;
 
   const { builder } = useQueryBuilderProductsContext();
@@ -27,7 +28,7 @@ export function DataTableToolbar<TData>({ table, toggleViewMode }: DataTableTool
 
   return (
     <div className="p-2">
-      <div className="flex justify-between p-2  md:items-center max-md:flex-col max-md:gap-y-3">
+      <div className="flex justify-between p-2 md:items-center max-md:flex-col max-md:gap-y-3">
         <SearchField
           placeholder={__(translations, 'Search') + '...'}
           name="search"
@@ -46,7 +47,7 @@ export function DataTableToolbar<TData>({ table, toggleViewMode }: DataTableTool
         />
         <div className="flex gap-x-2">
           {/* <DataTableFilters table={table} /> */}
-          <DataTableViewOptions table={table} />
+          {viewMode == 'List' && <DataTableViewOptions table={table} />}
           <ToggleGroup
             appearance="solid"
             defaultSelectedKeys={[(localStorage.getItem('viewMode') as 'Grid' | 'List') ?? 'List']}

@@ -29,7 +29,7 @@ export function CategoryDistributionPieChart({ productsCountByCategory }: Catego
         <Card.Title>{__(translations, 'Category Distribution by Product Percentage')}</Card.Title>
         <Card.Description>{__(translations, 'Top 10 categories by product count')}</Card.Description>
       </Card.Header>
-      <Card.Content className="flex items-center justify-center pb-0 h-96">
+      <Card.Content className="flex items-center justify-center pb-0 h-[450px]">
         {productsCountByCategory.length == 0 ? (
           <img src={NoDataImage} className="size-52" alt="chart data not available" />
         ) : (
@@ -42,8 +42,8 @@ export function CategoryDistributionPieChart({ productsCountByCategory }: Catego
                 data={pieData}
                 dataKey="value"
                 nameKey="name"
-                innerRadius={50}
-                outerRadius={100} // Radius of the outer circle
+                innerRadius={40}
+                outerRadius={80} // Radius of the outer circle
                 cornerRadius={0} // Make the segments rounded
                 paddingAngle={1} // Space between segments
                 label={({ payload, ...props }) => {
@@ -94,13 +94,13 @@ const CustomToolTip = ({ active, payload, label }) => {
 
 const CustomLegend = ({ payload }) => {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4 p-2 max-md:mt-4">
+    <div className="flex flex-wrap items-center p-2 md:justify-start max-md:mt-8">
       {payload.map((entry, index) => {
         return (
-          <div key={index} className="flex items-center">
+          <div key={index} className="flex items-center mr-6 ">
             {/* Custom color box */}
             <span
-              className="size-[9px] rounded-[2px] inline-block"
+              className="size-[9px] rounded-[2px] inline-block "
               style={{ backgroundColor: entry.payload.fill }}
             ></span>
             {/* Custom legend text */}

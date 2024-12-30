@@ -71,7 +71,7 @@ export function ProductsDataTable<TData, TValue>({ columns, data, pd, translatio
 
   return (
     <div className="w-full ">
-      <DataTableToolbar table={table} toggleViewMode={toggleViewMode} />
+      <DataTableToolbar table={table} toggleViewMode={toggleViewMode} viewMode={viewMode} />
 
       <div hidden={viewMode == 'List'}>
         <ProductsCards pd={pd} />
