@@ -73,7 +73,7 @@ class UsersController extends Controller implements HasMiddleware
 
 
 
-        return \to_route('users.index');
+       // return \to_route('users.index');
     }
 
     /**
@@ -127,7 +127,7 @@ class UsersController extends Controller implements HasMiddleware
         $user->save();
 
 
-        return \to_route('users.index');
+        //return \to_route('users.index');
     }
 
     /**
@@ -144,6 +144,6 @@ class UsersController extends Controller implements HasMiddleware
     {
         $user->email_verified_at = now();
         $user->save();
-        return \to_route('users.index');
+        //return \to_route('users.index');
     }
 }

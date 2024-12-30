@@ -55,8 +55,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
 
-        $validated = $request->validate([
-            'name' => ['required', Rule::unique(Category::class, 'name'), 'lowercase', 'max:255'],
+        $validated = $request->validate(['name' => ['required', Rule::unique(Category::class, 'name'),  'max:255'],
             'description' => ['nullable', 'max:255'],
             'image' => ['nullable', 'array'], // Validate 'image' as an array
             'image.0' => [
@@ -85,12 +84,12 @@ class CategoriesController extends Controller
             $category->parentCategories()->attach($validated['selected_ParentCategoriesIds']);
         }
 
-        if ($request->withBack) {
-            return  \back();
-        } else {
-
-            return \to_route('categories.index');
-        }
+       // if ($request->withBack) {
+       //     return  \back();
+       // } else {
+//
+       //     return \to_route('categories.index');
+       // }
         
     }
 
@@ -132,8 +131,7 @@ class CategoriesController extends Controller
 
 
         // Validate the request with the dynamically built rules
-        $validated = $request->validate([
-            'name' => ['required', Rule::unique(Category::class, 'name')->ignore($category->id), "lowercase", 'max:255'],
+        $validated = $request->validate(['name' => ['required', Rule::unique(Category::class, 'name')->ignore($category->id),  'max:255'],
             'description' => ['nullable', 'max:255'],
             'selected_ParentCategoriesIds' => ['nullable', 'array'],
             'selected_ParentCategoriesIds.*' => ['exists:categories,id'],
@@ -163,7 +161,7 @@ class CategoriesController extends Controller
         } 
 
 
-        return \to_route('categories.index');
+        //return \to_route('categories.index');
     }
 
     /**

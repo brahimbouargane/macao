@@ -127,7 +127,7 @@ class ProductsController extends Controller
         }
 
 
-        return \to_route('products.index');
+        //return \to_route('products.index');
     }
 
     /**
@@ -277,7 +277,7 @@ class ProductsController extends Controller
 
 
 
-        return \to_route('products.index');
+      //  return \to_route('products.index', $request->query());
     }
 
     /**
