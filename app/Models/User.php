@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Data\ImageConversionData;
+use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,8 @@ class User extends Authenticatable implements HasMedia
 {
     use HasFactory, Notifiable,  InteractsWithMedia;
 
+
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -160,5 +163,11 @@ class User extends Authenticatable implements HasMedia
             $modelName = strtolower(basename(str_replace('\\', '/', get_class($model))));
             Cache::forever($modelName . '_count', $count);
         });
+    }
+
+    // override class methods
+    public function sendPasswordResetNotification(#[\SensitiveParameter] $token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
     }
 }
