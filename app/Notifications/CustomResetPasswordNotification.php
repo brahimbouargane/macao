@@ -19,6 +19,7 @@ class CustomResetPasswordNotification extends ResetPassword
         //->line(Lang::get('If you did not request a password reset, no further action is required.'));
 
         return (new MailMessage)
+            ->subject("Réinitialisation du mot de passe - Macao")
             ->markdown(
                 'mail.custom-reset-password-notification',
                 [
