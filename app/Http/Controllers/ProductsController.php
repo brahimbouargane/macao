@@ -193,7 +193,8 @@ class ProductsController extends Controller
             $request->merge(['primary_image' => null]);
         }
 
-        $validated =  $request->validate(['ref' => ['required', 'string', Rule::unique(Product::class)->ignore($product->id), 'max:255'],
+        $validated =  $request->validate([
+            'ref' => ['required', 'string', Rule::unique(Product::class, 'id')->ignore($product->id), 'max:255'],
             'name' => ['required', 'string', Rule::unique(Product::class, 'id')->ignore($product->id), 'max:255'],
             'type' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', "max:2000"],
