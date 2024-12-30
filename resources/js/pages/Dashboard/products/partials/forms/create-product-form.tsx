@@ -70,7 +70,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
             <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
               <legend className="font-semibold ">{__(translations, 'General')}</legend>
               <div className="col-span-1 space-y-6">
-                <div className="grid gap-4 md:grid-cols-3 ">
+                <div className="grid gap-4 md:grid-cols-1 ">
                   <TextField
                     isDisabled={form.processing}
                     type="text"
@@ -78,7 +78,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     label={__(translations, 'Ref')}
                     value={form.data.ref}
                     autoComplete="ref"
-                    autoFocus
                     onChange={(v) => form.setData('ref', v)}
                     errorMessage={form.errors.ref}
                     isRequired
@@ -102,7 +101,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     autoComplete="name"
                     onChange={(v) => form.setData('name', v)}
                     errorMessage={form.errors.name}
-                    isRequired
                   />
                   <TextField
                     isDisabled={form.processing}
@@ -215,7 +213,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
             </fieldset>
 
             {/* IMAGES */}
-            <div className="pt-2 space-y-2">
+            <div className="space-y-3 max-md:pt-2 ">
               <FileUploadDropzone
                 inputPreviewText={__(translations, 'Click to upload an image')}
                 fieldName="primary_image"
@@ -225,7 +223,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
               />
 
               {/* --------------------------------- */}
-              <div className="bg-blue-500">
+              <div className="rounded-md ">
                 <FilesUploadDropzone
                   fieldName="secondary_images"
                   isLoading={form.processing}
