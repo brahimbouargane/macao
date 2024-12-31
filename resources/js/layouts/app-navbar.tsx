@@ -64,26 +64,30 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
 }
 
 function UserMenu() {
-  const { auth } = usePage<PagePropsData>().props;
+  const { auth, locale } = usePage<PagePropsData>().props;
   return (
-    <Menu>
-      <Menu.Trigger aria-label="Open menu">
-        <Avatar size="medium" src={auth.user.avatar.thumbnail} className="size-8" />
-      </Menu.Trigger>
-      <Menu.Content showArrow placement="bottom end" className="sm:min-w-56">
-        <Menu.Section>
-          <Menu.Header separator className="relative">
-            <div>{auth.user.name}</div>
-            <div className="pr-6 text-sm font-normal truncate text-muted-fg whitespace-nowrap">{auth.user.email}</div>
-          </Menu.Header>
-        </Menu.Section>
-        <Menu.Item href={route('dashboard')}>Dashboard</Menu.Item>
+    <>
+      <LanguageSelector currentLocale={locale} />
 
-        <Menu.Item routerOptions={{ method: 'post' }} href={route('logout')}>
-          <span>Logout</span>
-        </Menu.Item>
-      </Menu.Content>
-    </Menu>
+      <Menu>
+        <Menu.Trigger aria-label="Open menu">
+          <Avatar size="medium" src={auth.user.avatar.thumbnail} className="border-2 size-8" />
+        </Menu.Trigger>
+        <Menu.Content showArrow placement="bottom end" className="sm:min-w-56">
+          <Menu.Section>
+            <Menu.Header separator className="relative">
+              <div>{auth.user.name}</div>
+              <div className="pr-6 text-sm font-normal truncate text-muted-fg whitespace-nowrap">{auth.user.email}</div>
+            </Menu.Header>
+          </Menu.Section>
+          <Menu.Item href={route('dashboard')}>Dashboard</Menu.Item>
+
+          <Menu.Item routerOptions={{ method: 'post' }} href={route('logout')}>
+            <span>Logout</span>
+          </Menu.Item>
+        </Menu.Content>
+      </Menu>
+    </>
   );
 }
 
@@ -93,7 +97,6 @@ function LoginMenu() {
   return (
     <>
       <LanguageSelector currentLocale={page.props.locale} />
-
       <Link href={route('login')} className="inline-block bg-blue-500 rounded-lg">
         <Button className="overflow-hidden ">{__(page.props.translations, 'Log in')}</Button>
       </Link>
