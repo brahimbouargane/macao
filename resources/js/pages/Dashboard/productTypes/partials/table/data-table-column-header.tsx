@@ -6,7 +6,7 @@ import { router, usePage } from '@inertiajs/react';
 import { Column } from '@tanstack/react-table';
 import { IconArrowDown, IconArrowExpandVer, IconArrowUp, IconEyeOff } from 'justd-icons';
 import { useEffect, useRef, useState } from 'react';
-import { useQueryBuilderBrandsContext } from '../providers/QueryBuilderProvider';
+import { useQueryBuilderProductTypesContext } from '../providers/QueryBuilderProvider';
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
@@ -25,7 +25,7 @@ export function DataTableColumnHeader<TData, TValue>({
   }
   const hasPageBeenRendered = useRef(false);
 
-  const { builder } = useQueryBuilderBrandsContext();
+  const { builder } = useQueryBuilderProductTypesContext();
   // to trigger the sort for the first time
   const [updated, setUpdated] = useState(0);
   const [sortDirection, setSortDirection] = useState('asc');

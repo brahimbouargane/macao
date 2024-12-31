@@ -8,7 +8,7 @@ import { useSearchWithDebounce } from '@/hooks/useDebouncedSearch';
 import { PagePropsData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import {} from 'react-aria-components';
-import { useQueryBuilderBrandsContext } from '../providers/QueryBuilderProvider';
+import { useQueryBuilderProductTypesContext } from '../providers/QueryBuilderProvider';
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
@@ -16,7 +16,7 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const translations = usePage<PagePropsData>().props.translations;
 
-  const { builder } = useQueryBuilderBrandsContext();
+  const { builder } = useQueryBuilderProductTypesContext();
   const { searchTerm, setSearchTerm, isLoading } = useSearchWithDebounce({
     route: route('productTypes.index') + builder.build(),
     initialSearchTerm: builder.hasFilter('search') ? (route().queryParams?.filter?.search as unknown as string) : ''
