@@ -51,7 +51,7 @@ const Avatar = ({
           </text>
         </svg>
       )}
-      {src && <img className="size-full" src={src} alt={alt} />}
+      {src && <img className="size-full object-contain" src={src} alt={alt} />}
     </span>
   );
 };

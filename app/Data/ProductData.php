@@ -11,7 +11,7 @@ class ProductData extends Data
   public function __construct(
     public string $id,
     public string $ref,
-    public string $name,
+    public ?string $name,
     public ?string $type,
     public ?string $description,
     public ?ImageConversionData $primaryImage,
@@ -25,10 +25,10 @@ class ProductData extends Data
 
     public ?BrandData $brand,
     public ?float $price,
-    public float $weight,
-    public string $packaging,
-    public string $tc_20,
-    public string $tc_40,
+    public ?float $weight,
+    public ?string $packaging,
+    public ?string $tc_20,
+    public ?string $tc_40,
     public ?string $updated_at,
     public string $created_at,
 

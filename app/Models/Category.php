@@ -119,6 +119,7 @@ class Category extends Model implements HasMedia
         $this
             ->addMediaConversion('optimized')
         ->performOnCollections('category_images')
+        ->nonQueued()
             ->format('webp');
     }
 

@@ -51,9 +51,22 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
     form.data.selected_CategoriesIds = selectedCategoriesIds.items.map((s) => s.id);
 
     form.clearErrors();
+    const timer = setTimeout(() => {
+      toast.loading(
+        __(
+          translations,
+          'Processing your request. This might take a while due to image optimization. Thank you for your patience!'
+        ),
+        {
+          id: 'ld'
+        }
+      );
+    }, 10000);
     form.post(route('products.store'), {
       onSuccess: () => {
-        toast.success(__(translations, 'Product created successfully'));
+        clearTimeout(timer);
+        toast.remove('ld');
+        toast.success(__(translations, 'Product created successfully'), { id: 'ld' });
         form.reset();
         setIsCreateFormModalOpen(false);
       }
@@ -63,6 +76,19 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
   return (
     <>
       <Form onSubmit={createProduct} validationErrors={form.errors} className="pb-4 space-y-8 ">
+        {/* <div className="grid grid-cols-3 gap-2">
+          <h1>bytes :{form.progress?.bytes} </h1>
+          <h1>download :{form.progress?.download} </h1>
+          <h1>estimated :{form.progress?.estimated} </h1>
+          <h1>event :{JSON.stringify(form.progress?.event)} </h1>
+          <h1>lengthComputable :{form.progress?.lengthComputable} </h1>
+          <h1>loaded :{form.progress?.loaded} </h1>
+          <h1>percentage :{form.progress?.percentage} </h1>
+          <h1>progress :{form.progress?.progress} </h1>
+          <h1>rate :{form.progress?.rate} </h1>
+          <h1>total :{form.progress?.total} </h1>
+          <h1>upload :{form.progress?.upload} </h1>
+        </div> */}
         <ScrollArea className=" max-md:h-[600px]  p-2">
           <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
             {/* General */}
@@ -116,7 +142,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     autoComplete="type"
                     onChange={(v) => form.setData('type', v)}
                     errorMessage={form.errors.type}
-                    isRequired
                   />
                 </div>
 
@@ -212,7 +237,7 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
               </div>
             </fieldset>
 
-                   {/* File Upload */}
+            {/* File Upload */}
 
             <div className="space-y-3 max-md:pt-2 ">
               <FileUploadDropzone
@@ -258,7 +283,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     }
                   }}
                   errorMessage={form.errors.price}
-                  isRequired
                 />
                 <TextField
                   isDisabled={form.processing}
@@ -279,7 +303,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     }
                   }}
                   errorMessage={form.errors.weight}
-                  isRequired
                 />
 
                 <TextField
@@ -302,7 +325,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     }
                   }}
                   errorMessage={form.errors.packaging}
-                  isRequired
                 />
                 <TextField
                   isDisabled={form.processing}
@@ -323,7 +345,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     }
                   }}
                   errorMessage={form.errors.tc_20}
-                  isRequired
                 />
                 <TextField
                   isDisabled={form.processing}
@@ -344,7 +365,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     }
                   }}
                   errorMessage={form.errors.tc_40}
-                  isRequired
                 />
               </div>
             </fieldset>

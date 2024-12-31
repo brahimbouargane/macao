@@ -129,6 +129,7 @@ class Product extends Model implements HasMedia
         $this
             ->addMediaConversion('optimized')
             ->performOnCollections('product_primary_image')
+        ->nonQueued()
             ->format('webp');
 
         //secondary images
@@ -137,12 +138,14 @@ class Product extends Model implements HasMedia
             ->performOnCollections('product_secondary_images')
             ->width(100)
             ->height(100)
+            ->nonQueued()
             ->format('webp');
 
 
         $this
             ->addMediaConversion('optimized')
             ->performOnCollections('product_secondary_images')
+        ->nonQueued()
             ->format('webp');
     }
 

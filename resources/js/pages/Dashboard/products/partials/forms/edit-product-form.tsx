@@ -51,10 +51,24 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
     e.preventDefault();
 
     form.data.selected_CategoriesIds = selectedCategoriesIds.items.map((s) => s.id);
+    form.clearErrors();
 
+    const timer = setTimeout(() => {
+      toast.loading(
+        __(
+          translations,
+          'Processing your request. This might take a while due to image optimization. Thank you for your patience!'
+        ),
+        {
+          id: 'ld'
+        }
+      );
+    }, 10000);
     form.post(route('products.update', product.id), {
       onSuccess: () => {
-        toast.success(__(translations, 'Product updated successfully'));
+        clearTimeout(timer);
+        toast.remove('ld');
+        toast.success(__(translations, 'Product updated successfully'), { id: 'ld' });
         form.reset();
         setIsModalOpen(false);
       }
