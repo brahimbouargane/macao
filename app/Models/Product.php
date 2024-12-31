@@ -136,7 +136,7 @@ class Product extends Model implements HasMedia
         $this
             ->addMediaConversion('thumbnail')
             ->performOnCollections('product_secondary_images')
-            ->width(100)
+        ->width(150)
             ->height(100)
             ->nonQueued()
             ->format('webp');
@@ -145,6 +145,7 @@ class Product extends Model implements HasMedia
         $this
             ->addMediaConversion('optimized')
             ->performOnCollections('product_secondary_images')
+
         ->nonQueued()
             ->format('webp');
     }
