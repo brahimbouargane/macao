@@ -14,16 +14,18 @@ import toast from 'react-hot-toast';
 import { FaBox, FaHashtag, FaMoneyBill, FaPlus, FaTruck, FaWeightHanging } from 'react-icons/fa';
 import { MdDriveFileRenameOutline, MdOutlineQuestionMark } from 'react-icons/md';
 import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvider';
+import CreateProductTypeForm from '@/pages/Dashboard/productTypes/partials/forms/create-product-type-form';
 
 type CreateProductFormProps = {
   setIsCreateFormModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function CreateProductForm({ setIsCreateFormModalOpen }: CreateProductFormProps) {
-  const { categories, brands } = useQueryBuilderProductsContext();
+  const { categories, brands, productTypes } = useQueryBuilderProductsContext();
   const translations = usePage<PagePropsData>().props.translations;
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [isProductTypeModalOpen, setIsProductTypeModalOpen] = useState(false);
 
   const selectedCategoriesIds = useListData<CategoryData>({
     initialItems: []
@@ -32,10 +34,10 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
   const form = useForm({
     ref: '',
     name: '',
-    type: '',
     description: '',
     selected_CategoriesIds: [],
     brand_id: null,
+    product_type_id: null,
     primary_image: null,
     secondary_images: [],
     price: '',
@@ -76,19 +78,6 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
   return (
     <>
       <Form onSubmit={createProduct} validationErrors={form.errors} className="pb-4 space-y-8 ">
-        {/* <div className="grid grid-cols-3 gap-2">
-          <h1>bytes :{form.progress?.bytes} </h1>
-          <h1>download :{form.progress?.download} </h1>
-          <h1>estimated :{form.progress?.estimated} </h1>
-          <h1>event :{JSON.stringify(form.progress?.event)} </h1>
-          <h1>lengthComputable :{form.progress?.lengthComputable} </h1>
-          <h1>loaded :{form.progress?.loaded} </h1>
-          <h1>percentage :{form.progress?.percentage} </h1>
-          <h1>progress :{form.progress?.progress} </h1>
-          <h1>rate :{form.progress?.rate} </h1>
-          <h1>total :{form.progress?.total} </h1>
-          <h1>upload :{form.progress?.upload} </h1>
-        </div> */}
         <ScrollArea className=" max-md:h-[600px]  p-2">
           <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
             {/* General */}
@@ -128,21 +117,36 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
                     onChange={(v) => form.setData('name', v)}
                     errorMessage={form.errors.name}
                   />
-                  <TextField
-                    isDisabled={form.processing}
-                    type="text"
-                    name="type"
-                    label={__(translations, 'Type')}
-                    prefix={
-                      <div className="pr-2 border-r-2 ">
-                        <MdOutlineQuestionMark className="text-colors-primary " />
-                      </div>
-                    }
-                    value={form.data.type}
-                    autoComplete="type"
-                    onChange={(v) => form.setData('type', v)}
-                    errorMessage={form.errors.type}
-                  />
+                  <div className="relative">
+                    <Select
+                      isDisabled={form.processing}
+                      selectedKey={String(form.data.product_type_id)}
+                      onSelectionChange={function (key) {
+                        form.setData('product_type_id', key);
+                      }}
+                      label={__(translations, 'Type')}
+                      placeholder={__(translations, 'Select a type')}
+                      errorMessage={form.errors.product_type_id}
+                    >
+                      <Select.Trigger />
+                      <Select.List items={productTypes}>
+                        {(item) => (
+                          <Select.Option key={item.id} id={item.id} textValue={item.name}>
+                            {item.name}
+                          </Select.Option>
+                        )}
+                      </Select.List>
+                    </Select>
+                    <Button
+                      onPress={() => setIsProductTypeModalOpen(true)}
+                      size="square-petite"
+                      intent="secondary"
+                      className="absolute top-0 right-0 self-end mb-1 size-6"
+                      isDisabled={form.processing}
+                    >
+                      <FaPlus size={10} />
+                    </Button>
+                  </div>
                 </div>
 
                 <Textarea
@@ -378,6 +382,15 @@ export default function CreateProductForm({ setIsCreateFormModalOpen }: CreatePr
         </ScrollArea>
       </Form>
 
+      {/* ProductType modal */}
+      <FormModal
+        onOpenChange={setIsProductTypeModalOpen}
+        state={isProductTypeModalOpen}
+        title={`${__(translations, 'Create')} ${__(translations, 'Type')}`}
+        size="md"
+      >
+        <CreateProductTypeForm setIsCreateFormModalOpen={setIsProductTypeModalOpen} />
+      </FormModal>
       {/* Brand modal */}
       <FormModal
         onOpenChange={setIsBrandModalOpen}

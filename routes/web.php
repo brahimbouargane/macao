@@ -4,6 +4,7 @@ use App\Http\Controllers;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferencesController;
 use App\Http\Controllers\UsersController;
@@ -40,10 +41,13 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     // Products routes
     Route::resource('products', ProductsController::class);
 
-    // References routes
-    Route::resource('references', ReferencesController::class);
+    // Product Type routes
+    Route::resource('productTypes', ProductTypeController::class);
 
     // References routes
+    //Route::resource('references', ReferencesController::class);
+
+    // Brands routes
     Route::resource('brands', BrandsController::class);
 });
 

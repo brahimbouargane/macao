@@ -269,5 +269,11 @@
   "Change lang to French": "Changer la langue en français",
   "Failed to send reset password email": "Échec de l'envoi de l'e-mail de réinitialisation du mot de passe",
   "Password was reset successfully": "Le mot de passe a été réinitialisé avec succès",
-  "Processing your request. This might take a while due to image optimization. Thank you for your patience!": "Traitement de votre demande. Cela peut prendre un certain temps en raison de l'optimisation de l'image. Nous vous remercions de votre patience !"
+  "Processing your request. This might take a while due to image optimization. Thank you for your patience!": "Traitement de votre demande. Cela peut prendre un certain temps en raison de l'optimisation de l'image. Nous vous remercions de votre patience !",
+  "Types": "Types",
+  "Type": "Type",
+  "Type created successfully": "Type créé avec succès",
+  "Type deleted successfully": "Type supprimé avec succès",
+  "Type updated successfully": "Type modifié avec succès",
+  "Select a type": "Sélectionner un type"
 }   

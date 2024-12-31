@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('tc_20')->nullable();
             $table->string('tc_40')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
+            $table->foreignId('product_type_id')->nullable()->constrained('product_types')->nullOnDelete();
             $table->timestamps();
         });
     }

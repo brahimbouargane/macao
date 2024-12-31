@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Data\BrandData;
 use App\Data\CategoryData;
 use App\Data\ProductData;
+use App\Data\ProductTypeData;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -29,7 +31,7 @@ class ProductsController extends Controller
         return Inertia::render('Dashboard/products/index', [
             'paginationData' => ProductData::collect(
                 Product::query()
-                    ->with(['brand', 'categories'])
+                    ->with(['brand', 'categories', 'productType'])
                     // Apply advanced filtering
                     ->advancedFilter()
                     // Paginate with configurable per page
@@ -39,6 +41,7 @@ class ProductsController extends Controller
             ),
             "categories" => CategoryData::collect(Category::all(['id', 'name'])),
             "brands" => BrandData::collect(Brand::all(['id', 'name'])),
+            "productTypes" => ProductTypeData::collect(ProductType::all(['id', 'name'])),
 
 
         ]);
@@ -62,7 +65,7 @@ class ProductsController extends Controller
 
         $validated =  $request->validate(['ref' => ['required', 'string', 'max:255'],
             'name' => ['nullable', 'string', 'max:255'],
-            'type' => ['nullable', 'string', 'max:255'],
+            "product_type_id" => ["nullable", 'integer'],
             'description' => ['nullable', "max:2000"],
             'selected_CategoriesIds' => ['nullable', 'array'],
             'selected_CategoriesIds.*' => ['exists:categories,id'],
@@ -92,7 +95,7 @@ class ProductsController extends Controller
         $product = Product::create([
             'ref' => $validated['ref'],
             'name' => $validated['name'],
-            'type' => $validated['type'],
+            'product_type_id' => $validated['product_type_id'],
             'description' => $validated['description'],
             "brand_id" => $validated['brand_id'],
             'price' => $validated['price'],
@@ -194,7 +197,7 @@ class ProductsController extends Controller
 
         $validated =  $request->validate(['ref' => ['required', 'string',  'max:255'],
             'name' => ['nullable', 'string', 'max:255'],
-            'type' => ['nullable', 'string', 'max:255'],
+            "product_type_id" => ["nullable", 'integer'],
             'description' => ['nullable', "max:2000"],
             'selected_CategoriesIds' => ['nullable', 'array'],
             'selected_CategoriesIds.*' => ['exists:categories,id'],
@@ -224,7 +227,7 @@ class ProductsController extends Controller
         $product->update([
             'ref' => $validated['ref'],
             'name' => $validated['name'],
-            'type' => $validated['type'],
+            'product_type_id' => $validated['product_type_id'],
             'description' => $validated['description'],
             "brand_id" => $validated['brand_id'],
             'price' => $validated['price'],
