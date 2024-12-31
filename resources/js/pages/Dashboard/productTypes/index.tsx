@@ -10,10 +10,10 @@ import { Head, usePage } from '@inertiajs/react';
 import { IconPlus } from 'justd-icons';
 import { useState } from 'react';
 import DashboardBreadCrumbs from '../partials/dashboard-breadcrumbs';
-import CreateBrandForm from './partials/forms/create-brand-form';
 import { QueryBuilderProvider } from './partials/providers/QueryBuilderProvider';
-import { columns } from './partials/table/brands-columns';
-import { BrandsDataTable } from './partials/table/brands-table';
+import CreateProductTypeForm from './partials/forms/create-product-type-form';
+import { ProductTypesDataTable } from './partials/table/productTypes-table';
+import { columns } from './partials/table/productTypes-columns';
 
 interface BrandsIndexPage extends PagePropsData {
   paginationData: PaginationData;
@@ -61,12 +61,12 @@ function Index({ paginationData }: BrandsIndexPage) {
               state={isCreateFormModalOpen}
               onOpenChange={setIsCreateFormModalOpen}
             >
-              <CreateBrandForm setIsCreateFormModalOpen={setIsCreateFormModalOpen} />
+              <CreateProductTypeForm setIsCreateFormModalOpen={setIsCreateFormModalOpen} />
             </FormModal>
           </div>
 
           <Card className={cn('w-full h-full ')}>
-            <BrandsDataTable
+            <ProductTypesDataTable
               columns={columns}
               data={paginationData.data}
               pd={paginationData}

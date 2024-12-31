@@ -5,7 +5,7 @@ import __ from '@/utils/translations';
 import { router, usePage } from '@inertiajs/react';
 import { Table } from '@tanstack/react-table';
 import { useEffect, useRef, useState } from 'react';
-import { useQueryBuilderBrandsContext } from '../providers/QueryBuilderProvider';
+import { useQueryBuilderProductTypesContext } from '../providers/QueryBuilderProvider';
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -18,7 +18,7 @@ export function DataTablePagination<TData>({ table, paginatedData }: DataTablePa
   const translations = usePage<PagePropsData>().props.translations;
   const hasPageBeenRendered = useRef(false);
 
-  const { builder } = useQueryBuilderBrandsContext();
+  const { builder } = useQueryBuilderProductTypesContext();
 
   const [pageSize, setPageSize] = useState(
     builder.hasParam('per_page') ? validatePageSize(route().queryParams?.per_page, builder) : 10
