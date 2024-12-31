@@ -22,7 +22,7 @@ class Product extends Model implements HasMedia
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['ref', 'name',  'type', 'description', 'price', 'weight', 'packaging', 'tc_20', 'tc_40', 'brand_id'];
+    protected $fillable = ['ref', 'name',  'type', 'description', 'price', 'weight', 'packaging', 'tc_20', 'tc_40', 'brand_id', 'product_type_id'];
     protected $appends = ['primaryImage', 'secondaryImages', 'categoriesNames'];
 
 
@@ -35,6 +35,11 @@ class Product extends Model implements HasMedia
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function productType()
+    {
+        return $this->belongsTo(ProductType::class);
     }
 
 

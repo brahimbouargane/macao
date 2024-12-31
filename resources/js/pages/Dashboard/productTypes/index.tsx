@@ -1,7 +1,7 @@
 import { Button, Card, Container } from '@/components/ui';
 import FormModal from '@/components/ui/form-modal';
 import { DashboardLayout } from '@/layouts';
-import { BrandData, CategoryData, PagePropsData, PaginationData, ProductTypeData } from '@/types';
+import { PagePropsData, PaginationData } from '@/types';
 import { cn } from '@/utils/classes';
 import { buildConfigFromQueryParams } from '@/utils/queryParamsParser';
 import __ from '@/utils/translations';
@@ -10,19 +10,16 @@ import { Head, usePage } from '@inertiajs/react';
 import { IconPlus } from 'justd-icons';
 import { useState } from 'react';
 import DashboardBreadCrumbs from '../partials/dashboard-breadcrumbs';
-import CreateProductForm from './partials/forms/create-product-form';
+import CreateBrandForm from './partials/forms/create-brand-form';
 import { QueryBuilderProvider } from './partials/providers/QueryBuilderProvider';
-import { columns } from './partials/table/products-columns';
-import { ProductsDataTable } from './partials/table/products-table';
+import { columns } from './partials/table/brands-columns';
+import { BrandsDataTable } from './partials/table/brands-table';
 
-interface ProductsIndexPage extends PagePropsData {
-  categories: CategoryData[];
-  brands: BrandData[];
-  productTypes: ProductTypeData[];
+interface BrandsIndexPage extends PagePropsData {
   paginationData: PaginationData;
 }
 
-function Index({ paginationData, categories, brands, productTypes }: ProductsIndexPage) {
+function Index({ paginationData }: BrandsIndexPage) {
   const translations = usePage<PagePropsData>().props.translations;
 
   const parsedQueryParams = buildConfigFromQueryParams(route().queryParams);
@@ -33,24 +30,23 @@ function Index({ paginationData, categories, brands, productTypes }: ProductsInd
 
   return (
     <>
-      <Head title={__(translations, 'Products')} />
+      <Head title={__(translations, 'Brands')} />
 
-      <QueryBuilderProvider builder={builder} categories={categories} brands={brands} productTypes={productTypes}>
+      <QueryBuilderProvider builder={builder}>
         <Container className={cn('  w-full max-w-full !p-6 lg:!px-8')}>
-          <DashboardBreadCrumbs resource="Products" />
+          <DashboardBreadCrumbs resource="Brands" />
 
           <div className="flex items-center justify-between py-4">
-            <h1 className="text-2xl"> {__(translations, 'Products')}</h1>
+            <h1 className="text-2xl"> {__(translations, 'Brands')}</h1>
             {/* <Button className={'p-0'}>
-              <Link
-                className="flex items-center justify-center w-full h-full px-4 py-2 text-base gap-x-2"
-                href={route('products.create')}
-              >
-                <IconPlus />
-                {__(translations, 'Create')}
-              </Link>
-            </Button> */}
-
+            <Link
+              className="flex items-center justify-center w-full h-full px-4 py-2 text-base gap-x-2"
+              href={route('brands.create')}
+            >
+              <IconPlus />
+              {__(translations, 'Create')}
+            </Link>
+          </Button> */}
             <Button
               onPress={() => {
                 setIsCreateFormModalOpen(true);
@@ -60,16 +56,17 @@ function Index({ paginationData, categories, brands, productTypes }: ProductsInd
               {__(translations, 'Create')}
             </Button>
             <FormModal
-              size="7xl"
-              title={__(translations, 'Create') + ' ' + __(translations, 'Product')}
+              size="lg"
+              title={__(translations, 'Create') + ' ' + __(translations, 'Brand')}
               state={isCreateFormModalOpen}
               onOpenChange={setIsCreateFormModalOpen}
             >
-              <CreateProductForm setIsCreateFormModalOpen={setIsCreateFormModalOpen} />
+              <CreateBrandForm setIsCreateFormModalOpen={setIsCreateFormModalOpen} />
             </FormModal>
           </div>
+
           <Card className={cn('w-full h-full ')}>
-            <ProductsDataTable
+            <BrandsDataTable
               columns={columns}
               data={paginationData.data}
               pd={paginationData}

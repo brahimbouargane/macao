@@ -12,7 +12,6 @@ class ProductData extends Data
     public string $id,
     public string $ref,
     public ?string $name,
-    public ?string $type,
     public ?string $description,
     public ?ImageConversionData $primaryImage,
 
@@ -24,6 +23,7 @@ class ProductData extends Data
     public ?DataCollection $secondaryImages,
 
     public ?BrandData $brand,
+    public ?ProductTypeData $productType,
     public ?float $price,
     public ?float $weight,
     public ?string $packaging,

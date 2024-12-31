@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductType;
 use App\Models\Reference;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
         DB::table('products')->truncate();
         DB::table('brands')->truncate();
         DB::table('media')->truncate();
+        DB::table('product_types')->truncate();
 
         DB::statement("SET foreign_key_checks=1");
 
@@ -5361,7 +5363,61 @@ class DatabaseSeeder extends Seeder
         // create Macao mark
 
         $macaoBrandId = Brand::create(["name" => "Macao"])->id;
-       
+
+        // create product types
+        $productTypesData = [
+            "Boîte plastique de 100 pièces",
+            "Boîte carton de 100 pièces",
+            "Sachet de 12 pièces",
+            "Sachet de 50 pièces",
+            "Sachet",
+            "Boîte plastique de 200 pièces",
+            "Boîte display de 100 pièces",
+            "Boîte display de 200 pièces",
+            "Sachet de 0 pièces",
+            "Boîte plastique",
+            "Pot de 0 pièces",
+            "Boîte display",
+            "Sachet de 500 pièces",
+            "Boîte de 300 pièces",
+            "Boîte",
+            "Boîte de 130 pièces",
+            "Boîte de 140 pièces",
+            "Boîte de 380 pièces",
+            "Pot",
+            "Bocal plastique de 200 pièces",
+            "Sachet de 100 pièces",
+            "Sachet de 170 pièces",
+            "Sachet de 165 pièces",
+            "Sachet de 200 pièces",
+            "Sachet de 160 pièces",
+            "Boîte de 200 pièces",
+            "Tablette",
+            "Seau",
+            "Verre",
+            "Boîte de 60 pièces",
+            "Boîte de 100 pièces",
+            "Boîte plastique de 40 pièces",
+            "Boîte plastique de 80 pièces",
+            "Boîte display de 60 pièces",
+            "Sachet de 3 pièces",
+            "Boîte display de 75 pièces",
+            "Boîte de 16 pièces",
+            "Boîte de 64 pièces",
+            "Boîte carton",
+            "Coffret carton",
+            "Colis cadeau",
+            "Boîte livre",
+            "Boîte de 36 pièces",
+            "Boîte de 42 pièces",
+            "Boîte display de 40 pièces",
+            "Bloc",
+            "Boîte de 160 pièces"
+        ];
+
+        foreach ($productTypesData as $productType) {
+            ProductType::create(["name" => $productType]);
+        }
        
         // create parent categories
         foreach (array_keys($data) as $name) {
@@ -5397,19 +5453,19 @@ class DatabaseSeeder extends Seeder
 
             foreach ($parentCategorycontent as $product) {
                 $foundCategoryId  =  Category::where('name', $product['category_name'])->get()[0]['id'];
-
+                $foundProductTypeId = ProductType::where('name', trim(preg_match('/x (.*?) \//', $product['packaging'], $matches) ? $matches[1] : null))->get()[0]['id'];
 
                 $createdproduct = Product::create([
                     'ref' => $product['ref'],
                     'name' => $product['product_name'],
                     'description' => $product['product_description'],
-                    "type" => trim(preg_match('/x (.*?) \//', $product['packaging'], $matches) ? $matches[1] : null),
                     'price' => null,
                     'weight' => $product['weight'],
                     'packaging' => $product['packaging'],
                     'tc_20' => $product['tc_20'],
                     'tc_40' => $product['tc_40'],
-                    'brand_id' => $macaoBrandId
+                    'brand_id' => $macaoBrandId,
+                    'product_type_id' => $foundProductTypeId
                 ]);
 
                 $createdproduct->categories()->attach([$foundCategoryId]);

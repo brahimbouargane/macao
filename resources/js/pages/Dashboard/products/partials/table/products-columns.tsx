@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { DataTableRowActions } from './data-table-row-actions';
 
 import { Avatar, Badge } from '@/components/ui';
-import { BrandData, ProductData } from '@/types';
+import { BrandData, ProductData, ProductTypeData } from '@/types';
 import { DataTableColumnHeader } from './data-table-column-header';
 
 export const columns: ColumnDef<ProductData>[] = [
@@ -120,16 +120,14 @@ export const columns: ColumnDef<ProductData>[] = [
     enableSorting: false
   },
   {
-    accessorKey: 'type',
+    accessorKey: 'productType',
     header: ({ column }) => <DataTableColumnHeader column={column} title={'Type'} />,
     cell: ({ row }) => {
-      let type: string = row.getValue('type') ?? 'N/A';
-      if (type != 'N/A' && type.length > 20) {
-        type = type.substring(0, 20) + '...';
-      }
+      let type: ProductTypeData = row.getValue('productType');
+
       return (
         <div className="flex space-x-2">
-          <Badge className="font-medium truncate">{type}</Badge>
+          <Badge className="font-medium truncate">{type?.name ?? 'N/A'}</Badge>
         </div>
       );
     }

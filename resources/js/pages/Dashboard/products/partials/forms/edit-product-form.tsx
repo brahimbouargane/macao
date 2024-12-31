@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 import { FaBox, FaHashtag, FaMoneyBill, FaPlus, FaTruck, FaWeightHanging } from 'react-icons/fa';
 import { MdDriveFileRenameOutline, MdOutlineQuestionMark } from 'react-icons/md';
 import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvider';
+import CreateProductTypeForm from '@/pages/Dashboard/productTypes/partials/forms/create-product-type-form';
 
 type EditProductFormProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,10 +22,12 @@ type EditProductFormProps = {
 };
 
 export default function EditProductForm({ product, setIsModalOpen }: EditProductFormProps) {
-  const { categories, brands } = useQueryBuilderProductsContext();
+  console.log('🚀 ~ EditProductForm ~ product:', product);
+  const { categories, brands, productTypes } = useQueryBuilderProductsContext();
   const translations = usePage<PagePropsData>().props.translations;
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [isProductTypeModalOpen, setIsProductTypeModalOpen] = useState(false);
 
   const selectedCategoriesIds = useListData<CategoryData>({
     initialItems: product.categories
@@ -33,10 +36,10 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
   const form = useForm({
     ref: product.ref,
     name: product.name ?? '',
-    type: product.type ?? '',
     description: product.description ?? '',
     selected_CategoriesIds: product.categories ? product.categories?.map((s) => s.id) : [],
     brand_id: product.brand?.id ?? null,
+    product_type_id: product.productType?.id ?? null,
     primary_image: product.primaryImage?.optimized ? [product.primaryImage.optimized] : [],
     secondary_images: product.secondaryImages ? product.secondaryImages.map((img) => img.thumbnail) : [],
     price: product.price ?? '',
@@ -117,21 +120,36 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     onChange={(v) => form.setData('name', v)}
                     errorMessage={form.errors.name}
                   />
-                  <TextField
-                    isDisabled={form.processing}
-                    type="text"
-                    name="type"
-                    label={__(translations, 'Type')}
-                    prefix={
-                      <div className="pr-2 border-r-2 ">
-                        <MdOutlineQuestionMark className="text-colors-primary " />
-                      </div>
-                    }
-                    value={form.data.type}
-                    autoComplete="type"
-                    onChange={(v) => form.setData('type', v)}
-                    errorMessage={form.errors.type}
-                  />
+                  <div className="relative">
+                    <Select
+                      isDisabled={form.processing}
+                      selectedKey={String(form.data.product_type_id)}
+                      onSelectionChange={function (key) {
+                        form.setData('product_type_id', String(key));
+                      }}
+                      label={__(translations, 'Type')}
+                      placeholder={__(translations, 'Select a type')}
+                      errorMessage={form.errors.product_type_id}
+                    >
+                      <Select.Trigger />
+                      <Select.List items={productTypes}>
+                        {(item) => (
+                          <Select.Option key={item.id} id={item.id} textValue={item.name}>
+                            {item.name}
+                          </Select.Option>
+                        )}
+                      </Select.List>
+                    </Select>
+                    <Button
+                      onPress={() => setIsProductTypeModalOpen(true)}
+                      size="square-petite"
+                      intent="secondary"
+                      className="absolute top-0 right-0 self-end mb-1 size-6"
+                      isDisabled={form.processing}
+                    >
+                      <FaPlus size={10} />
+                    </Button>
+                  </div>
                 </div>
 
                 <Textarea
@@ -384,6 +402,18 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
           </div>
         </ScrollArea>
       </Form>
+
+      {/* ProductType modal */}
+      <FormModal
+        onOpenChange={setIsProductTypeModalOpen}
+        state={isProductTypeModalOpen}
+        title={`${__(translations, 'Create')} ${__(translations, 'Type')}`}
+        size="md"
+      >
+        <CreateProductTypeForm setIsCreateFormModalOpen={setIsProductTypeModalOpen} />
+      </FormModal>
+
+      {/* Brand modal */}
       <FormModal
         onOpenChange={setIsBrandModalOpen}
         state={isBrandModalOpen}
@@ -392,6 +422,8 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
       >
         <CreateBrandForm setIsCreateFormModalOpen={setIsBrandModalOpen} />
       </FormModal>
+
+      {/* Category modal */}
       <FormModal
         onOpenChange={setIsCategoryModalOpen}
         state={isCategoryModalOpen}
