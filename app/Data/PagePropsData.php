@@ -14,13 +14,8 @@ class PagePropsData extends Data
         public FlashMessageData $flashMessage,
         public string $locale,
         public ModelsCountData $modelsCount,
-        public PaginationData $paginationData,
         public UserData $user,
         public string $component,
-
-
-
-
         public array $translations
     ) {}
 }

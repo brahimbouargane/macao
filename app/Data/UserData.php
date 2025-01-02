@@ -12,7 +12,7 @@ class UserData extends Data
     public string $id,
     public string $name,
     public string $email,
-    public ?string $avatar,
+    public ?ImageConversionData $avatar,
     public ?string $email_verified_at,
     public string $created_at,
     public string $updated_at,

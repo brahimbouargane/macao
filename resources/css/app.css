@@ -43,6 +43,18 @@
     --tertiary-chart: 27.01 96% 61%;
     --highlight-chart: 32.14 98% 83%;
     --accent-chart: 34.28 100% 92%;
+
+    --chart-1: oklch(0.577 0.245 27.325);
+    --chart-2: oklch(0.604 0.225 24.5);
+    --chart-3: oklch(0.631 0.21 21.7);
+    --chart-4: oklch(0.658 0.2 19);
+    --chart-5: oklch(0.685 0.18 16.3);
+    --chart-6: oklch(0.71 0.17 13.5);
+    --chart-7: oklch(0.736 0.16 10.7);
+    --chart-8: oklch(0.761 0.15 7.9);
+    --chart-9: oklch(0.785 0.14 5.1);
+    --chart-10: oklch(0.81 0.13 2.3);
+    --fg: oklch(0.141 0.005 285.823);
   }
 
   .dark {
@@ -66,7 +78,7 @@
     --info-fg: 0 0% 100%;
     --success: 161.17 91% 31%;
     --success-fg: 151.77 82% 96%;
-    --ring: 24.64 95% 53%;
+    --ring: 0.64 95% 53%;
     --toggle: 30.04 9% 18%;
     --border: 0 0% 14.9%;
     --input: 12 7.1% 22%;
@@ -75,6 +87,17 @@
     --tertiary-chart: 27.01 96% 61%;
     --highlight-chart: 32.14 98% 83%;
     --accent-chart: 34.28 100% 92%;
+
+    --chart-1: oklch(0.577 0.245 27.325);
+    --chart-2: oklch(0.604 0.225 24.5);
+    --chart-3: oklch(0.631 0.21 21.7);
+    --chart-4: oklch(0.658 0.2 19);
+    --chart-5: oklch(0.685 0.18 16.3);
+    --chart-6: oklch(0.71 0.17 13.5);
+    --chart-7: oklch(0.736 0.16 10.7);
+    --chart-8: oklch(0.761 0.15 7.9);
+    --chart-9: oklch(0.785 0.14 5.1);
+    --chart-10: oklch(0.81 0.13 2.3);
   }
 }
 
@@ -82,6 +105,10 @@
   /* Optional: Apply globally */
   body {
     font-family: 'Open Sans', serif;
+  }
+
+  html {
+    @apply h-full scroll-smooth text-sm font-normal xl:text-base;
   }
 
   html {

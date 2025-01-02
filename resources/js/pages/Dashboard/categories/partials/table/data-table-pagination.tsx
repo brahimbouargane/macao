@@ -18,7 +18,7 @@ export function DataTablePagination<TData>({ table, paginatedData }: DataTablePa
     const translations = usePage<PagePropsData>().props.translations;
     const hasPageBeenRendered = useRef(false);
 
-    const builder = useQueryBuilderCategoriesContext();
+    const { builder } = useQueryBuilderCategoriesContext();
 
     const [pageSize, setPageSize] = useState(
         builder.hasParam('per_page') ? validatePageSize(route().queryParams?.per_page, builder) : 10

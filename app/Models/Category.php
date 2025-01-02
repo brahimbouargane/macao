@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Sorts\CategoryNameSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedFilter;  
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -17,26 +18,39 @@ class Category extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
- // Allow mass assignment for these fields
-    protected $fillable = ['name', 'description', 'parent_id'];
+    // Allow mass assignment for these fields
+    protected $fillable = ['name', 'description'];
 
     // To automatically include this custom attribute when converting the model to an array or JSON
-    protected $appends = ['image'];
+    protected $appends = ['image', 'optimizedImage', 'childCategoriesNames'];
 
     //-----------Relationships--------------------------------
-    public function parent()
+    public function products()
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsToMany(Product::class);
     }
 
-    public function children()
+    public function parentCategories()
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->belongsToMany(
+            Category::class,
+            'category_category',
+            'child_category_id',
+            'parent_category_id'
+        );
+    }
+    public function childCategories()
+    {
+        return $this->belongsToMany(
+            Category::class,
+            'category_category',
+            'parent_category_id',
+            'child_category_id'
+        );
     }
 
 
-
-        //-----------Custom filter function--------------------------------
+    //-----------Custom filter function--------------------------------
         public function scopeAdvancedFilter($query)
     {
         return QueryBuilder::for($query)
@@ -57,9 +71,8 @@ class Category extends Model implements HasMedia
                 'id',
                 'name',
                 'description',
-                'created_at',
-                'updated_at',
-                AllowedSort::field('parentCategory',"name")
+            'created_at',
+            'updated_at',
             ])
             ->defaultSort('-created_at')
         ;
@@ -72,13 +85,20 @@ class Category extends Model implements HasMedia
     {
         return $this->getFirstMedia("category_images")  ? $this->getFirstMedia("category_images")->getUrl('thumbnail') : null;
     }
-    public function getParentCategoryAttribute()
+    public function getOptimizedImageAttribute()
     {
-        return $this->parent ? [
-        'id' => $this->parent->id,
-        'name' => $this->parent->name
-    ] : null;
+        return $this->getFirstMedia("category_images")  ? $this->getFirstMedia("category_images")->getUrl('optimized') : null;
     }
+
+    public function getChildCategoriesNamesAttribute()
+    {
+        return $this->childCategories()->pluck('name')->toArray();
+    }
+    public function getParentCategoriesNamesAttribute()
+    {
+        return $this->parentCategories()->pluck('name')->toArray();
+    }
+   
 
     //-----------Media library--------------------------------
     public function registerMediaCollections(): void
@@ -93,13 +113,13 @@ class Category extends Model implements HasMedia
             ->addMediaConversion('thumbnail')
             ->performOnCollections('category_images')
             ->nonQueued()
-            ->width(30)
-            ->height(30)
+            ->width(100)
+            ->height(100)
             ->format('webp');
         $this
             ->addMediaConversion('optimized')
-            ->performOnCollections('category_images')
-            ->nonQueued()
+        ->performOnCollections('category_images')
+        ->nonQueued()
             ->format('webp');
     }
 
