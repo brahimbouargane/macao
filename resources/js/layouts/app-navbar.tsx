@@ -1,13 +1,9 @@
 import LanguageSelector from '@/components/LanguageSelector';
 import { Logo } from '@/components/logo';
-import { ThemeSwitcher } from '@/components/theme-switcher';
 import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { Link, usePage } from '@inertiajs/react';
-import { useTheme } from 'components/theme-provider';
-import { IconBrandJustd, IconBrandLaravel, IconColorSwatch, IconSettings } from 'justd-icons';
 import React from 'react';
-import { Selection } from 'react-aria-components';
 import { Avatar, Button, Menu, Navbar, Separator } from 'ui';
 
 const navigations = [
@@ -57,10 +53,7 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
             <Logo className="!size-8" />
           </Navbar.Logo>
         </Navbar.Flex>
-        <Navbar.Flex className="gap-x-1">
-          {!auth.user && <ThemeSwitcher />}
-          {auth.user ? <UserMenu /> : <LoginMenu />}
-        </Navbar.Flex>
+        <Navbar.Flex className="gap-x-1">{auth.user ? <UserMenu /> : <LoginMenu />}</Navbar.Flex>
       </Navbar.Compact>
 
       {children}
@@ -69,69 +62,30 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
 }
 
 function UserMenu() {
-  const { auth } = usePage<PagePropsData>().props;
-  const { theme, setTheme } = useTheme();
-  const currentTheme = theme || 'system';
-  const [selectedTheme, setSelectedTheme] = React.useState<Selection>(new Set([currentTheme]));
+  const { auth, locale } = usePage<PagePropsData>().props;
   return (
-    <Menu>
-      <Menu.Trigger aria-label="Open menu">
-        <Avatar status="online" size="medium" src={auth.user.avatar} className="size-8" />
-      </Menu.Trigger>
-      <Menu.Content showArrow placement="bottom end" className="sm:min-w-56">
-        <Menu.Section>
-          <Menu.Header separator className="relative">
-            <div>{auth.user.name}</div>
-            <div className="pr-6 text-sm font-normal truncate text-muted-fg whitespace-nowrap">{auth.user.email}</div>
-          </Menu.Header>
-        </Menu.Section>
-        <Menu.Item href={route('dashboard')}>Dashboard</Menu.Item>
-        <Menu.Item href={route('profile.edit')} className="justify-between">
-          Settings
-          <IconSettings />
-        </Menu.Item>
-        <Menu.Submenu>
-          <Menu.Item>Preferences</Menu.Item>
-          <Menu.Content
-            selectionMode="single"
-            selectedKeys={selectedTheme}
-            onSelectionChange={(keys) => {
-              setSelectedTheme(keys);
-              // @ts-ignore
-              setTheme(keys.has('system') ? 'system' : keys.has('dark') ? 'dark' : 'light');
-            }}
-            items={[
-              { name: 'Light', value: 'light' },
-              { name: 'Dark', value: 'dark' },
-              { name: 'System', value: 'system' }
-            ]}
-          >
-            {(item) => (
-              <Menu.Checkbox id={item.value} textValue={item.name}>
-                {item.name}
-              </Menu.Checkbox>
-            )}
-          </Menu.Content>
-        </Menu.Submenu>
-        <Menu.Separator />
-        <Menu.Item target="_blank" href="https://laravel.com" className="justify-between">
-          Documentation
-          <IconBrandLaravel />
-        </Menu.Item>
-        <Menu.Item target="_blank" href="https://getjustd.com" className="justify-between">
-          Components
-          <IconBrandJustd />
-        </Menu.Item>
-        <Menu.Item target="_blank" href="https://getjustd.com/colors" className="justify-between">
-          Colors
-          <IconColorSwatch />
-        </Menu.Item>
-        <Menu.Separator />
-        <Menu.Item routerOptions={{ method: 'post' }} href={route('logout')}>
-          <span>Logout</span>
-        </Menu.Item>
-      </Menu.Content>
-    </Menu>
+    <>
+      <LanguageSelector currentLocale={locale} />
+
+      <Menu>
+        <Menu.Trigger aria-label="Open menu">
+          <Avatar size="medium" src={auth.user.avatar.thumbnail} className="border-2 size-8" />
+        </Menu.Trigger>
+        <Menu.Content showArrow placement="bottom end" className="sm:min-w-56">
+          <Menu.Section>
+            <Menu.Header separator className="relative">
+              <div>{auth.user.name}</div>
+              <div className="pr-6 text-sm font-normal truncate text-muted-fg whitespace-nowrap">{auth.user.email}</div>
+            </Menu.Header>
+          </Menu.Section>
+          <Menu.Item href={route('dashboard')}>Dashboard</Menu.Item>
+
+          <Menu.Item routerOptions={{ method: 'post' }} href={route('logout')}>
+            <span>Logout</span>
+          </Menu.Item>
+        </Menu.Content>
+      </Menu>
+    </>
   );
 }
 

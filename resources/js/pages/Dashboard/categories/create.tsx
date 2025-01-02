@@ -23,13 +23,13 @@ import toast from 'react-hot-toast';
 import { twJoin } from 'tailwind-merge';
 import DashboardBreadCrumbs from '../partials/dashboard-breadcrumbs';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
+import { AvatarUploadPreview } from '@/components/ui/avatar-upload-preview';
 
 type CreateCategoryProps = {
   parentCategories: CategoryData[];
 };
 
 function Create({ parentCategories }: CreateCategoryProps) {
-
   const translations = usePage<PagePropsData>().props.translations;
   const { errors, data, setData, processing, clearErrors, post, reset, setError } = useForm({
     name: '',
@@ -89,8 +89,8 @@ function Create({ parentCategories }: CreateCategoryProps) {
         <Card className="w-full dark:bg-accent">
           <div className="">
             <Form onSubmit={createCategory} validationErrors={errors} className="p-4 space-y-8 ">
-              <div className="grid lg:gap-x-4 lg:grid-cols-2 p-4 py-6">
-                <div className="flex  flex-col items-center gap-2 ">
+              <div className="grid p-4 py-6 lg:gap-x-4 lg:grid-cols-2">
+                <div className="flex flex-col items-center gap-2 ">
                   <DropZone
                     getDropOperation={() => 'copy'}
                     onDrop={onDropHandler}
@@ -99,14 +99,14 @@ function Create({ parentCategories }: CreateCategoryProps) {
                     )}
                   >
                     {droppedImage ? (
-                      <Avatar
+                      <AvatarUploadPreview
                         src={droppedImage}
                         size="large"
                         shape="square"
                         className="w-full h-full object-cover   !rounded-none"
                       />
                     ) : data.image ? (
-                      <Avatar className="!size-60 object-cover   " shape="square" src={data.image} />
+                      <AvatarUploadPreview className="!size-60 object-cover   " shape="square" src={data.image} />
                     ) : (
                       <IconGallery className="rounded-full size-28" />
                     )}
@@ -126,16 +126,16 @@ function Create({ parentCategories }: CreateCategoryProps) {
                   </FileTrigger>
                   {errors.image && <p className="text-sm text-danger forced-colors:text-[Mark]">{errors.image}</p>}
                 </div>
-                <div className='space-y-3'>
+                <div className="space-y-3">
                   <TextField
                     isDisabled={processing}
                     type="text"
                     name="name"
                     label={__(translations, 'Name')}
                     prefix={
-                        <div className="border-r-2 ">
-                            <MdDriveFileRenameOutline className="text-colors-primary" />
-                        </div>
+                      <div className="border-r-2 ">
+                        <MdDriveFileRenameOutline className="text-colors-primary" />
+                      </div>
                     }
                     value={data.name}
                     autoComplete="name"

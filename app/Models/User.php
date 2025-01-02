@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Data\ImageConversionData;
+use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,10 +17,12 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
-class User extends Authenticatable implements  HasMedia
+class User extends Authenticatable implements HasMedia
 {
     use HasFactory, Notifiable,  InteractsWithMedia;
 
+
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -69,13 +73,16 @@ class User extends Authenticatable implements  HasMedia
                     $value = is_array($value) ?  \implode($value) : $value;
                     // Assuming you want to search across multiple fields
                     return $query->where(function ($query) use ($value) {
-                        $query->where('email', 'like', "%{$value}%");
+                    $query->where('email', 'like', "%{$value}%")
+                        ->orWhere('name', 'like', "%{$value}%")
+                    ;
                     });
                 }),
             ])
             // Allow sorting on specific columns
             ->allowedSorts([
                 'id',
+            'name',
                 'email',
                 'created_at',
                 'updated_at',
@@ -90,9 +97,15 @@ class User extends Authenticatable implements  HasMedia
     }
 
     //-----------Custom attributes--------------------------------
-    public function getAvatarAttribute()
+
+    public function getAvatarAttribute(): ImageConversionData
     {
-        return $this->getFirstMedia("avatars")  ? $this->getFirstMedia("avatars")->getUrl('thumbnail') : null;
+        $media = $this->getFirstMedia('avatars');
+
+        return new ImageConversionData(
+            thumbnail: $media ? $media->getUrl('thumbnail') : null,
+            optimized: $media ? $media->getUrl('optimized') : null,
+        );
     }
  
 
@@ -116,8 +129,7 @@ class User extends Authenticatable implements  HasMedia
             ->format('webp');
         $this
             ->addMediaConversion('optimized')
-            ->performOnCollections('avatars')
-            ->nonQueued()
+        ->performOnCollections('avatars')
             ->format('webp');
     }
 
@@ -151,5 +163,11 @@ class User extends Authenticatable implements  HasMedia
             $modelName = strtolower(basename(str_replace('\\', '/', get_class($model))));
             Cache::forever($modelName . '_count', $count);
         });
+    }
+
+    // override class methods
+    public function sendPasswordResetNotification(#[\SensitiveParameter] $token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
     }
 }

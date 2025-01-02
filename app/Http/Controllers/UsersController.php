@@ -73,7 +73,7 @@ class UsersController extends Controller implements HasMiddleware
 
 
 
-        return \to_route('users.index');
+       // return \to_route('users.index');
     }
 
     /**
@@ -107,8 +107,8 @@ class UsersController extends Controller implements HasMiddleware
 
         $validated = $request->validate([
             'name' => ['required', 'min:5', 'max:255'],
-            "email" => ['required', "lowercase", 'email', Rule::unique(User::class)->ignore($user->id)],
-            "password" => ['nullable', 'min:8', 'confirmed'],
+            "email" => ['required', "lowercase", 'max:255', 'email', Rule::unique(User::class)->ignore($user->id)],
+            "password" => ['nullable', 'min:8', 'confirmed', 'max:255'],
         ]);
 
 
@@ -127,7 +127,7 @@ class UsersController extends Controller implements HasMiddleware
         $user->save();
 
 
-        return \to_route('users.index');
+        //return \to_route('users.index');
     }
 
     /**
@@ -144,6 +144,6 @@ class UsersController extends Controller implements HasMiddleware
     {
         $user->email_verified_at = now();
         $user->save();
-        return \to_route('users.index');
+        //return \to_route('users.index');
     }
 }

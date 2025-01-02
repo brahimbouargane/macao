@@ -1,6 +1,6 @@
 import { Button, Card, Container } from '@/components/ui';
 import { DashboardLayout } from '@/layouts';
-import { PagePropsData } from '@/types';
+import { PagePropsData, PaginationData } from '@/types';
 import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
 import { Head, Link, router, usePage } from '@inertiajs/react';
@@ -11,43 +11,62 @@ import { UsersDataTable } from './partials/table/users-table';
 import { useQueryBuilder } from '@cgarciagarcia/react-query-builder';
 import { QueryBuilderProvider } from './partials/providers/QueryBuilderProvider';
 import { buildConfigFromQueryParams } from '@/utils/queryParamsParser';
-import React from 'react';
+import { useState } from 'react';
+import FormModal from '@/components/ui/form-modal';
+import CreateUserForm from './partials/forms/create-user-form';
 
-function Index({ paginationData}: PagePropsData) {
-    const translations = usePage<PagePropsData>().props.translations
+type UsersPageProps = {
+  paginationData: PaginationData;
+};
+function Index({ paginationData }: UsersPageProps) {
+  const translations = usePage<PagePropsData>().props.translations;
 
-    const parsedQueryParams = buildConfigFromQueryParams(route().queryParams);
+  const parsedQueryParams = buildConfigFromQueryParams(route().queryParams);
 
-    const builder = useQueryBuilder(parsedQueryParams);
+  const builder = useQueryBuilder(parsedQueryParams);
 
-    return (
-        <>
-            <Head title={__(translations,'Users')} />
+  const [isCreateFormModalOpen, setIsCreateFormModalOpen] = useState(false);
 
-            {/* <DashboardBreadCrumbs /> */}
-            <Container className={cn('  w-full max-w-full !p-6 lg:!px-8')}>
-                <DashboardBreadCrumbs resource="Users"  />
+  return (
+    <>
+      <Head title={__(translations, 'Users')} />
 
-                <div className="flex items-center justify-between py-4">
-                    <h1 className="text-2xl"> {__(translations,'Users')}</h1>
-                        <Button className={'p-0'}>
-                            <Link
-                                className="flex items-center justify-center w-full h-full px-4 py-2 text-base gap-x-2"
-                                href={route('users.create')}
-                            >
-                                <IconPlus />
-                                {__(translations,'Create')}
-                            </Link>
-                        </Button>
-                </div>
-                <Card className={cn('w-full h-full ')}>
-                    <QueryBuilderProvider builder={builder}>
-                        <UsersDataTable columns={columns} data={paginationData.data} pd={paginationData} translations={translations} />
-                    </QueryBuilderProvider>
-                </Card>
-            </Container>
-        </>
-    );
+      <Container className={cn('  w-full max-w-full !p-6 lg:!px-8')}>
+        <DashboardBreadCrumbs resource="Users" />
+
+        <div className="flex items-center justify-between py-4">
+          <h1 className="text-2xl"> {__(translations, 'Users')}</h1>
+
+          <Button
+            onPress={() => {
+              setIsCreateFormModalOpen(true);
+            }}
+          >
+            <IconPlus />
+            {__(translations, 'Create')}
+          </Button>
+          <FormModal
+            size="xl"
+            title={__(translations, 'Create') + ' ' + __(translations, 'User')}
+            state={isCreateFormModalOpen}
+            onOpenChange={setIsCreateFormModalOpen}
+          >
+            <CreateUserForm setIsCreateFormModalOpen={setIsCreateFormModalOpen} />
+          </FormModal>
+        </div>
+        <Card className={cn('w-full h-full ')}>
+          <QueryBuilderProvider builder={builder}>
+            <UsersDataTable
+              columns={columns}
+              data={paginationData.data}
+              pd={paginationData}
+              translations={translations}
+            />
+          </QueryBuilderProvider>
+        </Card>
+      </Container>
+    </>
+  );
 }
 
 Index.layout = (page: any) => <DashboardLayout children={page} />;

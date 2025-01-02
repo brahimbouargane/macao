@@ -34,17 +34,26 @@ class ProfileController extends Controller
     public function update(Request $request): RedirectResponse
     {
 
+        if (\is_array($request->avatar) && empty($request->avatar)) {
+            // THE USER MANUALLY DELETED THE CATEGORY IMAGE
+            $request->user()->clearMediaCollection('avatars');
+        } else if (isset($request->avatar[0]) && is_string($request->avatar[0])) {
+            // THE USER SUBMITTED AN ALREADY EXISTING IMAGE (A STRING)
+            $request->merge(['avatar' => null]);
+        }
+
 
         $validated = $request->validate(
             [
                 'email' => ['string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore(Auth::user()->id)],
-                'avatar' => [
-                    'nullable',
+
+                'avatar' => ['nullable', 'array'], // Validate 'avatar' as an array
+                'avatar.0' => [
                     'file',
-                    'image',            // Ensure the file is an image
-                    'mimes:jpeg,png,jpg', // Specify allowed image formats
-                    'max:2048'
-                ]
+                    'image',
+                    'mimes:jpeg,png,jpg,webp,svg',
+                    'max:5120', // Max size 5MB
+                ],
             ]
         );
 
@@ -56,14 +65,13 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        if ($request->hasFile('avatar')) {
 
-            $media = $request->user()->addMediaFromRequest("avatar")->toMediaCollection('avatars');
-
-            $result = Image::load($media->getPath())->format('webp')->optimize()->save();
-        }        //usingName()  => provide a custom name
-
-
+        if ($request->hasFile('avatar.0')) {
+            $avatar = $validated['avatar'][0]; // Get the first avatar
+            $media = $request->user()->addMedia($avatar)->toMediaCollection('avatars');
+            // Optimize the uploaded image
+            Image::load($media->getPath())->format('webp')->optimize()->save();
+        }
      
 
         return Redirect::route('profile.edit');
