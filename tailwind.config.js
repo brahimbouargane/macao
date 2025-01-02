@@ -85,10 +85,29 @@ const config = withTV({
         lg: 'calc(var(--radius))',
         md: 'calc(var(--radius) - 2.5px)',
         sm: 'calc(var(--radius) - 5px)'
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-25%)' }
+        }
+      },
+      animation: {
+        marquee: 'marquee var(--animation-duration) linear infinite'
       }
     }
   },
-  plugins: [require('tailwindcss-animate'), require('tailwindcss-react-aria-components')]
+  plugins: [
+    require('tailwindcss-animate'),
+    require('tailwindcss-react-aria-components'),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.pause': {
+          'animation-play-state': 'paused'
+        }
+      });
+    }
+  ]
 });
 
 export default config;

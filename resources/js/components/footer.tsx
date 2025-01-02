@@ -1,6 +1,15 @@
-import { ThemeToggle } from 'components/theme-toggle';
+import footerBg from '@/assets/images/footer-background.png';
+import macaoImage from '@/assets/images/macao_logo.png';
+import { cn } from '@/utils/classes';
+import { motion } from 'framer-motion';
+import { Facebook, Instagram, Youtube } from 'lucide-react';
 import { SVGProps } from 'react';
-import { Button, Link, TextField } from 'ui';
+import { Link } from 'ui';
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
 
 const navigation = {
   solutions: [
@@ -93,112 +102,171 @@ const navigation = {
 
 export function Footer() {
   return (
-    <footer aria-labelledby="footer-heading">
-      <h2 id="footer-heading" className="sr-only">
-        Footer
-      </h2>
-      <div className="mx-auto max-w-7xl px-6 pb-8 pt-20 sm:pt-24 lg:px-8 lg:pt-32">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="grid grid-cols-2 gap-8 xl:col-span-2">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold leading-6 text-fg">Solutions</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.solutions.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-muted-fg hover:text-fg">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-fg">Support</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.support.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-muted-fg hover:text-fg">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold leading-6 text-fg">Company</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.company.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-muted-fg hover:text-fg">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-fg">Legal</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.legal.map((item) => (
-                    <li key={item.name}>
-                      <Link href={item.href} className="text-sm leading-6 text-muted-fg hover:text-fg">
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="mt-10 flex flex-col xl:mt-0">
-            <div className="flex-1 mb-6">
-              <h3 className="text-sm font-semibold leading-6 text-fg">Subscribe to our newsletter</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-fg">
-                The latest news, articles, and resources, sent to your inbox weekly.
-              </p>
-              <form className="mt-6 sm:flex sm:max-w-md">
-                <TextField
-                  aria-label="Email address"
-                  type="email"
-                  name="email-address"
-                  id="email-address"
-                  autoComplete="email"
-                  isRequired
-                  placeholder="Enter your email"
-                />
-                <div className="mt-6 sm:ml-2 sm:mt-0 sm:flex-shrink-0">
-                  <Button type="submit">Subscribe</Button>
-                </div>
-              </form>
-            </div>
-            <ThemeToggle />
-          </div>
-        </div>
-        <div className="mt-16 border-t border-slate-900/10 pt-8 sm:mt-20 md:flex md:items-center md:justify-between lg:mt-24">
-          <div className="flex space-x-6 md:order-2">
-            {navigation.social.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-muted-fg hover:text-fg [&>svg]:h-5 [&>svg]:w-5 [&>svg]:stroke-[1.5]"
-              >
-                <span className="sr-only">{item.name}</span>
-                <item.icon aria-hidden="true" />
-              </Link>
-            ))}
-          </div>
-          <p className="mt-8 text-xs leading-5 text-muted-fg md:order-1 md:mt-0">
-            &copy; 2020 Inertia.ts by{' '}
-            <Link target="_blank" href="https://twitter.com/irsyadadl" className="font-semibold text-fg">
-              irsyadadl
-            </Link>
-            , Inc. All rights reserved.
-          </p>
-        </div>
+    <footer className="relative border-t">
+      {/* Background Image Container */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${footerBg})`
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
+      <motion.div
+        initial={fadeIn.hidden}
+        whileInView={fadeIn.visible}
+        viewport={{ once: true }}
+        className=" relative mx-auto  max-w-[90rem] px-4 py-12 sm:px-6 lg:px-8"
+      >
+        <div className="grid text-white grid-cols-1 gap-8 lg:grid-cols-3">
+          <div>
+            <div className="flex items-center">
+              <img src={macaoImage} className={cn('!size-14 object-fit lg:!size-20  ')} />
+            </div>
+            <p className="mt-4 max-w-xs text-sm text-muted-foreground">
+              Fabrication de chocolats et de confiseries d'exception depuis 1954.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-8 lg:col-span-2 lg:grid-cols-4">
+            <div>
+              <h3 className="font-semibold">Produits</h3>
+              <nav className="mt-4">
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <Link href="#" className="text-muted-foreground hover:text-red-500">
+                      Chocolat
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#" className="text-muted-foreground hover:text-red-500">
+                      Confiserie
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#" className="text-muted-foreground hover:text-red-500">
+                      Gaufrettes
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#" className="text-muted-foreground hover:text-red-500">
+                      Produits pâtissiers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#" className="text-muted-foreground hover:text-red-500">
+                      Fêtes et événements
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div>
+              <h3 className="font-semibold">Entreprise</h3>
+              <nav className="mt-4">
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <Link href="#" className="text-muted-foreground hover:text-red-500">
+                      Notre histoire
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div>
+              <h3 className="font-semibold">Notre Agenda</h3>
+              <nav className="mt-4">
+                <ul className="space-y-2 text-sm">
+                  {agendaItems.slice(0, 2).map((item, index) => (
+                    <li key={index} className="space-y-2 pb-4 border-b border-gray-200/40">
+                      <div className="text-sm space-y-1">
+                        <p>{item.title}</p>
+                        <p>{item.date}</p>
+                        <p className="text-white/60">{item.location}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+
+            {/* Last Two Agenda Items */}
+            <div>
+              <nav className="mt-11">
+                <ul className="space-y-2 text-sm ">
+                  {agendaItems.slice(2, 4).map((item, index) => (
+                    <li key={index} className="space-y-2 pb-4 border-b border-gray-200/40 ">
+                      <div className="text-sm space-y-1">
+                        <p>{item.title}</p>
+                        <p>{item.date}</p>
+                        <p className="text-white/60">{item.location}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div className="mt-12 pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-white/60">Macao © 2024, tous droits réservés.</p>
+          <nav className="flex gap-6 text-sm">
+            <div className="md:col-span-2 flex md:justify-end items-start gap-4 ">
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.href}
+                  className="text-white/80 hover:text-red-500 transition-colors"
+                  aria-label={social.name}
+                >
+                  {social.icon}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        </div>
+      </motion.div>
     </footer>
   );
 }
+
+const socialLinks = [
+  {
+    name: 'Facebook',
+    href: 'https://facebook.com',
+    icon: <Facebook className="h-5 w-5" />
+  },
+  {
+    name: 'Instagram',
+    href: 'https://instagram.com',
+    icon: <Instagram className="h-5 w-5" />
+  },
+  {
+    name: 'YouTube',
+    href: 'https://youtube.com',
+    icon: <Youtube className="h-5 w-5" />
+  }
+];
+const agendaItems = [
+  {
+    title: 'GULFOOD 2024: DUBAI WORLD TRADE CENTRE',
+    date: 'DU 19/02/2024 AU 23/02/2024',
+    location: 'Sheikh Maktoum Hall Stand M-G5'
+  },
+  {
+    title: 'ANUGA Cologne 2023',
+    date: 'DU 07/10/2023 AU 11/10/2023',
+    location: 'Pavillon du MAROC - Hall 11.3 FINE FOOD - STAND 5'
+  },
+  {
+    title: 'ISM Cologne : La plus grande foire commerciale au monde pour les sucreries et les snacks',
+    date: 'DU 02/02/2020 AU 05/02/2020',
+    location: 'Hall 2 Stand F010'
+  },
+  {
+    title:
+      "CREMAI 2019: Carrefour International des Professionnels de la Restauration, de l'Alimentation, et de l'Industrie Hôtelière",
+    date: 'DU 19/03/2019 AU 22/03/2019',
+    location: 'Foire Internationale de Casablanca'
+  }
+];

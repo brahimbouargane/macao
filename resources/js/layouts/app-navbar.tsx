@@ -1,11 +1,11 @@
 import LanguageSelector from '@/components/LanguageSelector';
 import { Logo } from '@/components/logo';
+import { ThemeSwitcher } from '@/components/theme-switcher';
 import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { Link, usePage } from '@inertiajs/react';
 import { useTheme } from 'components/theme-provider';
-import { ThemeSwitcher } from 'components/theme-switcher';
-import { IconBrandJustd, IconBrandLaravel, IconChevronDown, IconColorSwatch, IconSettings } from 'justd-icons';
+import { IconBrandJustd, IconBrandLaravel, IconColorSwatch, IconSettings } from 'justd-icons';
 import React from 'react';
 import { Selection } from 'react-aria-components';
 import { Avatar, Button, Menu, Navbar, Separator } from 'ui';
@@ -20,39 +20,32 @@ const navigations = [
     name: 'About',
     textValue: 'About',
     href: '/about'
-  },
-  
- 
-  
+  }
 ];
 
 export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Navbar>) {
   const page = usePage<PagePropsData>();
-  const translations = page.props.translations
-  const { auth } = page.props
+  const translations = page.props.translations;
+  const { auth } = page.props;
   const [isOpen, setIsOpen] = React.useState(false);
   React.useEffect(() => setIsOpen(false), [page.url]);
   return (
     <Navbar isOpen={isOpen} onOpenChange={setIsOpen} {...props}>
-      <Navbar.Nav>
+      <Navbar.Nav className="flex items-center justify-between">
         <Navbar.Logo aria-label="Logo">
           <Logo />
         </Navbar.Logo>
         <Navbar.Section>
           {navigations.map((item) => (
             <Navbar.Item isCurrent={item.href === page.url} key={item.href} href={item.href}>
-              {__(translations,item.name)}
-              
+              {__(translations, item.name)}
             </Navbar.Item>
           ))}
         </Navbar.Section>
-     
-        <Navbar.Section className="ml-auto ">
-          <div className='hidden ml-auto gap-x-1 lg:flex'>
-          {auth.user ? <UserMenu /> : <LoginMenu />}
-          </div>
-        <LanguageSelector currentLocale={page.props.locale}/>
 
+        <Navbar.Section className="ml-auto ">
+          <div className="hidden ml-auto gap-x-1 lg:flex">{auth.user ? <UserMenu /> : <LoginMenu />}</div>
+          <LanguageSelector currentLocale={page.props.locale} />
         </Navbar.Section>
       </Navbar.Nav>
 
@@ -61,7 +54,7 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
           <Navbar.Trigger />
           <Separator className="h-6" orientation="vertical" />
           <Navbar.Logo aria-label="Logo">
-            <Logo className='!size-8'/>
+            <Logo className="!size-8" />
           </Navbar.Logo>
         </Navbar.Flex>
         <Navbar.Flex className="gap-x-1">
@@ -143,12 +136,17 @@ function UserMenu() {
 }
 
 function LoginMenu() {
-  const translations = usePage<PagePropsData>().props.translations
+  const translations = usePage<PagePropsData>().props.translations;
 
   return (
-  <>
-    <Button className="!p-0 overflow-hidden ml-4"><Link href={route('login')} className='inline-block p-2 rounde-md'> {__(translations,'Log in')}</Link></Button>
-    {/* <Menu>
+    <>
+      <Button className="!p-0 overflow-hidden ml-4">
+        <Link href={route('login')} className="inline-block p-2 rounde-md">
+          {' '}
+          {__(translations, 'Log in')}
+        </Link>
+      </Button>
+      {/* <Menu>
       <Button size="small" appearance="outline">
         {__(translations,'Log in')}
         <IconChevronDown className="ml-2" />
