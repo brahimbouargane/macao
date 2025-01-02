@@ -1,33 +1,52 @@
-import {  Carousel, Container } from '@/components/ui';
+import PastorMacaoHero from '@/components/aboutUs';
+import CategoryGrid from '@/components/categoriesSection';
+import CertificatesSection from '@/components/certaficates';
+import ContactSection from '@/components/contactUs';
+import DisplaySection from '@/components/displaySection';
+import { Footer } from '@/components/footer';
+import HeroSlide from '@/components/heroCarousel';
+import { Navbar } from '@/components/navBar';
+import BestSellers from '@/components/productsSection';
+import SEO from '@/components/seo';
+import TextSlider from '@/components/textSlider';
+import { Container } from '@/components/ui';
 import { Head } from '@inertiajs/react';
-import { Logo } from 'components/logo';
-
-import { AppLayout } from 'layouts';
-
 
 export default function Home() {
   return (
     <>
+      <SEO title="Macao" description="Welcome to our amazing website" keywords="keyword1, keyword2, keyword3" />
       <Head title="Macao" />
-      <Container>
-        <div className="overflow-hidden rounded-lg border lg:border-border border-transparent">
-      <Logo/>
-      <Carousel className="w-full [&_.xrkr]:h-56 [&_.xrkr]:overflow-hidden [&_.xrkr]:flex [&_.xrkr]:flex-col max-w-xs">
-  <Carousel.Content>
-    <Carousel.Item className="basis-1/2">1</Carousel.Item>
-    <Carousel.Item className="basis-1/2">2</Carousel.Item>
-    <Carousel.Item className="basis-1/2">3</Carousel.Item>
-  </Carousel.Content>
- 
-  <Carousel.Handler>
-    <Carousel.Button slot="previous" />
-    <Carousel.Button slot="next" />
-  </Carousel.Handler>
-</Carousel>
+      <Navbar />
+      <HeroSlide />
+      <div className="flex min-h-screen flex-col">
+        {/* Contained sections */}
+        <Container>
+          <CategoryGrid />
+        </Container>
+        {/* Full-width section */}
+        <div className="w-full">
+          <TextSlider speed={8} pauseOnHover={true} />
         </div>
-      </Container>
+        <Container>
+          <BestSellers />
+          <PastorMacaoHero />
+        </Container>
+
+        {/* Full-width section */}
+        <div className="w-full">
+          <TextSlider speed={8} pauseOnHover={true} />
+        </div>
+
+        <Container>
+          <DisplaySection />
+          <CertificatesSection />
+          <ContactSection />
+        </Container>
+        <Footer />
+      </div>
     </>
   );
 }
 
-Home.layout = (page: any) => <AppLayout children={page} />;
+// Home.layout = (page: any) => <AppLayout children={page} />;
