@@ -34,7 +34,7 @@ export function DataTableColumnHeader<TData, TValue>({
     if (hasPageBeenRendered.current) {
       const query = builder.build();
 
-      router.get(route('brands.index') + query, {}, { preserveState: true });
+      router.get(route('productTypes.index') + query, {}, { preserveState: true });
     }
     hasPageBeenRendered.current = true;
   }, [updated]);

@@ -11,7 +11,7 @@ interface DataTableViewOptionsProps<TData> {
 }
 
 function replaceColumViewText(text: string) {
-  if (text == 'categories') {
+  if (text == 'parentCategories') {
     return 'Parent Categories';
   }
   if (text == 'created_by') {

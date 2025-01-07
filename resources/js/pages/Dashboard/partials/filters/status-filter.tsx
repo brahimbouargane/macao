@@ -37,7 +37,7 @@ function replaceViewText(text: string) {
     return 'Type';
   }
 
-  if (text == 'categories' && window.location.pathname.includes('categories')) {
+  if (text == 'parentCategories' && window.location.pathname.includes('categories')) {
     return 'Parent categories';
   }
 
@@ -119,8 +119,7 @@ export default function StatusFilter({ fieldName, setAllowedFilters, builder, se
           <div className="flex items-center px-1 overflow-hidden rounded-none cursor-pointer bg-zinc-200 dark:bg-zinc-500 ">
             <XIcon
               size={14}
-              color="#ccc"
-              className="transition-all duration-500 hover:rotate-180 hover:text-primary "
+              className="transition-all duration-500 hover:rotate-180 hover:text-primary text-[#222] dark:text-inherit"
               onClick={() => {
                 builder.removeFilter(...validStatusFilters(fieldName));
                 setAllowedFilters((prev) =>
@@ -230,7 +229,6 @@ export default function StatusFilter({ fieldName, setAllowedFilters, builder, se
                         selectedMultipleSearchValues.items.length > 0
                           ? selectedMultipleSearchValues.items.map((item) => item.id)
                           : [];
-                      console.log('zbi : ', selectedItemId, existingItemsIds);
                       builder.filter(activeFilter.suffix, [...existingItemsIds, selectedItemId].join(','), true);
 
                       // debouncedFilter.current([...existingItemsIds, selectedItemId].join(','), activeFilter.suffix);

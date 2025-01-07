@@ -85,6 +85,7 @@ class Product extends Model implements HasMedia
             ...\createStringFilters('name'),
             ...\createStringFilters('description'),
             ...\createOneToManyStatusFilters("brand", true),
+            ...\createOneToManyStatusFilters("product_type", true),
             ...\createDateFilters('created_at'),
             ...\createDateFilters('updated_at'),
             ...\createOneToManyStatusFilters('created_by'),

@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Data\ImageConversionData;
+use App\Models\Scopes\ExcludeAdminScope;
 use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -191,6 +193,9 @@ class User extends Authenticatable implements HasMedia
 
     public static function booted()
     {
+
+
+
         //--------------Caching----------------
         static::created(function ($model) {
             $count = $model::count();
@@ -210,5 +215,23 @@ class User extends Authenticatable implements HasMedia
     public function sendPasswordResetNotification(#[\SensitiveParameter] $token)
     {
         $this->notify(new CustomResetPasswordNotification($token));
+    }
+
+
+    //-------ScopedFilters------------
+    public function scopeExcludeDeveloper($query)
+    {
+        // Get the developer email from the config
+        $developerEmail = config('app.developer_email');
+
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Apply the filter only if the logged-in user is not the developer
+        if ($user && $user->email !== $developerEmail) {
+            return $query->where('email', '!=', $developerEmail);
+        }
+
+        return $query;
     }
 }

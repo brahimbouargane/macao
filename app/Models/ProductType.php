@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Sorts\ProductCountSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductType extends Model
@@ -19,6 +22,7 @@ class ProductType extends Model
     ];
 
     protected $append = [
+        'productsCount',
         "created_by_user_name",
         "last_updated_by_user_name"
     ];
@@ -45,13 +49,31 @@ class ProductType extends Model
                         $query->where('name', 'like', "%{$value}%");
                     });
                 }),
+
+            // Custom filter
+            ...\createNumberFilters('id'),
+            ...\createStringFilters('name'),
+            ...\createCustomNumberFilters('prod_count', function () {
+                // Subquery to calculate product count
+                return DB::table('products')
+                    ->selectRaw('COUNT(products.id)')
+                    ->whereColumn('products.product_type_id', '=', 'product_types.id')
+                    ->toSql(); // Returns raw SQL
+            }),
+            ...\createDateFilters('created_at'),
+            ...\createDateFilters('updated_at'),
+            ...\createOneToManyStatusFilters('created_by'),
+            ...\createOneToManyStatusFilters('last_updated_by'),
             ])
             // Allow sorting on specific columns
             ->allowedSorts([
                 'id',
-                'name',
-                'created_at',
-                'updated_at',
+            'name',
+            'created_at',
+            'updated_at',
+            "created_by",
+            "last_updated_by",
+            AllowedSort::custom('prod_count', new ProductCountSort()),
             ])
             ->defaultSort('-created_at')
         ;
@@ -59,6 +81,12 @@ class ProductType extends Model
 
 
     //---------------Custom Attributes------------
+
+    public function getProductsCountAttribute()
+    {
+        return $this->products()->count();
+    }
+
     public function getCreatedByUserNameAttribute()
     {
         if (!$this->created_by) {
