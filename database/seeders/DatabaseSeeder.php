@@ -24,12 +24,12 @@ class DatabaseSeeder extends Seeder
     {
         //User::factory(10)->create();
 
-        //User::factory()->create([
+        // User::factory()->create([
         //    'name' => 'Admin',
         //    'email' => 'admin@admin.com',
         //    'password' => '123',
         //    'email_verified_at' => \now()
-        //]);
+        // ]);
 
         DB::statement("SET foreign_key_checks=0");
         DB::table('categories')->truncate();
@@ -5418,7 +5418,7 @@ class DatabaseSeeder extends Seeder
         foreach ($productTypesData as $productType) {
             ProductType::create(["name" => $productType]);
         }
-       
+
         // create parent categories
         foreach (array_keys($data) as $name) {
             $category = Category::create(['name' => $name]);

@@ -11,6 +11,7 @@ export type AuthenticatedUserData = {
 export type BrandData = {
   id: string;
   name: string;
+  productsCount: string | null;
   created_at: string | null;
   updated_at: string | null;
 };
@@ -72,21 +73,27 @@ export type PaginationData = {
 export type ProductData = {
   id: string;
   ref: string;
-  name: string;
-  type: string;
+  name: string | null;
   description: string | null;
   primaryImage: ImageConversionData | null;
   categories: Array<CategoryData> | null;
   categoriesNames: Array<any> | null;
   secondaryImages: Array<ImageConversionData> | null;
   brand: BrandData | null;
+  productType: ProductTypeData | null;
   price: number | null;
-  weight: number;
-  packaging: string;
-  tc_20: string;
-  tc_40: string;
+  weight: number | null;
+  packaging: string | null;
+  tc_20: string | null;
+  tc_40: string | null;
   updated_at: string | null;
   created_at: string;
+};
+export type ProductTypeData = {
+  id: string;
+  name: string;
+  created_at: string | null;
+  updated_at: string | null;
 };
 export type ReferenceData = {
   id: string;
