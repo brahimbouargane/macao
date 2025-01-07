@@ -11,5 +11,6 @@ class ModelsCountData extends Data
     public int $category,
     public int $product,
     public int $brand,
+    public int $type,
   ) {}
 }

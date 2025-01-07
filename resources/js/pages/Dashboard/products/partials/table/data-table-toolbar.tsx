@@ -5,30 +5,67 @@ import __ from '@/utils/translations';
 import { DataTableViewOptions } from './data-table-view-options';
 
 import { useSearchWithDebounce } from '@/hooks/useDebouncedSearch';
-import { PagePropsData } from '@/types';
+import { PagePropsData, UserReferenceData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { IconBulletList, IconGrid4 } from 'justd-icons';
 import {} from 'react-aria-components';
 import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvider';
+import DataTableFilters from './data-table-filters';
+import { useState } from 'react';
+import NumberFilter from '@/pages/Dashboard/partials/filters/number-filter';
+import {
+  validDateFilters,
+  validNumberFilters,
+  validStatusFilters,
+  validStringFilters
+} from '@/utils/queryParamsParser';
+import StringFilter from '@/pages/Dashboard/partials/filters/string-filter';
+import DateFilter from '@/pages/Dashboard/partials/filters/date-filter';
+import StatusFilter from '@/pages/Dashboard/partials/filters/status-filter';
+import { appendAdminFields } from '@/utils/helpers';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
   toggleViewMode: (key: 'List' | 'Grid') => void;
   viewMode: 'List' | 'Grid';
+  usersOptions: UserReferenceData[];
 }
 
-export function DataTableToolbar<TData>({ table, toggleViewMode, viewMode }: DataTableToolbarProps<TData>) {
-  const translations = usePage<PagePropsData>().props.translations;
+export function DataTableToolbar<TData>({
+  table,
+  toggleViewMode,
+  viewMode,
+  usersOptions
+}: DataTableToolbarProps<TData>) {
+  const { translations, auth } = usePage<PagePropsData>().props;
 
-  const { builder } = useQueryBuilderProductsContext();
+  const { builder, brands, productTypes, categories } = useQueryBuilderProductsContext();
   const { searchTerm, setSearchTerm, isLoading } = useSearchWithDebounce({
     route: route('products.index') + builder.build(),
     initialSearchTerm: builder.hasFilter('search') ? (route().queryParams?.filter?.search as unknown as string) : ''
   });
 
+  // Model allowed filters
+  const [allowedFilters, setAllowedFilters] = useState(
+    appendAdminFields({
+      role: auth?.user?.role,
+      defaults: [
+        { type: 'number', value: 'id', isSelected: false },
+        { type: 'string', value: 'ref', isSelected: false },
+        { type: 'string', value: 'name', isSelected: false },
+        { type: 'string', value: 'description', isSelected: false },
+        { type: 'status', value: 'categories', isSelected: false },
+        { type: 'status', value: 'brand', isSelected: false },
+        { type: 'status', value: 'product_type', isSelected: false },
+        { type: 'date', value: 'created_at', isSelected: false },
+        { type: 'date', value: 'updated_at', isSelected: false }
+      ]
+    })
+  );
+
   return (
-    <div className="p-2">
-      <div className="flex justify-between p-2 md:items-center max-md:flex-col max-md:gap-y-3">
+    <div>
+      <div className="flex justify-between p-4 md:items-center max-md:flex-col max-md:gap-y-3">
         <SearchField
           placeholder={__(translations, 'Search') + '...'}
           name="search"
@@ -47,6 +84,7 @@ export function DataTableToolbar<TData>({ table, toggleViewMode, viewMode }: Dat
         />
         <div className="flex gap-x-2">
           {/* <DataTableFilters table={table} /> */}
+          <DataTableFilters table={table} allowedFilters={allowedFilters} setAllowedFilters={setAllowedFilters} />
           {viewMode == 'List' && <DataTableViewOptions table={table} />}
           <ToggleGroup
             appearance="solid"
@@ -79,6 +117,19 @@ export function DataTableToolbar<TData>({ table, toggleViewMode, viewMode }: Dat
           </ToggleGroup>
         </div>
       </div>
+
+      {/* Active filters */}
+      <TableActiveFilters
+        builder={builder}
+        setAllowedFilters={setAllowedFilters}
+        translations={translations}
+        brandOptions={brands}
+        usersOptions={usersOptions}
+        productTypes={productTypes}
+        categories={categories}
+      />
+
+      {/* Rows Selection */}
       {table.getFilteredSelectedRowModel().rows.length > 0 && (
         <div className="flex justify-between px-4 pr-8 border-t-2 border-b-2 md:items-center max-md:flex-col max-md:gap-y-3 bg-accent">
           <div className="font-semibold">
@@ -109,5 +160,115 @@ export function DataTableToolbar<TData>({ table, toggleViewMode, viewMode }: Dat
         </div>
       )}
     </div>
+  );
+}
+
+function TableActiveFilters({
+  builder,
+  translations,
+  setAllowedFilters,
+  brandOptions,
+  usersOptions,
+  productTypes,
+  categories
+}) {
+  return (
+    <>
+      {route().queryParams?.filter && (
+        <div className="py-2 shadow-md border-y-2 bg-accent">
+          <fieldset className="flex flex-wrap gap-3 p-2 md:items-center">
+            <p>{__(translations, 'Filters')} :</p>
+            {/* Id filter */}
+            {builder.hasFilter(...validNumberFilters('id')) && (
+              <NumberFilter builder={builder} fieldName="id" setAllowedFilters={setAllowedFilters} />
+            )}
+
+            {/* Ref filter */}
+            {builder.hasFilter(...validStringFilters('ref')) && (
+              <StringFilter builder={builder} fieldName="ref" setAllowedFilters={setAllowedFilters} />
+            )}
+
+            {/* Name filter */}
+            {builder.hasFilter(...validStringFilters('name')) && (
+              <StringFilter builder={builder} fieldName="name" setAllowedFilters={setAllowedFilters} />
+            )}
+
+            {/* Description filter */}
+            {builder.hasFilter(...validStringFilters('description')) && (
+              <StringFilter builder={builder} fieldName="description" setAllowedFilters={setAllowedFilters} />
+            )}
+
+            {/* categories filter */}
+            {builder.hasFilter(...validStatusFilters('categories')) && (
+              <StatusFilter
+                selectOptions={categories}
+                builder={builder}
+                fieldName="categories"
+                setAllowedFilters={setAllowedFilters}
+              />
+            )}
+
+            {/* Brand filter */}
+            {builder.hasFilter(...validStatusFilters('brand')) && (
+              <StatusFilter
+                selectOptions={brandOptions}
+                builder={builder}
+                fieldName="brand"
+                setAllowedFilters={setAllowedFilters}
+              />
+            )}
+
+            {/* Product type filter */}
+            {builder.hasFilter(...validStatusFilters('product_type')) && (
+              <StatusFilter
+                selectOptions={productTypes}
+                builder={builder}
+                fieldName="product_type"
+                setAllowedFilters={setAllowedFilters}
+              />
+            )}
+
+            {/* Product type filter */}
+            {builder.hasFilter(...validStatusFilters('product_type')) && (
+              <StatusFilter
+                selectOptions={productTypes}
+                builder={builder}
+                fieldName="product_type"
+                setAllowedFilters={setAllowedFilters}
+              />
+            )}
+
+            {/* Created_at filter */}
+            {builder.hasFilter(...validDateFilters('created_at')) && (
+              <DateFilter builder={builder} fieldName="created_at" setAllowedFilters={setAllowedFilters} />
+            )}
+            {/* Updated_at filter */}
+            {builder.hasFilter(...validDateFilters('updated_at')) && (
+              <DateFilter builder={builder} fieldName="updated_at" setAllowedFilters={setAllowedFilters} />
+            )}
+
+            {/* Created_by filter */}
+            {builder.hasFilter(...validStatusFilters('created_by')) && (
+              <StatusFilter
+                selectOptions={usersOptions}
+                builder={builder}
+                fieldName="created_by"
+                setAllowedFilters={setAllowedFilters}
+              />
+            )}
+
+            {/* last_updated_by filter */}
+            {builder.hasFilter(...validStatusFilters('last_updated_by')) && (
+              <StatusFilter
+                selectOptions={usersOptions}
+                builder={builder}
+                fieldName="last_updated_by"
+                setAllowedFilters={setAllowedFilters}
+              />
+            )}
+          </fieldset>
+        </div>
+      )}
+    </>
   );
 }

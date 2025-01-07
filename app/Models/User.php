@@ -31,11 +31,18 @@ class User extends Authenticatable implements HasMedia
     protected $fillable = [
         'name',
         'email',
+        "role",
         'password',
+        "created_by",
+        "last_updated_by"
     ];
 
     // To automatically include this custom attribute when converting the model to an array or JSON
-    protected $appends = ['avatar'];
+    protected $appends = [
+        'avatar',
+        "created_by_user_name",
+        "last_updated_by_user_name"
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -78,15 +85,28 @@ class User extends Authenticatable implements HasMedia
                     ;
                     });
                 }),
+
+            // Custom filter
+            ...\createNumberFilters('id'),
+            ...\createStringFilters('name'),
+            ...\createStringFilters('email'),
+            ...\createOneToManyStatusFilters("role"),
+            ...\createDateFilters('created_at'),
+            ...\createDateFilters('updated_at'),
+            ...\createOneToManyStatusFilters('created_by'),
+            ...\createOneToManyStatusFilters('last_updated_by'),
+                //-----------------------
             ])
             // Allow sorting on specific columns
             ->allowedSorts([
                 'id',
             'name',
+            'role',
                 'email',
                 'created_at',
                 'updated_at',
-                'email_verified_at',
+            'created_by',
+            'last_updated_by',
 
             ])
             ->allowedFields([
@@ -107,8 +127,29 @@ class User extends Authenticatable implements HasMedia
             optimized: $media ? $media->getUrl('optimized') : null,
         );
     }
- 
 
+    public function getCreatedByUserNameAttribute()
+    {
+        if (!$this->created_by) {
+            return null;
+        }
+
+        $creator = self::find($this->created_by);
+
+        return $creator ? $creator->name : null;
+    }
+
+
+    public function getLastUpdatedByUserNameAttribute()
+    {
+        if (!$this->last_updated_by) {
+            return null;
+        }
+
+        $updater = self::find($this->last_updated_by);
+
+        return $updater ?  $updater->name : null;
+    }
 
     //-----------Media library--------------------------------
     public function registerMediaCollections(): void

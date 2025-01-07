@@ -1,6 +1,6 @@
 import { Button, Card, Container } from '@/components/ui';
 import { DashboardLayout } from '@/layouts';
-import { PagePropsData, PaginationData } from '@/types';
+import { PagePropsData, PaginationData, UserReferenceData } from '@/types';
 import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
 import { Head, Link, router, usePage } from '@inertiajs/react';
@@ -17,8 +17,9 @@ import CreateUserForm from './partials/forms/create-user-form';
 
 type UsersPageProps = {
   paginationData: PaginationData;
+  usersOptions: UserReferenceData[];
 };
-function Index({ paginationData }: UsersPageProps) {
+function Index({ paginationData, usersOptions }: UsersPageProps) {
   const translations = usePage<PagePropsData>().props.translations;
 
   const parsedQueryParams = buildConfigFromQueryParams(route().queryParams);
@@ -61,6 +62,7 @@ function Index({ paginationData }: UsersPageProps) {
               data={paginationData.data}
               pd={paginationData}
               translations={translations}
+              usersOptions={usersOptions}
             />
           </QueryBuilderProvider>
         </Card>

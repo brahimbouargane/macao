@@ -33,62 +33,64 @@ export function DataTablePagination<TData>({ table, paginatedData }: DataTablePa
     }, [pageSize]);
 
     return (
-        <div className="flex items-center justify-between p-4 px-6 max-md:flex-col max-md:gap-y-4 bg-accent">
-            {/* Selected rows */}
-            <div className="text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of {paginatedData.total} {__(translations,'row(s) selected.')}
-            </div>
+      <div className="flex items-center justify-between p-4 px-6 max-md:flex-col max-md:gap-y-4 bg-accent">
+        {/* Selected rows */}
+        <div className="text-sm text-muted-foreground">
+          {/* {table.getFilteredSelectedRowModel().rows.length} of {paginatedData.total} {__(translations,'row(s) selected.')} */}
+          <span>
+            {__(translations, 'Total lines number')} : {paginatedData.total}
+          </span>
+        </div>
 
-            <div className="flex items-center space-x-6 lg:space-x-8">
-                {/* Lines per page */}
-                <div className="flex items-center space-x-8">
-                    <Select
-                        placeholder={__(translations,'Rows per page')}
-                        selectedKey={
-                            paginationSizes.find((item) => item.name == table.getState().pagination.pageSize.toString())
-                                .id ?? 0
-                        }
-                        onSelectionChange={(value) => {
-                            const pageSize = paginationSizes.find((item) => item.id == value).name ?? 10;
-                            setPageSize(Number(pageSize));
-                            builder.setParam('per_page', pageSize);
-                        }}
-                        defaultSelectedKey={1}
-                        aria-label="page size"
-                    >
-                        <Select.Trigger className="h-8 " value="ss" />
-                        <Select.List placement="top" items={paginationSizes}>
-                            {(item) => (
-                                <Select.Option id={item.id} textValue={item.name}>
-                                    {item.name}
-                                </Select.Option>
-                            )}
-                        </Select.List>
-                    </Select>
-                </div>
+        <div className="flex items-center space-x-6 lg:space-x-8">
+          {/* Lines per page */}
+          <div className="flex items-center space-x-8">
+            <Select
+              placeholder={__(translations, 'Rows per page')}
+              selectedKey={
+                paginationSizes.find((item) => item.name == table.getState().pagination.pageSize.toString()).id ?? 0
+              }
+              onSelectionChange={(value) => {
+                const pageSize = paginationSizes.find((item) => item.id == value).name ?? 10;
+                setPageSize(Number(pageSize));
+                builder.setParam('per_page', pageSize);
+              }}
+              defaultSelectedKey={1}
+              aria-label="page size"
+            >
+              <Select.Trigger className="h-8 " value="ss" />
+              <Select.List placement="top" items={paginationSizes}>
+                {(item) => (
+                  <Select.Option id={item.id} textValue={item.name}>
+                    {item.name}
+                  </Select.Option>
+                )}
+              </Select.List>
+            </Select>
+          </div>
 
-                <div>
-                    <Pagination>
-                        <Pagination.List>
-                            <Pagination.Item
-                                routerOptions={{ preserveScroll: true, preserveState: true }}
-                                variant="first"
-                                href={paginatedData.first_page_url}
-                            />
-                            <Pagination.Item
-                                routerOptions={{ preserveScroll: true, preserveState: true }}
-                                variant="previous"
-                                href={paginatedData.prev_page_url}
-                            />
+          <div>
+            <Pagination>
+              <Pagination.List>
+                <Pagination.Item
+                  routerOptions={{ preserveScroll: true, preserveState: true }}
+                  variant="first"
+                  href={paginatedData.first_page_url}
+                />
+                <Pagination.Item
+                  routerOptions={{ preserveScroll: true, preserveState: true }}
+                  variant="previous"
+                  href={paginatedData.prev_page_url}
+                />
 
-                            <Pagination.Section aria-label="Pagination Segment" className="border rounded-lg">
-                                <Pagination.Item variant="label">{paginatedData.current_page}</Pagination.Item>
-                                <Pagination.Item variant="ellipsis" />
-                                <Pagination.Item className="text-muted-fg" variant="label">
-                                    {paginatedData.last_page}
-                                </Pagination.Item>
-                            </Pagination.Section>
-                            {/* <Pagination.Section
+                <Pagination.Section aria-label="Pagination Segment" className="border rounded-lg">
+                  <Pagination.Item variant="label">{paginatedData.current_page}</Pagination.Item>
+                  <Pagination.Item variant="ellipsis" />
+                  <Pagination.Item className="text-muted-fg" variant="label">
+                    {paginatedData.last_page}
+                  </Pagination.Item>
+                </Pagination.Section>
+                {/* <Pagination.Section
                                 aria-label="Pagination Segment"
                                 className="hidden lg:flex"
                                 items={paginatedData.links.filter((item) => {
@@ -111,21 +113,21 @@ export function DataTablePagination<TData>({ table, paginatedData }: DataTablePa
                                     );
                                 }}
                             </Pagination.Section> */}
-                            <Pagination.Item
-                                routerOptions={{ preserveScroll: true, preserveState: true }}
-                                variant="next"
-                                href={paginatedData.next_page_url}
-                                isDisabled={paginatedData.current_page == paginatedData.last_page}
-                            />
-                            <Pagination.Item
-                                routerOptions={{ preserveScroll: true, preserveState: true }}
-                                variant="last"
-                                href={paginatedData.last_page_url}
-                            />
-                        </Pagination.List>
-                    </Pagination>
-                </div>
-            </div>
+                <Pagination.Item
+                  routerOptions={{ preserveScroll: true, preserveState: true }}
+                  variant="next"
+                  href={paginatedData.next_page_url}
+                  isDisabled={paginatedData.current_page == paginatedData.last_page}
+                />
+                <Pagination.Item
+                  routerOptions={{ preserveScroll: true, preserveState: true }}
+                  variant="last"
+                  href={paginatedData.last_page_url}
+                />
+              </Pagination.List>
+            </Pagination>
+          </div>
         </div>
+      </div>
     );
 }

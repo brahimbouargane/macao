@@ -23,7 +23,7 @@ class ProductData extends Data
     public ?DataCollection $secondaryImages,
 
     public ?BrandData $brand,
-    public ?ProductTypeData $productType,
+    public ?ProductTypeData $product_type,
     public ?float $price,
     public ?float $weight,
     public ?string $packaging,
@@ -31,6 +31,10 @@ class ProductData extends Data
     public ?string $tc_40,
     public ?string $updated_at,
     public string $created_at,
+    public ?string $created_by_user_name,
+    public ?string $last_updated_by_user_name,
+    public ?string $created_by,
+    public ?string $last_updated_by,
 
   ) {}
 }

@@ -19,10 +19,21 @@ class Category extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     // Allow mass assignment for these fields
-    protected $fillable = ['name', 'description'];
+    protected $fillable = [
+        'name',
+        'description',
+        "created_by",
+        "last_updated_by"
+    ];
 
     // To automatically include this custom attribute when converting the model to an array or JSON
-    protected $appends = ['image', 'optimizedImage', 'childCategoriesNames'];
+    protected $appends = [
+        'image',
+        'optimizedImage',
+        'childCategoriesNames',
+        "created_by_user_name",
+        "last_updated_by_user_name"
+    ];
 
     //-----------Relationships--------------------------------
     public function products()
@@ -65,6 +76,17 @@ class Category extends Model implements HasMedia
                         ;
                     });
                 }),
+
+            // Custom filter
+            ...\createNumberFilters('id'),
+            ...\createStringFilters('name'),
+            ...\createStringFilters('description'),
+            ...\createDateFilters('created_at'),
+            ...\createDateFilters('updated_at'),
+            ...\createOneToManyStatusFilters('created_by'),
+            ...\createOneToManyStatusFilters('last_updated_by'),
+            ...\createManyToManyStatusFilters('parentCategories', "parent_category_id")
+
             ])
             // Allow sorting on specific columns
             ->allowedSorts([
@@ -73,6 +95,8 @@ class Category extends Model implements HasMedia
                 'description',
             'created_at',
             'updated_at',
+            'created_by',
+            'last_updated_by',
             ])
             ->defaultSort('-created_at')
         ;
@@ -98,6 +122,30 @@ class Category extends Model implements HasMedia
     {
         return $this->parentCategories()->pluck('name')->toArray();
     }
+
+    public function getCreatedByUserNameAttribute()
+    {
+        if (!$this->created_by) {
+            return null;
+        }
+
+        $creator = User::find($this->created_by);
+
+        return $creator ? $creator->name : null;
+    }
+
+
+    public function getLastUpdatedByUserNameAttribute()
+    {
+        if (!$this->last_updated_by) {
+            return null;
+        }
+
+        $updater = User::find($this->last_updated_by);
+
+        return $updater ?  $updater->name : null;
+    }
+
    
 
     //-----------Media library--------------------------------

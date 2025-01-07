@@ -1,6 +1,6 @@
 import { Button, Card, Container } from '@/components/ui';
 import { DashboardLayout } from '@/layouts';
-import { CategoryData, PagePropsData, PaginationData } from '@/types';
+import { CategoryData, PagePropsData, PaginationData, UserReferenceData } from '@/types';
 import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
 import { Head, Link, router, usePage } from '@inertiajs/react';
@@ -17,8 +17,9 @@ import CreateCategoryForm from './partials/forms/create-category-form';
 interface CategoriesIndexPage extends PagePropsData {
   categories: CategoryData[];
   paginationData: PaginationData;
+  usersOptions: UserReferenceData[];
 }
-function Index({ paginationData, categories }: CategoriesIndexPage) {
+function Index({ paginationData, categories, usersOptions }: CategoriesIndexPage) {
   const translations = usePage<PagePropsData>().props.translations;
 
   const parsedQueryParams = buildConfigFromQueryParams(route().queryParams);
@@ -69,6 +70,7 @@ function Index({ paginationData, categories }: CategoriesIndexPage) {
               data={paginationData.data}
               pd={paginationData}
               translations={translations}
+              usersOptions={usersOptions}
             />
           </Card>
         </Container>

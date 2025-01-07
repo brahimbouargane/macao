@@ -1,8 +1,8 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/shadcn-table';
-import { PaginationData } from '@/types';
+import { PagePropsData, PaginationData, UserReferenceData } from '@/types';
 import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import {
   ColumnDef,
   VisibilityState,
@@ -18,18 +18,26 @@ import {
 import * as React from 'react';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
+import { hideColumn } from '@/utils/helpers';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   pd: PaginationData;
   translations: any[];
+  usersOptions: UserReferenceData[];
 }
 
-export function BrandsDataTable<TData, TValue>({ columns, data, pd, translations }: DataTableProps<TData, TValue>) {
-  console.log('🚀 ~ pd:', pd);
+export function BrandsDataTable<TData, TValue>({
+  columns,
+  data,
+  pd,
+  translations,
+  usersOptions
+}: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const role = usePage<PagePropsData>().props.auth?.user?.role;
 
   const table = useReactTable({
     data,
@@ -60,7 +68,7 @@ export function BrandsDataTable<TData, TValue>({ columns, data, pd, translations
 
   return (
     <div className="w-full ">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} usersOptions={usersOptions} />
 
       <div className={cn('relative', isFetching && 'opacity-70')}>
         <Table className="">
@@ -69,7 +77,12 @@ export function BrandsDataTable<TData, TValue>({ columns, data, pd, translations
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan} style={{ width: header.getSize() }}>
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      style={{ width: header.getSize() }}
+                      hidden={hideColumn(header, role)}
+                    >
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -91,6 +104,7 @@ export function BrandsDataTable<TData, TValue>({ columns, data, pd, translations
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
+                        hidden={hideColumn(cell, role)}
                         key={cell.id}
                         className={cn('!pl-4  border-2 ', row.getIsSelected() && '  !border-l-colors-primary-500')}
                       >

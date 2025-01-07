@@ -18,12 +18,33 @@ function replaceColumViewText(text: string) {
   if (text == 'categoriesNames') {
     return 'categories';
   }
+  if (text == 'product_type') {
+    return 'Type';
+  }
+
+  if (text == 'created_at') {
+    return 'created at';
+  }
+
+  if (text == 'last_updated_by') {
+    return 'last updated by';
+  }
 
   return text;
 }
-export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps<TData>) {
-  const translations = usePage<PagePropsData>().props.translations;
 
+export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps<TData>) {
+  const {
+    translations,
+    auth: { user }
+  } = usePage<PagePropsData>().props;
+
+  // remove created by and last_updated_by for non admins
+  const visibleColumns = table.getAllColumns().filter((column) => {
+    const ruleOne = typeof column.accessorFn !== 'undefined' && column.getCanHide();
+    const ruleTwo = ['created_by', 'last_updated_by'].includes(column.id) && user.role != 'admin';
+    return ruleOne && !ruleTwo;
+  });
   return (
     <>
       <Menu>
@@ -32,24 +53,22 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
           {__(translations, 'Columns')}
         </Menu.Trigger>
         <Menu.Content placement="bottom right" selectionMode="multiple">
-          {table
-            .getAllColumns()
-            .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
-            .map((column) => {
-              return (
-                <Menu.Item key={column.id} className={'p-0'}>
-                  <Checkbox
-                    className="w-full p-2 capitalize rounded-lg "
-                    isSelected={column.getIsVisible()}
-                    onChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {__(translations, _.capitalize(replaceColumViewText(column.id)))}
-                  </Checkbox>
-                </Menu.Item>
-              );
-            })}
+          {visibleColumns.map((column) => {
+            return (
+              <Menu.Item key={column.id} className={'p-0'}>
+                <Checkbox
+                  className="w-full p-2 capitalize rounded-lg "
+                  isSelected={column.getIsVisible()}
+                  onChange={(value) => column.toggleVisibility(!!value)}
+                >
+                  {__(translations, _.capitalize(replaceColumViewText(column.id)))}
+                </Checkbox>
+              </Menu.Item>
+            );
+          })}
         </Menu.Content>
       </Menu>
     </>
   );
 }
+

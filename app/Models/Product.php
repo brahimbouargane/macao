@@ -22,8 +22,28 @@ class Product extends Model implements HasMedia
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['ref', 'name',  'type', 'description', 'price', 'weight', 'packaging', 'tc_20', 'tc_40', 'brand_id', 'product_type_id'];
-    protected $appends = ['primaryImage', 'secondaryImages', 'categoriesNames'];
+    protected $fillable = [
+        'ref',
+        'name',
+        'type',
+        'description',
+        'price',
+        'weight',
+        'packaging',
+        'tc_20',
+        'tc_40',
+        'brand_id',
+        'product_type_id',
+        "created_by",
+        "last_updated_by"
+    ];
+    protected $appends = [
+        'primaryImage',
+        'secondaryImages',
+        'categoriesNames',
+        "created_by_user_name",
+        "last_updated_by_user_name"
+    ];
 
 
     //-----------Relationships--------------------------------
@@ -58,6 +78,19 @@ class Product extends Model implements HasMedia
                         ;
                     });
                 }),
+
+            // Custom filter
+            ...\createNumberFilters('id'),
+            ...\createStringFilters('ref'),
+            ...\createStringFilters('name'),
+            ...\createStringFilters('description'),
+            ...\createOneToManyStatusFilters("brand", true),
+            ...\createDateFilters('created_at'),
+            ...\createDateFilters('updated_at'),
+            ...\createOneToManyStatusFilters('created_by'),
+            ...\createOneToManyStatusFilters('last_updated_by'),
+            ...\createManyToManyStatusFilters('categories', "category_id")
+                //-----------------------    
             ])
             // Allow sorting on specific columns
             ->allowedSorts([
@@ -66,8 +99,13 @@ class Product extends Model implements HasMedia
                 'type',
                 'ref',
                 'description',
+
+            AllowedSort::field("product_type", "product_type_id"),
+            AllowedSort::field("brand", "brand_id"),
                 'created_at',
                 'updated_at',
+            "created_by",
+            "last_updated_by",
             AllowedSort::custom('category', new CategoryNameSort()),
 
             ])
@@ -76,7 +114,6 @@ class Product extends Model implements HasMedia
     }
 
     //-----------Custom attributes--------------------------------
-
     public function getPrimaryImageAttribute(): ImageConversionData
     {
         $media = $this->getFirstMedia('product_primary_image');
@@ -104,6 +141,29 @@ class Product extends Model implements HasMedia
     public function getCategoriesNamesAttribute()
     {
         return $this->categories()->pluck('name')->toArray();
+    }
+
+    public function getCreatedByUserNameAttribute()
+    {
+        if (!$this->created_by) {
+            return null;
+        }
+
+        $creator = User::find($this->created_by);
+
+        return $creator ? $creator->name : null;
+    }
+
+
+    public function getLastUpdatedByUserNameAttribute()
+    {
+        if (!$this->last_updated_by) {
+            return null;
+        }
+
+        $updater = User::find($this->last_updated_by);
+
+        return $updater ?  $updater->name : null;
     }
 
 

@@ -48,7 +48,7 @@ export const columns: ColumnDef<CategoryData>[] = [
       const image: string = row.original.image ?? '/images/no-image-placeholder.webp';
       return (
         <div className="flex ">
-          <Avatar src={image} size={'large'} className="overflow-hidden border-2 border-zinc-300 shadow-lg" />
+          <Avatar src={image} size={'large'} className="overflow-hidden border-2 shadow-lg border-zinc-300" />
         </div>
       );
     },
@@ -86,15 +86,26 @@ export const columns: ColumnDef<CategoryData>[] = [
     }
   },
   {
-    accessorKey: 'parentCategoriesNames',
+    accessorKey: 'parentCategories',
     header: ({ column }) => <DataTableColumnHeader column={column} title={'Parent Categories'} />,
     cell: ({ row }) => {
-      let parentCategoriesNames = row.getValue('parentCategoriesNames')
-        ? (row.getValue('parentCategoriesNames') as string[])
+      let parentCategoriesNames = row.original.parentCategoriesNames
+        ? (row.original.parentCategoriesNames as string[])
         : null;
       if (parentCategoriesNames == null) {
         return <div className="flex space-x-2"></div>;
       } else {
+        if (parentCategoriesNames.length > 2) {
+          return (
+            <div className="flex flex-wrap gap-1">
+              <Badge>{parentCategoriesNames[0]}</Badge>
+              <Badge>{parentCategoriesNames[1]}</Badge>
+              <Badge className={'rounded-full  inline-flex'}>
+                <span>+</span> <span>{parentCategoriesNames.length - 2}</span>
+              </Badge>
+            </div>
+          );
+        }
         const firstTwo =
           parentCategoriesNames.length > 2
             ? [parentCategoriesNames[0], parentCategoriesNames[1], `+ ${parentCategoriesNames.length - 2}`]
@@ -103,7 +114,7 @@ export const columns: ColumnDef<CategoryData>[] = [
           <div className="flex flex-wrap gap-2">
             {firstTwo.map((childCatName, index, array) => (
               <Badge
-                className={array.length > 2 && index == array.length - 1 && 'rounded-full size-8'}
+                className={array.length > 2 && index == array.length - 1 && 'rounded-full size-8 inline-flex'}
                 key={childCatName}
               >
                 {childCatName}
@@ -138,7 +149,7 @@ export const columns: ColumnDef<CategoryData>[] = [
 
   {
     accessorKey: 'created_at',
-    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created_at'} />,
+    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created at'} />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
@@ -160,6 +171,32 @@ export const columns: ColumnDef<CategoryData>[] = [
     // filterFn: (row, id, value) => {
     //     return value.includes(row.getValue(id));
     // }
+  },
+  {
+    accessorKey: 'created_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Created by'} />,
+    cell: ({ row }) => {
+      const createdBy: string = row.original.created_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{createdBy}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'last_updated_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Last updated by'} />,
+    cell: ({ row }) => {
+      const updatedBy: string = row.original.last_updated_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{updatedBy}</span>
+        </div>
+      );
+    }
   },
   {
     id: 'actions',
