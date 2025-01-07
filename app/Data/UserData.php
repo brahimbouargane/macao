@@ -2,9 +2,7 @@
 
 namespace App\Data;
 
-use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\DataCollection;
 
 class UserData extends Data
 {
@@ -12,8 +10,13 @@ class UserData extends Data
     public string $id,
     public string $name,
     public string $email,
-    public ?ImageConversionData $avatar,
+    public string $role,
+    public ?ImageConversionData $avatar, 
     public ?string $email_verified_at,
+    public ?string $created_by_user_name,
+    public ?string $last_updated_by_user_name,
+    public ?string $created_by,
+    public ?string $last_updated_by,
     public string $created_at,
     public string $updated_at,
   ) {}

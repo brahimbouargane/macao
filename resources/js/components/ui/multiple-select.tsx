@@ -263,7 +263,7 @@ const MultipleSelect = <T extends SelectedKey>({
               </VisuallyHidden>
             </div>
             <Popover.Picker
-              className="max-w-none"
+              className="max-w-none dark:bg-bg dark:border-[1px] dark:border-zinc-500"
               style={{ width: `${width}px` }}
               triggerRef={triggerRef}
               trigger="ComboBox"

@@ -92,13 +92,24 @@ export const columns: ColumnDef<ProductData>[] = [
     }
   },
   {
-    accessorKey: 'categoriesNames',
+    accessorKey: 'categories',
     header: ({ column }) => <DataTableColumnHeader column={column} title={'Categories'} />,
     cell: ({ row }) => {
-      let categoriesNames = row.getValue('categoriesNames') ? (row.getValue('categoriesNames') as string[]) : null;
+      let categoriesNames = row.original.categoriesNames ? (row.original.categoriesNames as string[]) : null;
       if (categoriesNames == null) {
         return <div className="flex space-x-2"></div>;
       } else {
+        if (categoriesNames.length > 2) {
+          return (
+            <div className="flex flex-wrap gap-1">
+              <Badge>{categoriesNames[0]}</Badge>
+              <Badge>{categoriesNames[1]}</Badge>
+              <Badge className={'rounded-full  inline-flex'}>
+                <span>+</span> <span>{categoriesNames.length - 2}</span>
+              </Badge>
+            </div>
+          );
+        }
         const firstTwo =
           categoriesNames.length > 2
             ? [categoriesNames[0], categoriesNames[1], `+ ${categoriesNames.length - 2}`]
@@ -120,10 +131,10 @@ export const columns: ColumnDef<ProductData>[] = [
     enableSorting: false
   },
   {
-    accessorKey: 'productType',
+    accessorKey: 'product_type',
     header: ({ column }) => <DataTableColumnHeader column={column} title={'Type'} />,
     cell: ({ row }) => {
-      let type: ProductTypeData = row.getValue('productType');
+      let type: ProductTypeData = row.getValue('product_type');
 
       return (
         <div className="flex space-x-2">
@@ -173,7 +184,7 @@ export const columns: ColumnDef<ProductData>[] = [
 
   {
     accessorKey: 'created_at',
-    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created_at'} />,
+    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created at'} />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
@@ -195,6 +206,32 @@ export const columns: ColumnDef<ProductData>[] = [
     // filterFn: (row, id, value) => {
     //     return value.includes(row.getValue(id));
     // }
+  },
+  {
+    accessorKey: 'created_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Created by'} />,
+    cell: ({ row }) => {
+      const createdBy: string = row.original.created_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{createdBy}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'last_updated_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Last updated by'} />,
+    cell: ({ row }) => {
+      const updatedBy: string = row.original.last_updated_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{updatedBy}</span>
+        </div>
+      );
+    }
   },
   {
     id: 'actions',

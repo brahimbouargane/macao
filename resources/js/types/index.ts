@@ -1,3 +1,14 @@
+export enum AppPermissionsEnum {
+  'VIEW_ANY_USER' = 'view-any',
+  'VIEW_USER' = 'view',
+  'CREATE_USER' = 'create',
+  'UPDATE_USER' = 'update',
+  'DELETE_USER' = 'delete'
+}
+export enum AppRoles {
+  'ADMIN' = 'admin',
+  'MANAGER' = 'manager'
+}
 export type AuthData = {
   user: AuthenticatedUserData;
 };
@@ -5,14 +16,27 @@ export type AuthenticatedUserData = {
   id: number;
   email: string;
   name: string;
+  role: string;
   avatar: ImageConversionData | null;
   email_verified_at: string | null;
 };
 export type BrandData = {
   id: string;
   name: string;
+  productsCount: string | null;
   created_at: string | null;
   updated_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
+};
+export type CanData = {
+  VIEW_ANY_USER: boolean;
+  VIEW_USER: boolean;
+  CREATE_USER: boolean;
+  UPDATE_USER: boolean;
+  DELETE_USER: boolean;
 };
 export type CategoryData = {
   id: string;
@@ -25,6 +49,10 @@ export type CategoryData = {
   parentCategoriesNames: Array<any> | null;
   created_at: string | null;
   updated_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
 };
 export type FlashMessageData = {
   type: string;
@@ -44,6 +72,7 @@ export type ModelsCountData = {
   category: number;
   product: number;
   brand: number;
+  type: number;
 };
 export type PagePropsData = {
   auth: AuthData;
@@ -53,6 +82,7 @@ export type PagePropsData = {
   user: UserData;
   component: string;
   translations: Array<any>;
+  can: CanData;
 };
 export type PaginationData = {
   current_page: number;
@@ -72,21 +102,35 @@ export type PaginationData = {
 export type ProductData = {
   id: string;
   ref: string;
-  name: string;
-  type: string;
+  name: string | null;
   description: string | null;
   primaryImage: ImageConversionData | null;
   categories: Array<CategoryData> | null;
   categoriesNames: Array<any> | null;
   secondaryImages: Array<ImageConversionData> | null;
   brand: BrandData | null;
+  product_type: ProductTypeData | null;
   price: number | null;
-  weight: number;
-  packaging: string;
-  tc_20: string;
-  tc_40: string;
+  weight: number | null;
+  packaging: string | null;
+  tc_20: string | null;
+  tc_40: string | null;
   updated_at: string | null;
   created_at: string;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
+};
+export type ProductTypeData = {
+  id: string;
+  name: string;
+  created_at: string | null;
+  updated_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
 };
 export type ReferenceData = {
   id: string;
@@ -103,8 +147,17 @@ export type UserData = {
   id: string;
   name: string;
   email: string;
+  role: string;
   avatar: ImageConversionData | null;
   email_verified_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
   created_at: string;
   updated_at: string;
+};
+export type UserReferenceData = {
+  id: string;
+  name: string;
 };

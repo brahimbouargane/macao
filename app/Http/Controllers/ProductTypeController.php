@@ -2,18 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\ProductTypeData;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class ProductTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        \abort(404);
+       // $perPageValue = $request->input('per_page');
+       // if (!in_array($perPageValue, ['10', '20', "30", "40", "50", "200"])) {
+       //     $perPageValue = "10";
+       // }
+//
+        //return Inertia::render('Dashboard/productTypes/index', [
+        //    'paginationData' => ProductTypeData::collect(
+        //        ProductType::query()
+        //            // Apply advanced filtering
+        //            ->advancedFilter()
+        //            // Paginate with configurable per page
+        //            ->paginate($perPageValue)
+        //            // Preserve query parameters in pagination links
+        //            ->withQueryString()
+        //    ),
+        //]);
     }
 
     /**

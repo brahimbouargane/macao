@@ -1,5 +1,7 @@
-import { Avatar } from '@/components/ui';
-import { UserData } from '@/types';
+import { Avatar, Badge } from '@/components/ui';
+import { PagePropsData, UserData } from '@/types';
+import __ from '@/utils/translations';
+import { usePage } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
@@ -61,6 +63,7 @@ export const columns: ColumnDef<UserData>[] = [
       );
     }
   },
+
   {
     accessorKey: 'email',
     header: ({ column }) => <DataTableColumnHeader column={column} title={'Email'} />,
@@ -68,6 +71,25 @@ export const columns: ColumnDef<UserData>[] = [
       return (
         <div className="">
           <span>{row.getValue('email') ?? 'N/A'}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'role',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Role'} />,
+    cell: ({ row }) => {
+      const translations = usePage<PagePropsData>().props.translations;
+
+      const role =
+        row.getValue('role') && row.getValue('role') == 'manager' ? (
+          <Badge intent="info">{__(translations, 'Manager')}</Badge>
+        ) : (
+          <Badge intent="success">{__(translations, 'Admin')}</Badge>
+        );
+      return (
+        <div>
+          <span className="">{role ?? 'N/A'}</span>
         </div>
       );
     }
@@ -94,7 +116,7 @@ export const columns: ColumnDef<UserData>[] = [
   // },
   {
     accessorKey: 'created_at',
-    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created_at'} />,
+    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created at'} />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
@@ -119,6 +141,32 @@ export const columns: ColumnDef<UserData>[] = [
     // filterFn: (row, id, value) => {
     //     return value.includes(row.getValue(id));
     // }
+  },
+  {
+    accessorKey: 'created_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Created by'} />,
+    cell: ({ row }) => {
+      const createdBy: string = row.original.created_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{createdBy}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'last_updated_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Last updated by'} />,
+    cell: ({ row }) => {
+      const updatedBy: string = row.original.last_updated_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{updatedBy}</span>
+        </div>
+      );
+    }
   },
   {
     id: 'actions',

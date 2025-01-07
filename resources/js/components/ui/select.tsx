@@ -17,6 +17,7 @@ import { Description, FieldError, Label } from './field';
 import { ListBox } from './list-box';
 import { Popover } from './popover';
 import { cr, ctr, focusStyles } from './primitive';
+import { cn } from '@/utils/classes';
 
 const selectTriggerStyles = tv({
   extend: focusStyles,
@@ -67,7 +68,11 @@ interface ListProps<T extends object> {
 
 const List = <T extends object>({ className, children, items, placement }: ListProps<T>) => {
   return (
-    <Popover.Picker className={className} trigger="Select" placement={placement}>
+    <Popover.Picker
+      className={cn('dark:bg-bg dark:border-[1px] dark:border-zinc-500', className)}
+      trigger="Select"
+      placement={placement}
+    >
       <ListBox.Picker aria-label="items" items={items}>
         {children}
       </ListBox.Picker>

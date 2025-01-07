@@ -101,15 +101,16 @@ const Content = <T extends object>({
       showArrow={showArrow}
       className={popover({
         className: cn([
-          showArrow && "placement-left:mt-[-0.38rem] placement-right:mt-[-0.38rem]",
-          popoverClassName
+          showArrow && 'placement-left:mt-[-0.38rem] placement-right:mt-[-0.38rem]',
+          popoverClassName,
+          'dark:bg-bg  dark:border-[1px] dark:border-zinc-600'
         ])
       })}
       {...props}
     >
       <MenuPrimitive className={menu({ className })} {...props} />
     </Popover.Content>
-  )
+  );
 }
 
 interface MenuItemProps

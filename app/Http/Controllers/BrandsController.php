@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\BrandData;
 use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -30,6 +31,8 @@ class BrandsController extends Controller
                     // Preserve query parameters in pagination links
                     ->withQueryString()
             ),
+            "usersOptions" => User::all(['id', 'name'])
+
         ]);
     }
 
@@ -52,6 +55,7 @@ class BrandsController extends Controller
 
         $brand = Brand::create([
             'name' => $validated['name'],
+            "created_by" =>  \auth('web')->user()->id
         ]);
 
 
@@ -81,12 +85,12 @@ class BrandsController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        $validated = $request->validate([
-            'name' => ['required', Rule::unique(Brand::class, 'name'), 'max:255'],
+        $validated = $request->validate(['name' => ['required', Rule::unique(Brand::class, 'name')->ignore($brand->id), 'max:255'],
         ]);
 
         $brand->update([
-            "name" => $validated['name']
+            "name" => $validated['name'],
+            "last_updated_by" => \auth('web')->user()->id
         ]);
     }
 
