@@ -44,6 +44,7 @@
   "Email_verified_at": "Vérifié à",
   " at": "Créé à",
   "Updated_at": "Mis à jout à",
+  "updated_at": "Mis à jout à",
   "Reset": "Réinitialiser",
   "Save": "Sauvegarder",
   "Saved": "Sauvegardé",
@@ -311,5 +312,6 @@
   "Last updated by": "mise à jour par",
   "Last_updated_by": "mise à jour par",
   "Created at": "Crée le",
-  "Total lines number": "Nombre de lignes total"
+  "Total lines number": "Nombre de lignes total",
+  "Users management": "Gestion des utilisateurs"
 }   

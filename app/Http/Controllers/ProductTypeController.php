@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\ProductTypeData;
 use App\Models\ProductType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -15,23 +16,23 @@ class ProductTypeController extends Controller
      */
     public function index(Request $request)
     {
-        \abort(404);
-       // $perPageValue = $request->input('per_page');
-       // if (!in_array($perPageValue, ['10', '20', "30", "40", "50", "200"])) {
-       //     $perPageValue = "10";
-       // }
-//
-        //return Inertia::render('Dashboard/productTypes/index', [
-        //    'paginationData' => ProductTypeData::collect(
-        //        ProductType::query()
-        //            // Apply advanced filtering
-        //            ->advancedFilter()
-        //            // Paginate with configurable per page
-        //            ->paginate($perPageValue)
-        //            // Preserve query parameters in pagination links
-        //            ->withQueryString()
-        //    ),
-        //]);
+        $perPageValue = $request->input('per_page');
+        if (!in_array($perPageValue, ['10', '20', "30", "40", "50", "200"])) {
+            $perPageValue = "10";
+        }
+
+        return Inertia::render('Dashboard/productTypes/index', [
+            'paginationData' => ProductTypeData::collect(
+                ProductType::query()
+                    // Apply advanced filtering
+                    ->advancedFilter()
+                    // Paginate with configurable per page
+                    ->paginate($perPageValue)
+                    // Preserve query parameters in pagination links
+                    ->withQueryString()
+            ),
+            "usersOptions" => User::excludeDeveloper()->get(['id', 'name']),
+        ]);
     }
 
     /**
@@ -53,6 +54,7 @@ class ProductTypeController extends Controller
 
         $productType = ProductType::create([
             'name' => $validated['name'],
+            "created_by" =>  \auth('web')->user()->id
         ]);
     }
 
@@ -84,6 +86,7 @@ class ProductTypeController extends Controller
 
         $productType->update([
             'name' => $validated['name'],
+            "last_updated_by" => \auth('web')->user()->id
         ]);
     }
 

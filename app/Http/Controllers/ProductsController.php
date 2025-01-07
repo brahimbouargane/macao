@@ -43,7 +43,7 @@ class ProductsController extends Controller
             "categories" => CategoryData::collect(Category::all(['id', 'name'])),
             "brands" => BrandData::collect(Brand::all(['id', 'name'])),
             "productTypes" => ProductTypeData::collect(ProductType::all(['id', 'name'])),
-            "usersOptions" => User::all(['id', 'name'])
+            "usersOptions" => User::excludeDeveloper()->get(['id', 'name']),
 
 
         ]);

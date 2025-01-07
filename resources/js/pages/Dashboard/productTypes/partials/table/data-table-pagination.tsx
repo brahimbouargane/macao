@@ -36,10 +36,11 @@ export function DataTablePagination<TData>({ table, paginatedData }: DataTablePa
     <div className="flex items-center justify-between p-4 px-6 max-md:flex-col max-md:gap-y-4 bg-accent">
       {/* Selected rows */}
       <div className="text-sm text-muted-foreground">
-        {table.getFilteredSelectedRowModel().rows.length} of {paginatedData.total}{' '}
-        {__(translations, 'row(s) selected.')}
+        {/* {table.getFilteredSelectedRowModel().rows.length} of {paginatedData.total} {__(translations,'row(s) selected.')} */}
+        <span>
+          {__(translations, 'Total lines number')} : {paginatedData.total}
+        </span>
       </div>
-
       <div className="flex items-center space-x-6 lg:space-x-8">
         {/* Lines per page */}
         <div className="flex items-center space-x-8">

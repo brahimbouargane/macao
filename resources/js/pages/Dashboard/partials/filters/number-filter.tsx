@@ -85,10 +85,10 @@ export default function NumberFilter({ fieldName, setAllowedFilters, builder }: 
         <div className="flex items-center px-1 overflow-hidden rounded-none cursor-pointer bg-zinc-200 dark:bg-zinc-500 ">
           <XIcon
             size={14}
-            color="#ccc"
-            className="transition-all duration-500 hover:rotate-180 hover:text-primary "
+    
+            className="transition-all duration-500 hover:rotate-180 hover:text-primary text-[#222] dark:text-inherit"
             onClick={() => {
-              builder.removeFilter(...validStringFilters(fieldName));
+              builder.removeFilter(...validNumberFilters(fieldName));
               setAllowedFilters((prev) =>
                 prev.map((filter) =>
                   filter.value === fieldName ? { ...filter, isSelected: !filter.isSelected } : filter
@@ -163,7 +163,7 @@ export default function NumberFilter({ fieldName, setAllowedFilters, builder }: 
 
             {/* Between value search */}
             {(activeFilter?.id == 7 || activeFilter?.id == 8) && (
-              <div className="flex items-center  w-full">
+              <div className="flex items-center w-full">
                 <TextField
                   type="number"
                   autoFocus

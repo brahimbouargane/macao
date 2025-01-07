@@ -6,7 +6,7 @@ import { DataTableViewOptions } from './data-table-view-options';
 
 import { useSearchWithDebounce } from '@/hooks/useDebouncedSearch';
 import { PagePropsData, UserReferenceData } from '@/types';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { IconBulletList, IconGrid4 } from 'justd-icons';
 import {} from 'react-aria-components';
 import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvider';
@@ -175,7 +175,7 @@ function TableActiveFilters({
   return (
     <>
       {route().queryParams?.filter && (
-        <div className="py-2 shadow-md border-y-2 bg-accent">
+        <div className="py-2 shadow-md border-y-2 bg-accent" id="reset_btn">
           <fieldset className="flex flex-wrap gap-3 p-2 md:items-center">
             <p>{__(translations, 'Filters')} :</p>
             {/* Id filter */}
@@ -228,16 +228,6 @@ function TableActiveFilters({
               />
             )}
 
-            {/* Product type filter */}
-            {builder.hasFilter(...validStatusFilters('product_type')) && (
-              <StatusFilter
-                selectOptions={productTypes}
-                builder={builder}
-                fieldName="product_type"
-                setAllowedFilters={setAllowedFilters}
-              />
-            )}
-
             {/* Created_at filter */}
             {builder.hasFilter(...validDateFilters('created_at')) && (
               <DateFilter builder={builder} fieldName="created_at" setAllowedFilters={setAllowedFilters} />
@@ -265,6 +255,23 @@ function TableActiveFilters({
                 fieldName="last_updated_by"
                 setAllowedFilters={setAllowedFilters}
               />
+            )}
+            {route().queryParams?.filter != undefined && (
+              <Button
+                intent="secondary"
+                className="!bg-bg shadow-md dark:shadow-none"
+                onPress={function () {
+                  document.querySelector('#reset_btn').classList.add('hidden');
+                  builder.clearFilters();
+                  setAllowedFilters((prev) => {
+                    return prev.map((filter) => {
+                      return { ...filter, isSelected: false };
+                    });
+                  });
+                }}
+              >
+                {__(translations, 'Reset')}
+              </Button>
             )}
           </fieldset>
         </div>

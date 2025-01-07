@@ -36,6 +36,7 @@ class UsersController extends Controller implements HasMiddleware
             return Inertia::render('Dashboard/users/index', [
                 'paginationData' => UserData::collect(
                     User::query()
+                ->excludeDeveloper()
                         // Apply advanced filtering
                         ->advancedFilter()
                         // Paginate with configurable per page
@@ -43,7 +44,7 @@ class UsersController extends Controller implements HasMiddleware
                         // Preserve query parameters in pagination links
                         ->withQueryString()
                 ),
-            "usersOptions" => User::all(['id', 'name'])
+            "usersOptions" => User::excludeDeveloper()->get(['id', 'name']),
 
             ]);
         
