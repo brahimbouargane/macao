@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         LogViewer::auth(function ($request) {
             return $request->user()
                 && in_array($request->user()->email, [
-                    'admin@admin.com',
+                config('app.developer_email'),
                 ]);
         });
     }
