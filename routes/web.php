@@ -16,10 +16,12 @@ use Illuminate\Http\Request;
 
 
 Route::get('/', Controllers\HomeController::class)->name('home');
-Route::get('about', Controllers\AboutController::class)->name('about');
+Route::get('history', Controllers\HistoryController::class)->name('history');
 
 Route::get('products', [ProductController::class, 'index'])->name('products.index');
 
+Route::get('products/{parentCategory}/{childCategory}', [ProductController::class, 'showBySubcategory'])
+    ->name('products.index');
 // Category-specific product routes
 Route::get('products/confiserie-chocolat', [ProductController::class, 'confiserieChocolat'])
     ->name('products.confiserie-chocolat');
@@ -33,8 +35,13 @@ Route::get('products/gaufrettes', [ProductController::class, 'gaufrettes'])
 Route::get('products/patisserie', [ProductController::class, 'patisserie'])
     ->name('products.patisserie');
 
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+
 // Individual product route
-Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
+// Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+
 
 
 Route::get('dashboard', Controllers\DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');

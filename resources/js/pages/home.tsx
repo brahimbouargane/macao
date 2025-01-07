@@ -1,6 +1,5 @@
 import PastorMacaoHero from '@/components/aboutUs';
 import CategoryGrid from '@/components/categoriesSection';
-import CertificatesSection from '@/components/certaficates';
 import ContactSection from '@/components/contactUs';
 import DisplaySection from '@/components/displaySection';
 import { Footer } from '@/components/footer';
@@ -25,12 +24,13 @@ export default function Home() {
           <CategoryGrid />
         </Container>
         {/* Full-width section */}
+
         <div className="w-full">
           <TextSlider speed={8} pauseOnHover={true} />
         </div>
+        <PastorMacaoHero />
         <Container>
           <BestSellers />
-          <PastorMacaoHero />
         </Container>
 
         {/* Full-width section */}
@@ -40,7 +40,7 @@ export default function Home() {
 
         <Container>
           <DisplaySection />
-          <CertificatesSection />
+          {/* <CertificatesSection /> */}
           <ContactSection />
         </Container>
         <Footer />

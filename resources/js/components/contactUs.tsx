@@ -1,104 +1,200 @@
-import Pastor from '@/assets/images/pastor.jpg';
-import { Button } from '@/components/ui/shadcn-button';
-import { Card, CardContent } from '@/components/ui/shadcn-card';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/shadcn-input';
-import { Mail, MapPin, Phone } from 'lucide-react';
-import { useState } from 'react';
+import { Label } from '@/components/ui/shadcn-label';
+import { Textarea } from '@/components/ui/shadcn-textarea';
+import { motion } from 'framer-motion';
+import { Clock, Mail, MapPin, MessageSquare, Phone, Send, User } from 'lucide-react';
 
 export default function ContactSection() {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
   };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: 'easeOut'
+      }
+    }
+  };
+
+  const contactInfo = [
+    {
+      icon: <Phone className="w-5 h-5" />,
+      text: '+212 (5) 22 79 10 00 - +212 (5) 22 36 54 92',
+      label: 'Téléphone'
+    },
+    {
+      icon: <Mail className="w-5 h-5" />,
+      text: 'export@pastor-macao.com',
+      label: 'Email'
+    },
+    {
+      icon: <MapPin className="w-5 h-5" />,
+      text: '49 rue Ennasrine Beausejour Casablanca 20200 Maroc',
+      label: 'Adresse'
+    },
+    {
+      icon: <Clock className="w-5 h-5" />,
+      text: 'Lun-Ven : 9:00 - 18:00',
+      label: 'Horaires'
+    }
+  ];
+
   return (
-    <div className="relative w-full py-10">
-      {/* Map Section */}
-      <div className="grid lg:grid-cols-2 gap-0">
-        <div className="relative h-[600px] bg-muted">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1661.9232125861787!2d-7.649992323583578!3d33.56785337807974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d2d6cdf894dd%3A0xcef3758880cfd48a!2sPASTOR%20S.A.!5e0!3m2!1sen!2sma!4v1703893456789!5m2!1sen!2sma"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="absolute inset-0 w-full h-full"
-            title="PASTOR S.A. Location Map"
-          />
-        </div>
-        <div className="relative">
-          <div className="absolute top-0 right-0 w-full h-full overflow-hidden">
-            <div className="absolute top-0 right-0 w-[80%] h-[80%] bg-white rounded-bl-[100px]" />
+    <motion.section
+      className="container mx-auto px-4 py-12 md:py-24"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+        {/* Left side with image and contact info */}
+        <motion.div className="relative space-y-8" variants={itemVariants}>
+          <div className="relative h-[500px] md:h-[500px] overflow-hidden">
+            <img src="/placeholder.svg?height=600&width=600" alt="Contact visual" className="object-cover " />
+            <motion.div
+              className="absolute inset-0 bg-red-900/90 text-white flex items-center justify-center p-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1661.9232125861787!2d-7.649992323583578!3d33.56785337807974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d2d6cdf894dd%3A0xcef3758880cfd48a!2sPASTOR%20S.A.!5e0!3m2!1sen!2sma!4v1703893456789!5m2!1sen!2sma"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 w-full h-full"
+                title="PASTOR S.A. Location Map"
+              />
+            </motion.div>
           </div>
-          <div className="relative h-[600px]">
-            <img src={Pastor} alt="Ocean Tower Building" className="h-full w-full object-fill" />
-            <div className="absolute inset-0 bg-black/40">
-              <div className="p-8 lg:p-12 text-white">
-                <h2 className="text-3xl font-bold mb-6">Our Location</h2>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5" />
-                    <div>
-                      <p>49, rue Ennasrine Beausejour</p>
-                      <p>Casablanca 20200</p>
-                      <p>Maroc</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-5 w-5" />
-                    <div className="flex flex-col">
-                      <p>+212 (5) 22 79 10 00</p>
-                      <p>+212 (5) 22 36 54 92</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5" />
-                    <p>export@pastor-macao.com</p>
+
+          {/* Contact Information Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {contactInfo.map((info, index) => (
+              <motion.div
+                key={index}
+                className="bg-white p-4 shadow-lg hover:shadow-xl transition-shadow"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="text-red-600">{info.icon}</div>
+                  <div>
+                    <p className="text-sm text-gray-500">{info.label}</p>
+                    <p className="font-medium">{info.text}</p>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Email Call to Action */}
-      <div className=" py-10">
-        <Card className="w-full">
-          <CardContent className="p-8 md:p-12">
-            {/* Responsive flex container */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-              {/* Text content */}
-              <div className="space-y-2 lg:max-w-md">
-                <h3 className="text-2xl md:text-3xl font-bold">RESTER AU COURANT</h3>
-                <p className="text-muted-foreground">
-                  Inscrivez-vous pour découvrir nos nouveautés et nos actualités en avant-première !
-                </p>
-              </div>
+        {/* Right side with contact form */}
+        <motion.div className="space-y-8" variants={itemVariants}>
+          <motion.div className="space-y-6" variants={itemVariants}>
+            <motion.span
+              className="text-red-500 uppercase tracking-wider text-sm font-medium inline-block"
+              whileHover={{ scale: 1.05 }}
+            >
+              Contactez-nous
+            </motion.span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
+              Partagez vos envies sucrées avec nous
+            </h1>
+            <p className="text-gray-600">
+              Nous sommes là pour donner vie à vos idées gourmandes. Que ce soit pour des bonbons, du chocolat ou des
+              pâtisseries, contactez-nous et discutons ensemble de votre projet délicieux.
+            </p>
+          </motion.div>
 
-              {/* Form */}
-              <div className="flex-1 lg:max-w-xl">
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+          <motion.form className="space-y-9" variants={itemVariants}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="Prénom" className="flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  Prénom
+                </Label>
+                <motion.div whileHover={{ scale: 1.01 }}>
                   <Input
-                    type="email"
-                    placeholder="Votre adresse email"
-                    className="flex-1 min-w-0"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    id="Prénom"
+                    placeholder="Entrez votre prénom"
+                    className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
                   />
-                  <Button type="submit" className="whitespace-nowrap">
-                    S'inscrire
-                  </Button>
-                </form>
+                </motion.div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="Nom" className="flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  Nom
+                </Label>
+                <motion.div whileHover={{ scale: 1.01 }}>
+                  <Input
+                    id="Nom"
+                    placeholder="Entrez votre nom"
+                    className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
+                  />
+                </motion.div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+
+            <div className="space-y-2">
+              <Label htmlFor="email" className="flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                Email
+              </Label>
+              <motion.div whileHover={{ scale: 1.01 }}>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Entrez votre email"
+                  className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
+                />
+              </motion.div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="message" className="flex items-center gap-2">
+                <MessageSquare className="w-4 h-4" />
+                Message
+              </Label>
+              <motion.div whileHover={{ scale: 1.01 }}>
+                <Textarea
+                  id="message"
+                  placeholder="Entrez votre message"
+                  className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all min-h-[120px]"
+                />
+              </motion.div>
+            </div>
+
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                type="submit"
+                className="bg-red-500 hover:bg-red-500 text-white px-8 py-2 rounded-none w-full transition-colors duration-300 flex items-center justify-center gap-2"
+              >
+                <Send className="w-4 h-4" />
+                Envoyer le message
+              </Button>
+            </motion.div>
+          </motion.form>
+        </motion.div>
       </div>
-    </div>
+    </motion.section>
   );
 }
