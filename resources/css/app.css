@@ -11,7 +11,7 @@
     --bg: 0 0% 100%;
     --fg: 20.02 14% 4%;
     /* --primary: 20.44 90% 48%; */
-    --primary: 360 100% 50%;
+    --primary: 357 72% 48%;
     --primary-fg: 33.33 100% 96%;
     --secondary: 60 4% 96%;
     --secondary-fg: 23.99 10% 10%;
@@ -60,7 +60,8 @@
   .dark {
     --bg: 0 0% 10%;
     --fg: 60 18% 99%;
-    --primary: 360 100% 50%;
+    /* --primary: 360 100% 50%; */
+    --primary: 357 72% 48%;
     --primary-fg: 33.45 100% 96%;
     --secondary: 24 10% 9%;
     --secondary-fg: 60 7.1% 98%;
@@ -154,9 +155,31 @@
     display: none;
   }
 
+  /* dark mode */
+  .dark {
+    scrollbar-width: thin;
+
+    @media (prefers-color-scheme: dark) {
+      * {
+        scrollbar-width: thin;
+      }
+    }
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent !important;
+    border-radius: 5px !important;
+  }
+
   *::-webkit-scrollbar-thumb {
-    @apply bg-muted;
-    border-radius: 14px;
-    border: 3px solid transparent;
+    @apply bg-muted !important;
+    border-radius: 14px !important;
+    border: 3px solid transparent !important;
   }
 }

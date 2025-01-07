@@ -16,6 +16,7 @@ class PagePropsData extends Data
         public ModelsCountData $modelsCount,
         public UserData $user,
         public string $component,
-        public array $translations
+        public array $translations,
+        public CanData $can,
     ) {}
 }

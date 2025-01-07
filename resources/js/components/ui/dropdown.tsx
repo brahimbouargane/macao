@@ -25,7 +25,7 @@ const dropdownItemStyles = tv({
     '[&_[data-slot=avatar]]:-mr-0.5 [&_[data-slot=avatar]]:size-6 sm:[&_[data-slot=avatar]]:size-5',
     '[&_[data-slot=icon]]:size-4 [&_[data-slot=icon]]:shrink-0 [&_[data-slot=icon]]:text-muted-fg [&[data-hovered]_[data-slot=icon]]:text-accent-fg [&[data-focused]_[data-slot=icon]]:text-accent-fg [&[data-danger]_[data-slot=icon]]:text-danger/60 [&[data-focused][data-danger]_[data-slot=icon]]:text-danger-fg',
     '[&_[data-slot=menu-radio]>[data-slot=icon]]:size-3',
-    'forced-colors:[&_[data-slot=icon]]:text-[CanvasText] forced-colors:[&_[data-slot=icon]]:group-data-[focus]:text-[Canvas] hover:bg-primary/50'
+    'forced-colors:[&_[data-slot=icon]]:text-[CanvasText] forced-colors:[&_[data-slot=icon]]:group-data-[focus]:text-[Canvas] hover:bg-primary/80'
   ],
   variants: {
     isDisabled: {
@@ -82,7 +82,7 @@ const DropdownItem = ({ className, ...props }: ListBoxItemProps) => {
     >
       {cr(props.children, (children, { isSelected }) => (
         <>
-          <span className="flex items-center flex-1 gap-2 font-normal truncate group-selected:font-medium ">
+          <span className="flex items-center flex-1 gap-2 font-normal truncate group-selected:font-medium   ">
             {children}
           </span>
 

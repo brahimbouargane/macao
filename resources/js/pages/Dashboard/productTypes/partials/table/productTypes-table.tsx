@@ -26,8 +26,12 @@ interface DataTableProps<TData, TValue> {
   translations: any[];
 }
 
-export function ProductTypesDataTable<TData, TValue>({ columns, data, pd, translations }: DataTableProps<TData, TValue>) {
-  console.log('🚀 ~ pd:', pd);
+export function ProductTypesDataTable<TData, TValue>({
+  columns,
+  data,
+  pd,
+  translations
+}: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 

@@ -1,7 +1,7 @@
 import { Button, Card, Container } from '@/components/ui';
 import FormModal from '@/components/ui/form-modal';
 import { DashboardLayout } from '@/layouts';
-import { BrandData, CategoryData, PagePropsData, PaginationData, ProductTypeData } from '@/types';
+import { BrandData, CategoryData, PagePropsData, PaginationData, ProductTypeData, UserReferenceData } from '@/types';
 import { cn } from '@/utils/classes';
 import { buildConfigFromQueryParams } from '@/utils/queryParamsParser';
 import __ from '@/utils/translations';
@@ -20,9 +20,10 @@ interface ProductsIndexPage extends PagePropsData {
   brands: BrandData[];
   productTypes: ProductTypeData[];
   paginationData: PaginationData;
+  usersOptions: UserReferenceData[];
 }
 
-function Index({ paginationData, categories, brands, productTypes }: ProductsIndexPage) {
+function Index({ paginationData, categories, brands, productTypes, usersOptions }: ProductsIndexPage) {
   const translations = usePage<PagePropsData>().props.translations;
 
   const parsedQueryParams = buildConfigFromQueryParams(route().queryParams);
@@ -74,6 +75,7 @@ function Index({ paginationData, categories, brands, productTypes }: ProductsInd
               data={paginationData.data}
               pd={paginationData}
               translations={translations}
+              usersOptions={usersOptions}
             />
           </Card>
         </Container>

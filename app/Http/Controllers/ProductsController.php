@@ -10,6 +10,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -42,6 +43,7 @@ class ProductsController extends Controller
             "categories" => CategoryData::collect(Category::all(['id', 'name'])),
             "brands" => BrandData::collect(Brand::all(['id', 'name'])),
             "productTypes" => ProductTypeData::collect(ProductType::all(['id', 'name'])),
+            "usersOptions" => User::all(['id', 'name'])
 
 
         ]);
@@ -103,6 +105,7 @@ class ProductsController extends Controller
             'packaging' => $validated['packaging'],
             'tc_20' => $validated['tc_20'],
             'tc_40' => $validated['tc_40'],
+            "created_by" =>  \auth('web')->user()->id
         ]);
 
 
@@ -235,6 +238,7 @@ class ProductsController extends Controller
             'packaging' => $validated['packaging'],
             'tc_20' => $validated['tc_20'],
             'tc_40' => $validated['tc_40'],
+            "last_updated_by" => \auth('web')->user()->id
         ]);
 
 

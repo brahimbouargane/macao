@@ -5,12 +5,12 @@ import __ from '@/utils/translations';
 import { usePage } from '@inertiajs/react';
 
 import { MdCategory, MdDashboard, MdSupervisedUserCircle } from 'react-icons/md';
-import { Sidebar } from 'ui';
 import { FaBoxOpen, FaTags } from 'react-icons/fa';
 import MacaoChef from '@/assets/images/macao_chef.png';
+import { Sidebar } from '@/components/ui';
 
 export default function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
-  const { modelsCount, translations, locale } = usePage<PagePropsData>().props;
+  const { modelsCount, translations, locale, can } = usePage<PagePropsData>().props;
   const component = usePage().component;
 
   return (
@@ -52,6 +52,14 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           >
             {__(translations, 'Brands')}
           </Sidebar.Item>
+          {/* <Sidebar.Item
+            isCurrent={component.includes('Dashboard/productTypes')}
+            icon={FaTags}
+            href={route('productTypes.index')}
+            badge={String(modelsCount.type)}
+          >
+            {__(translations, 'Types')}
+          </Sidebar.Item> */}
           <Sidebar.Item
             isCurrent={component.includes('Dashboard/categories')}
             icon={MdCategory}
@@ -60,14 +68,16 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           >
             {__(translations, 'Categories')}
           </Sidebar.Item>
-          <Sidebar.Item
-            isCurrent={component.includes('Dashboard/users')}
-            icon={MdSupervisedUserCircle}
-            href={route('users.index')}
-            badge={String(modelsCount.user)}
-          >
-            {__(translations, 'Users')}
-          </Sidebar.Item>
+          {can.VIEW_ANY_USER && (
+            <Sidebar.Item
+              isCurrent={component.includes('Dashboard/users')}
+              icon={MdSupervisedUserCircle}
+              href={route('users.index')}
+              badge={String(modelsCount.user)}
+            >
+              {__(translations, 'Users')}
+            </Sidebar.Item>
+          )}
         </Sidebar.Section>
 
         {/* Settings */}

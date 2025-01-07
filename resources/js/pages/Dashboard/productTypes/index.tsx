@@ -30,14 +30,14 @@ function Index({ paginationData }: BrandsIndexPage) {
 
   return (
     <>
-      <Head title={__(translations, 'Brands')} />
+      <Head title={__(translations, 'Types')} />
 
       <QueryBuilderProvider builder={builder}>
         <Container className={cn('  w-full max-w-full !p-6 lg:!px-8')}>
-          <DashboardBreadCrumbs resource="Brands" />
+          <DashboardBreadCrumbs resource="productTypes" />
 
           <div className="flex items-center justify-between py-4">
-            <h1 className="text-2xl"> {__(translations, 'Brands')}</h1>
+            <h1 className="text-2xl"> {__(translations, 'Types')}</h1>
             {/* <Button className={'p-0'}>
             <Link
               className="flex items-center justify-center w-full h-full px-4 py-2 text-base gap-x-2"

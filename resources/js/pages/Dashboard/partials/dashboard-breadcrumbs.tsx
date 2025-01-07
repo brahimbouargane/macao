@@ -15,12 +15,16 @@ export default function DashboardBreadCrumbs({ resource }: DashboardBreadCrumbsP
     const resourceActions = { index: 'List', edit: 'Edit', show: 'View', create: 'Create' };
 
     return (
-        <Breadcrumbs className="mb-2">
-            <Breadcrumbs.Item href={route(`${resource.toLowerCase()}.index`)}>{__(translations,resource)}</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="#">{
+      <Breadcrumbs className="mb-2">
+        <Breadcrumbs.Item href={route(`${resource == 'productTypes' ? resource : resource.toLowerCase()}.index`)}>
+          {__(translations, resource)}
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Item href="#">
+          {
             //@ts-ignore
-            __(translations,resourceActions[currentAction])
-            }</Breadcrumbs.Item>
-        </Breadcrumbs>
+            __(translations, resourceActions[currentAction])
+          }
+        </Breadcrumbs.Item>
+      </Breadcrumbs>
     );
 }

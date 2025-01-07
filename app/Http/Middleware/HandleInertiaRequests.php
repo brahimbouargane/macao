@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Data\AuthenticatedUserData;
+use App\Data\CanData;
+use App\Enums\AppPermissionsEnum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
@@ -34,6 +36,9 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
+            "can" =>  function () {
+                return new CanData(...AppPermissionsEnum::getUserAbilities());
+            },
             'auth' => [
                 'user' => $request->user() ? AuthenticatedUserData::from($request->user()) : null,
             ],
@@ -50,6 +55,7 @@ class HandleInertiaRequests extends Middleware
                 "category" => Cache::get('category_count') ?? 0,
                 "product" => Cache::get('product_count') ?? 0,
                 "brand" => Cache::get('brand_count') ?? 0,
+                "type" => Cache::get('productType_count') ?? 0,
             ],
             // Pass the current locale
             'locale' => function () {
