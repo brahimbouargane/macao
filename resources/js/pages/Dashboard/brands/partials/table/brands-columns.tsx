@@ -53,7 +53,7 @@ export const columns: ColumnDef<BrandData>[] = [
   },
   {
     accessorKey: 'prod_count',
-    header: ({ column }) => <DataTableColumnHeader column={column} title={'Prodcuts count'} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Products count'} />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center justify-center space-x-2">
@@ -66,7 +66,7 @@ export const columns: ColumnDef<BrandData>[] = [
 
   {
     accessorKey: 'created_at',
-    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created_at'} />,
+    header: ({ column }) => <DataTableColumnHeader className="min-w-[150px]" column={column} title={'Created at'} />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
@@ -82,6 +82,32 @@ export const columns: ColumnDef<BrandData>[] = [
       return (
         <div className="flex items-center">
           <span>{row.getValue('updated_at') ?? 'N/A'}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'created_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Created by'} />,
+    cell: ({ row }) => {
+      const createdBy: string = row.original.created_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{createdBy}</span>
+        </div>
+      );
+    }
+  },
+  {
+    accessorKey: 'last_updated_by',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={'Last updated by'} />,
+    cell: ({ row }) => {
+      const updatedBy: string = row.original.last_updated_by_user_name ?? '';
+
+      return (
+        <div>
+          <span className="">{updatedBy}</span>
         </div>
       );
     }

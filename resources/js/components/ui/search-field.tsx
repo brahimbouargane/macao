@@ -44,14 +44,14 @@ const SearchField = ({
 }: SearchFieldProps) => {
   return (
     <SearchFieldPrimitive
-      aria-label={placeholder ?? props["aria-label"] ?? "Search..."}
+      aria-label={placeholder ?? props['aria-label'] ?? 'Search...'}
       {...props}
       className={ctr(className, base())}
     >
       {label && <Label>{label}</Label>}
-      <FieldGroup>
+      <FieldGroup className="bg-bg">
         <IconSearch aria-hidden className={searchIcon()} />
-        <Input placeholder={placeholder ?? "Search..."} className={input()} />
+        <Input placeholder={placeholder ?? 'Search...'} className={input()} />
         {isPending ? (
           <Loader variant="spin" className="mr-2.5" />
         ) : (
@@ -63,7 +63,7 @@ const SearchField = ({
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </SearchFieldPrimitive>
-  )
+  );
 }
 
 export { SearchField, type SearchFieldProps }

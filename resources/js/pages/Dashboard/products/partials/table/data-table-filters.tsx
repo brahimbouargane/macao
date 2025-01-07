@@ -5,43 +5,124 @@ import { usePage } from '@inertiajs/react';
 import { Table } from '@tanstack/react-table';
 import { IconFilter, IconPlus } from 'justd-icons';
 import _ from 'lodash';
+import { useEffect, useState } from 'react';
+import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvider';
+import { appendFilterToUrlQuery, markFilterAsActive } from '@/utils/helpers';
 
 interface DataTableViewOptionsProps<TData> {
-    table: Table<TData>;
+  table: Table<TData>;
+  setAllowedFilters: React.Dispatch<
+    React.SetStateAction<
+      {
+        type: string;
+        value: string;
+        isSelected: boolean;
+      }[]
+    >
+  >;
+  allowedFilters: {
+    type: string;
+    value: string;
+    isSelected: boolean;
+  }[];
 }
 
-export default function DataTableFilters<TData>({ table }: DataTableViewOptionsProps<TData>) {
-    const translations = usePage<PagePropsData>().props.translations
+export default function DataTableFilters<TData>({
+  table,
+  allowedFilters,
+  setAllowedFilters
+}: DataTableViewOptionsProps<TData>) {
+  const translations = usePage<PagePropsData>().props.translations;
+  const { builder } = useQueryBuilderProductsContext();
+  const [open, setOpen] = useState(false);
 
-    return (
-        <>
-            <Menu>
-                <Menu.Trigger className="flex items-center justify-center h-8  gap-x-2 border-[1px] border-zinc-500 dark:text-zinc-50 text-zinc-700 hover:text-colors-primary-500 hover:border-colors-primary-500 rounded-md p-4 hover:bg-accent-subtle  font-medium focus:outline-primary duration-300 ">
-                    <IconFilter />
-                    {__(translations,'Filters')}
-                </Menu.Trigger>
-                <Menu.Content placement="bottom right" selectionMode="multiple" className="dark:bg-accent">
-                    <Menu.Item className={''} isDisabled>
-                        {__(translations,'Add Filter')}
-                    </Menu.Item>
-                    {table
-                        .getAllColumns()
-                        .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
-                        .map((column) => {
-                            return (
-                                <Menu.Item
-                                    key={column.id}
-                                    className={
-                                        'w-full p-2 capitalize rounded-lg dark:hover:bg-accent-subtle hover:bg-accent-subtle  hover:text-colors-primary-500 hover:border-colors-primary-500 '
-                                    }
-                                >
-                                    <IconPlus />
-                                    {__(translations,_.capitalize(column.id))}
-                                </Menu.Item>
-                            );
-                        })}
-                </Menu.Content>
-            </Menu>
-        </>
+  const toggleFilter = (targetField: string) => {
+    setAllowedFilters((prev) =>
+      prev.map((filter) => (filter.value === targetField ? { ...filter, isSelected: !filter.isSelected } : filter))
     );
+  };
+
+  // get allowed filters
+  const productsTableFilterColumns = table.getAllColumns().filter((column) => {
+    let ruleOne = typeof column.accessorFn !== 'undefined' && column.getCanHide();
+    let ruleTwo = allowedFilters.findIndex((val) => val.value == column.id) == -1 ? false : true;
+    return ruleOne && ruleTwo;
+  });
+
+  // append existing query string filters to appear in the ui
+  useEffect(() => {
+    builder.tap((state) => {
+      markFilterAsActive({
+        filters: [
+          'id',
+          'ref',
+          'name',
+          'description',
+          'categories',
+          'product_type',
+          'brand',
+          'created_at',
+          'updated_at',
+          'created_by',
+          'last_updated_by'
+        ],
+        state,
+        toggleFilter
+      });
+    });
+  }, []);
+
+  return (
+    <>
+      <Menu isOpen={open} onOpenChange={setOpen}>
+        <Menu.Trigger className="flex items-center justify-center h-8  gap-x-2 border-[1px] border-zinc-500 dark:text-zinc-50 text-zinc-700 hover:text-colors-primary-500 hover:border-colors-primary-500 rounded-md p-4 hover:bg-accent-subtle  font-medium focus:outline-primary duration-300 ">
+          <IconFilter />
+          {__(translations, 'Filters')}
+        </Menu.Trigger>
+        <Menu.Content placement="bottom right" selectionMode="multiple" className="dark:bg-accent">
+          <Menu.Item isDisabled>{__(translations, 'Add Filter')}</Menu.Item>
+          {productsTableFilterColumns.map((column) => {
+            return (
+              <Menu.Item
+                key={column.id}
+                className={
+                  'w-full p-2 capitalize rounded-lg dark:hover:bg-accent-subtle hover:bg-accent-subtle  hover:text-colors-primary-500 hover:border-colors-primary-500 disabled:cursor-not-allowed cursor-pointer'
+                }
+                //mark filed as disabled if it's present in the query string
+                isDisabled={allowedFilters.find((ele) => ele.value == column.id)?.isSelected ? true : false}
+                onAction={() => {
+                  let currentFilter = allowedFilters.find((ele) => ele.value == column.id);
+
+                  // based on the type of the selected field
+                  // 1 -> append to the query string
+                  appendFilterToUrlQuery({ builder, currentFilter });
+
+                  toggleFilter(currentFilter.value);
+                  setOpen(false);
+                }}
+              >
+                <IconPlus />
+                {__(translations, _.capitalize(transformColumnIdValue(column.id)))}
+              </Menu.Item>
+            );
+          })}
+        </Menu.Content>
+      </Menu>
+    </>
+  );
 }
+
+function transformColumnIdValue(columnId: string) {
+  switch (columnId) {
+    case 'created_at':
+      columnId = 'Created at';
+      break;
+    case 'product_type':
+      columnId = 'Type';
+      break;
+  }
+
+  return columnId;
+}
+
+

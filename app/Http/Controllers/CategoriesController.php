@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\CategoryData;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -33,7 +34,8 @@ class CategoriesController extends Controller
                         // Preserve query parameters in pagination links
                         ->withQueryString()
                 ),
-            "categories" => CategoryData::collect(Category::with(['parentCategories'])->get())
+            "categories" => CategoryData::collect(Category::with(['parentCategories'])->get()),
+            "usersOptions" => User::all(['id', 'name'])
             ]);
        
     }
@@ -66,11 +68,13 @@ class CategoriesController extends Controller
             ],
             'selected_ParentCategoriesIds' => ['nullable', 'array'],
             'selected_ParentCategoriesIds.*' => ['exists:categories,id'],
+            
         ]);
 
         $category = Category::create([
             'name' => $validated['name'],
-            'description' => $validated['description'],
+            'description' => $validated['description'],"created_by" =>  \auth('web')->user()->id
+
         ]);
 
         if ($request->hasFile('image.0')) {
@@ -120,7 +124,6 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-
         if (\is_array($request->image) && empty($request->image)) {
             // THE USER MANUALLY DELETED THE CATEGORY IMAGE
             $category->clearMediaCollection('category_images');
@@ -148,6 +151,7 @@ class CategoriesController extends Controller
         $category->update([
             'name' => $validated['name'],
             'description' => $validated['description'],
+            "last_updated_by" => \auth('web')->user()->id
         ]);
 
 

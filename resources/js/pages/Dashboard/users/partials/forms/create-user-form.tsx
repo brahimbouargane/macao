@@ -1,4 +1,4 @@
-import { Button, Form, ProgressCircle, TextField } from '@/components/ui';
+import { Button, Form, Note, ProgressCircle, Select, TextField } from '@/components/ui';
 import { PagePropsData } from '@/types';
 import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
@@ -16,6 +16,7 @@ export default function CreateUserForm({ setIsCreateFormModalOpen }: CreateUserF
   const form = useForm({
     name: '',
     email: '',
+    role: null,
     password: '',
     password_confirmation: ''
   });
@@ -121,6 +122,42 @@ export default function CreateUserForm({ setIsCreateFormModalOpen }: CreateUserF
           errorMessage={form.errors.password_confirmation}
           isRequired
         />
+        <Select
+          isRequired
+          isDisabled={form.processing}
+          selectedKey={form.data.role}
+          onSelectionChange={function (key) {
+            form.setData('role', key);
+          }}
+          label={__(translations, 'Role')}
+          placeholder={__(translations, 'Select a role')}
+          errorMessage={form.errors.role}
+        >
+          <Select.Trigger />
+          <Select.List
+            items={[
+              { id: 'admin', name: __(translations, 'Admin') },
+              { id: 'manager', name: __(translations, 'Manager') }
+            ]}
+          >
+            {(item) => (
+              <Select.Option key={item.id} id={item.id} textValue={item.name}>
+                {item.name}
+              </Select.Option>
+            )}
+          </Select.List>
+        </Select>
+        {form.data.role == 'admin' && (
+          <Note className="my-0" intent="warning">
+            {__(translations, "Warning: The 'Administrator' role grants full control, including user management.")}
+          </Note>
+        )}
+        {form.data.role == 'manager' && (
+          <Note className="my-0" intent="info">
+            {__(translations, "Note: The 'Manager' role has control over all resources except user management.")}
+          </Note>
+        )}
+        {form.errors && form.errors.role && <span className="text-xm text-danger">{form.errors.role}</span>}
       </div>
 
       <div className="flex items-center justify-between !mt-8">

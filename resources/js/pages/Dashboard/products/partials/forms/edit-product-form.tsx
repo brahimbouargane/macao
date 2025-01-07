@@ -22,7 +22,6 @@ type EditProductFormProps = {
 };
 
 export default function EditProductForm({ product, setIsModalOpen }: EditProductFormProps) {
-  console.log('🚀 ~ EditProductForm ~ product:', product);
   const { categories, brands, productTypes } = useQueryBuilderProductsContext();
   const translations = usePage<PagePropsData>().props.translations;
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
@@ -39,7 +38,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
     description: product.description ?? '',
     selected_CategoriesIds: product.categories ? product.categories?.map((s) => s.id) : [],
     brand_id: product.brand?.id ?? null,
-    product_type_id: product.productType?.id ?? null,
+    product_type_id: product.product_type?.id ?? null,
     primary_image: product.primaryImage?.optimized ? [product.primaryImage.optimized] : [],
     secondary_images: product.secondaryImages ? product.secondaryImages.map((img) => img.thumbnail) : [],
     price: product.price ?? '',

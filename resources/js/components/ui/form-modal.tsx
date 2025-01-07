@@ -32,7 +32,8 @@ const FormModal = ({
       <Modal.Title>{title}</Modal.Title>
       <Modal.Description>{description}</Modal.Description>
     </Modal.Header>
-    <div>{children}</div>
+
+    <div className="md:max-h-[80vh] overflow-y-auto">{children}</div>
   </Modal.Content>
 );
 
