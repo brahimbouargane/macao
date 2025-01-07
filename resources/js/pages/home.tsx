@@ -1,22 +1,52 @@
-import {  Carousel, Container } from '@/components/ui';
+import PastorMacaoHero from '@/components/aboutUs';
+import CategoryGrid from '@/components/categoriesSection';
+import ContactSection from '@/components/contactUs';
+import DisplaySection from '@/components/displaySection';
+import { Footer } from '@/components/footer';
+import HeroSlide from '@/components/heroCarousel';
+import { Navbar } from '@/components/navBar';
+import BestSellers from '@/components/productsSection';
+import SEO from '@/components/seo';
+import TextSlider from '@/components/textSlider';
+import { Container } from '@/components/ui';
 import { Head } from '@inertiajs/react';
-import { Logo } from 'components/logo';
-
-import { AppLayout } from 'layouts';
-
 
 export default function Home() {
   return (
     <>
+      <SEO title="Macao" description="Welcome to our amazing website" keywords="keyword1, keyword2, keyword3" />
       <Head title="Macao" />
-      <Container>
-        <div className="flex flex-col items-center justify-center pt-8 overflow-hidden border border-transparent rounded-lg lg:border-border">
-          <h1 className="text-3xl text-center">WORK IN PROGRESS</h1>
-          <img src="/images/progress.svg" alt="" className="h-96" />
+      <Navbar />
+      <HeroSlide />
+      <div className="flex min-h-screen flex-col">
+        {/* Contained sections */}
+        <Container>
+          <CategoryGrid />
+        </Container>
+        {/* Full-width section */}
+
+        <div className="w-full">
+          <TextSlider speed={8} pauseOnHover={true} />
         </div>
-      </Container>
+        <PastorMacaoHero />
+        <Container>
+          <BestSellers />
+        </Container>
+
+        {/* Full-width section */}
+        <div className="w-full">
+          <TextSlider speed={8} pauseOnHover={true} />
+        </div>
+
+        <Container>
+          <DisplaySection />
+          {/* <CertificatesSection /> */}
+          <ContactSection />
+        </Container>
+        <Footer />
+      </div>
     </>
   );
 }
 
-Home.layout = (page: any) => <AppLayout children={page} />;
+// Home.layout = (page: any) => <AppLayout children={page} />;
