@@ -16,10 +16,7 @@ const navigations = [
     name: 'About',
     textValue: 'About',
     href: '/about'
-  },
-  
- 
-  
+  }
 ];
 
 export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Navbar>) {
@@ -30,7 +27,7 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
   React.useEffect(() => setIsOpen(false), [page.url]);
   return (
     <Navbar isOpen={isOpen} onOpenChange={setIsOpen} {...props}>
-      <Navbar.Nav>
+      <Navbar.Nav className="flex items-center justify-between">
         <Navbar.Logo aria-label="Logo">
           <Logo />
         </Navbar.Logo>
@@ -44,6 +41,7 @@ export function AppNavbar({ children, ...props }: React.ComponentProps<typeof Na
 
         <Navbar.Section className="ml-auto ">
           <div className="hidden ml-auto gap-x-1 lg:flex">{auth.user ? <UserMenu /> : <LoginMenu />}</div>
+          <LanguageSelector currentLocale={page.props.locale} />
         </Navbar.Section>
       </Navbar.Nav>
 
@@ -92,14 +90,16 @@ function UserMenu() {
 }
 
 function LoginMenu() {
-  const page = usePage<PagePropsData>();
+  const translations = usePage<PagePropsData>().props.translations;
 
   return (
     <>
-      <LanguageSelector currentLocale={page.props.locale} />
-      <Link href={route('login')} className="inline-block bg-blue-500 rounded-lg">
-        <Button className="overflow-hidden ">{__(page.props.translations, 'Log in')}</Button>
-      </Link>
+      <Button className="!p-0 overflow-hidden ml-4">
+        <Link href={route('login')} className="inline-block p-2 rounde-md">
+          {' '}
+          {__(translations, 'Log in')}
+        </Link>
+      </Button>
       {/* <Menu>
       <Button size="small" appearance="outline">
         {__(translations,'Log in')}

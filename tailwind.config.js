@@ -86,10 +86,41 @@ const config = withTV({
         lg: 'calc(var(--radius))',
         md: 'calc(var(--radius) - 2.5px)',
         sm: 'calc(var(--radius) - 5px)'
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-25%)' }
+        },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' }
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' }
+        }
+      },
+      animation: {
+        marquee: 'marquee var(--animation-duration) linear infinite'
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out'
       }
     }
   },
-  plugins: [require('tailwindcss-animate'), require('tailwindcss-react-aria-components')]
+  plugins: [
+    require('tailwindcss-animate'),
+    require('tailwindcss-react-aria-components'),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.pause': {
+          'animation-play-state': 'paused'
+        }
+      });
+    }
+  ]
 });
 
 export default config;

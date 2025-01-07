@@ -109,6 +109,7 @@ export type ProductData = {
   categoriesNames: Array<any> | null;
   secondaryImages: Array<ImageConversionData> | null;
   brand: BrandData | null;
+  productType: ProductTypeData | null;
   product_type: ProductTypeData | null;
   price: number | null;
   weight: number | null;
@@ -132,6 +133,7 @@ export type ProductTypeData = {
   created_by: string | null;
   last_updated_by: string | null;
 };
+
 export type ReferenceData = {
   id: string;
   ref: string;
