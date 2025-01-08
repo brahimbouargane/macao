@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/shadcn-badge';
 import { cn } from '@/utils/classes';
 import { router, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { ImageIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 // Import images and other dependencies...
@@ -120,7 +121,10 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  //   const productGridRef = useRef<HTMLDivElement>(null);
+  const [imageError, setImageError] = useState(false);
+  7;
+
+  const placeholderImage = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EMACAO%3C/text%3E%3C/svg%3E`;
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -136,9 +140,7 @@ const Products = () => {
     parentCategory: { name: string; childCategoriesNames: string[] };
     childCategory: { name: string };
   }>().props;
-  console.log(products);
-  console.log(parentCategory);
-  console.log(childCategory);
+
   // Enhanced filtering with animation support
   const filteredProducts = selectedCategory
     ? products.filter((product) => product.category === selectedCategory)
@@ -273,13 +275,23 @@ const Products = () => {
                       <motion.img
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.4 }}
-                        src={product.primaryImage.optimized}
+                        src={product.primaryImage.optimized || placeholderImage}
                         alt={product.name}
                         width={400}
                         height={400}
-                        className="h-full w-full object-cover"
+                        className={cn('h-full w-full object-cover', imageError && 'bg-red-300')}
                       />
                     </div>
+                    {imageError && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                        <div className="text-center">
+                          <div className="text-gray-400 mb-2">
+                            <ImageIcon className="mx-auto h-12 w-12" />
+                          </div>
+                          <p className="text-sm text-gray-500">Image non disponible</p>
+                        </div>
+                      </div>
+                    )}
                     <div className="p-6">
                       <Badge variant="secondary" className="mb-2 transition-colors hover:bg-red-100">
                         {product.product_type.name}
