@@ -1,25 +1,15 @@
 import videoPlay from '@/assets/images/video.jpg';
-import { Play } from 'lucide-react';
+import { Award, Heart, Play, Store, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Counter } from './counter';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
 
 const stats = [
-  { number: 98, label: 'Satisfied Clients' },
-  { number: 65, label: 'Products' },
-  { number: 10, label: 'Years Experience' },
-  { number: 12, label: 'Awards' }
+  { number: 98, label: 'Satisfied Clients', icon: <Heart className="stroke-primary" /> },
+  { number: 65, label: 'Products', icon: <Store className="stroke-primary" /> },
+  { number: 10, label: 'Years Experience', icon: <Timer className="stroke-primary" /> },
+  { number: 12, label: 'Awards', icon: <Award className="stroke-primary" /> }
 ];
-
-const contactInfo = {
-  address: 'Rue 123, Quartier Industrial, Casablanca',
-  phone: '+212 123-456789',
-  email: 'contact@pastormacao.com',
-  coordinates: {
-    lat: 33.5731,
-    lng: -7.5898
-  }
-};
 
 export default function DisplaySection() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +17,7 @@ export default function DisplaySection() {
   return (
     <section className="relative py-8 sm:py-12 lg:py-16">
       {/* Hero Image Container */}
-      <div className="relative h-[400px] md:h-[450px] lg:h-[450px] w-full overflow-hidden group">
+      <div className="relative h-[400px] md:h-[450px] lg:h-[650px] w-full overflow-hidden group">
         {/* Image with proper sizing */}
         <div className="absolute inset-0 w-full h-full">
           <img
@@ -79,10 +69,12 @@ export default function DisplaySection() {
       <div className="container mx-auto px-4">
         {/* Stats Section */}
         <div className="relative -mt-20 mx-4 bg-white rounded-lg shadow-xl p-6 md:p-8 mb-16">
-          <h2 className="text-center text-xl md:text-2xl mb-6 md:mb-8">The best confectionery for your enjoyment</h2>
+          <h2 className="text-center text-xl md:text-2xl mb-6 md:mb-8">
+            Les meilleures douceurs pour votre satisfaction.
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {stats.map((stat) => (
-              <Counter key={stat.label} end={stat.number} label={stat.label} />
+              <Counter key={stat.label} icon={stat.icon} end={stat.number} label={stat.label} />
             ))}
           </div>
         </div>

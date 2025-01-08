@@ -10,11 +10,19 @@ import SEO from '@/components/seo';
 import TextSlider from '@/components/textSlider';
 import { Container } from '@/components/ui';
 import { Head } from '@inertiajs/react';
+import { useEffect } from 'react';
 
 export default function Home() {
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual';
+  }, []);
   return (
     <>
-      <SEO title="Macao" description="Welcome to our amazing website" keywords="keyword1, keyword2, keyword3" />
+      <SEO
+        title="Macao - Artisanal Confectionery & Patisserie"
+        description="Discover our exquisite collection of artisanal candies, chocolates, and patisserie crafted with passion and tradition."
+        keywords="artisanal chocolate, luxury confectionery, patisserie, candy, desserts, Macao"
+      />
       <Head title="Macao" />
       <Navbar />
       <HeroSlide />
@@ -37,9 +45,8 @@ export default function Home() {
         <div className="w-full">
           <TextSlider speed={8} pauseOnHover={true} />
         </div>
-
+        <DisplaySection />
         <Container>
-          <DisplaySection />
           {/* <CertificatesSection /> */}
           <ContactSection />
         </Container>
