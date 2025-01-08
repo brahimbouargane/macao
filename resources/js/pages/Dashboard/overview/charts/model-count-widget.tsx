@@ -3,6 +3,7 @@ import { CardContent, CardHeader, CardTitle } from '@/components/ui/shadcn-card'
 import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { usePage } from '@inertiajs/react';
+import _ from 'lodash';
 
 type ModelCountWidgetProps = {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -31,7 +32,7 @@ export default function ModelCountWidget({
         <div
           className={`inline-flex items-center rounded-full px-2.5 -ml-2.5 py-0.5 text-sm font-semibold ${bgColor} ${color} mt-1`}
         >
-          12% {__(t, 'Increase')}
+          {_.random(10, 80)}% {__(t, 'Increase')}
         </div>
       </CardContent>
     </Card>

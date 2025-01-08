@@ -1,7 +1,7 @@
 import { Button, Card, Container } from '@/components/ui';
 import FormModal from '@/components/ui/form-modal';
 import { DashboardLayout } from '@/layouts';
-import { PagePropsData, PaginationData } from '@/types';
+import { PagePropsData, PaginationData, UserReferenceData } from '@/types';
 import { cn } from '@/utils/classes';
 import { buildConfigFromQueryParams } from '@/utils/queryParamsParser';
 import __ from '@/utils/translations';
@@ -15,11 +15,12 @@ import CreateProductTypeForm from './partials/forms/create-product-type-form';
 import { ProductTypesDataTable } from './partials/table/productTypes-table';
 import { columns } from './partials/table/productTypes-columns';
 
-interface BrandsIndexPage extends PagePropsData {
+interface ProductTypeIndexPage extends PagePropsData {
   paginationData: PaginationData;
+  usersOptions: UserReferenceData[];
 }
 
-function Index({ paginationData }: BrandsIndexPage) {
+function Index({ paginationData, usersOptions }: ProductTypeIndexPage) {
   const translations = usePage<PagePropsData>().props.translations;
 
   const parsedQueryParams = buildConfigFromQueryParams(route().queryParams);
@@ -57,7 +58,7 @@ function Index({ paginationData }: BrandsIndexPage) {
             </Button>
             <FormModal
               size="lg"
-              title={__(translations, 'Create') + ' ' + __(translations, 'Brand')}
+              title={__(translations, 'Create') + ' ' + __(translations, 'Type')}
               state={isCreateFormModalOpen}
               onOpenChange={setIsCreateFormModalOpen}
             >
@@ -71,6 +72,7 @@ function Index({ paginationData }: BrandsIndexPage) {
               data={paginationData.data}
               pd={paginationData}
               translations={translations}
+              usersOptions={usersOptions}
             />
           </Card>
         </Container>

@@ -110,8 +110,7 @@ export default function DateFilter({ fieldName, setAllowedFilters, builder }: Da
         <div className="flex items-center px-1 overflow-hidden rounded-none cursor-pointer bg-zinc-200 dark:bg-zinc-500">
           <XIcon
             size={14}
-            color="#ccc"
-            className="transition-all duration-500 hover:rotate-180 hover:text-primary "
+            className="transition-all duration-500 hover:rotate-180 hover:text-primary text-[#222] dark:text-inherit"
             onClick={() => {
               builder.removeFilter(...validDateFilters(fieldName));
               setAllowedFilters((prev) =>
@@ -270,8 +269,6 @@ function getActiveSuffix(
 }
 
 function replaceViewText(text: string) {
-  console.log('🚀 ~ replaceViewText ~ text:', text);
-
   if (text == 'product_type') {
     return 'Type';
   }
@@ -286,4 +283,6 @@ function replaceViewText(text: string) {
   if (text == 'last_updated_by') {
     return 'last updated by';
   }
+
+  return text;
 }

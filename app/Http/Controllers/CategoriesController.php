@@ -35,7 +35,7 @@ class CategoriesController extends Controller
                         ->withQueryString()
                 ),
             "categories" => CategoryData::collect(Category::with(['parentCategories'])->get()),
-            "usersOptions" => User::all(['id', 'name'])
+            "usersOptions" => User::excludeDeveloper()->get(['id', 'name']),
             ]);
        
     }

@@ -71,8 +71,7 @@ export default function StringFilter({ fieldName, setAllowedFilters, builder }: 
         <div className="flex items-center px-1 overflow-hidden rounded-none cursor-pointer bg-zinc-200 dark:bg-zinc-500 ">
           <XIcon
             size={14}
-            color="#ccc"
-            className="transition-all duration-500 hover:rotate-180 hover:text-primary "
+            className="transition-all duration-500 hover:rotate-180 hover:text-primary text-[#222] dark:text-inherit "
             onClick={() => {
               builder.removeFilter(...validStringFilters(fieldName));
               setAllowedFilters((prev) =>
@@ -84,7 +83,7 @@ export default function StringFilter({ fieldName, setAllowedFilters, builder }: 
           />
         </div>
       </div>
-      <Popover.Content showArrow={false} className="border-2  dark:bg-accent border-zinc-300 dark:border-zinc-500">
+      <Popover.Content showArrow={false} className="border-2 dark:bg-accent border-zinc-300 dark:border-zinc-500">
         <div className="flex flex-col gap-y-2">
           <div className="flex items-center gap-x-2">
             <FaFilter size={20} />
