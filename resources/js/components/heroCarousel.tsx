@@ -70,10 +70,10 @@ const FloatingImage = ({ image, position, activeItem }) => {
   const rotateValues = getRotateValues();
 
   const sizeClasses = {
-    'top-left': 'w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56 	',
-    'top-right': 'w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-56',
-    'bottom-left': 'w-48 h-48 md:w-64 md:h-64 lg:w-30 lg:h-56 ',
-    'bottom-right': 'w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56 	'
+    'top-left': 'w-28 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56 	',
+    'top-right': 'w-28 h-48 md:w-64 md:h-64 lg:w-80 lg:h-56',
+    'bottom-left': 'w-28 h-48 md:w-64 md:h-64 lg:w-30 lg:h-56 ',
+    'bottom-right': 'w-28 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56 	'
   };
 
   const floatingAnimation = {
@@ -333,7 +333,7 @@ const HeroSlide = () => {
               className="w-full flex justify-center pt-32 md:pt-32 lg:pt-32 px-4"
             >
               <h1
-                className="z-50  encode-sans tracking-[-1.6rem] mt-10 md:mt-10 lg:mt-[8rem] text-7xl md:text-8xl lg:text-[20rem] font-bold uppercase leading-none bg-clip-text text-transparent"
+                className="z-50  encode-sans md:tracking-[-1.6rem] mt-10 md:mt-10 lg:mt-[8rem] text-7xl md:text-8xl lg:text-[20rem] font-bold uppercase leading-none bg-clip-text text-transparent"
                 style={{
                   backgroundImage: items[active].textGradient,
                   WebkitBackgroundClip: 'text',
@@ -352,14 +352,14 @@ const HeroSlide = () => {
                 delay: 0.2,
                 ease: 'easeOut'
               }}
-              className="!w-[410px] !z-50  absolute bottom-[9%] left-[10%]  md:w-1/2 mt-4 md:mt-0 pointer-events-auto"
+              className="!w-[310px] !z-50  absolute bottom-[9%] left-[10%]  md:w-1/2 mt-4 md:mt-0 pointer-events-auto"
             >
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-white text-base  md:text-xl lg:text-xl leading-relaxed mt-16 md:mt-20 lg:mt-24 mb-8"
+                className="text-white text-base mb-[6px]   md:text-xl lg:text-xl leading-relaxed  md:mt-20 lg:mt-24 md:mb-8"
               >
                 {items[active].description}
               </motion.p>
@@ -368,7 +368,7 @@ const HeroSlide = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
-                className=" px-8 py-3  cursor-pointer  hover:bg-white/30 text-white rounded-full transition-colors duration-300 border border-white/60"
+                className=" px-8 py-3 mb-6  cursor-pointer  hover:bg-white/30 text-white rounded-full transition-colors duration-300 border border-white/60"
                 onClick={() => console.log('Button clicked')}
                 style={{
                   background: items[active].gradient
