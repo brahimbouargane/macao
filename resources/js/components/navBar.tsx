@@ -31,6 +31,7 @@ import {
 import { useEffect, useState } from 'react';
 import { Link } from './ui';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/shadcn-dropdown-menu';
+import { ScrollArea } from './ui/shadcn-scroll-area';
 
 const MotionLink = motion(Link);
 const MotionButton = motion(Button);
@@ -367,42 +368,44 @@ export function Navbar() {
                   </MotionButton>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-full max-w-sm">
-                  <nav className="mt-6">
-                    <Link href="/" className="block mb-6">
-                      <span className="text-lg font-semibold text-gray-900 hover:text-red-600">ACCUEIL</span>
-                    </Link>
+                  <ScrollArea className="h-screen">
+                    <nav className="mt-6">
+                      <Link href="/" className="block mb-6">
+                        <span className="text-lg font-semibold text-gray-900 hover:text-red-600">ACCUEIL</span>
+                      </Link>
 
-                    {featuredCategories.map((category) => (
-                      <div key={category.id} className="mb-6">
-                        <h3 className="text-lg font-semibold text-red-600 mb-4">{category.title}</h3>
-                        <div className="ml-4 grid grid-cols-2 gap-3">
-                          {category.items.map((item, index) => (
-                            <motion.div
-                              key={item}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: index * 0.1 }}
-                            >
-                              <Link href={`/products/${category.id}/${item.toLowerCase()}`} className="block group">
-                                <motion.div
-                                  className="p-4 rounded-lg bg-gray-50 hover:bg-red-50 border border-gray-100 hover:border-red-100 transition-all duration-300"
-                                  whileHover={{
-                                    scale: 1.03,
-                                    y: -2,
-                                    transition: { duration: 0.2 }
-                                  }}
-                                >
-                                  <span className="text-gray-800 group-hover:text-red-600 font-medium transition-colors duration-300">
-                                    {item}
-                                  </span>
-                                </motion.div>
-                              </Link>
-                            </motion.div>
-                          ))}
+                      {featuredCategories.map((category) => (
+                        <div key={category.id} className="mb-6">
+                          <h3 className="text-lg font-semibold text-red-600 mb-4">{category.title}</h3>
+                          <div className="ml-4 grid grid-cols-2 gap-3">
+                            {category.items.map((item, index) => (
+                              <motion.div
+                                key={item}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                              >
+                                <Link href={`/products/${category.id}/${item.toLowerCase()}`} className="block group">
+                                  <motion.div
+                                    className="p-4 rounded-lg bg-gray-50 hover:bg-red-50 border border-gray-100 hover:border-red-100 transition-all duration-300"
+                                    whileHover={{
+                                      scale: 1.03,
+                                      y: -2,
+                                      transition: { duration: 0.2 }
+                                    }}
+                                  >
+                                    <span className="text-gray-800 group-hover:text-red-600 font-medium transition-colors duration-300">
+                                      {item}
+                                    </span>
+                                  </motion.div>
+                                </Link>
+                              </motion.div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </nav>
+                      ))}
+                    </nav>
+                  </ScrollArea>
                 </SheetContent>
               </Sheet>
             </motion.div>
