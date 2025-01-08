@@ -13,6 +13,7 @@ import {
   NavigationMenuTrigger
 } from '@/components/ui/shadcn-navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/shadcn-sheet';
+import useWindowSize from '@/hooks/useWindowSize';
 import { motion } from 'framer-motion';
 import {
   Candy,
@@ -95,6 +96,7 @@ const featuredCategories = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const { width } = useWindowSize();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,7 +107,6 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   return (
     <motion.header className="fixed top-0 z-50 w-full" initial="initial" animate="animate" variants={fadeIn}>
       {/* Special Announcement Banner */}
@@ -115,7 +116,7 @@ export function Navbar() {
             initial={{ x: '100%' }}
             animate={{ x: '-100%' }}
             transition={{
-              duration: 50,
+              duration: width < 768 ? 10 : 20,
               repeat: Infinity,
               ease: 'linear'
             }}
@@ -382,7 +383,7 @@ export function Navbar() {
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: index * 0.1 }}
                             >
-                              <Link href={`/catalogue/${category.id}/${item.toLowerCase()}`} className="block group">
+                              <Link href={`/products/${category.id}/${item.toLowerCase()}`} className="block group">
                                 <motion.div
                                   className="p-4 rounded-lg bg-gray-50 hover:bg-red-50 border border-gray-100 hover:border-red-100 transition-all duration-300"
                                   whileHover={{
