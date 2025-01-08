@@ -75,12 +75,14 @@ export default function ForgotPassword({ status }: ForgotPasswordProps) {
                   {processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
                   {processing ? __(translations, 'Sending...') : __(translations, 'Send')}
                 </Button>
-                <Button className=" transition-all duration-200 hover:-rotate-3" isDisabled={processing}>
-                  <Link href="/login" className="flex items-center justify-between gap-2">
-                    {__(translations, 'Go Back')}
-                    <FaBackspace className="size-6" />
-                  </Link>
-                </Button>
+                <Link
+                  href="/login"
+                  className="flex bg-primary p-2 rounded-md text-sm text-white items-center justify-between gap-2 transition-all duration-200 hover:-rotate-3"
+                  disabled={processing}
+                >
+                  {__(translations, 'Go Back')}
+                  <FaBackspace className="size-6" />
+                </Link>
               </div>
             </Form>
           </Card.Content>

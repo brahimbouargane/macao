@@ -50,12 +50,14 @@ export default function Login(args: LoginProps) {
     // h-[calc(100vh-64px)]
     <>
       <div className={cn(`w-full px-4 flex flex-col items-center justify-center bg-red-500 h-full`, ``)}>
-        <Button className="mb-16 transition-all duration-200 hover:-rotate-3">
-          <Link href="/" className="flex items-center justify-between gap-2">
-            {__(translations, 'Go Home')}
-            <FaHome className="size-6" />
-          </Link>
-        </Button>
+        <Link
+          href="/"
+          className="flex items-center justify-between gap-2 bg-primary p-2 rounded-md text-sm text-white mb-16 transition-all duration-200 hover:-rotate-3"
+        >
+          {__(translations, 'Go Home')}
+          <FaHome className="size-6" />
+        </Link>
+
         <Head title="Se connecter" />
         <Card className="w-full max-w-lg bg-zinc-50">
           <Card.Header className="flex items-center justify-between text-center">
