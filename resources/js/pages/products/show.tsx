@@ -11,8 +11,9 @@ const ProductShow = ({ product, relatedProducts }) => {
     product.primaryImage?.optimized,
     ...(product.secondaryImages?.map((img) => img.optimized) || [])
   ].filter(Boolean);
+  const placeholderImage = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EMACAO%3C/text%3E%3C/svg%3E`;
 
-  const displayImages = allImages.length > 0 ? allImages : ['/api/placeholder/600/600'];
+  const displayImages = allImages.length > 0 ? allImages : [placeholderImage];
 
   const nextImage = () => {
     setSelectedImageIndex((prev) => (prev === displayImages.length - 1 ? 0 : prev + 1));
@@ -279,7 +280,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                   <motion.img
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.4 }}
-                    src={relatedProduct.primaryImage?.optimized || '/api/placeholder/400/400'}
+                    src={relatedProduct.primaryImage?.optimized || placeholderImage}
                     alt={relatedProduct.name}
                     className="w-full h-full object-cover"
                   />

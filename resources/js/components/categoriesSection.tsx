@@ -283,7 +283,7 @@ const categories: Category[] = [
   {
     title: 'Chocolat',
     image: choco,
-    href: '/products/chocolate/Pâtes à tartiner',
+    href: '/products/chocolat/pâtes%20à%20tartiner',
     description: 'Découvrez notre sélection de chocolats premium'
   },
   {
