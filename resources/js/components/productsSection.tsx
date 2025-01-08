@@ -74,7 +74,7 @@ export default function BestSellers() {
                     <p className="text-gray-600 text-sm">{product.subtitle}</p>
                   </div>
                 </div>
-                <div className="bg-[#8B4513] text-white p-4 text-center text-sm group-hover:bg-[#6d3610] transition-colors duration-300">
+                <div className="bg-red-600 text-white p-4 text-center text-sm group-hover:bg-red-600/50 transition-colors duration-300">
                   {product.details}
                 </div>
               </div>
