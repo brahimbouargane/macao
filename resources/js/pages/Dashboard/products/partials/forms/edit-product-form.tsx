@@ -15,6 +15,7 @@ import { FaBox, FaHashtag, FaMoneyBill, FaPlus, FaTruck, FaWeightHanging } from 
 import { MdDriveFileRenameOutline, MdOutlineQuestionMark } from 'react-icons/md';
 import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvider';
 import CreateProductTypeForm from '@/pages/Dashboard/productTypes/partials/forms/create-product-type-form';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn-tabs';
 
 type EditProductFormProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -46,6 +47,8 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
     packaging: product.packaging ?? '',
     tc_20: product.tc_20 ?? '',
     tc_40: product.tc_40 ?? '',
+    description_english: '',
+    name_english: '',
     _method: 'patch'
   });
 
@@ -81,115 +84,136 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
     <>
       <Form onSubmit={updateCategory} validationErrors={form.errors} className="pb-4 space-y-8 ">
         <ScrollArea className="  max-md:h-[600px]  p-2 ">
-          <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
-            {/* General */}
+          <div className="">
+            <div className="md:grid grid-cols-3 max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
+              {/* File Upload */}
+              <div className="space-y-8 max-md:pt-2  col-span-1">
+                <FileUploadDropzone
+                  inputPreviewText={__(translations, 'Click to upload an image')}
+                  fieldName="primary_image"
+                  files={form.data.primary_image}
+                  isLoading={form.processing}
+                  setFiles={form.setData}
+                  className="mt-2"
+                />
 
-            <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
-              <legend className="font-semibold ">{__(translations, 'General')}</legend>
-              <div className="col-span-1 space-y-6">
-                <div className="grid gap-4 md:grid-cols-1">
-                  <TextField
-                    isDisabled={form.processing}
-                    type="text"
-                    name="ref"
-                    label={__(translations, 'Ref')}
-                    value={form.data.ref}
-                    autoComplete="ref"
-                    onChange={(v) => form.setData('ref', v)}
-                    errorMessage={form.errors.ref}
-                    isRequired
-                    prefix={
-                      <div className="pr-2 border-r-2 ">
-                        <FaHashtag className="text-colors-primary" />
-                      </div>
-                    }
+                {/* --------------------------------- */}
+                <div className="rounded-md ">
+                  <FilesUploadDropzone
+                    fieldName="secondary_images"
+                    isLoading={form.processing}
+                    files={form.data.secondary_images}
+                    setFiles={form.setData}
                   />
-                  <TextField
-                    isDisabled={form.processing}
-                    type="text"
-                    name="name"
-                    label={__(translations, 'Name')}
-                    prefix={
-                      <div className="pr-2 border-r-2 ">
-                        <MdDriveFileRenameOutline className="text-colors-primary" />
-                      </div>
-                    }
-                    value={form.data.name}
-                    autoComplete="name"
-                    onChange={(v) => form.setData('name', v)}
-                    errorMessage={form.errors.name}
-                  />
-                  <Textarea
-                    isDisabled={form.processing}
-                    name="description"
-                    label={__(translations, 'Description')}
-                    value={form.data.description}
-                    autoComplete="description"
-                    onChange={(v) => form.setData('description', v)}
-                    errorMessage={form.errors.description}
-                  />
-                  <div className="relative">
-                    <Select
-                      isDisabled={form.processing}
-                      selectedKey={String(form.data.product_type_id)}
-                      onSelectionChange={function (key) {
-                        form.setData('product_type_id', String(key));
-                      }}
-                      label={__(translations, 'Type')}
-                      placeholder={__(translations, 'Select a type')}
-                      errorMessage={form.errors.product_type_id}
-                    >
-                      <Select.Trigger />
-                      <Select.List items={productTypes}>
-                        {(item) => (
-                          <Select.Option key={item.id} id={item.id} textValue={item.name}>
-                            {item.name}
-                          </Select.Option>
-                        )}
-                      </Select.List>
-                    </Select>
-                    <Button
-                      onPress={() => setIsProductTypeModalOpen(true)}
-                      size="square-petite"
-                      intent="secondary"
-                      className="absolute top-0 right-0 self-end mb-1 size-6"
-                      isDisabled={form.processing}
-                    >
-                      <FaPlus size={10} />
-                    </Button>
-                  </div>
                 </div>
+                {/* --------------------------------- */}
+              </div>
+              {/* General */}
+              <fieldset className="p-2 col-span-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
+                <legend className="font-semibold ">{__(translations, 'General')}</legend>
+                <div className="col-span-1 space-y-6">
+                  <div className="grid gap-3 md:grid-cols-1 ">
+                    <TextField
+                      isDisabled={form.processing}
+                      type="text"
+                      name="ref"
+                      label={__(translations, 'Ref')}
+                      value={form.data.ref}
+                      autoComplete="ref"
+                      onChange={(v) => form.setData('ref', v)}
+                      errorMessage={form.errors.ref}
+                      isRequired
+                      prefix={
+                        <div className="pr-2 border-r-2 ">
+                          <FaHashtag className="text-colors-primary" />
+                        </div>
+                      }
+                    />
 
-                <div className="grid gap-4 md:grid-cols-2 ">
-                  <div className="w-full">
-                    <div className="relative ">
-                      <MultipleSelect
-                        placeholder={__(translations, 'Select a category')}
-                        label={__(translations, 'Categories')}
-                        name="parentCategories"
-                        className="w-full min-w-full"
-                        selectedItems={selectedCategoriesIds}
-                        items={categories}
+                    {/* ----------------- */}
+                    <>
+                      <Tabs defaultValue="French" aria-label="Fitness App" className="border-[2px] rounded-md">
+                        <TabsList className="flex justify-around">
+                          <TabsTrigger value="French">{__(translations, 'French')}</TabsTrigger>
+                          <TabsTrigger value="English">{__(translations, 'English')}</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="French" className="p-2 space-y-2">
+                          <TextField
+                            isDisabled={form.processing}
+                            type="text"
+                            name="name"
+                            label="Nom"
+                            prefix={
+                              <div className="pr-2 border-r-2 ">
+                                <MdDriveFileRenameOutline className="text-colors-primary" />
+                              </div>
+                            }
+                            value={form.data.name}
+                            autoComplete="name"
+                            onChange={(v) => form.setData('name', v)}
+                            errorMessage={form.errors.name}
+                          />
+                          <Textarea
+                            isDisabled={form.processing}
+                            name="description"
+                            label={__(translations, 'Description')}
+                            value={form.data.description}
+                            autoComplete="description"
+                            onChange={(v) => form.setData('description', v)}
+                            errorMessage={form.errors.description}
+                          />
+                        </TabsContent>
+                        <TabsContent value="English" className="p-2 space-y-2">
+                          <TextField
+                            isDisabled={form.processing}
+                            type="text"
+                            name="name_english"
+                            label="Name"
+                            prefix={
+                              <div className="pr-2 border-r-2 ">
+                                <MdDriveFileRenameOutline className="text-colors-primary" />
+                              </div>
+                            }
+                            value={form.data.name_english}
+                            autoComplete="name"
+                            onChange={(v) => form.setData('name', v)}
+                            errorMessage={form.errors.name}
+                          />
+                          <Textarea
+                            isDisabled={form.processing}
+                            name="description_english"
+                            label={__(translations, 'Description')}
+                            value={form.data.description_english}
+                            autoComplete="description"
+                            onChange={(v) => form.setData('description', v)}
+                            errorMessage={form.errors.description}
+                          />
+                        </TabsContent>
+                      </Tabs>
+                    </>
+                    {/* -------------------- */}
+                    <div className="relative">
+                      <Select
                         isDisabled={form.processing}
-                        onItemInserted={() => {
-                          form.clearErrors('selected_CategoriesIds');
+                        selectedKey={form.data.product_type_id}
+                        onSelectionChange={function (key) {
+                          form.setData('product_type_id', String(key));
                         }}
-                        tag={(item) => (
-                          <MultipleSelect.Tag key={item.id} textValue={item.name}>
-                            {item.name}
-                          </MultipleSelect.Tag>
-                        )}
+                        label={__(translations, 'Type')}
+                        placeholder={__(translations, 'Select a type')}
+                        errorMessage={form.errors.product_type_id}
                       >
-                        {(item) => {
-                          return (
-                            <MultipleSelect.Option key={item.id} id={item.id} textValue={item.name}>
+                        <Select.Trigger />
+                        <Select.List items={productTypes}>
+                          {(item) => (
+                            <Select.Option key={item.id} id={item.id} textValue={item.name}>
                               {item.name}
-                            </MultipleSelect.Option>
-                          );
-                        }}
-                      </MultipleSelect>
+                            </Select.Option>
+                          )}
+                        </Select.List>
+                      </Select>
                       <Button
-                        onPress={() => setIsCategoryModalOpen(true)}
+                        onPress={() => setIsProductTypeModalOpen(true)}
                         size="square-petite"
                         intent="secondary"
                         className="absolute top-0 right-0 self-end mb-1 size-6"
@@ -198,93 +222,93 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                         <FaPlus size={10} />
                       </Button>
                     </div>
-
-                    {form.errors.selected_CategoriesIds && form.errors.selected_CategoriesIds.length > 0 && (
-                      <div className="text-sm text-danger forced-colors:text-[Mark]">
-                        {form.errors.selected_CategoriesIds}
-                      </div>
-                    )}
                   </div>
 
-                  <div className="relative">
-                    <Select
-                      className="flex-1"
-                      isDisabled={form.processing}
-                      selectedKey={String(form.data.brand_id)}
-                      onSelectionChange={function (key) {
-                        form.setData('brand_id', String(key));
-                      }}
-                      label={__(translations, 'Brand')}
-                      placeholder={__(translations, 'Select a brand')}
-                      errorMessage={form.errors.brand_id}
-                    >
-                      <Select.Trigger />
-                      <Select.List items={brands}>
-                        {(item) => (
-                          <Select.Option key={item.id} id={item.id} textValue={item.name}>
-                            {item.name}
-                          </Select.Option>
-                        )}
-                      </Select.List>
-                    </Select>
-                    <Button
-                      onPress={() => setIsBrandModalOpen(true)}
-                      size="square-petite"
-                      intent="secondary"
-                      className="absolute top-0 right-0 self-end mb-1 size-6"
-                      isDisabled={form.processing}
-                    >
-                      <FaPlus size={10} />
-                    </Button>
+                  <div className="grid gap-4 md:grid-cols-2 ">
+                    <div className="w-full">
+                      <div className="relative ">
+                        <MultipleSelect
+                          key={categories.length}
+                          placeholder={__(translations, 'Select a category')}
+                          label={__(translations, 'Categories')}
+                          name="parentCategories"
+                          className="w-full min-w-full"
+                          selectedItems={selectedCategoriesIds}
+                          items={categories}
+                          isDisabled={form.processing}
+                          onItemInserted={() => {
+                            form.clearErrors('selected_CategoriesIds');
+                          }}
+                          tag={(item) => (
+                            <MultipleSelect.Tag key={item.id} textValue={item.name}>
+                              {item.name}
+                            </MultipleSelect.Tag>
+                          )}
+                        >
+                          {(item) => {
+                            return (
+                              <MultipleSelect.Option key={item.id} id={item.id} textValue={item.name}>
+                                {item.name}
+                              </MultipleSelect.Option>
+                            );
+                          }}
+                        </MultipleSelect>
+                        <Button
+                          onPress={() => setIsCategoryModalOpen(true)}
+                          size="square-petite"
+                          intent="secondary"
+                          className="absolute top-0 right-0 self-end mb-1 size-6"
+                          isDisabled={form.processing}
+                        >
+                          <FaPlus size={10} />
+                        </Button>
+                      </div>
+
+                      {form.errors.selected_CategoriesIds && form.errors.selected_CategoriesIds.length > 0 && (
+                        <div className="text-sm text-danger forced-colors:text-[Mark]">
+                          {form.errors.selected_CategoriesIds}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="relative">
+                      <Select
+                        className="flex-1"
+                        isDisabled={form.processing}
+                        selectedKey={String(form.data.brand_id)}
+                        onSelectionChange={function (key) {
+                          form.setData('brand_id', String(key));
+                        }}
+                        label={__(translations, 'Brand')}
+                        placeholder={__(translations, 'Select a brand')}
+                        errorMessage={form.errors.brand_id}
+                      >
+                        <Select.Trigger />
+                        <Select.List items={brands}>
+                          {(item) => (
+                            <Select.Option key={item.id} id={item.id} textValue={item.name}>
+                              {item.name}
+                            </Select.Option>
+                          )}
+                        </Select.List>
+                      </Select>
+                      <Button
+                        onPress={() => setIsBrandModalOpen(true)}
+                        size="square-petite"
+                        intent="secondary"
+                        className="absolute top-0 right-0 self-end mb-1 size-6"
+                        isDisabled={form.processing}
+                      >
+                        <FaPlus size={10} />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </fieldset>
-
-            {/* File Upload */}
-            <div className="space-y-3 max-md:pt-2 ">
-              <FileUploadDropzone
-                inputPreviewText={__(translations, 'Click to upload an image')}
-                fieldName="primary_image"
-                files={form.data.primary_image}
-                isLoading={form.processing}
-                setFiles={form.setData}
-              />
-
-              {/* --------------------------------- */}
-              <div>
-                <FilesUploadDropzone
-                  fieldName="secondary_images"
-                  isLoading={form.processing}
-                  files={form.data.secondary_images}
-                  setFiles={form.setData}
-                />
-                {form.errors['secondary_images.0'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.0'] as string).replace('Le champ secondary_images.0', "L'image 1")}
-                  </p>
-                )}
-                {form.errors['secondary_images.1'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.1'] as string).replace('Le champ secondary_images.1', "L'image 2")}
-                  </p>
-                )}
-                {form.errors['secondary_images.2'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.2'] as string).replace('Le champ secondary_images.2', "L'image 3")}
-                  </p>
-                )}
-                {form.errors['secondary_images.3'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.3'] as string).replace('Le champ secondary_images.3', "L'image 4")}
-                  </p>
-                )}
-              </div>
-              {/* --------------------------------- */}
+              </fieldset>
             </div>
-            {/* Details */}
 
-            <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700 col-span-2">
+            {/* Details */}
+            <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700 col-span-2 max-md:mt-8 md:mt-4">
               <legend className="font-semibold ">{__(translations, 'Details')}</legend>
               <div className="grid grid-cols-2 col-span-2 gap-3 md:grid-cols-5 ">
                 <TextField
