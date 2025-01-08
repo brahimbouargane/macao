@@ -41,7 +41,7 @@ export function DataTablePagination<TData>({ table, paginatedData }: DataTablePa
           {__(translations, 'Total lines number')} : {paginatedData.total}
         </span>
       </div>
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex items-center space-x-6 lg:space-x-8 flex-col md:flex-row space-y-3">
         {/* Lines per page */}
         <div className="flex items-center space-x-8">
           <Select
