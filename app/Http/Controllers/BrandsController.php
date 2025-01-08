@@ -31,7 +31,7 @@ class BrandsController extends Controller
                     // Preserve query parameters in pagination links
                     ->withQueryString()
             ),
-            "usersOptions" => User::all(['id', 'name'])
+            "usersOptions" => User::excludeDeveloper()->get(['id', 'name']),
 
         ]);
     }

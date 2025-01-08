@@ -125,6 +125,7 @@ export type ProductData = {
 export type ProductTypeData = {
   id: string;
   name: string;
+  productsCount: string | null;
   created_at: string | null;
   updated_at: string | null;
   created_by_user_name: string | null;

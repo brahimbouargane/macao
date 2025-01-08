@@ -116,6 +116,10 @@ function transformColumnIdValue(columnId: string) {
     case 'categories':
       columnId = 'Parent categories';
       break;
+
+    case 'parentCategories':
+      columnId = 'Parent categories';
+      break;
   }
 
   return columnId;

@@ -5,7 +5,7 @@ import __ from '@/utils/translations';
 import { usePage } from '@inertiajs/react';
 
 import { MdCategory, MdDashboard, MdSupervisedUserCircle } from 'react-icons/md';
-import { FaBoxOpen, FaTags } from 'react-icons/fa';
+import { FaBoxOpen, FaHashtag, FaTags } from 'react-icons/fa';
 import MacaoChef from '@/assets/images/macao_chef.png';
 import { Sidebar } from '@/components/ui';
 
@@ -36,6 +36,7 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
         {/* Ressource management */}
         <Sidebar.Section collapsible title={__(translations, 'Resource management')}>
           <Sidebar.Item
+            className="!ml-0"
             isCurrent={component.includes('Dashboard/products')}
             icon={FaBoxOpen}
             href={route('products.index')}
@@ -45,6 +46,7 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           </Sidebar.Item>
 
           <Sidebar.Item
+            className="ml-4"
             isCurrent={component.includes('Dashboard/brands')}
             icon={FaTags}
             href={route('brands.index')}
@@ -52,15 +54,17 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           >
             {__(translations, 'Brands')}
           </Sidebar.Item>
-          {/* <Sidebar.Item
+          <Sidebar.Item
+            className="ml-4"
             isCurrent={component.includes('Dashboard/productTypes')}
-            icon={FaTags}
+            icon={FaHashtag}
             href={route('productTypes.index')}
             badge={String(modelsCount.type)}
           >
             {__(translations, 'Types')}
-          </Sidebar.Item> */}
+          </Sidebar.Item>
           <Sidebar.Item
+            className="mt-2"
             isCurrent={component.includes('Dashboard/categories')}
             icon={MdCategory}
             href={route('categories.index')}
@@ -68,7 +72,10 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
           >
             {__(translations, 'Categories')}
           </Sidebar.Item>
-          {can.VIEW_ANY_USER && (
+        </Sidebar.Section>
+
+        {can.VIEW_ANY_USER && (
+          <Sidebar.Section collapsible title={__(translations, 'Users management')}>
             <Sidebar.Item
               isCurrent={component.includes('Dashboard/users')}
               icon={MdSupervisedUserCircle}
@@ -77,8 +84,8 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
             >
               {__(translations, 'Users')}
             </Sidebar.Item>
-          )}
-        </Sidebar.Section>
+          </Sidebar.Section>
+        )}
 
         {/* Settings */}
         {/* <Sidebar.Section collapsible title={__('Settings')}>

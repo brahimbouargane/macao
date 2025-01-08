@@ -119,6 +119,15 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     onChange={(v) => form.setData('name', v)}
                     errorMessage={form.errors.name}
                   />
+                  <Textarea
+                    isDisabled={form.processing}
+                    name="description"
+                    label={__(translations, 'Description')}
+                    value={form.data.description}
+                    autoComplete="description"
+                    onChange={(v) => form.setData('description', v)}
+                    errorMessage={form.errors.description}
+                  />
                   <div className="relative">
                     <Select
                       isDisabled={form.processing}
@@ -150,16 +159,6 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                     </Button>
                   </div>
                 </div>
-
-                <Textarea
-                  isDisabled={form.processing}
-                  name="description"
-                  label={__(translations, 'Description')}
-                  value={form.data.description}
-                  autoComplete="description"
-                  onChange={(v) => form.setData('description', v)}
-                  errorMessage={form.errors.description}
-                />
 
                 <div className="grid gap-4 md:grid-cols-2 ">
                   <div className="w-full">
