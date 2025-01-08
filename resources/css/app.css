@@ -1,5 +1,6 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -182,4 +183,7 @@
     border-radius: 14px !important;
     border: 3px solid transparent !important;
   }
+}
+.encode-sans {
+  font-family: 'Encode Sans', sans-serif;
 }

@@ -1,4 +1,7 @@
+import bestSelling2 from '@/assets/images/carousel-1.png';
 import bestSelling from '@/assets/images/carousel-2.png';
+import bestSelling3 from '@/assets/images/carousel-3.png';
+
 import { Link } from './ui';
 
 interface Product {
@@ -21,19 +24,19 @@ const products: Product[] = [
   },
   {
     id: '2',
-    title: 'CHOCOLAT LIGHT NOIR',
-    subtitle: 'CHOCOLAT SANS SUCRE 75 % DE CACAO',
+    title: 'Pâte à Mâcher Fruitée',
+    subtitle: 'BONBON FRUITÉ SANS SUCRE',
     details: 'BOCAL PLASTIQUE DE 200 PIECES',
-    image: bestSelling,
-    href: '/products/chocolat-light-noir'
+    image: bestSelling3,
+    href: '/products/pate-a-macher-fruitee'
   },
   {
     id: '3',
-    title: 'CHOCOLAT LIGHT NOIR',
-    subtitle: 'CHOCOLAT SANS SUCRE 75 % DE CACAO',
+    title: 'Pépites de Chocolate',
+    subtitle: 'PÉPITES DE CHOCOLAT SANS SUCRE',
     details: 'BOCAL PLASTIQUE DE 200 PIECES',
-    image: bestSelling,
-    href: '/products/chocolat-light-noir'
+    image: bestSelling2,
+    href: '/products/pepites-de-chocolate'
   }
 ];
 
@@ -42,8 +45,8 @@ export default function BestSellers() {
     <section className="py-16 px-4 ">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-red-500 font-medium tracking-wide uppercase mb-4">Categories</h2>
-          <h3 className="text-gray-800 text-4xl font-normal">Best Sellers</h3>
+          <h2 className="text-red-500 font-medium tracking-wide uppercase mb-4">Les produits</h2>
+          <h3 className="text-gray-800 text-4xl font-normal">Meilleures Ventes</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
