@@ -5,10 +5,10 @@ import { Counter } from './counter';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
 
 const stats = [
-  { number: 98, label: 'Satisfied Clients', icon: <Heart className="stroke-primary" /> },
-  { number: 65, label: 'Products', icon: <Store className="stroke-primary" /> },
-  { number: 10, label: 'Years Experience', icon: <Timer className="stroke-primary" /> },
-  { number: 12, label: 'Awards', icon: <Award className="stroke-primary" /> }
+  { number: 98, label: 'Clients satisfaits', icon: <Heart className="stroke-primary" /> },
+  { number: 65, label: 'Produits', icon: <Store className="stroke-primary" /> },
+  { number: 10, label: "Années d'expérience", icon: <Timer className="stroke-primary" /> },
+  { number: 12, label: 'Prix', icon: <Award className="stroke-primary" /> }
 ];
 
 export default function DisplaySection() {
