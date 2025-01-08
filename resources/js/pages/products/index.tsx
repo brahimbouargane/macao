@@ -20,6 +20,7 @@ interface Product {
   pieces: number;
   category: string;
   product_type: { name: string };
+  primaryImage: { optimized: string };
 }
 
 const categoryContent = {
@@ -135,7 +136,9 @@ const Products = () => {
     parentCategory: { name: string; childCategoriesNames: string[] };
     childCategory: { name: string };
   }>().props;
-
+  console.log(products);
+  console.log(parentCategory);
+  console.log(childCategory);
   // Enhanced filtering with animation support
   const filteredProducts = selectedCategory
     ? products.filter((product) => product.category === selectedCategory)
@@ -270,7 +273,7 @@ const Products = () => {
                       <motion.img
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.4 }}
-                        src={product.image}
+                        src={product.primaryImage.optimized}
                         alt={product.name}
                         width={400}
                         height={400}

@@ -1,5 +1,7 @@
 // export default Navbar;
 import candies from '@/assets/images/candies.webp';
+import choco from '@/assets/images/chocolate.webp';
+import leonardo from '@/assets/images/Leonardo.jpg';
 import macaoImage from '@/assets/images/macao_logo.png';
 import { Button } from '@/components/ui/shadcn-button';
 import {
@@ -57,7 +59,7 @@ const featuredCategories = [
     title: 'Chocolat',
     icon: Cookie,
     description: 'Découvrez notre sélection de chocolats fins',
-    image: candies,
+    image: choco,
     highlight: 'Nouvelle Collection',
     items: ['Pâtes à tartiner', 'Chocolats variés', 'Chocolats sans sucre']
   },
@@ -84,7 +86,7 @@ const featuredCategories = [
     title: 'Produits pâtissiers',
     icon: Cherry,
     description: "L'excellence de la pâtisserie française",
-    image: candies,
+    image: leonardo,
     highlight: 'Création Artisanale',
     items: ['Chocolats pâtissiers', 'Fourrage & décoration', 'Poudre de cacao sucré']
   }
@@ -250,7 +252,7 @@ export function Navbar() {
                               whileHover={{ scale: 1.05 }}
                               transition={{ duration: 0.4 }}
                             />
-                            <motion.div
+                            {/* <motion.div
                               className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
                               whileHover={{ scale: 1 }}
                               initial={{ opacity: 0, y: -20 }}
@@ -258,7 +260,7 @@ export function Navbar() {
                               transition={{ delay: 0.2 }}
                             >
                               {category.highlight}
-                            </motion.div>
+                            </motion.div> */}
                           </div>
 
                           {/* Right Column - Content Section */}
