@@ -14,6 +14,7 @@ import CreateProductForm from './partials/forms/create-product-form';
 import { QueryBuilderProvider } from './partials/providers/QueryBuilderProvider';
 import { columns } from './partials/table/products-columns';
 import { ProductsDataTable } from './partials/table/products-table';
+import CreateProductFormWithTabs from './partials/forms/create-product-form-with-tabs';
 
 interface ProductsIndexPage extends PagePropsData {
   categories: CategoryData[];
@@ -66,7 +67,8 @@ function Index({ paginationData, categories, brands, productTypes, usersOptions 
               state={isCreateFormModalOpen}
               onOpenChange={setIsCreateFormModalOpen}
             >
-              <CreateProductForm setIsCreateFormModalOpen={setIsCreateFormModalOpen} />
+              {/* <CreateProductForm setIsCreateFormModalOpen={setIsCreateFormModalOpen} /> */}
+              <CreateProductFormWithTabs setIsCreateFormModalOpen={setIsCreateFormModalOpen} />
             </FormModal>
           </div>
           <Card className={cn('w-full h-full ')}>

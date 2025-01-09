@@ -6,6 +6,7 @@ import { Counter } from './counter';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
 
 const stats = [
+
   {
     number: 70,
     label: "ans d'expertise",
@@ -40,6 +41,7 @@ const stats = [
     icon: <Wallet className="stroke-primary w-6 h-6" />,
     formatter: (value) => `${value}`
   }
+
 ];
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },

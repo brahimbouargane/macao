@@ -104,6 +104,8 @@ export type ProductData = {
   ref: string;
   name: string | null;
   description: string | null;
+  name_en: string | null;
+  description_en: string | null;
   primaryImage: ImageConversionData | null;
   categories: Array<CategoryData> | null;
   categoriesNames: Array<any> | null;
@@ -115,6 +117,7 @@ export type ProductData = {
   packaging: string | null;
   tc_20: string | null;
   tc_40: string | null;
+  active: boolean;
   updated_at: string | null;
   created_at: string;
   created_by_user_name: string | null;
