@@ -13,6 +13,8 @@ class ProductData extends Data
     public string $ref,
     public ?string $name,
     public ?string $description,
+    public ?string $name_en,
+    public ?string $description_en,
     public ?ImageConversionData $primaryImage,
 
     #[DataCollectionOf(CategoryData::class)]
@@ -29,6 +31,7 @@ class ProductData extends Data
     public ?string $packaging,
     public ?string $tc_20,
     public ?string $tc_40,
+    public bool $active,
     public ?string $updated_at,
     public string $created_at,
     public ?string $created_by_user_name,

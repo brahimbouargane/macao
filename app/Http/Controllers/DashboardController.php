@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
 
         return inertia('Dashboard/overview/index', [
-            "modelsCount" => new ModelsCountData(User::count(), Category::count(), Product::count(), Brand::count(), ProductType::count()),
+         
             "productsCountByCategory" => Category::withCount('products')
             ->orderByDesc('products_count')
             ->limit(10)

@@ -2,9 +2,10 @@ import { Logo } from '@/components/logo';
 import { PagePropsData } from '@/types';
 import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { AppLayout } from 'layouts';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { FaBackspace } from 'react-icons/fa';
 import { toast } from 'sonner';
 import { Button, Card, Form, Loader, TextField } from 'ui';
 
@@ -26,6 +27,7 @@ export default function ResetPassword(args: ResetPasswordProps) {
     password_confirmation: ''
   });
 
+
   useEffect(() => {
     return () => {
       reset('password', 'password_confirmation');
@@ -37,6 +39,9 @@ export default function ResetPassword(args: ResetPasswordProps) {
     post('/reset-password', {
       onSuccess: () => {
         toast.success(__(translations, 'Password was reset successfully'));
+      },
+      onFinish: () => {
+        toast.error(errors.email);
       }
     });
   };
@@ -45,7 +50,7 @@ export default function ResetPassword(args: ResetPasswordProps) {
     <>
       <Head title="Reset Password" />
 
-      <div className={cn(`w-full px-4 flex items-center justify-center bg-red-500`, `h-[calc(100vh-64px)]`)}>
+      <div className={cn(`w-full px-4 flex items-center justify-center bg-red-500`, `h-full`)}>
         <Card className="w-full max-w-lg bg-zinc-50">
           <Card.Header className="flex items-center justify-between text-center">
             <Logo className="mb-4" />
@@ -62,7 +67,6 @@ export default function ResetPassword(args: ResetPasswordProps) {
                 name="email"
                 value={data.email}
                 autoComplete="username"
-                onChange={(v) => setData('email', v)}
               />
 
               <TextField
@@ -90,10 +94,18 @@ export default function ResetPassword(args: ResetPasswordProps) {
                 isRequired
               />
 
-              <div className="flex items-center justify-end mt-4">
-                <Button type="submit" className="ml-4" isDisabled={processing}>
+              <div className="flex items-center justify-between mt-4">
+                <Button type="submit" className="" isDisabled={processing}>
                   {processing ? <Loader /> : __(translations, 'Reset Password')}
                 </Button>
+
+                <Link
+                  href="/login"
+                  className="flex bg-primary p-3 rounded-md text-sm text-white items-center justify-between gap-2 transition-all duration-200 hover:-rotate-3"
+                  disabled={processing}
+                >
+                  {__(translations, 'Login page')}
+                </Link>
               </div>
             </Form>
           </Card.Content>
@@ -103,4 +115,4 @@ export default function ResetPassword(args: ResetPasswordProps) {
   );
 }
 
-ResetPassword.layout = (page: any) => <AppLayout children={page} />;
+// ResetPassword.layout = (page: any) => <AppLayout children={page} />;
