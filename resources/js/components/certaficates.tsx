@@ -1,6 +1,6 @@
-import ifs from '@/assets/images/ifs.png';
-import iso from '@/assets/images/iso.png';
-import onssa from '@/assets/images/onssa.png';
+import ifs from '@/assets/images/ifs.webp';
+import iso from '@/assets/images/iso.webp';
+import onssa from '@/assets/images/onssa.webp';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/shadcn-card';
 
 interface CertificateProps {

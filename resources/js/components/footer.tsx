@@ -1,7 +1,7 @@
-import ifs from '@/assets/images/ifs.png';
-import iso from '@/assets/images/iso.png';
+import ifs from '@/assets/images/ifs.webp';
+import iso from '@/assets/images/iso.webp';
 import macaoImage from '@/assets/images/macao_logo.png';
-import onssa from '@/assets/images/onssa.png';
+import onssa from '@/assets/images/onssa.webp';
 import video from '@/assets/images/test-footer-video.mp4';
 import { motion } from 'framer-motion';
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from 'lucide-react';

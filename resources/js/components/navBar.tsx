@@ -1,8 +1,9 @@
 // export default Navbar;
 import candies from '@/assets/images/candies.webp';
 import choco from '@/assets/images/chocolate.webp';
-import leonardo from '@/assets/images/Leonardo.jpg';
+import leonardo from '@/assets/images/Leonardo.webp';
 import macaoImage from '@/assets/images/macao_logo.png';
+import wafer from '@/assets/images/wafer.webp';
 import { Button } from '@/components/ui/shadcn-button';
 import {
   NavigationMenu,
@@ -22,7 +23,6 @@ import {
   Cookie,
   Facebook,
   History,
-  Home,
   Instagram,
   Linkedin,
   Menu,
@@ -91,18 +91,30 @@ const featuredCategories = [
     image: leonardo,
     highlight: 'Création Artisanale',
     items: ['Chocolats pâtissiers', 'Fourrage & décoration', 'Poudre de cacao sucré']
+  },
+  {
+    id: 'gaufrettes',
+    title: 'Gaufrettes',
+    icon: Cherry,
+    description: 'La légèreté et le croustillant à la perfection',
+    image: wafer,
+    highlight: 'Création Artisanale',
+    items: ['Gaufrettes enrobées', 'Gaufrettes fourrées']
   }
 ];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [showBanner, setShowBanner] = useState(true);
   const { width } = useWindowSize();
 
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
+      const shouldHideBanner = window.scrollY > 0; // Hide banner on any scroll
       setScrolled(isScrolled);
+      setShowBanner(!shouldHideBanner);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -111,13 +123,24 @@ export function Navbar() {
   return (
     <motion.header className="fixed top-0 z-50 w-full" initial="initial" animate="animate" variants={fadeIn}>
       {/* Special Announcement Banner */}
-      <div className="bg-red-600 text-white overflow-hidden">
+      <motion.div
+        initial={{ height: 'auto', opacity: 1 }}
+        animate={{
+          height: showBanner ? 'auto' : 0,
+          opacity: showBanner ? 1 : 0
+        }}
+        transition={{
+          height: { duration: 0.3 },
+          opacity: { duration: 0.2 }
+        }}
+        className="bg-red-600 text-white overflow-hidden"
+      >
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: '-100%' }}
             transition={{
-              duration: width < 768 ? 10 : 20,
+              duration: width < 768 ? 20 : 40,
               repeat: Infinity,
               ease: 'linear'
             }}
@@ -160,7 +183,7 @@ export function Navbar() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         className={`relative ${scrolled ? 'bg-white shadow-md' : 'bg-gradient-to-b from-black/60 to-transparent'}`}
@@ -183,7 +206,7 @@ export function Navbar() {
             {/* Main Navigation */}
             <NavigationMenu className="hidden lg:flex">
               <NavigationMenuList className="space-x-1">
-                <NavigationMenuItem>
+                {/* <NavigationMenuItem>
                   <MotionLink href="/">
                     <NavigationMenuLink
                       className={`text-lg font-medium rounded-md ${
@@ -198,7 +221,7 @@ export function Navbar() {
                       ACCUEIL
                     </NavigationMenuLink>
                   </MotionLink>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
 
                 <NavigationMenuItem>
                   <MotionLink href="/history">
@@ -254,15 +277,6 @@ export function Navbar() {
                               whileHover={{ scale: 1.05 }}
                               transition={{ duration: 0.4 }}
                             />
-                            {/* <motion.div
-                              className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
-                              whileHover={{ scale: 1 }}
-                              initial={{ opacity: 0, y: -20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.2 }}
-                            >
-                              {category.highlight}
-                            </motion.div> */}
                           </div>
 
                           {/* Right Column - Content Section */}

@@ -1,7 +1,7 @@
-import bestSelling2 from '@/assets/images/carousel-1.png';
-import bestSelling from '@/assets/images/carousel-2.png';
-import bestSelling3 from '@/assets/images/carousel-3.png';
-
+import bestSelling2 from '@/assets/images/carousel-1.webp';
+import bestSelling from '@/assets/images/carousel-2.webp';
+import bestSelling3 from '@/assets/images/carousel-3.webp';
+import { motion } from 'framer-motion';
 import { Link } from './ui';
 
 interface Product {
@@ -39,15 +39,33 @@ const products: Product[] = [
     href: '/products/pepites-de-chocolate'
   }
 ];
-
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+const staggerChildren = {
+  visible: {
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 export default function BestSellers() {
   return (
-    <section className="py-16 px-4 ">
+    <section className="py-16 md:py-24 px-4 ">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-red-500 font-medium tracking-wide uppercase mb-4">Les produits</h2>
-          <h3 className="text-gray-800 text-4xl font-normal">Meilleures Ventes</h3>
-        </div>
+        <motion.div className="text-center " initial="hidden" animate="visible" variants={staggerChildren}>
+          <motion.h2
+            variants={fadeInUp}
+            className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
+          text-sm sm:text-base"
+          >
+            Les produits
+          </motion.h2>
+          <motion.h1 variants={fadeInUp} className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-medium mb-2">
+            Meilleures Ventes
+          </motion.h1>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
           {products.map((product, index) => (
