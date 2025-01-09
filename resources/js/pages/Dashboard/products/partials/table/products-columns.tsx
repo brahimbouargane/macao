@@ -59,6 +59,7 @@ export const columns: ColumnDef<ProductData>[] = [
       );
     },
     enableSorting: false,
+    
     size: 10
   },
   {
@@ -89,7 +90,9 @@ export const columns: ColumnDef<ProductData>[] = [
           <span className="font-medium truncate">{description}</span>
         </div>
       );
-    }
+    },
+    enableHiding: true,
+    
   },
   {
     accessorKey: 'categories',

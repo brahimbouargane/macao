@@ -13,6 +13,7 @@ type FileUploadDropzoneProps = {
   isLoading: boolean;
   inputPreviewText: string;
   className?: string;
+  errorText?: string;
 };
 const FileUploadDropzone = ({
   fieldName,
@@ -21,7 +22,8 @@ const FileUploadDropzone = ({
   dropZoneOptions,
   isLoading,
   inputPreviewText,
-  className
+  className,
+  errorText
 }: FileUploadDropzoneProps) => {
   let defaultOptions: DropzoneOptions = {
     accept: {
