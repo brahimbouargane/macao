@@ -1,4 +1,4 @@
-import { Button, Form, MultipleSelect, ProgressCircle, Select, TextField, Textarea } from '@/components/ui';
+import { Badge, Button, Description, Form, Loader, MultipleSelect, ProgressCircle, Select, Switch, TextField, Textarea } from '@/components/ui';
 import FileUploadDropzone from '@/components/ui/FileUploadDropzone';
 import FilesUploadDropzone from '@/components/ui/FilesUploadDropzone';
 import FormModal from '@/components/ui/form-modal';
@@ -15,6 +15,12 @@ import { FaBox, FaHashtag, FaMoneyBill, FaPlus, FaTruck, FaWeightHanging } from 
 import { MdDriveFileRenameOutline, MdOutlineQuestionMark } from 'react-icons/md';
 import { useQueryBuilderProductsContext } from '../providers/QueryBuilderProvider';
 import CreateProductTypeForm from '@/pages/Dashboard/productTypes/partials/forms/create-product-type-form';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn-tabs';
+import { generateTextUsingHuggingFace, getFormErrorsFor } from '@/utils/helpers';
+import { FcInfo } from 'react-icons/fc';
+import frFlag from '@/assets/images/fr_flag.svg';
+import ukFlag from '@/assets/images/uk_flag.svg';
+import { Camera, Image } from 'lucide-react';
 
 type EditProductFormProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +33,8 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
   const [isBrandModalOpen, setIsBrandModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const [isProductTypeModalOpen, setIsProductTypeModalOpen] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+
 
   const selectedCategoriesIds = useListData<CategoryData>({
     initialItems: product.categories
@@ -46,6 +54,9 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
     packaging: product.packaging ?? '',
     tc_20: product.tc_20 ?? '',
     tc_40: product.tc_40 ?? '',
+    name_en: product.name_en ?? '',
+    description_en: product.description_en ?? '',
+    active: product.active,
     _method: 'patch'
   });
 
@@ -77,238 +88,390 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
     });
   }
 
+    // Errors Indicators
+    let generalErrors = getFormErrorsFor(
+      ['ref', 'name', 'description', 'product_type_id', 'selected_CategoriesIds', 'brand_id'],
+      form.errors
+    );
+  
+    // Images Indicators
+    let imagesErrors = getFormErrorsFor(['primary_image', 'secondary_images'], form.errors);
+  
+    // Tarif Indicators
+    let tarifErrors = getFormErrorsFor(['price'], form.errors);
+  
+    // Details Indicators
+    let detailsErrors = getFormErrorsFor(['weight', 'packaging', 'tc_20', 'tc_40'], form.errors);
+  
+    async function generateDescriptionText(lang: 'French' | 'English'){
+      if(form.data.name.length == 0 || !form.data.brand_id  || selectedCategoriesIds.items.length == 0){
+        toast.error(__(translations,'Product name, category, and brand are required for this action.'),{icon :<FcInfo size={30}/> })
+      }else{
+  
+        setIsGenerating(true);
+        const result = await generateTextUsingHuggingFace(form.data.name,(selectedCategoriesIds.items)[0].name,brands.find(b=>b.id == form.data.brand_id).name,lang)
+        if(result.ok){
+         lang == "English" ?   form.data.description_en = result.text : form.data.description = result.text;
+        }else{
+          toast.error(result.text)
+        }
+        setIsGenerating(false);
+      }
+    }
+  
   return (
     <>
-      <Form onSubmit={updateCategory} validationErrors={form.errors} className="pb-4 space-y-8 ">
-        <ScrollArea className="  max-md:h-[600px]  p-2 ">
-          <div className="grid-cols-2 md:grid max-md:space-y-8 max-md:space-4 md:gap-x-4 md:gap-y-8">
-            {/* General */}
+    <Form onSubmit={updateCategory} validationErrors={form.errors} className="pb-2  ">
+        <Tabs defaultValue="general" aria-label="Fitness App">
+          <TabsList className="flex justify-between">
+            <TabsTrigger value="general">
+              {__(translations, 'General')}
+              {generalErrors > 0 && (
+                <Badge
+                  shape="circle"
+                  intent="secondary"
+                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                >
+                  {generalErrors}
+                </Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="images">
+              {__(translations, 'Images')}
+              {imagesErrors > 0 && (
+                <Badge
+                  shape="circle"
+                  intent="danger"
+                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                >
+                  {imagesErrors}
+                </Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="rates">
+              {__(translations, 'Rates')}{' '}
+              {tarifErrors > 0 && (
+                <Badge
+                  shape="circle"
+                  intent="danger"
+                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                >
+                  {tarifErrors}
+                </Badge>
+              )}
+            </TabsTrigger>
 
-            <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700">
-              <legend className="font-semibold ">{__(translations, 'General')}</legend>
+            <TabsTrigger value="details">
+              {__(translations, 'Details')}{' '}
+              {detailsErrors > 0 && (
+                <Badge
+                  shape="circle"
+                  intent="danger"
+                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                >
+                  {detailsErrors}
+                </Badge>
+              )}
+            </TabsTrigger>
+          </TabsList>
+          <ScrollArea className=" h-[500px] md:h-auto md:min-h-[400px]  p-2">
+            <TabsContent value="general" className="animate-fade-down animate-duration-[400ms]">
+              {/* General */}
               <div className="col-span-1 space-y-6">
-                <div className="grid gap-4 md:grid-cols-1">
-                  <TextField
-                    isDisabled={form.processing}
-                    type="text"
-                    name="ref"
-                    label={__(translations, 'Ref')}
-                    value={form.data.ref}
-                    autoComplete="ref"
-                    onChange={(v) => form.setData('ref', v)}
-                    errorMessage={form.errors.ref}
-                    isRequired
-                    prefix={
-                      <div className="pr-2 border-r-2 ">
-                        <FaHashtag className="text-colors-primary" />
-                      </div>
-                    }
-                  />
-                  <TextField
-                    isDisabled={form.processing}
-                    type="text"
-                    name="name"
-                    label={__(translations, 'Name')}
-                    prefix={
-                      <div className="pr-2 border-r-2 ">
-                        <MdDriveFileRenameOutline className="text-colors-primary" />
-                      </div>
-                    }
-                    value={form.data.name}
-                    autoComplete="name"
-                    onChange={(v) => form.setData('name', v)}
-                    errorMessage={form.errors.name}
-                  />
-                  <Textarea
-                    isDisabled={form.processing}
-                    name="description"
-                    label={__(translations, 'Description')}
-                    value={form.data.description}
-                    autoComplete="description"
-                    onChange={(v) => form.setData('description', v)}
-                    errorMessage={form.errors.description}
-                  />
-                  <div className="relative">
-                    <Select
-                      isDisabled={form.processing}
-                      selectedKey={String(form.data.product_type_id)}
-                      onSelectionChange={function (key) {
-                        form.setData('product_type_id', String(key));
-                      }}
-                      label={__(translations, 'Type')}
-                      placeholder={__(translations, 'Select a type')}
-                      errorMessage={form.errors.product_type_id}
-                    >
-                      <Select.Trigger />
-                      <Select.List items={productTypes}>
-                        {(item) => (
-                          <Select.Option key={item.id} id={item.id} textValue={item.name}>
-                            {item.name}
-                          </Select.Option>
-                        )}
-                      </Select.List>
-                    </Select>
-                    <Button
-                      onPress={() => setIsProductTypeModalOpen(true)}
-                      size="square-petite"
-                      intent="secondary"
-                      className="absolute top-0 right-0 self-end mb-1 size-6"
-                      isDisabled={form.processing}
-                    >
-                      <FaPlus size={10} />
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 md:grid-cols-2 ">
-                  <div className="w-full">
-                    <div className="relative ">
-                      <MultipleSelect
-                        placeholder={__(translations, 'Select a category')}
-                        label={__(translations, 'Categories')}
-                        name="parentCategories"
-                        className="w-full min-w-full"
-                        selectedItems={selectedCategoriesIds}
-                        items={categories}
-                        isDisabled={form.processing}
-                        onItemInserted={() => {
-                          form.clearErrors('selected_CategoriesIds');
-                        }}
-                        tag={(item) => (
-                          <MultipleSelect.Tag key={item.id} textValue={item.name}>
-                            {item.name}
-                          </MultipleSelect.Tag>
-                        )}
+                <div className="grid gap-3 md:grid-cols-1 space-y-4 ">
+                  <div className="md:grid grid-cols-3 gap-x-6">
+                    <TextField
+                      isDisabled={form.processing }
+                      type="text"
+                      name="ref"
+                      label={__(translations, 'Ref')}
+                      value={form.data.ref}
+                      autoComplete="ref"
+                      onChange={(v) => form.setData('ref', v)}
+                      errorMessage={form.errors.ref}
+                      isRequired
+                      prefix={
+                        <div className="pr-2 border-r-2 ">
+                          <FaHashtag className="text-colors-primary" />
+                        </div>
+                      }
+                      className="col-span-2"
+                    />
+                    <div className="md:grid grid-cols-3 max-md:my-6">
+                      <Switch
+                      isDisabled={form.processing }
+                        isSelected={form.data.active}
+                        onChange={(isSelected) => form.setData('active', isSelected)}
+                        value="dark_mode"
                       >
-                        {(item) => {
-                          return (
-                            <MultipleSelect.Option key={item.id} id={item.id} textValue={item.name}>
-                              {item.name}
-                            </MultipleSelect.Option>
-                          );
+                        {__(translations, form.data.active ? 'Activated' : 'Deactivated')}
+                      </Switch>
+                      <Description className=" block [&>strong]:text-fg col-span-2">
+                        {__(translations, 'Toggle to show or hide this product on the website')}
+                      </Description>
+                    </div>
+                  </div>
+                  {/* ----------------- */}
+                  <Tabs defaultValue="French" aria-label="Fitness App" className="border-[2px] rounded-md">
+                    <TabsList className="flex justify-around">
+                      <TabsTrigger value="French">
+                        <img src={frFlag} alt="french flag" className="w-5 h-5 mr-2" /> {__(translations, 'French')}
+                      </TabsTrigger>
+                      <TabsTrigger value="English">
+                        <img src={ukFlag} alt="english flag" className="w-5 h-5 mr-2" /> {__(translations, 'English')}
+                      </TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="French" className="p-2 space-y-4 animate-fade-down animate-duration-[400ms]">
+                      <TextField
+                        isDisabled={form.processing }
+                        type="text"
+                        name="name"
+                        label={`${__(translations, 'Name')} ( FR )`}
+                        prefix={
+                          <div className="pr-2 border-r-2 ">
+                            <MdDriveFileRenameOutline className="text-colors-primary" />
+                          </div>
+                        }
+                        value={form.data.name}
+                        autoComplete="name"
+                        onChange={(v) => form.setData('name', v)}
+                        errorMessage={form.errors.name}
+                      />
+                      <div className='flex flex-col justify-end'>
+                        <Textarea
+                          isDisabled={form.processing || isGenerating }
+                          name="description"
+                          label={`${__(translations, 'Description')} ( FR )`}
+                          value={form.data.description}
+                          autoComplete="description"
+                          onChange={(v) => form.setData('description', v)}
+                          errorMessage={form.errors.description}
+                        />
+                        <Button isDisabled={form.processing || isGenerating} onPress={()=>{
+                          generateDescriptionText('French')
+                        }} appearance="plain" intent="secondary" className="underline text-info ml-auto p-0 hover:bg-transparent hover:scale-105 transition-all">
+                          { isGenerating ? <div className='flex items-center gap-x-2'><Loader  /> <span>{__(translations,"Processing...")}</span></div> : __(translations, 'Generate Description with AI') }
+                        </Button>
+                      </div>
+                    </TabsContent>
+                    <TabsContent value="English" className="p-2 space-y-4 animate-fade-down animate-duration-[400ms]">
+                      <TextField
+                        isDisabled={form.processing }
+                        type="text"
+                        name="name_en"
+                        label={`${__(translations, 'Name')} ( EN )`}
+                        prefix={
+                          <div className="pr-2 border-r-2 ">
+                            <MdDriveFileRenameOutline className="text-colors-primary" />
+                          </div>
+                        }
+                        value={form.data.name_en}
+                        autoComplete="name"
+                        onChange={(v) => form.setData('name_en', v)}
+                        errorMessage={form.errors.name_en}
+                      />
+                      <div className='flex flex-col justify-end'>
+                        <Textarea
+                          isDisabled={form.processing || isGenerating}
+                          name="description_en"
+                          label={`${__(translations, 'Description')} ( EN )`}
+                          value={form.data.description_en}
+                          autoComplete="description"
+                          onChange={(v) => form.setData('description_en', v)}
+                          errorMessage={form.errors.description_en}
+                        />
+                        <Button isDisabled={form.processing || isGenerating} onPress={()=>{
+                          generateDescriptionText('English')
+                        }} appearance="plain" intent="secondary" className="underline text-info ml-auto p-0 hover:bg-transparent hover:scale-105 transition-all">
+                          { isGenerating ? <div className='flex items-center gap-x-2'><Loader  /> <span>{__(translations,"Processing...")}</span></div> : __(translations, 'Generate Description with AI') }
+                        </Button>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                  <div className="md:grid grid-cols-2 max-md:space-y-8 gap-6">
+                    {/* Brand field */}
+                    <div className="relative">
+                      <Select
+                        className="flex-1"
+                        isDisabled={form.processing }
+                        selectedKey={String(form.data.brand_id)}
+                        onSelectionChange={function (key) {
+                          form.setData('brand_id', String(key));
                         }}
-                      </MultipleSelect>
+                        label={__(translations, 'Brand')}
+                        placeholder={__(translations, 'Select a brand')}
+                        errorMessage={form.errors.brand_id}
+                      >
+                        <Select.Trigger />
+                        <Select.List items={brands}>
+                          {(item) => (
+                            <Select.Option key={item.id} id={item.id} textValue={item.name}>
+                              {item.name}
+                            </Select.Option>
+                          )}
+                        </Select.List>
+                      </Select>
                       <Button
-                        onPress={() => setIsCategoryModalOpen(true)}
+                        onPress={() => setIsBrandModalOpen(true)}
                         size="square-petite"
                         intent="secondary"
                         className="absolute top-0 right-0 self-end mb-1 size-6"
-                        isDisabled={form.processing}
+                        isDisabled={form.processing }
                       >
                         <FaPlus size={10} />
                       </Button>
                     </div>
+                    {/* type field*/}
 
-                    {form.errors.selected_CategoriesIds && form.errors.selected_CategoriesIds.length > 0 && (
-                      <div className="text-sm text-danger forced-colors:text-[Mark]">
-                        {form.errors.selected_CategoriesIds}
+                    <div className="relative">
+                      <Select
+                        isDisabled={form.processing }
+                        selectedKey={String(form.data.product_type_id)}
+                        onSelectionChange={function (key) {
+                          form.setData('product_type_id', String(key));
+                        }}
+                        label={__(translations, 'Type')}
+                        placeholder={__(translations, 'Select a type')}
+                        errorMessage={form.errors.product_type_id}
+                      >
+                        <Select.Trigger />
+                        <Select.List items={productTypes}>
+                          {(item) => (
+                            <Select.Option key={item.id} id={item.id} textValue={item.name}>
+                              {item.name}
+                            </Select.Option>
+                          )}
+                        </Select.List>
+                      </Select>
+                      <Button
+                        onPress={() => setIsProductTypeModalOpen(true)}
+                        size="square-petite"
+                        intent="secondary"
+                        className="absolute top-0 right-0 self-end mb-1 size-6"
+                        isDisabled={form.processing }
+                      >
+                        <FaPlus size={10} />
+                      </Button>
+                    </div>
+                    {/* Categories */}
+                    <div className="w-full col-span-2">
+                      <div className="relative ">
+                        <MultipleSelect
+                          key={categories.length}
+                          placeholder={__(translations, 'Select a category')}
+                          label={__(translations, 'Categories')}
+                          name="parentCategories"
+                          className="w-full min-w-full"
+                          selectedItems={selectedCategoriesIds}
+                          items={categories}
+                          isDisabled={form.processing }
+                          onItemInserted={() => {
+                            form.clearErrors('selected_CategoriesIds');
+                          }}
+                          tag={(item) => (
+                            <MultipleSelect.Tag key={item.id} textValue={item.name}>
+                              {item.name}
+                            </MultipleSelect.Tag>
+                          )}
+                        >
+                          {(item) => {
+                            return (
+                              <MultipleSelect.Option key={item.id} id={item.id} textValue={item.name}>
+                                {item.name}
+                              </MultipleSelect.Option>
+                            );
+                          }}
+                        </MultipleSelect>
+                        <Button
+                          onPress={() => setIsCategoryModalOpen(true)}
+                          size="square-petite"
+                          intent="secondary"
+                          className="absolute top-0 right-0 self-end mb-1 size-6"
+                          isDisabled={form.processing }
+                        >
+                          <FaPlus size={10} />
+                        </Button>
                       </div>
-                    )}
-                  </div>
-
-                  <div className="relative">
-                    <Select
-                      className="flex-1"
-                      isDisabled={form.processing}
-                      selectedKey={String(form.data.brand_id)}
-                      onSelectionChange={function (key) {
-                        form.setData('brand_id', String(key));
-                      }}
-                      label={__(translations, 'Brand')}
-                      placeholder={__(translations, 'Select a brand')}
-                      errorMessage={form.errors.brand_id}
-                    >
-                      <Select.Trigger />
-                      <Select.List items={brands}>
-                        {(item) => (
-                          <Select.Option key={item.id} id={item.id} textValue={item.name}>
-                            {item.name}
-                          </Select.Option>
-                        )}
-                      </Select.List>
-                    </Select>
-                    <Button
-                      onPress={() => setIsBrandModalOpen(true)}
-                      size="square-petite"
-                      intent="secondary"
-                      className="absolute top-0 right-0 self-end mb-1 size-6"
-                      isDisabled={form.processing}
-                    >
-                      <FaPlus size={10} />
-                    </Button>
+                      {form.errors.selected_CategoriesIds && form.errors.selected_CategoriesIds.length > 0 && (
+                        <div className="text-sm text-danger forced-colors:text-[Mark]">
+                          {form.errors.selected_CategoriesIds}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </fieldset>
+            </TabsContent>
+            <TabsContent value="images" className="animate-fade-down animate-duration-[400ms]">
+              {/* File Upload */}
+              <div className=" max-md:pt-2  col-span-2 md:grid grid-cols-2 md:gap-x-6 max-md:space-y-6">
+                <div>
+                  <div className="flex items-center justify-start gap-x-4 text-xl mb-5">
+                    <Camera />
+                    <span>{__(translations, 'Forward image')}</span>
+                  </div>
 
-            {/* File Upload */}
-            <div className="space-y-3 max-md:pt-2 ">
-              <FileUploadDropzone
-                inputPreviewText={__(translations, 'Click to upload an image')}
-                fieldName="primary_image"
-                files={form.data.primary_image}
-                isLoading={form.processing}
-                setFiles={form.setData}
-              />
+                  <FileUploadDropzone
+                    inputPreviewText={__(translations, 'Click to upload an image')}
+                    fieldName="primary_image"
+                    files={form.data.primary_image}
+                    isLoading={form.processing ||  isGenerating}
+                    setFiles={form.setData}
+                    className="mt-2"
+                    errorText={form.errors.primary_image}
+                  />
+                  {form.errors.primary_image && (
+                    <span className="text-sm text-danger">{form.errors.primary_image}</span>
+                  )}
+                </div>
 
-              {/* --------------------------------- */}
-              <div>
-                <FilesUploadDropzone
-                  fieldName="secondary_images"
-                  isLoading={form.processing}
-                  files={form.data.secondary_images}
-                  setFiles={form.setData}
-                />
-                {form.errors['secondary_images.0'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.0'] as string).replace('Le champ secondary_images.0', "L'image 1")}
-                  </p>
-                )}
-                {form.errors['secondary_images.1'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.1'] as string).replace('Le champ secondary_images.1', "L'image 2")}
-                  </p>
-                )}
-                {form.errors['secondary_images.2'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.2'] as string).replace('Le champ secondary_images.2', "L'image 3")}
-                  </p>
-                )}
-                {form.errors['secondary_images.3'] && (
-                  <p className="text-sm text-danger forced-colors:text-[Mark] mt-2">
-                    {(form.errors['secondary_images.3'] as string).replace('Le champ secondary_images.3', "L'image 4")}
-                  </p>
-                )}
+                {/* --------------------------------- */}
+                <div className="h-full">
+                  <div className="flex items-center justify-start gap-x-4 text-xl mb-5">
+                    <Image /> {__(translations, 'Secondary Images')}
+                  </div>
+                  <FilesUploadDropzone
+                    fieldName="secondary_images"
+                    isLoading={form.processing }
+                    files={form.data.secondary_images}
+                    setFiles={form.setData}
+                    className="gap-x-2"
+                  />
+                  {form.errors.secondary_images && (
+                    <span className="text-sm text-danger">{form.errors.secondary_images}</span>
+                  )}
+                </div>
+                {/* --------------------------------- */}
               </div>
-              {/* --------------------------------- */}
-            </div>
-            {/* Details */}
-
-            <fieldset className="p-2  rounded-md border-[1px] border-zinc-200 dark:border-zinc-700 col-span-2">
-              <legend className="font-semibold ">{__(translations, 'Details')}</legend>
-              <div className="grid grid-cols-2 col-span-2 gap-3 md:grid-cols-5 ">
-                <TextField
-                  isDisabled={form.processing}
-                  type="number"
-                  name="price"
-                  prefix={
-                    <div className="pr-2 border-r-2 ">
-                      <FaMoneyBill className="text-colors-primary" />
-                    </div>
+            </TabsContent>
+            <TabsContent value="rates" className="animate-fade-down animate-duration-[400ms]">
+              <TextField
+                isDisabled={form.processing }
+                type="number"
+                name="price"
+                prefix={
+                  <div className="pr-2 border-r-2 ">
+                    <FaMoneyBill className="text-colors-primary" />
+                  </div>
+                }
+                label={__(translations, 'Price')}
+                value={String(form.data.price)}
+                autoComplete="price"
+                onChange={function (v) {
+                  form.setData('price', v);
+                  if (form.errors.price) {
+                    form.clearErrors('price');
                   }
-                  label={__(translations, 'Price')}
-                  value={String(form.data.price)}
-                  autoComplete="price"
-                  onChange={function (v) {
-                    form.setData('price', v);
-                    if (form.errors.price) {
-                      form.clearErrors('price');
-                    }
-                  }}
-                  errorMessage={form.errors.price}
-                />
+                }}
+                errorMessage={form.errors.price}
+              />
+            </TabsContent>
+            <TabsContent value="details" className="animate-fade-down animate-duration-[400ms]">
+              {/* Details */}
+
+              <div className="md:grid grid-cols-1 md:grid-cols-2  gap-8 max-md:space-y-8  ">
                 <TextField
-                  isDisabled={form.processing}
+                  isDisabled={form.processing }
                   type="number"
                   name="weight"
                   prefix={
@@ -329,7 +492,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                 />
 
                 <TextField
-                  isDisabled={form.processing}
+                  isDisabled={form.processing }
                   type="text"
                   name="packaging"
                   label={__(translations, 'Packaging')}
@@ -350,7 +513,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                   errorMessage={form.errors.packaging}
                 />
                 <TextField
-                  isDisabled={form.processing}
+                  isDisabled={form.processing }
                   type="text"
                   name="tc_20"
                   label={__(translations, "TC_20'")}
@@ -370,7 +533,7 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                   errorMessage={form.errors.tc_20}
                 />
                 <TextField
-                  isDisabled={form.processing}
+                  isDisabled={form.processing }
                   type="text"
                   name="tc_40"
                   label={__(translations, "TC_40'")}
@@ -390,15 +553,15 @@ export default function EditProductForm({ product, setIsModalOpen }: EditProduct
                   errorMessage={form.errors.tc_40}
                 />
               </div>
-            </fieldset>
-          </div>
-          <div className="flex items-center justify-between !mt-8">
+            </TabsContent>
+          </ScrollArea>
+        </Tabs>
+        <div className="flex items-center justify-between !mt-8">
             <Button type="submit" isDisabled={form.processing} className="w-full">
               {form.processing && <ProgressCircle isIndeterminate aria-label="Processing..." />}
               {form.processing ? __(translations, 'Loading...') : __(translations, 'Modify')}
             </Button>
           </div>
-        </ScrollArea>
       </Form>
 
       {/* ProductType modal */}

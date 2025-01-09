@@ -45,7 +45,7 @@ export function DataTablePagination<TData>({ table, paginatedData }: DataTablePa
         </span>
       </div>
 
-      <div className="flex items-center ml-auto space-x-6 lg:space-x-8">
+      <div className="flex flex-col md:flex-row space-y-3 items-center ml-auto  lg:space-x-8">
         {/* Lines per page */}
         <div className="flex items-center space-x-8">
           <Select

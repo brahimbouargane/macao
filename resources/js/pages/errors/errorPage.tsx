@@ -37,25 +37,24 @@ export default function ErrorPage({ status }) {
       </div>
       <p className="bg-primary/80 max-w-[800px] p-2  rounded mt-24 mb-4  text-white">{__(translations, description)}</p>
       <div className="flex gap-4">
-        <Button className="mt-5 transition-all duration-200 hover:-rotate-3">
-          <Link
-            href="#"
-            className="flex items-center justify-between gap-2"
-            onClick={() => {
-              window.history.back();
-              return false;
-            }}
-          >
-            {__(translations, 'Go Back')}
-            <FaBackspace className="size-6" />
-          </Link>
-        </Button>
-        <Button className="mt-5 transition-all duration-200 hover:-rotate-3">
-          <Link href="/" className="flex items-center justify-between gap-2">
-            {__(translations, 'Go Home')}
-            <FaHome className="size-6" />
-          </Link>
-        </Button>
+        <Link
+          href="#"
+          className="flex items-center justify-between gap-2 bg-primary p-2 rounded-md text-sm text-white mt-5 transition-all duration-200 hover:-rotate-3"
+          onClick={() => {
+            window.history.back();
+            return false;
+          }}
+        >
+          {__(translations, 'Go Back')}
+          <FaBackspace className="size-6" />
+        </Link>
+        <Link
+          href="/"
+          className="mt-5 transition-all duration-200 hover:-rotate-3 flex items-center justify-between gap-2 bg-primary p-2 rounded-md text-sm text-white"
+        >
+          {__(translations, 'Go Home')}
+          <FaHome className="size-6" />
+        </Link>
       </div>
     </main>
   );

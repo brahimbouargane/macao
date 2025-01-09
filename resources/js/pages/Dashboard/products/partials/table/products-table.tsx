@@ -37,7 +37,7 @@ export function ProductsDataTable<TData, TValue>({
   usersOptions
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({id: false,description:false,product_type:false});
   const role = usePage<PagePropsData>().props.auth?.user?.role;
 
   const table = useReactTable({
@@ -45,8 +45,11 @@ export function ProductsDataTable<TData, TValue>({
     columns,
     state: {
       columnVisibility,
-      rowSelection
+      rowSelection,
+
+      
     },
+   
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,

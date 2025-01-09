@@ -126,6 +126,7 @@ const config = withTV({
   plugins: [
     require('tailwindcss-animate'),
     require('tailwindcss-react-aria-components'),
+    require('tailwindcss-animated'),
     function ({ addUtilities }) {
       addUtilities({
         '.pause': {
