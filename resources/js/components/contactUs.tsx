@@ -54,7 +54,7 @@ export default function ContactSection() {
 
   return (
     <motion.section
-      className="container mx-auto px-4 py-12 md:py-24"
+      className="container mx-auto px-4 py-12 md:py-24 "
       initial="hidden"
       animate="visible"
       variants={containerVariants}
