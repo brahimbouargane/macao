@@ -124,7 +124,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
 
   async function generateDescriptionText(lang: 'French' | 'English'){
     if(form.data.name.length == 0 || !form.data.brand_id  || selectedCategoriesIds.items.length == 0){
-      toast.error(__(translations,'Product name, category, and brand are required for this action.'),{icon :<FcInfo size={500}/> })
+      toast.error(__(translations,'Product name, category, and brand are required for this action.'),{icon :<FcInfo size={30}/> })
     }else{
 
       setIsGenerating(true);
