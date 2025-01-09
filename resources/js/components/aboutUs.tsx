@@ -1,4 +1,5 @@
-import chocolateImg from '@/assets/images/aboutuspic.png';
+import first from '@/assets/images/4.png';
+import chocolateImg from '@/assets/images/aboutuspic.webp';
 import pastoLogo from '@/assets/images/macoa-logo-small.svg';
 import { motion } from 'framer-motion';
 
@@ -18,9 +19,22 @@ export default function PastorMacaoHero() {
 
   return (
     <section className="relative w-full min-h-screen bg-white overflow-hidden">
-      {/* <div className="absolute right-0 -bottom-40 w-68 h-[24rem] translate-x-[40%] -translate-y-[200%]">
-        <img src={first} alt="Decorative right candy" className="w-full h-full object-cover opacity-50" />
-      </div> */}
+      <div className="absolute top-0 right-0 w-[21rem] h-72 overflow-hidden -rotate-12">
+        {/* Image container */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.5, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="absolute top-12 -right-14 w-full h-full"
+        >
+          <img
+            src={first}
+            alt="Decorative corner element"
+            className="w-full h-full object-cover"
+            style={{ filter: 'sepia(100%) saturate(100%) hue-rotate(300deg)' }}
+          />
+        </motion.div>
+      </div>
       <motion.div className="text-center py-8 sm:py-12" initial="hidden" animate="visible" variants={staggerChildren}>
         <motion.h2
           variants={fadeInUp}
@@ -51,7 +65,7 @@ export default function PastorMacaoHero() {
               backgroundImage: `url(${chocolateImg})`
             }}
           />
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 " />
         </motion.div>
 
         {/* Content Section */}
@@ -86,7 +100,7 @@ export default function PastorMacaoHero() {
                   className="group relative px-8 py-3 bg-red-600 text-white text-lg
                   overflow-hidden rounded-md transition-transform hover:scale-105"
                 >
-                  <span className="relative z-10">En Savoir Plus</span>
+                  <span className="relative z-10">En savoir plus</span>
                   <div
                     className="absolute inset-0 bg-red-700 translate-y-full transition-transform
                     group-hover:translate-y-0 duration-300"

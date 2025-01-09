@@ -1,5 +1,5 @@
-import Footer from '@/components/footer';
-import Navbar from '@/components/navBar';
+import { GuestLayout } from '@/layouts';
+import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Box, ChevronLeft, Package, Weight } from 'lucide-react';
 import { useState } from 'react';
@@ -85,7 +85,7 @@ const ProductShow = ({ product, relatedProducts }) => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <motion.div className="mt-32 bg-gray-50" initial="hidden" animate="visible" variants={containerVariants}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <motion.button
@@ -299,23 +299,24 @@ const ProductShow = ({ product, relatedProducts }) => {
                   >
                     {relatedProduct.product_type?.name}
                   </motion.span>
-                  <motion.button
-                    onClick={() => (window.location.href = `/products/${relatedProduct.id}`)}
-                    className="mt-3 w-full rounded-full bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  <Link
+                    href={`/products/${relatedProduct.id}`}
+                    className="mt-3 w-full block text-center rounded-full bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
+                    // whileHover={{ scale: 1.02 }}
+                    // whileTap={{ scale: 0.98 }}
                   >
                     Voir plus
-                  </motion.button>
+                  </Link>
                 </motion.div>
               </motion.div>
             ))}
           </div>
         </motion.div>
       </motion.div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
 
 export default ProductShow;
+ProductShow.layout = (page: any) => <GuestLayout children={page} />;

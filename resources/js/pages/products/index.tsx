@@ -1,11 +1,10 @@
 import candies from '@/assets/images/candies.webp';
-import candy from '@/assets/images/candy.jpg';
+import candy from '@/assets/images/candy.webp';
 import choco from '@/assets/images/chocolate.webp';
-import leonardo from '@/assets/images/Leonardo.jpg';
+import leonardo from '@/assets/images/Leonardo.webp';
 import wafer from '@/assets/images/wafer.webp';
-import { Footer } from '@/components/footer';
-import { Navbar } from '@/components/navBar';
 import { Badge } from '@/components/ui/shadcn-badge';
+import { GuestLayout } from '@/layouts';
 import { cn } from '@/utils/classes';
 import { router, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
@@ -33,8 +32,8 @@ const categoryContent = {
     overlayOpacity: 'opacity-80' // Control darkness of overlay
   },
   Chocolat: {
-    title: "L'ART DU CHOCOLAT",
-    subtitle: 'Des chocolats fins pour tous les goûts',
+    title: 'CHOCOLAT EXQUIS',
+    subtitle: 'Des créations chocolatées pour tous les plaisirs.',
     bgColor: 'from-amber-800 to-amber-900',
     bgImage: choco, // Rich chocolate pieces/truffles
     overlayOpacity: '50'
@@ -164,7 +163,7 @@ const Products = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <ScrollProgress />
 
       {/* Hero Section with enhanced animations */}
@@ -223,7 +222,7 @@ const Products = () => {
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* Sidebar with hover effects */}
           <motion.div variants={fadeInUp} initial="hidden" animate="visible" className="w-full lg:w-72">
-            <div className="sticky top-24 rounded-xl bg-white p-6 shadow-lg">
+            <div className="sticky top-36 rounded-xl bg-white p-6 shadow-lg">
               <h2 className="mb-4 text-lg font-semibold tracking-tight">{parentCategory.name}</h2>
               <div className="space-y-2">
                 {parentCategory.childCategoriesNames.map((name) => (
@@ -316,9 +315,10 @@ const Products = () => {
           </div>
         </div>
       </motion.div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
 
 export default Products;
+Products.layout = (page: any) => <GuestLayout children={page} />;

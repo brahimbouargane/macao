@@ -3,10 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 interface CounterProps {
-  end: number;
+  end?: number;
   duration?: number;
   suffix?: string;
-  label: string;
+  label?: string;
   icon: React.ReactNode;
 }
 
