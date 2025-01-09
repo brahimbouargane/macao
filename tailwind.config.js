@@ -12,6 +12,19 @@ const config = withTV({
     './node_modules/@inertiaui/modal-react/src/**/*.{js,jsx}'
   ],
   theme: {
+    screens: {
+      xs: '360px',
+      sm: '640px',
+      md: '768px',
+      slg: '850px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+      // Specific device breakpoints
+      tablet: '640px',
+      laptop: '1024px',
+      desktop: '1280px'
+    },
     extend: {
       fontFamily: {
         sans: ['Figtree', ...fontFamily.sans]

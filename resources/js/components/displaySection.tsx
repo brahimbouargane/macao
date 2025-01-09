@@ -1,63 +1,121 @@
-import videoPlay from '@/assets/images/video.jpg';
-import { Award, Heart, Play, Store, Timer } from 'lucide-react';
+import videoPlay from '@/assets/images/video.webp';
+import { motion } from 'framer-motion';
+import { ChevronRight, Globe2, History, MapPin, Package, Play, Wallet } from 'lucide-react';
 import { useState } from 'react';
 import { Counter } from './counter';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
 
 const stats = [
-  { number: 98, label: 'Satisfied Clients', icon: <Heart className="stroke-primary" /> },
-  { number: 65, label: 'Products', icon: <Store className="stroke-primary" /> },
-  { number: 10, label: 'Years Experience', icon: <Timer className="stroke-primary" /> },
-  { number: 12, label: 'Awards', icon: <Award className="stroke-primary" /> }
+  {
+    number: 70,
+    label: "ans d'expertise",
+    subtext: 'depuis 1954',
+    icon: <History className="stroke-primary w-6 h-6" />,
+    formatter: (value) => `${value}+`
+  },
+  {
+    number: 20,
+    label: 'pays',
+    subtext: 'à travers le monde',
+    icon: <Globe2 className="stroke-primary w-6 h-6" />,
+    formatter: (value) => `${value}+`
+  },
+  {
+    number: 3,
+    label: 'continents',
+    subtext: 'Afrique, Europe, Asie',
+    icon: <MapPin className="stroke-primary w-6 h-6" />
+  },
+  {
+    number: 300,
+    label: 'produits',
+    subtext: 'diversifiés',
+    icon: <Package className="stroke-primary w-6 h-6" />,
+    formatter: (value) => `${value}+`
+  },
+  {
+    number: 55,
+    label: 'millions MAD',
+    subtext: 'de capital',
+    icon: <Wallet className="stroke-primary w-6 h-6" />,
+    formatter: (value) => `${value}`
+  }
 ];
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+const staggerChildren = {
+  visible: {
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 export default function DisplaySection() {
   const [isOpen, setIsOpen] = useState(false);
+  const [hoveredStat, setHoveredStat] = useState(null);
 
   return (
-    <section className="relative py-8 sm:py-12 lg:py-16">
-      {/* Hero Image Container */}
-      <div className="relative h-[400px] md:h-[450px] lg:h-[650px] w-full overflow-hidden group">
-        {/* Image with proper sizing */}
+    <section className="relative py-8 sm:py-12 lg:py-16 ">
+      <motion.div className="text-center " initial="hidden" animate="visible" variants={staggerChildren}>
+        <motion.h2
+          variants={fadeInUp}
+          className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
+                text-sm sm:text-base"
+        >
+          Découvrez notre parcours artisanal
+        </motion.h2>
+        <motion.h1 variants={fadeInUp} className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-medium mb-12">
+          Expérimentez le mélange parfait
+        </motion.h1>
+      </motion.div>
+
+      {/* Video Section with Enhanced Styling */}
+      <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full overflow-hidden group">
         <div className="absolute inset-0 w-full h-full">
           <img
             src={videoPlay}
-            alt="Chocolate pouring"
-            className="w-full h-full object-fill object-center"
-            loading="eager"
+            alt="Behind the scenes of our chocolate crafting"
+            className="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700"
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
         </div>
 
-        {/* Play Button */}
+        {/* Enhanced Play Button */}
         <button
           onClick={() => setIsOpen(true)}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-            w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full
-            flex items-center justify-center
-            transform transition-all duration-300
-            hover:scale-110 hover:bg-white focus:outline-none
-            focus:ring-2 focus:ring-red-500 focus:ring-offset-2
-            group cursor-pointer z-10"
-          aria-label="Play video"
+          w-20 h-20 md:w-24 md:h-24 bg-white/95 rounded-full
+          flex items-center justify-center
+          transform transition-all duration-500
+          hover:scale-110 hover:bg-white focus:outline-none
+          focus:ring-4 focus:ring-red-500 focus:ring-offset-2
+          group/btn cursor-pointer z-10 shadow-lg"
+          aria-label="Watch our story"
         >
-          <Play className="w-8 h-8 md:w-10 md:h-10 text-red-500 ml-1" />
-          <div
-            className="absolute w-20 h-20 md:w-24 md:h-24 border-2 border-white rounded-full
-              animate-ping opacity-75"
-          />
+          <Play className="w-10 h-10 md:w-12 md:h-12 text-red-500 ml-1 group-hover/btn:text-red-600 transition-colors" />
+          <div className="absolute w-24 h-24 md:w-28 md:h-28 border-2 border-white/80 rounded-full animate-ping opacity-75" />
         </button>
+
+        {/* Video Caption */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+          <p className="text-white text-center text-lg md:text-xl font-light">
+            Discover the artistry behind our creations
+          </p>
+        </div>
       </div>
 
-      {/* Video Modal */}
+      {/* Enhanced Video Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden">
+        <DialogContent className="max-w-5xl p-0 overflow-hidden rounded-xl">
           <DialogHeader>
-            <DialogTitle className="sr-only">Product Video</DialogTitle>
+            <DialogTitle className="sr-only">Our Story</DialogTitle>
           </DialogHeader>
-          <div className="relative pt-[56.25%]">
+          <div className="relative pt-[56.25%] bg-black">
             <iframe
-              src="https://www.youtube.com/embed/your-video-id?autoplay=1"
+              src="https://www.youtube.com/embed/your-video-id?autoplay=1&rel=0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute top-0 left-0 w-full h-full border-0"
@@ -66,16 +124,35 @@ export default function DisplaySection() {
         </DialogContent>
       </Dialog>
 
+      {/* Enhanced Stats Section */}
       <div className="container mx-auto px-4">
-        {/* Stats Section */}
-        <div className="relative -mt-20 mx-4 bg-white rounded-lg shadow-xl p-6 md:p-8 mb-16">
-          <h2 className="text-center text-xl md:text-2xl mb-6 md:mb-8">
-            Les meilleures douceurs pour votre satisfaction.
+        <div className="relative -mt-24 mx-4 bg-white rounded-2xl shadow-2xl p-8 md:p-10">
+          <h2 className="text-center text-2xl md:text-3xl mb-8 md:mb-10  text-gray-700">
+            Notre Excellence en Chiffres
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
             {stats.map((stat) => (
-              <Counter key={stat.label} icon={stat.icon} end={stat.number} label={stat.label} />
+              <div
+                key={stat.label}
+                className="relative group cursor-pointer"
+                onMouseEnter={() => setHoveredStat(stat.label)}
+                onMouseLeave={() => setHoveredStat(null)}
+              >
+                <Counter end={stat.number} label={stat.label} icon={stat.icon} />
+              </div>
             ))}
+          </div>
+
+          {/* Call to Action */}
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => (window.location.href = '/products/chocolat/pâtes%20à%20tartiner')}
+              className="inline-flex items-center px-6 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-300 group"
+            >
+              Découvrez notre collection
+              <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
         </div>
       </div>

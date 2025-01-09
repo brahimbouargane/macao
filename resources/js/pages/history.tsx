@@ -1,14 +1,13 @@
 import candies from '@/assets/images/candies.webp';
 import commercial from '@/assets/images/commercial.webp';
 import composition from '@/assets/images/composition.webp';
-import iso from '@/assets/images/iso.jpg';
+import iso from '@/assets/images/iso.webp';
 import pastoLogo from '@/assets/images/macoa-logo-small.svg';
 import showcase from '@/assets/images/showcasing.webp';
 import ContactSection from '@/components/contactUs';
-import Footer from '@/components/footer';
-import Navbar from '@/components/navBar';
 import SEO from '@/components/seo';
 import { Container } from '@/components/ui';
+import { GuestLayout } from '@/layouts';
 import { Head } from '@inertiajs/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
@@ -32,33 +31,6 @@ const fadeInUp = {
   }
 };
 
-// const ContentBlock = ({ imageOnLeft, title, content, imageSrc }) => {
-//   return (
-//     <motion.div
-//       variants={fadeInUp}
-//       initial="hidden"
-//       whileInView="visible"
-//       viewport={{ once: true }}
-//       className="container mx-auto px-4 py-16"
-//     >
-//       <div className={`flex flex-col ${imageOnLeft ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8`}>
-//         <div className="w-full md:w-1/2">
-//           <img
-//             src={imageSrc || '/api/placeholder/600/400'}
-//             alt={title}
-//             className="w-full rounded-lg object-cover shadow-lg"
-//           />
-//         </div>
-//         <div className="w-full md:w-1/2">
-//           <img src={pastoLogo} alt="Logo Pastor Macao" className="w-28 h-28 mb-6" />
-
-//           <h2 className="mb-4 text-3xl font-bold text-gray-800">{title}</h2>
-//           <p className="text-lg text-gray-600">{content}</p>
-//         </div>
-//       </div>
-//     </motion.div>
-//   );
-// };
 const ContentBlock = ({ imageOnLeft, title, content, imageSrc }) => {
   return (
     <motion.div
@@ -163,7 +135,6 @@ function History() {
     <div className="relative min-h-screen">
       <SEO title="Macao" description="Welcome to our amazing website" keywords="keyword1, keyword2, keyword3" />
       <Head title="Macao" />
-      <Navbar />
 
       <motion.div
         ref={scrollRef}
@@ -197,10 +168,11 @@ function History() {
           >
             <div className="text-center mt-28">
               <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
-                Notre Histoire | Pâtisserie Confiserie et Chocolat
+                Notre Héritage Gourmand
               </motion.h1>
               <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                Découvrez l'histoire riche et la passion pour l'excellence de la Pâtisserie Candy et Chocolat.
+                Depuis 1948, PASTOR MACAO transforme la passion et l’excellence en douceurs inoubliables, devenant le
+                leader marocain en confiserie, chocolat et pâtisserie.{' '}
               </motion.p>
             </div>
           </motion.div>
@@ -240,9 +212,9 @@ function History() {
       <Container>
         <ContactSection />
       </Container>
-      <Footer />
     </div>
   );
 }
 
 export default History;
+History.layout = (page: any) => <GuestLayout children={page} />;
