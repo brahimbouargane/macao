@@ -16,25 +16,25 @@ interface Product {
 const products: Product[] = [
   {
     id: '1',
-    title: 'CHOCOLAT LIGHT NOIR',
-    subtitle: 'CHOCOLAT SANS SUCRE 75 % DE CACAO',
-    details: 'BOCAL PLASTIQUE DE 200 PIECES',
+    title: 'Chocolat light noir',
+    subtitle: 'Chocolat sans sucre 75% de cacao',
+    details: 'Sachet',
     image: bestSelling,
     href: '/products/chocolat-light-noir'
   },
   {
     id: '2',
-    title: 'Pâte à Mâcher Fruitée',
-    subtitle: 'BONBON FRUITÉ SANS SUCRE',
-    details: 'BOCAL PLASTIQUE DE 200 PIECES',
+    title: 'Pâte à mâcher fruitée',
+    subtitle: 'Bonbon fruité',
+    details: 'Sachet',
     image: bestSelling3,
     href: '/products/pate-a-macher-fruitee'
   },
   {
     id: '3',
-    title: 'Pépites de Chocolate',
-    subtitle: 'PÉPITES DE CHOCOLAT SANS SUCRE',
-    details: 'BOCAL PLASTIQUE DE 200 PIECES',
+    title: 'Pépites de chocolat noir',
+    subtitle: 'Pépites de chocolat',
+    details: 'Sachet',
     image: bestSelling2,
     href: '/products/pepites-de-chocolate'
   }
@@ -60,7 +60,7 @@ export default function BestSellers() {
             className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
           text-sm sm:text-base"
           >
-            Les produits
+            NOS PRODUITS{' '}
           </motion.h2>
           <motion.h1 variants={fadeInUp} className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-medium mb-2">
             Meilleures Ventes
@@ -88,7 +88,7 @@ export default function BestSellers() {
                     </div>
                   </div>
                   <div className="text-center space-y-2">
-                    <h4 className="text-gray-800 text-xl font-medium">{product.title}</h4>
+                    <h4 className="text-gray-800 text-xl font-medium uppercase">{product.title}</h4>
                     <p className="text-gray-600 text-sm">{product.subtitle}</p>
                   </div>
                 </div>
