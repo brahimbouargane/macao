@@ -43,8 +43,8 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 
 
 
+//??-------------------DASHBOARD ROUTES START---------------------------
 Route::get('dashboard', Controllers\DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
-
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
 
@@ -75,6 +75,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     // Brands routes
     Route::resource('brands', BrandsController::class);
 });
+//??-------------------DASHBOARD ROUTES END---------------------------
 
 Route::get('products/{categoryName}', function (Request $request) {
 
@@ -85,10 +86,13 @@ Route::get('products/{categoryName}', function (Request $request) {
 });
 
 
-// Translations route
+
+//??-------------------TRANSLATION ROUTES START---------------------------
 Route::get('/language/{language}', function ($language) {
     session()->put('locale', $language);
     return redirect()->back();
 })->name('language');
+
+
 
 require __DIR__ . '/auth.php';

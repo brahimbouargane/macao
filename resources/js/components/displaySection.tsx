@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Counter } from './counter';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
 const stats = [
+
   {
     number: 70,
     label: "ans d'expertise",
@@ -32,6 +33,7 @@ const stats = [
     icon: <Package className="stroke-primary w-12 h-12" />,
     formatter: (value) => `${value}+`
   }
+
 ];
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },

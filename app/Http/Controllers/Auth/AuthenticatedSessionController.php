@@ -61,16 +61,17 @@ class AuthenticatedSessionController extends Controller
             \App\Models\Product::class,
             \App\Models\Brand::class,
             \App\Models\Category::class,
+            \App\Models\ProductType::class,
             // Add other models
         ];
-
+        $names = [];
         foreach ($models as $model) {
             // Get model count
             $count = $model::count();
 
             // Generate cache key
             $modelName = strtolower(class_basename($model));
-            $cacheKey = "{$modelName}_count";
+            $cacheKey = $modelName == "producttype" ?  "productType_count" : "{$modelName}_count";
 
             // Cache the count
             Cache::forever($cacheKey, $count);

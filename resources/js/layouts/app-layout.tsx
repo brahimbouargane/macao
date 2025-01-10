@@ -19,10 +19,11 @@ export function AppLayout({ children }: PropsWithChildren) {
     }
   }, [window.location.href]);
   return (
-    <div>
+    <div className="h-full">
       <FlashMessage />
-      <AppNavbar>{children}</AppNavbar>
-      <Footer />
+      {/* <AppNavbar>{children}</AppNavbar> */}
+      <div className="h-full">{children}</div>
+      {/* <Footer /> */}
     </div>
   );
 }
