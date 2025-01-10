@@ -226,7 +226,7 @@
   "Add": "Ajouter",
   "Ref": "Ref",
   "Weight": "Poids",
-  "Packaging": "Conditionnement",
+  "Packaging": "Packaging",
   "TC 20'": "TC 20'",
   "TC 40'": "TC 40'",
 
@@ -313,5 +313,19 @@
   "Last_updated_by": "mise à jour par",
   "Created at": "Crée le",
   "Total lines number": "Nombre de lignes total",
-  "Users management": "Gestion des utilisateurs"
+  "Users management": "Gestion des utilisateurs",
+  "Forward image": "Image en avant",
+  "Secondary Images": "Images Secondaires",
+  "Login page": "Page de connexion",
+  "Status": "Statut",
+  "Activated": "Activé",
+  "Deactivated": "Desactivé",
+  "Toggle to show or hide this product on the website": "Activez ou désactivez pour afficher ou masquer ce produit sur le site web.",
+  "Generate Description with AI": "Générer une description avec l'IA",
+
+  "A required configuration is missing. Please check your settings.":"Une configuration requise est manquante. Veuillez vérifier vos paramètres.",
+  "Failed to generate description" :"Échec de la génération de la description",
+  "Processing...":"Traitement en cours...",
+  "Product name, category, and brand are required for this action.":"Le nom du produit, la catégorie et la marque sont nécessaires pour cette action.",
+  "Model too busy, unable to get response in less than 60 second(s)":"Modèle trop occupé, impossible d'obtenir une réponse en moins de 60 seconde(s)."
 }   

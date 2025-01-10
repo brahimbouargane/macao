@@ -38,6 +38,7 @@ export * from './select';
 export * from './separator';
 export * from './sheet';
 export * from './sidebar';
+export * from './switch';
 export * from './table';
 export * from './tabs';
 export * from './tag-group';

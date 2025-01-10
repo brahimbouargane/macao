@@ -12,6 +12,8 @@ type FileUploadDropzoneProps = {
   dropZoneOptions?: Partial<DropzoneOptions>;
   isLoading: boolean;
   inputPreviewText: string;
+  className?: string;
+  errorText?: string;
 };
 const FileUploadDropzone = ({
   fieldName,
@@ -19,7 +21,9 @@ const FileUploadDropzone = ({
   setFiles,
   dropZoneOptions,
   isLoading,
-  inputPreviewText
+  inputPreviewText,
+  className,
+  errorText
 }: FileUploadDropzoneProps) => {
   let defaultOptions: DropzoneOptions = {
     accept: {
@@ -46,7 +50,7 @@ const FileUploadDropzone = ({
         setFiles(fieldName, value);
       }}
       dropzoneOptions={defaultOptions}
-      className="w-full rounded-md h-80"
+      className={cn('w-full rounded-md h-80', className)}
       isLoading={isLoading}
     >
       {files?.length !== defaultOptions.maxFiles && (
