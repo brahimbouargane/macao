@@ -21,13 +21,13 @@ interface CategoryCardProps extends Category {
 
 const categories: Category[] = [
   {
-    title: 'Chocolat',
+    title: 'Chocolats',
     image: choco,
     href: '/products/chocolat/pâtes%20à%20tartiner',
     description: 'Découvrez notre sélection de chocolats premium'
   },
   {
-    title: 'Confiserie',
+    title: 'Confiseries',
     image: candies,
     href: '/products/confiserie/sucettes',
     description: 'Découvrez notre gamme de confiseries artisanales'
@@ -39,7 +39,7 @@ const categories: Category[] = [
     description: 'Parcourez notre collection de gaufrettes croustillantes'
   },
   {
-    title: 'Pâtisserie',
+    title: 'Pâtisseries',
     image: leonardo,
     href: '/products/Produits%20pâtissiers/chocolats%20pâtissiers',
     description: 'Découvrez nos pâtisseries fraîchement préparées'
@@ -48,7 +48,7 @@ const categories: Category[] = [
     title: 'Fêtes et événements',
     image: candy,
     href: '/products/Fêtes%20et%20événements/Confiserie%20fine',
-    description: 'Découvrez notre sélection de chocolats premium'
+    description: 'Découvrez nos douceurs parfaites pour toutes vos célébrations '
   }
 ];
 
@@ -261,13 +261,13 @@ export default function CategoryGrid() {
             className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
           text-sm sm:text-base"
           >
-            Les meilleures
+            NOS PRODUITS
           </motion.h2>
           <motion.h1 variants={fadeInUp} className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-medium mb-2">
-            confiseries
+            Tout un monde
           </motion.h1>
           <motion.h2 variants={fadeInUp} className="text-gray-700 text-2xl md:text-3xl lg:text-4xl mb-12">
-            pour votre plaisir
+            de plaisir
           </motion.h2>
         </motion.div>
 

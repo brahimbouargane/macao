@@ -1,45 +1,37 @@
-import videoPlay from '@/assets/images/video.webp';
+import video from '@/assets/images/VIDEO-2023-01-06-12-46-20.mp4';
 import { motion } from 'framer-motion';
-import { ChevronRight, Globe2, History, MapPin, Package, Play, Wallet } from 'lucide-react';
+import { ChevronRight, Globe2, History, MapPin, Package } from 'lucide-react';
 import { useState } from 'react';
 import { Counter } from './counter';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
-
 const stats = [
 
   {
     number: 70,
     label: "ans d'expertise",
     subtext: 'depuis 1954',
-    icon: <History className="stroke-primary w-6 h-6" />,
+    icon: <History className="stroke-primary w-12 h-12" />,
     formatter: (value) => `${value}+`
   },
   {
     number: 20,
     label: 'pays',
     subtext: 'à travers le monde',
-    icon: <Globe2 className="stroke-primary w-6 h-6" />,
+    icon: <Globe2 className="stroke-primary w-12 h-12" />,
     formatter: (value) => `${value}+`
   },
   {
     number: 3,
     label: 'continents',
     subtext: 'Afrique, Europe, Asie',
-    icon: <MapPin className="stroke-primary w-6 h-6" />
+    icon: <MapPin className="stroke-primary w-12 h-12" />
   },
   {
     number: 300,
     label: 'produits',
     subtext: 'diversifiés',
-    icon: <Package className="stroke-primary w-6 h-6" />,
+    icon: <Package className="stroke-primary w-12 h-12" />,
     formatter: (value) => `${value}+`
-  },
-  {
-    number: 55,
-    label: 'millions MAD',
-    subtext: 'de capital',
-    icon: <Wallet className="stroke-primary w-6 h-6" />,
-    formatter: (value) => `${value}`
   }
 
 ];
@@ -77,16 +69,19 @@ export default function DisplaySection() {
       {/* Video Section with Enhanced Styling */}
       <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full overflow-hidden group">
         <div className="absolute inset-0 w-full h-full">
-          <img
+          {/* <img
             src={videoPlay}
             alt="Behind the scenes of our chocolate crafting"
             className="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700"
           />
-          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" /> */}
+          <video autoPlay loop muted playsInline className="object-cover w-full h-full ">
+            <source src={video} type="video/mp4" />
+          </video>
         </div>
 
         {/* Enhanced Play Button */}
-        <button
+        {/* <button
           onClick={() => setIsOpen(true)}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
           w-20 h-20 md:w-24 md:h-24 bg-white/95 rounded-full
@@ -99,7 +94,7 @@ export default function DisplaySection() {
         >
           <Play className="w-10 h-10 md:w-12 md:h-12 text-red-500 ml-1 group-hover/btn:text-red-600 transition-colors" />
           <div className="absolute w-24 h-24 md:w-28 md:h-28 border-2 border-white/80 rounded-full animate-ping opacity-75" />
-        </button>
+        </button> */}
 
         {/* Video Caption */}
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
@@ -115,12 +110,12 @@ export default function DisplaySection() {
           <DialogHeader>
             <DialogTitle className="sr-only">Our Story</DialogTitle>
           </DialogHeader>
-          <div className="relative pt-[56.25%] bg-black">
+          <div className="relative w-full h-full pt-[56.25%] bg-black">
             <iframe
-              src="https://www.youtube.com/embed/your-video-id?autoplay=1&rel=0"
+              src={video}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="absolute top-0 left-0 w-full h-full border-0"
+              className="absolute w-full top-0 left-0  h-full border-0"
             />
           </div>
         </DialogContent>
@@ -129,11 +124,11 @@ export default function DisplaySection() {
       {/* Enhanced Stats Section */}
       <div className="container mx-auto px-4">
         <div className="relative -mt-24 mx-4 bg-white rounded-2xl shadow-2xl p-8 md:p-10">
-          <h2 className="text-center text-2xl md:text-3xl mb-8 md:mb-10  text-gray-700">
+          <h2 className="text-center text-2xl md:text-3xl mb-8 md:mb-10  text-gray-700 uppercase">
             Notre Excellence en Chiffres
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map((stat) => (
               <div
                 key={stat.label}

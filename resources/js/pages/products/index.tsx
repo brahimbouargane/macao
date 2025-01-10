@@ -223,7 +223,7 @@ const Products = () => {
           {/* Sidebar with hover effects */}
           <motion.div variants={fadeInUp} initial="hidden" animate="visible" className="w-full lg:w-72">
             <div className="sticky top-36 rounded-xl bg-white p-6 shadow-lg">
-              <h2 className="mb-4 text-lg font-semibold tracking-tight">{parentCategory.name}</h2>
+              <h2 className="mb-4 text-lg text-black font-semibold tracking-tight">{parentCategory.name}</h2>
               <div className="space-y-2">
                 {parentCategory.childCategoriesNames.map((name) => (
                   <motion.button
@@ -233,7 +233,7 @@ const Products = () => {
                     onClick={() => handleCategoryChange(name)}
                     disabled={isLoading}
                     className={cn(
-                      'flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                      'flex w-full text-black items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all',
                       childCategory.name === name ? 'bg-red-50 text-red-600' : 'hover:bg-red-50 hover:text-red-600',
                       isLoading && 'opacity-50 cursor-not-allowed'
                     )}

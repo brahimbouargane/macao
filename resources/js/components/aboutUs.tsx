@@ -99,6 +99,7 @@ export default function PastorMacaoHero() {
                 <button
                   className="group relative px-8 py-3 bg-red-600 text-white text-lg
                   overflow-hidden rounded-md transition-transform hover:scale-105"
+                  onClick={() => (window.location.href = '/history')}
                 >
                   <span className="relative z-10">En savoir plus</span>
                   <div

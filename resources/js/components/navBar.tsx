@@ -3,7 +3,10 @@ import candies from '@/assets/images/candies.webp';
 import choco from '@/assets/images/chocolate.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import macaoImage from '@/assets/images/macao_logo.png';
+import patesserieicon from '@/assets/images/pastrybag.png';
+import wafericon from '@/assets/images/wafer.png';
 import wafer from '@/assets/images/wafer.webp';
+
 import { Button } from '@/components/ui/shadcn-button';
 import {
   NavigationMenu,
@@ -16,18 +19,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/shadcn-sheet';
 import useWindowSize from '@/hooks/useWindowSize';
 import { motion } from 'framer-motion';
-import {
-  Candy,
-  Cherry,
-  ChevronDown,
-  Cookie,
-  Facebook,
-  History,
-  Instagram,
-  Linkedin,
-  Menu,
-  Youtube
-} from 'lucide-react';
+import { Candy, ChevronDown, Cookie, Facebook, History, Instagram, Linkedin, Menu, Youtube } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from './ui';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/shadcn-dropdown-menu';
@@ -58,7 +50,7 @@ const menuItemVariants = {
 const featuredCategories = [
   {
     id: 'chocolat',
-    title: 'Chocolat',
+    title: 'Chocolats',
     icon: Cookie,
     description: 'Découvrez notre sélection de chocolats fins',
     image: choco,
@@ -67,7 +59,7 @@ const featuredCategories = [
   },
   {
     id: 'confiserie',
-    title: 'Confiserie',
+    title: 'Confiseries',
     icon: Candy,
     description: 'Des douceurs pour tous les goûts',
     image: candies,
@@ -86,7 +78,7 @@ const featuredCategories = [
   {
     id: 'Produits pâtissiers',
     title: 'Produits pâtissiers',
-    icon: Cherry,
+    iconImage: patesserieicon,
     description: "L'excellence de la pâtisserie française",
     image: leonardo,
     highlight: 'Création Artisanale',
@@ -95,7 +87,7 @@ const featuredCategories = [
   {
     id: 'gaufrettes',
     title: 'Gaufrettes',
-    icon: Cherry,
+    iconImage: wafericon,
     description: 'La légèreté et le croustillant à la perfection',
     image: wafer,
     highlight: 'Création Artisanale',
@@ -103,6 +95,36 @@ const featuredCategories = [
   }
 ];
 
+const IconRenderer = ({ category, scrolled }) => {
+  if (category.icon) {
+    const IconComponent = category.icon;
+    return (
+      <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.3 }}>
+        <IconComponent className="h-5 w-5" />
+      </motion.div>
+    );
+  }
+
+  if (category.iconImage) {
+    return (
+      <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.3 }}>
+        <img
+          src={category.iconImage}
+          alt={`${category.title} icon`}
+          className={`h-5 w-5 object-contain transition-all duration-300
+              ${
+                scrolled
+                  ? 'brightness-0' // Makes the image black when scrolled
+                  : 'brightness-0 invert' // Makes the image white when not scrolled
+              }
+              hover:brightness-100 hover:invert-0 hover:filter-none`} // Removes filters on hover to show original color
+        />
+      </motion.div>
+    );
+  }
+
+  return null;
+};
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -251,11 +273,7 @@ export function Navbar() {
                       } hover:text-red-600 transition-colors duration-300`}
                     >
                       <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.05 }}>
-                        {category.icon && (
-                          <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.3 }}>
-                            <category.icon className="h-5 w-5" />
-                          </motion.div>
-                        )}
+                        <IconRenderer category={category} scrolled={scrolled} />
                         {category.title.toUpperCase()}
                       </motion.div>
                     </NavigationMenuTrigger>
@@ -384,9 +402,9 @@ export function Navbar() {
                 <SheetContent side="right" className="w-full max-w-sm">
                   <ScrollArea className="h-screen">
                     <nav className="mt-6">
-                      <Link href="/" className="block mb-6">
+                      {/* <Link href="/" className="block mb-6">
                         <span className="text-lg font-semibold text-gray-900 hover:text-red-600">ACCUEIL</span>
-                      </Link>
+                      </Link> */}
 
                       {featuredCategories.map((category) => (
                         <div key={category.id} className="mb-6">

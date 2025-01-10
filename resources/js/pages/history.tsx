@@ -1,7 +1,7 @@
 import candies from '@/assets/images/candies.webp';
 import commercial from '@/assets/images/commercial.webp';
 import composition from '@/assets/images/composition.webp';
-import iso from '@/assets/images/iso.webp';
+import iso from '@/assets/images/iso.jpg';
 import pastoLogo from '@/assets/images/macoa-logo-small.svg';
 import showcase from '@/assets/images/showcasing.webp';
 import ContactSection from '@/components/contactUs';
@@ -167,7 +167,7 @@ function History() {
             className="flex min-h-[500px] items-center justify-center py-20"
           >
             <div className="text-center mt-28">
-              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
+              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl uppercase">
                 Notre Héritage Gourmand
               </motion.h1>
               <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
