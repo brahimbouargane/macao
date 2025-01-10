@@ -97,8 +97,8 @@ export default function ContactSection() {
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">{info.icon}</div>
                   <div>
-                    <p className="text-sm text-gray-500">{info.label}</p>
-                    <p className="font-medium">{info.text}</p>
+                    <p className="text-sm !text-gray-500">{info.label}</p>
+                    <p className="font-medium text-black">{info.text}</p>
                   </div>
                 </div>
               </motion.div>

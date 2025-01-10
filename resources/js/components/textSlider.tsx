@@ -8,7 +8,7 @@ type TextSliderProps = {
   className?: string;
 };
 
-const DEFAULT_WORDS = ['SAVEUR', 'SUCRÉ', 'PÂTISSERIE', 'GÂTEAUX', 'BONBONS'];
+const DEFAULT_WORDS = ['SAVEURS', 'SUCRÉ', 'PÂTISSERIES', 'GÂTEAUX', 'BONBONS'];
 
 const TextSlider = ({ words = DEFAULT_WORDS, speed = 40, pauseOnHover = true, className = '' }) => {
   const [isPaused, setIsPaused] = useState(false);
