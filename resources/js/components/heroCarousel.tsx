@@ -204,8 +204,8 @@ const HeroSlide = () => {
   // Auto-rotation effect
   useEffect(() => {
     if (!isHovering) {
-      //   const interval = setInterval(nextSlider, 6000);
-      //   return () => clearInterval(interval);
+      const interval = setInterval(nextSlider, 5000);
+      return () => clearInterval(interval);
     }
   }, [nextSlider, isHovering]);
   // Normalize rotation angle
