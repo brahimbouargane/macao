@@ -1,11 +1,11 @@
 import video from '@/assets/images/VIDEO-2023-01-06-12-46-20.mp4';
 import { motion } from 'framer-motion';
-import { ChevronRight, Globe2, History, MapPin, Package } from 'lucide-react';
+import { Globe2, History, MapPin, Package } from 'lucide-react';
 import { useState } from 'react';
-import { Counter } from './counter';
+import StatsDashboard from './counter';
+import { Container } from './ui';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
 const stats = [
-
   {
     number: 70,
     label: "ans d'expertise",
@@ -33,7 +33,6 @@ const stats = [
     icon: <Package className="stroke-primary w-12 h-12" />,
     formatter: (value) => `${value}+`
   }
-
 ];
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -57,7 +56,7 @@ export default function DisplaySection() {
         <motion.h2
           variants={fadeInUp}
           className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
-                text-sm sm:text-base"
+                text-sm sm:text-lg"
         >
           Découvrez notre parcours artisanal
         </motion.h2>
@@ -122,37 +121,9 @@ export default function DisplaySection() {
       </Dialog>
 
       {/* Enhanced Stats Section */}
-      <div className="container mx-auto px-4">
-        <div className="relative -mt-24 mx-4 bg-white rounded-2xl shadow-2xl p-8 md:p-10">
-          <h2 className="text-center text-2xl md:text-3xl mb-8 md:mb-10  text-gray-700 uppercase">
-            Notre Excellence en Chiffres
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="relative group cursor-pointer"
-                onMouseEnter={() => setHoveredStat(stat.label)}
-                onMouseLeave={() => setHoveredStat(null)}
-              >
-                <Counter end={stat.number} label={stat.label} icon={stat.icon} />
-              </div>
-            ))}
-          </div>
-
-          {/* Call to Action */}
-          <div className="mt-10 text-center">
-            <button
-              onClick={() => (window.location.href = '/products/chocolat/pâtes%20à%20tartiner')}
-              className="inline-flex items-center px-6 py-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-300 group"
-            >
-              Découvrez notre collection
-              <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <Container>
+        <StatsDashboard />
+      </Container>
     </section>
   );
 }
