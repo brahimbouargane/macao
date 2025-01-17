@@ -123,7 +123,8 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
   let detailsErrors = getFormErrorsFor(['weight', 'packaging', 'tc_20', 'tc_40'], form.errors);
 
   async function generateDescriptionText(lang: 'French' | 'English'){
-    if(form.data.name.length == 0 || !form.data.brand_id  || selectedCategoriesIds.items.length == 0){
+    let targetLang = lang == 'English' ? form.data.name_en.length == 0 : form.data.name.length == 0;
+    if(targetLang || !form.data.brand_id  || selectedCategoriesIds.items.length == 0){
       toast.error(__(translations,'Product name, category, and brand are required for this action.'),{icon :<FcInfo size={30}/> })
     }else{
 
@@ -140,7 +141,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
 
   return (
     <>
-      <Form onSubmit={createProduct} validationErrors={form.errors} className="pb-2  ">
+      <Form onSubmit={createProduct} validationErrors={form.errors} className="pb-2 ">
         <Tabs defaultValue="general" aria-label="Fitness App">
           <TabsList className="flex justify-between">
             <TabsTrigger value="general">
@@ -149,7 +150,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
                 <Badge
                   shape="circle"
                   intent="secondary"
-                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                  className="ml-2 font-bold border-2 animate-wiggle animate-infinite text-primary border-primary/50 dark:text-white dark:border-white"
                 >
                   {generalErrors}
                 </Badge>
@@ -161,7 +162,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
                 <Badge
                   shape="circle"
                   intent="danger"
-                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                  className="ml-2 font-bold border-2 animate-wiggle animate-infinite text-primary border-primary/50 dark:text-white dark:border-white"
                 >
                   {imagesErrors}
                 </Badge>
@@ -173,7 +174,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
                 <Badge
                   shape="circle"
                   intent="danger"
-                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                  className="ml-2 font-bold border-2 animate-wiggle animate-infinite text-primary border-primary/50 dark:text-white dark:border-white"
                 >
                   {tarifErrors}
                 </Badge>
@@ -186,7 +187,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
                 <Badge
                   shape="circle"
                   intent="danger"
-                  className="ml-2 animate-wiggle animate-infinite  font-bold text-primary border-2 border-primary/50 dark:text-white dark:border-white"
+                  className="ml-2 font-bold border-2 animate-wiggle animate-infinite text-primary border-primary/50 dark:text-white dark:border-white"
                 >
                   {detailsErrors}
                 </Badge>
@@ -197,8 +198,8 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
             <TabsContent value="general" className="animate-fade-down animate-duration-[400ms]">
               {/* General */}
               <div className="col-span-1 space-y-6">
-                <div className="grid gap-3 md:grid-cols-1 space-y-4 ">
-                  <div className="md:grid grid-cols-3 gap-x-6">
+                <div className="grid gap-3 space-y-4 md:grid-cols-1 ">
+                  <div className="grid-cols-3 md:grid gap-x-6">
                     <TextField
                       isDisabled={form.processing }
                       type="text"
@@ -216,7 +217,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
                       }
                       className="col-span-2"
                     />
-                    <div className="md:grid grid-cols-3 max-md:my-6">
+                    <div className="grid-cols-3 md:grid max-md:my-6">
                       <Switch
                       isDisabled={form.processing }
                         isSelected={form.data.active}
@@ -269,7 +270,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
                         />
                         <Button isDisabled={form.processing || isGenerating} onPress={()=>{
                           generateDescriptionText('French')
-                        }} appearance="plain" intent="secondary" className="underline text-info ml-auto p-0 hover:bg-transparent hover:scale-105 transition-all">
+                        }} appearance="plain" intent="secondary" className="p-0 ml-auto underline transition-all text-info hover:bg-transparent hover:scale-105">
                           { isGenerating ? <div className='flex items-center gap-x-2'><Loader  /> <span>{__(translations,"Processing...")}</span></div> : __(translations, 'Generate Description with AI') }
                         </Button>
                       </div>
@@ -302,13 +303,13 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
                         />
                         <Button isDisabled={form.processing || isGenerating} onPress={()=>{
                           generateDescriptionText('English')
-                        }} appearance="plain" intent="secondary" className="underline text-info ml-auto p-0 hover:bg-transparent hover:scale-105 transition-all">
+                        }} appearance="plain" intent="secondary" className="p-0 ml-auto underline transition-all text-info hover:bg-transparent hover:scale-105">
                           { isGenerating ? <div className='flex items-center gap-x-2'><Loader  /> <span>{__(translations,"Processing...")}</span></div> : __(translations, 'Generate Description with AI') }
                         </Button>
                       </div>
                     </TabsContent>
                   </Tabs>
-                  <div className="md:grid grid-cols-2 max-md:space-y-8 gap-6">
+                  <div className="grid-cols-2 gap-6 md:grid max-md:space-y-8">
                     {/* Brand field */}
                     <div className="relative">
                       <Select
@@ -424,9 +425,9 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
             </TabsContent>
             <TabsContent value="images" className="animate-fade-down animate-duration-[400ms]">
               {/* File Upload */}
-              <div className=" max-md:pt-2  col-span-2 md:grid grid-cols-2 md:gap-x-6 max-md:space-y-6">
+              <div className="grid-cols-2 col-span-2  max-md:pt-2 md:grid md:gap-x-6 max-md:space-y-6">
                 <div>
-                  <div className="flex items-center justify-start gap-x-4 text-xl mb-5">
+                  <div className="flex items-center justify-start mb-5 text-xl gap-x-4">
                     <Camera />
                     <span>{__(translations, 'Forward image')}</span>
                   </div>
@@ -447,7 +448,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
 
                 {/* --------------------------------- */}
                 <div className="h-full">
-                  <div className="flex items-center justify-start gap-x-4 text-xl mb-5">
+                  <div className="flex items-center justify-start mb-5 text-xl gap-x-4">
                     <Image /> {__(translations, 'Secondary Images')}
                   </div>
                   <FilesUploadDropzone
@@ -489,7 +490,7 @@ export default function CreateProductFormWithTabs({ setIsCreateFormModalOpen }: 
             <TabsContent value="details" className="animate-fade-down animate-duration-[400ms]">
               {/* Details */}
 
-              <div className="md:grid grid-cols-1 md:grid-cols-2   gap-8 max-md:space-y-8  ">
+              <div className="grid-cols-1 gap-8 md:grid md:grid-cols-2 max-md:space-y-8 ">
                 <TextField
                   isDisabled={form.processing }
                   type="number"
