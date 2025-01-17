@@ -1,5 +1,6 @@
 // export default Navbar;
 import candies from '@/assets/images/candies.webp';
+import candy from '@/assets/images/candy.webp';
 import choco from '@/assets/images/chocolate.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import macaoImage from '@/assets/images/macao_logo.png';
@@ -19,9 +20,20 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/shadcn-sheet';
 import useWindowSize from '@/hooks/useWindowSize';
 import { motion } from 'framer-motion';
-import { Candy, ChevronDown, Cookie, Facebook, History, Instagram, Linkedin, Menu, Youtube } from 'lucide-react';
+import {
+  Candy,
+  ChevronDown,
+  Cookie,
+  Facebook,
+  History,
+  Instagram,
+  Linkedin,
+  Menu,
+  NotebookTabs,
+  Youtube
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link } from './ui';
+import { Container, Link } from './ui';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/shadcn-dropdown-menu';
 import { ScrollArea } from './ui/shadcn-scroll-area';
 
@@ -92,6 +104,15 @@ const featuredCategories = [
     image: wafer,
     highlight: 'Création Artisanale',
     items: ['Gaufrettes enrobées', 'Gaufrettes fourrées']
+  },
+  {
+    id: 'Fêtes et événements',
+    title: 'Fêtes et événements',
+    icon: Candy,
+    description: 'La légèreté et le croustillant à la perfection',
+    image: candy,
+    highlight: 'Collections Saisonnières',
+    items: ['Chocolats fins fourrés', 'Confiserie fine', 'Fruits confits', 'Saint-Valentin', 'Nougat']
   }
 ];
 
@@ -214,7 +235,7 @@ export function Navbar() {
           transition: { duration: 0.3 }
         }}
       >
-        <div className="container mx-auto px-4">
+        <Container>
           <div className="flex h-20 md:h-24 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="relative flex-shrink-0">
@@ -228,23 +249,6 @@ export function Navbar() {
             {/* Main Navigation */}
             <NavigationMenu className="hidden lg:flex">
               <NavigationMenuList className="space-x-1">
-                {/* <NavigationMenuItem>
-                  <MotionLink href="/">
-                    <NavigationMenuLink
-                      className={`text-lg font-medium rounded-md ${
-                        scrolled
-                          ? 'text-gray-800 hover:bg-red-50 hover:text-red-600'
-                          : 'text-white hover:bg-red-100 hover:text-red-600'
-                      }  transition-colors duration-300 px-3 py-2 flex items-center gap-2`}
-                    >
-                      <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.3 }}>
-                        <Home className="h-5 w-5" />
-                      </motion.div>
-                      ACCUEIL
-                    </NavigationMenuLink>
-                  </MotionLink>
-                </NavigationMenuItem> */}
-
                 <NavigationMenuItem>
                   <MotionLink href="/history">
                     <NavigationMenuLink
@@ -262,89 +266,101 @@ export function Navbar() {
                   </MotionLink>
                 </NavigationMenuItem>
 
-                {featuredCategories.map((category) => (
-                  <NavigationMenuItem key={category.id}>
-                    <NavigationMenuTrigger
-                      onMouseEnter={() => setHoveredCategory(category.id)}
-                      className={`text-lg font-medium ${
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger
+                    className={`text-lg font-medium ${
+                      scrolled
+                        ? 'text-gray-800 hover:bg-red-50 hover:text-red-600'
+                        : 'text-white hover:bg-red-100 hover:text-red-600'
+                    } hover:text-red-600 transition-colors duration-300`}
+                  >
+                    <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.05 }}>
+                      <Candy className="h-5 w-5" />
+                      NOS PRODUITS
+                    </motion.div>
+                  </NavigationMenuTrigger>
+
+                  <NavigationMenuContent>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      className="w-screen left-0 max-w-screen-xl mx-auto bg-white rounded-lg shadow-xl p-6"
+                    >
+                      <div className="grid lg:grid-cols-5 gap-6">
+                        {featuredCategories.map((category) => (
+                          <motion.div
+                            key={category.id}
+                            className=" "
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                          >
+                            {/* Category Header */}
+                            <div className="flex items-center gap-2 border-b border-gray-100 pb-2">
+                              <div className="text-red-600">
+                                <IconRenderer category={category} scrolled={true} />
+                              </div>
+                              <h3 className="text-lg font-semibold text-gray-900">{category.title}</h3>
+                            </div>
+
+                            {/* Category Image */}
+                            <div className="relative h-32 overflow-hidden rounded-lg">
+                              <motion.img
+                                src={category.image}
+                                alt={category.title}
+                                className="w-full h-full object-cover"
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.4 }}
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                              <span className="absolute bottom-2 left-2 text-white text-sm font-medium">
+                                {category.highlight}
+                              </span>
+                            </div>
+
+                            {/* Category Items */}
+                            <div className="space-y-2">
+                              {category.items.map((item, index) => (
+                                <motion.div
+                                  key={item}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: index * 0.05 }}
+                                >
+                                  <Link href={`/products/${category.id}/${item.toLowerCase()}`} className="block group">
+                                    <motion.div
+                                      className="px-3 py-2 rounded-md hover:bg-red-50 transition-colors duration-300"
+                                      whileHover={{ x: 5 }}
+                                    >
+                                      <span className="text-gray-600 group-hover:text-red-600 text-sm">{item}</span>
+                                    </motion.div>
+                                  </Link>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <MotionLink href="#conatct">
+                    <NavigationMenuLink
+                      className={`text-lg font-medium rounded-md  ${
                         scrolled
                           ? 'text-gray-800 hover:bg-red-50 hover:text-red-600'
                           : 'text-white hover:bg-red-100 hover:text-red-600'
-                      } hover:text-red-600 transition-colors duration-300`}
+                      } hover:text-red-600 transition-colors duration-300 px-3 py-2 flex items-center gap-2`}
                     >
-                      <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.05 }}>
-                        <IconRenderer category={category} scrolled={scrolled} />
-                        {category.title.toUpperCase()}
+                      <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.3 }}>
+                        <NotebookTabs className="h-5 w-5" />
                       </motion.div>
-                    </NavigationMenuTrigger>
-
-                    <NavigationMenuContent>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        className="w-screen max-w-screen-lg mx-auto bg-white rounded-lg shadow-xl"
-                      >
-                        <div className="p-6 grid grid-cols-2 gap-8">
-                          {/* Left Column - Image Section */}
-                          <div className="relative overflow-hidden rounded-lg">
-                            <motion.img
-                              src={category.image}
-                              alt={category.title}
-                              className="w-full h-80 object-cover rounded-lg shadow-md"
-                              whileHover={{ scale: 1.05 }}
-                              transition={{ duration: 0.4 }}
-                            />
-                          </div>
-
-                          {/* Right Column - Content Section */}
-                          <div className="flex flex-col justify-between">
-                            <div className="space-y-4">
-                              <motion.div
-                                variants={menuItemVariants}
-                                initial="closed"
-                                animate="open"
-                                className="border-b border-gray-100 pb-4"
-                              >
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">{category.title}</h3>
-                                <p className="text-gray-600 text-lg">{category.description}</p>
-                              </motion.div>
-
-                              <div className="grid grid-cols-2 gap-3 pt-4">
-                                {category.items.map((item, index) => (
-                                  <motion.div
-                                    key={item}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                  >
-                                    <Link
-                                      href={`/products/${category.id}/${item.toLowerCase()}`}
-                                      className="block group"
-                                    >
-                                      <motion.div
-                                        className="p-4 rounded-lg bg-gray-50 hover:bg-red-50 border border-gray-100 hover:border-red-100 transition-all duration-300"
-                                        whileHover={{
-                                          scale: 1.03,
-                                          y: -2,
-                                          transition: { duration: 0.2 }
-                                        }}
-                                      >
-                                        <span className="text-gray-800 group-hover:text-red-600 font-medium transition-colors duration-300">
-                                          {item}
-                                        </span>
-                                      </motion.div>
-                                    </Link>
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                ))}
+                      CONTACTT
+                    </NavigationMenuLink>
+                  </MotionLink>
+                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
 
@@ -402,12 +418,14 @@ export function Navbar() {
                 <SheetContent side="right" className="w-full max-w-sm">
                   <ScrollArea className="h-screen">
                     <nav className="mt-6">
-                      {/* <Link href="/" className="block mb-6">
-                        <span className="text-lg font-semibold text-gray-900 hover:text-red-600">ACCUEIL</span>
-                      </Link> */}
-
+                      <Link href="/history" className="block mb-6">
+                        <span className="text-lg font-semibold  text-red-600 hover:text-gray-900">NOTRE HISTOIRE</span>
+                      </Link>
+                      <Link href="#contact" className="block mb-6">
+                        <span className="text-lg font-semibold  text-red-600 hover:text-gray-900">CONTACT</span>
+                      </Link>
                       {featuredCategories.map((category) => (
-                        <div key={category.id} className="mb-6">
+                        <div key={category.id} className="mb-10">
                           <h3 className="text-lg font-semibold text-red-600 mb-4">{category.title}</h3>
                           <div className="ml-4 grid grid-cols-2 gap-3">
                             {category.items.map((item, index) => (
@@ -442,7 +460,7 @@ export function Navbar() {
               </Sheet>
             </motion.div>
           </div>
-        </div>
+        </Container>
       </motion.div>
     </motion.header>
   );

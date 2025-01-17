@@ -1,6 +1,6 @@
 import first from '@/assets/images/4.png';
 import chocolateImg from '@/assets/images/aboutuspic.webp';
-import pastoLogo from '@/assets/images/macoa-logo-small.svg';
+import pastoLogo from '@/assets/images/macao_logo.png';
 import { motion } from 'framer-motion';
 
 export default function PastorMacaoHero() {
@@ -36,17 +36,20 @@ export default function PastorMacaoHero() {
         </motion.div>
       </div>
       <motion.div className="text-center py-8 sm:py-12" initial="hidden" animate="visible" variants={staggerChildren}>
-        <motion.h2
+        <motion.h1
           variants={fadeInUp}
           className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
-          text-sm sm:text-base"
+          text-sm sm:text-lg"
         >
           À propos de nous
-        </motion.h2>
-        <motion.h1 variants={fadeInUp} className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-medium mb-2">
-          PASTOR MACAO
         </motion.h1>
-        <motion.h2 variants={fadeInUp} className="text-gray-700 text-2xl md:text-3xl lg:text-4xl mb-12">
+        <motion.h2
+          variants={fadeInUp}
+          className="text-gray-700 lowercase text-4xl md:text-5xl lg:text-6xl font-medium mb-2"
+        >
+          PASTOR MACAO
+        </motion.h2>
+        <motion.h2 variants={fadeInUp} className="text-gray-700 lowercase text-2xl md:text-3xl lg:text-4xl mb-12">
           SAVOUREZ LA VIE !
         </motion.h2>
       </motion.div>

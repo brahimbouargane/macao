@@ -4,14 +4,17 @@ import choco from '@/assets/images/chocolate.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import wafer from '@/assets/images/wafer.webp';
 import { Badge } from '@/components/ui/shadcn-badge';
+import { Button } from '@/components/ui/shadcn-button';
+import { Input } from '@/components/ui/shadcn-input';
 import { GuestLayout } from '@/layouts';
 import { cn } from '@/utils/classes';
 import { router, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
-import { ImageIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
+import _ from 'lodash';
+import { ChevronLeft, ChevronRight, ImageIcon, Search } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
-// Import images and other dependencies...
+// Product interface definition
 interface Product {
   id: number;
   name: string;
@@ -23,45 +26,46 @@ interface Product {
   primaryImage: { optimized: string };
 }
 
+// Category content configuration
 const categoryContent = {
   Confiserie: {
     title: 'DÉLICES SUCRÉS MACAO',
     subtitle: 'Une gamme complète de confiseries artisanales',
     bgColor: 'from-red-600 to-red-700',
-    bgImage: candies, // Image of colorful candies
-    overlayOpacity: 'opacity-80' // Control darkness of overlay
+    bgImage: candies,
+    overlayOpacity: 'opacity-80'
   },
   Chocolat: {
     title: 'CHOCOLAT EXQUIS',
     subtitle: 'Des créations chocolatées pour tous les plaisirs.',
     bgColor: 'from-amber-800 to-amber-900',
-    bgImage: choco, // Rich chocolate pieces/truffles
+    bgImage: choco,
     overlayOpacity: '50'
   },
   Gaufrettes: {
     title: 'GAUFRETTES CROUSTILLANTES',
     subtitle: 'La légèreté et le croustillant à la perfection',
     bgColor: 'from-orange-400 to-orange-600',
-    bgImage: wafer, // Stacked wafers
+    bgImage: wafer,
     overlayOpacity: '40'
   },
   'Produits pâtissiers': {
     title: 'PÂTISSERIE RAFFINÉE',
     subtitle: "L'excellence de la pâtisserie traditionnelle",
     bgColor: 'from-rose-400 to-rose-600',
-    bgImage: leonardo, // Elegant pastries
+    bgImage: leonardo,
     overlayOpacity: '45'
   },
   'Fêtes et événements': {
     title: 'CÉLÉBREZ VOS MOMENTS',
     subtitle: 'Des créations spéciales pour vos occasions',
     bgColor: 'from-purple-500 to-purple-700',
-    bgImage: candy, // Festive candies arrangement
+    bgImage: candy,
     overlayOpacity: '55'
   }
 };
 
-// Enhanced animation variants
+// Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -116,15 +120,20 @@ const ScrollProgress = () => {
   );
 };
 
+// Constants
+const ITEMS_PER_PAGE = 9;
+const PLACEHOLDER_IMAGE = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EMACAO%3C/text%3E%3C/svg%3E`;
+
 const Products = () => {
+  // State management
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [imageError, setImageError] = useState(false);
-  7;
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const placeholderImage = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EMACAO%3C/text%3E%3C/svg%3E`;
-
+  // Scroll animations
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ['start start', 'end start']
@@ -134,39 +143,88 @@ const Products = () => {
   const headerScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
   const headerY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
 
+  // Get page props
   const { products, parentCategory, childCategory } = usePage<{
     products: Product[];
     parentCategory: { name: string; childCategoriesNames: string[] };
     childCategory: { name: string };
   }>().props;
 
-  // Enhanced filtering with animation support
-  const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
-    : products;
+  // Search and filter logic
+  const filteredProducts = products
+    .filter((product) => (selectedCategory ? product.category === selectedCategory : true))
+    .filter((product) => {
+      if (!searchQuery) return true;
+      const searchLower = searchQuery.toLowerCase();
+      return (
+        product.name.toLowerCase().includes(searchLower) ||
+        product.description.toLowerCase().includes(searchLower) ||
+        product.product_type.name.toLowerCase().includes(searchLower)
+      );
+    });
 
-  // Loading state handler for navigation
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+  // Reset pagination when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategory]);
+
+  // Navigation handler
   const handleCategoryChange = (name: string) => {
     setIsLoading(true);
-
     router.visit(`/products/${parentCategory.name}/${name}`, {
       onFinish: () => {
         setIsLoading(false);
-        // Scroll to top after navigation
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
   };
 
+  // Pagination component
+  const PaginationControls = () => (
+    <div className="mt-8 flex items-center justify-center gap-2">
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+        disabled={currentPage === 1}
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </Button>
+
+      <div className="flex gap-1">
+        {_.range(1, totalPages + 1).map((page) => (
+          <Button
+            key={page}
+            variant={currentPage === page ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setCurrentPage(page)}
+            className={cn('min-w-[2.5rem]', currentPage === page && 'bg-red-600 hover:bg-red-700')}
+          >
+            {page}
+          </Button>
+        ))}
+      </div>
+
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+        disabled={currentPage === totalPages}
+      >
+        <ChevronRight className="h-4 w-4" />
+      </Button>
+    </div>
+  );
+
   return (
     <>
-      {/* <Navbar /> */}
       <ScrollProgress />
 
-      {/* Hero Section with enhanced animations */}
+      {/* Hero Section */}
       <motion.div
         ref={scrollRef}
         style={{
@@ -178,7 +236,6 @@ const Products = () => {
           categoryContent[parentCategory.name]?.bgColor || 'from-red-600 to-red-700'
         }`}
       >
-        {/* Hero content... */}
         <div className="absolute inset-0">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -197,7 +254,6 @@ const Products = () => {
           />
         </div>
 
-        {/* Hero text content */}
         <div className="container relative mx-auto px-4">
           <motion.div
             variants={fadeInUp}
@@ -217,105 +273,133 @@ const Products = () => {
         </div>
       </motion.div>
 
-      {/* Main Content with AnimatePresence for smooth transitions */}
+      {/* Main Content */}
       <motion.div variants={pageTransition} initial="hidden" animate="visible" className="container mx-auto px-4 py-16">
         <div className="flex flex-col gap-8 lg:flex-row">
-          {/* Sidebar with hover effects */}
+          {/* Sidebar */}
           <motion.div variants={fadeInUp} initial="hidden" animate="visible" className="w-full lg:w-72">
-            <div className="sticky top-36 rounded-xl bg-white p-6 shadow-lg">
-              <h2 className="mb-4 text-lg text-black font-semibold tracking-tight">{parentCategory.name}</h2>
-              <div className="space-y-2">
-                {parentCategory.childCategoriesNames.map((name) => (
-                  <motion.button
-                    key={name}
-                    whileHover={{ x: 4, backgroundColor: 'rgb(254, 242, 242)' }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => handleCategoryChange(name)}
-                    disabled={isLoading}
-                    className={cn(
-                      'flex w-full text-black items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      childCategory.name === name ? 'bg-red-50 text-red-600' : 'hover:bg-red-50 hover:text-red-600',
-                      isLoading && 'opacity-50 cursor-not-allowed'
-                    )}
-                  >
-                    {name.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())}
-                    {isLoading && childCategory.name === name && (
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                        className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full"
-                      />
-                    )}
-                  </motion.button>
-                ))}
+            <div className="sticky top-36 space-y-6">
+              {/* Search Input */}
+              <div className="rounded-xl bg-white p-6 shadow-lg">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Rechercher..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+
+              {/* Categories */}
+              <div className="rounded-xl bg-white p-6 shadow-lg">
+                <h2 className="mb-4 text-lg font-semibold tracking-tight text-black">{parentCategory.name}</h2>
+                <div className="space-y-2">
+                  {parentCategory.childCategoriesNames.map((name) => (
+                    <motion.button
+                      key={name}
+                      whileHover={{ x: 4, backgroundColor: 'rgb(254, 242, 242)' }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleCategoryChange(name)}
+                      disabled={isLoading}
+                      className={cn(
+                        'flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all text-black',
+                        childCategory.name === name ? 'bg-red-50 text-red-600' : 'hover:bg-red-50 hover:text-red-600',
+                        isLoading && 'opacity-50 cursor-not-allowed'
+                      )}
+                    >
+                      {name.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())}
+                      {isLoading && childCategory.name === name && (
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                          className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full"
+                        />
+                      )}
+                    </motion.button>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Product Grid with AnimatePresence */}
+          {/* Product Grid */}
           <div className="flex-1">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedCategory || 'all'}
-                variants={staggerContainer}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-              >
-                {filteredProducts.map((product) => (
-                  <motion.div
-                    key={product.id}
-                    variants={fadeInUp}
-                    whileHover={{ y: -8 }}
-                    className="group relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
-                  >
-                    <div className="aspect-square overflow-hidden">
-                      <motion.img
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.4 }}
-                        src={product.primaryImage.optimized || placeholderImage}
-                        alt={product.name}
-                        width={400}
-                        height={400}
-                        className={cn('h-full w-full object-cover', imageError && 'bg-red-300')}
-                      />
-                    </div>
-                    {imageError && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-                        <div className="text-center">
-                          <div className="text-gray-400 mb-2">
-                            <ImageIcon className="mx-auto h-12 w-12" />
+              {paginatedProducts.length > 0 ? (
+                <motion.div
+                  key={selectedCategory || 'all'}
+                  variants={staggerContainer}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+                >
+                  {paginatedProducts.map((product) => (
+                    <motion.div
+                      key={product.id}
+                      variants={fadeInUp}
+                      whileHover={{ y: -8 }}
+                      className="group relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
+                    >
+                      <div className="aspect-square overflow-hidden">
+                        <motion.img
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.4 }}
+                          src={product.primaryImage.optimized || PLACEHOLDER_IMAGE}
+                          alt={product.name}
+                          width={400}
+                          height={400}
+                          className={cn('h-full w-full object-cover', imageError && 'bg-red-300')}
+                          onError={() => setImageError(true)}
+                        />
+                      </div>
+                      {imageError && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                          <div className="text-center">
+                            <div className="text-gray-400 mb-2">
+                              <ImageIcon className="mx-auto h-12 w-12" />
+                            </div>
+                            <p className="text-sm text-gray-500">Image non disponible</p>
                           </div>
-                          <p className="text-sm text-gray-500">Image non disponible</p>
+                        </div>
+                      )}
+                      <div className="p-6">
+                        <Badge variant="secondary" className="mb-2 transition-colors hover:bg-red-100">
+                          {product.product_type.name}
+                        </Badge>
+                        <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+                        <p className="mt-1 text-sm text-gray-600">{product.description}</p>
+                        <div className="mt-4 flex items-center justify-between">
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => router.visit(`/products/${product.id}`)}
+                            className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+                          >
+                            Voir plus
+                          </motion.button>
                         </div>
                       </div>
-                    )}
-                    <div className="p-6">
-                      <Badge variant="secondary" className="mb-2 transition-colors hover:bg-red-100">
-                        {product.product_type.name}
-                      </Badge>
-                      <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                      <p className="mt-1 text-sm text-gray-600">{product.description}</p>
-                      <div className="mt-4 flex items-center justify-between">
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => router.visit(`/products/${product.id}`)}
-                          className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
-                        >
-                          Voir plus
-                        </motion.button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center py-12 text-center">
+                  <ImageIcon className="mb-4 h-12 w-12 text-gray-400" />
+                  <h3 className="mb-2 text-lg font-semibold text-gray-900">Aucun produit trouvé</h3>
+                  <p className="text-sm text-gray-600">Essayez de modifier vos critères de recherche</p>
+                </motion.div>
+              )}
             </AnimatePresence>
+
+            {/* Pagination Controls */}
+            {filteredProducts.length > ITEMS_PER_PAGE && <PaginationControls />}
           </div>
         </div>
       </motion.div>
-      {/* <Footer /> */}
     </>
   );
 };

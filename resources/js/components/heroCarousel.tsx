@@ -16,166 +16,15 @@ import cake from '@/assets/images/small-cake.webp';
 import strawberry from '@/assets/images/strawbery.webp';
 import '../../css/app.css';
 
-import useWindowSize from '@/hooks/useWindowSize';
-
-import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-
-const FloatingImage = ({ image, position, activeItem }) => {
-  const getPositionStyles = () => {
-    const defaultPositions = {
-      'top-left': 'top-28 left-12 md:top-28 md:left-[22rem] lg:top-28 lg:left-[35rem] ',
-      'top-right': 'top-24 right-12 md:top-28 md:right-[21rem]  lg:top-28 lg:right-[29rem]  ',
-      'bottom-left': 'bottom-40 left-12 md:bottom-[4rem] md:left-[25rem] lg:bottom-[4rem] lg:left-[36rem] ',
-      'bottom-right': 'bottom-40 right-12 md:bottom-32 md:right-[25rem] lg:bottom-32 lg:right-[35rem] '
-    };
-
-    const item1Positions = {
-      'top-left': 'top-28 left-12 md:top-28 md:left-[30rem] lg:top-28 lg:left-[40rem]',
-      'top-right': 'top-20 right-12 md:top-28 md:right-[22rem] lg:top-28 lg:right-[34rem]',
-      'bottom-left': 'bottom-40 left-12 md:bottom-[6rem] md:left-[35rem] lg:bottom-[6rem] lg:left-[40rem]',
-      'bottom-right': 'bottom-40 right-12 md:bottom-32 md:right-[35rem] lg:bottom-32 lg:right-[40rem]'
-    };
-
-    return activeItem === 0 ? item1Positions : defaultPositions;
-  };
-
-  const positionStyles = getPositionStyles();
-
-  const getRotateValues = () => {
-    if (activeItem === 0) {
-      return {
-        'top-left': -25,
-        'top-right': 30,
-        'bottom-left': 120,
-        'bottom-right': 20
-      };
-    } else if (activeItem === 1) {
-      return {
-        'top-left': -25,
-        'top-right': 30,
-        'bottom-left': 10,
-        'bottom-right': 20
-      };
-    } else if (activeItem === 2) {
-      return {
-        'top-left': -25,
-        'top-right': 60,
-        'bottom-left': -120,
-        'bottom-right': -20
-      };
-    }
-  };
-
-  ({
-    0: {
-      'top-left': -25,
-      'top-right': 30,
-      'bottom-left': 120,
-      'bottom-right': 20
-    },
-    1: {
-      'top-left': -25,
-      'top-right': 30,
-      'bottom-left': 10,
-      'bottom-right': 20
-    },
-    2: {
-      'top-left': -25,
-      'top-right': 60,
-      'bottom-left': -120,
-      'bottom-right': -20
-    }
-  })[activeItem][position];
-
-  const rotateValues = getRotateValues();
-
-  const sizeClasses = {
-    'top-left': 'w-28 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56 	',
-    'top-right': 'w-28 h-48 md:w-64 md:h-64 lg:w-80 lg:h-56',
-    'bottom-left': 'w-28 h-48 md:w-64 md:h-64 lg:w-30 lg:h-56 ',
-    'bottom-right': 'w-28 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56 	'
-  };
-
-  const appearAnimation = {
-    initial: {
-      opacity: 0,
-      scale: 0.5
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: 1, // Delay after main image appears
-        duration: 1.2,
-        ease: 'easeOut'
-      }
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.5,
-      transition: {
-        duration: 0.5,
-        ease: 'easeIn'
-      }
-    }
-  };
-
-  // Combine floating and appear animations
-  const combinedAnimation = {
-    ...appearAnimation.animate,
-    y: ['-10px', '10px'],
-    rotate: rotateValues[position],
-    transition: {
-      opacity: {
-        delay: 1,
-        duration: 1.2
-      },
-      scale: {
-        delay: 1,
-        duration: 1.2
-      },
-      y: {
-        delay: 1, // Start floating after appearance
-        duration: 4,
-        repeat: Infinity,
-        repeatType: 'reverse',
-        ease: 'easeInOut'
-      }
-    }
-  };
-
-  return (
-    <motion.div
-      className={`absolute ${positionStyles[position]} z-30 `}
-      initial={appearAnimation.initial}
-      animate={combinedAnimation}
-      exit={appearAnimation.exit}
-    >
-      <img
-        src={image}
-        alt="Floating product"
-        className={`${sizeClasses[position]} object-contain rounded-lg  `}
-        style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}
-      />
-    </motion.div>
-  );
-};
+import { Link } from './ui';
 
 const HeroSlide = () => {
   const [rotate, setRotate] = useState(0);
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState('left');
-  const { width } = useWindowSize();
-  const radius = useMemo(() => {
-    if (width < 450) return 450;
-    if (width < 650) return 420;
-    if (width < 770) return 410;
-    if (width < 850) return 480;
-    if (width < 1024) return 230;
-    return 280;
-  }, [width]);
+  const [isHovering, setIsHovering] = useState(false);
 
   const items = useMemo(
     () => [
@@ -239,6 +88,95 @@ const HeroSlide = () => {
     []
   );
 
+  const getRotateValues = (active, position) => {
+    // Base sizes for each active state
+    const rotate = {
+      0: {
+        // First slide
+        'top-left': -25,
+        'top-right': 30,
+        'bottom-left': 120,
+        'bottom-right': 20
+      },
+      1: {
+        // Second slide
+        'top-left': -25,
+        'top-right': 30,
+        'bottom-left': 10,
+        'bottom-right': 20
+      },
+      2: {
+        // Third slide
+        'top-left': -25,
+        'top-right': 60,
+        'bottom-left': -120,
+        'bottom-right': -20
+      }
+    };
+
+    return rotate[active]?.[position] || 0; // Default size
+  };
+  const getImageSize = (active, position) => {
+    // Base sizes for each active state
+    const sizes = {
+      0: {
+        // First slide
+        'top-left': ' w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44',
+        'top-right': 'w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44',
+        'bottom-left': ' w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40',
+        'bottom-right': ' w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44'
+      },
+      1: {
+        // Second slide
+        'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-44 lg:h-44',
+        'top-right': 'w-36 h-36 md:w-36 md:h-36 lg:w-44 lg:h-44',
+        'bottom-left': ' w-32 h-32 md:w-36 md:h-36 lg:w-44 lg:h-44',
+        'bottom-right': ' w-24 h-24 md:w-36 md:h-36 lg:w-36 lg:h-36'
+      },
+      2: {
+        // Third slide
+        'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-44 lg:h-44',
+        'top-right': 'w-32 h-32 md:w-36 md:h-36 lg:w-52 lg:h-52',
+        'bottom-left': ' w-32 h-32 md:w-36 md:h-36 lg:w-44 lg:h-44',
+        'bottom-right': ' w-32 h-32 md:w-36 md:h-36 lg:w-44 lg:h-44'
+      }
+    };
+
+    return sizes[active]?.[position] || 'w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48'; // Default size
+  };
+
+  const getPosition = (active, position) => {
+    // Custom positions for each active state
+    const positions = {
+      0: {
+        'top-left': '-left-4 -top-20 md:-left-16 md:-top-20',
+        'top-right': '-right-2 -top-16 md:-right-8 md:-top-20',
+        'bottom-left': '-left-0 -bottom-10 md:-left-0 md:-bottom-20',
+        'bottom-right': '-right-0 -bottom-10 md:-right-4 md:-bottom-20'
+      },
+      1: {
+        'top-left': '-left-16 -top-20 md:-left-20 md:-top-24',
+        'top-right': '-right-16 -top-20 md:-right-20 md:-top-24',
+        'bottom-left': '-left-16 -bottom-16 md:-left-20 md:-bottom-16',
+        'bottom-right': '-right-16 -bottom-16 md:-right-20 md:-bottom-20'
+      },
+      2: {
+        'top-left': '-left-16 -top-20 md:-left-24 md:-top-28',
+        'top-right': '-right-16 -top-20 md:-right-24 md:-top-28',
+        'bottom-left': '-left-16 -bottom-16 md:-left-16 md:-bottom-20',
+        'bottom-right': '-right-16 -bottom-16 md:-right-24 md:-bottom-20'
+      }
+    };
+
+    return positions[active]?.[position] || '-left-16 -top-20'; // Default position
+  };
+
+  const getImageContainerClass = (itemId) => {
+    if (itemId === 1) {
+      return 'w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px]';
+    }
+    return 'w-[280px] h-[280px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]';
+  };
   // Memoized navigation functions
   const nextSlider = useCallback(() => {
     setDirection('left');
@@ -265,10 +203,11 @@ const HeroSlide = () => {
 
   // Auto-rotation effect
   useEffect(() => {
-    const interval = setInterval(nextSlider, 6000);
-    return () => clearInterval(interval);
-  }, [nextSlider]);
-
+    if (!isHovering) {
+      //   const interval = setInterval(nextSlider, 6000);
+      //   return () => clearInterval(interval);
+    }
+  }, [nextSlider, isHovering]);
   // Normalize rotation angle
   useEffect(() => {
     const normalizedRotation = ((rotate % 360) + 360) % 360;
@@ -276,60 +215,40 @@ const HeroSlide = () => {
     setActive((countItem - activeIndex) % countItem);
   }, [rotate, countItem, rotateAdd]);
   return (
-    <div className="relative h-screen w-full overflow-hidden" role="region" aria-label="Image carousel">
-      <div className="relative h-full w-full">
-        <AnimatePresence initial={false} custom={direction} mode="sync">
-          <motion.div
-            key={active}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              y: { type: 'spring', stiffness: 150, damping: 20 },
-              opacity: { duration: 0.4 }
-            }}
-            className="absolute h-full w-full flex flex-col"
-            style={{
-              background: items[active].gradient
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <FloatingImage
-                key={`${active}-top-left`}
-                image={items[active].floatingImages[0]}
-                position="top-left"
-                activeItem={active}
-              />
-              <FloatingImage
-                key={`${active}-top-right`}
-                image={items[active].floatingImages[1]}
-                position="top-right"
-                activeItem={active}
-              />
-              <FloatingImage
-                key={`${active}-bottom-left`}
-                image={items[active].floatingImages[2]}
-                position="bottom-left"
-                activeItem={active}
-              />
-              <FloatingImage
-                key={`${active}-bottom-right`}
-                image={items[active].floatingImages[3]}
-                position="bottom-right"
-                activeItem={active}
-              />
-            </AnimatePresence>
-
+    <div className="relative h-screen max-w-full overflow-hidden">
+      <AnimatePresence initial={false} custom={direction} mode="sync">
+        <motion.div
+          key={active}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          className="absolute inset-0"
+          style={{
+            background: items[active].gradient,
+            transformStyle: 'preserve-3d'
+          }}
+        >
+          <div className="relative h-[calc(100vh-6rem)] mt-24">
+            {' '}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="w-full flex justify-center pt-32 md:pt-32 lg:pt-32 px-4"
+              transition={{
+                duration: 1.2,
+                ease: 'easeOut'
+              }}
+              className="absolute w-full flex justify-center "
             >
-              <h1
-                className="z-50  encode-sans lg:tracking-[-1.6rem] mt-10 md:mt-10 lg:mt-[8rem]  2xl:mt-[6rem] text-7xl md:text-8xl lg:text-[20rem] font-bold uppercase leading-none bg-clip-text text-transparent"
+              <motion.h1
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 1,
+                  ease: 'easeOut'
+                }}
+                className=" encode-sans lg:tracking-[-1.6rem] mt-10 md:mt-24 text-7xl md:text-[12rem] lg:text-[16rem] font-bold uppercase leading-none bg-clip-text text-transparent  2xl:text-[18rem] 3xl:text-[20rem] lg:max-w-full 3xl:max-w-[98rem]"
                 style={{
                   backgroundImage: items[active].textGradient,
                   WebkitBackgroundClip: 'text',
@@ -337,134 +256,155 @@ const HeroSlide = () => {
                 }}
               >
                 {items[active].name}
-              </h1>
+              </motion.h1>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{
-                duration: 1.6,
-                delay: 0.4,
-                ease: 'easeOut'
-              }}
-              className=" md:!w-[360px] !z-50  absolute bottom-[9%] left-[10%]  w-[320px] mt-4 md:mt-0 pointer-events-auto"
-            >
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-white text-base mb-6   md:text-xl lg:text-xl leading-relaxed  md:mt-20 lg:mt-24 md:mb-8"
-              >
-                {items[active].description}
-              </motion.p>
-              <Link
-                // initial={{ opacity: 0, y: 20 }}
-                // animate={{ opacity: 1, y: 0 }}
-                // exit={{ opacity: 0, y: -20 }}
-                // transition={{ duration: 0.5, delay: 0.6 }}
-                className=" px-8 py-3 mb-6  cursor-pointer  hover:bg-white/30 text-white rounded-full transition-colors duration-300 border border-white/60"
-                onClick={() => console.log('Button clicked')}
-                style={{
-                  background: items[active].gradient
-                }}
-                href={items[active].page}
-              >
-                Découvrir
-              </Link>
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
-
-        <div
-          className="absolute z-40 bottom-0 left-1/2 w-full md:w-[1000px] lg:w-[1300px] aspect-square rounded-full transition-transform duration-1000 ease-in-out pointer-events-none"
-          style={{
-            transform: `translate(-50%, ${
-              width < 640
-                ? '80%'
-                : width < 768
-                  ? '65%'
-                  : width < 1024
-                    ? '68%'
-                    : width < 1280
-                      ? '71%'
-                      : width > 2000
-                        ? '80%'
-                        : '73%'
-            }) rotate(${rotate}deg)`
-          }}
-        >
-          {items.map((item, index) => {
-            const itemAngle = (360 / countItem) * index;
-
-            return (
-              <div
-                key={item.id}
-                className="absolute w-full h-full text-center origin-center"
-                style={{
-                  transform: `rotate(${itemAngle}deg) translateY(-${radius}px) `
-                }}
-              >
-                <div
-                  className="absolute left-1/2 transform -translate-x-1/2"
-                  style={{
-                    top: width < 768 ? '-24px' : width < 1024 ? '-104px' : '-104px',
-                    // transform: `translateX(-50%)  rotate(0deg)`,
-                    transform: `translate(-50%, ${
-                      width < 640
-                        ? 'translateX(-50%)  rotate(0deg)'
-                        : width < 768
-                          ? 'translateX(-50%)  rotate(0deg)'
-                          : width < 1024
-                            ? 'translateX(-50%)  rotate(0deg)'
-                            : width < 1280
-                              ? 'translateX(-50%)  rotate(0deg)'
-                              : width > 1280
-                                ? 'translateX(-50%)  rotate(0deg)'
-                                : 'translateX(-50%)  rotate(0deg)'
-                    }) rotate(${rotate}deg)`,
-                    opacity: active === index ? 1 : 0.4,
-                    transition: 'all 0.8s ease-in-out'
+            <div className="relative w-full h-[80%] z-50 lg:h-full lg:max-w-full 3xl:max-w-[82rem] mx-auto px-4 ">
+              <div className="relative w-full h-full flex items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 50 }}
+                  transition={{
+                    duration: 1.2,
+                    ease: 'easeInOut',
+                    delay: 0.3
                   }}
+                  className="absolute left-0 lg:left-10 2xl:left-6 3xl:-left-28 top-[75%] lg:top-[55%] -translate-y-1/2 z-40 w-full  md:max-w-md mt-4 md:mt-0"
                 >
-                  <picture>
-                    {/* <source media="(min-width: 768px)" srcSet={item.image} /> */}
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className={`
-                        transition-all duration-1000
-                        ${active === index ? 'h-[30rem] md:h-[30rem] lg:h-[35rem]' : 'h-[16rem] md:h-[16rem] lg:h-[16rem]'}
-                        object-contain
-                      `}
-                      loading="lazy"
-                    />
-                  </picture>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                  <div className="flex flex-col mt-8 md:mt-0 md:block  backdrop-blur-md bg-white/10 py-2 px-4 md:p-6 rounded-2xl border border-white/20">
+                    <p className="text-white text-center md:text-left text-base md:text-lg lg:text-xl leading-relaxed mb-2 md:mb-6">
+                      {items[active].description}
+                    </p>
+                    <Link
+                      href={items[active].page}
+                      className="inline-block text-center md:text-left px-8 py-3 text-white rounded-full transition-colors duration-500 border border-white/60 hover:bg-white/30"
+                      style={{
+                        background: items[active].gradient
+                      }}
+                    >
+                      Découvrir
+                    </Link>
+                  </div>
+                </motion.div>
 
-        {/* Navigation Buttons */}
-        <div className="absolute bottom-2  lg:bottom-8 left-0 right-0 flex justify-center gap-4 md:gap-8 z-40">
-          <button
-            onClick={prevSlider}
-            className="h-10 w-10 md:h-12 md:w-12 rounded-full border border-white/60 bg-white/30 text-xl text-white transition-colors hover:bg-white/40 focus:outline-none focus:ring-2 focus:ring-white/60"
-            aria-label="Previous slide"
+                <motion.div
+                  key={active}
+                  style={{
+                    perspective: '1000px'
+                  }}
+                  className="relative z-50 w-full h-full flex items-center justify-center"
+                >
+                  {/* Fixed size container for main image */}
+                  <div className={`relative ${getImageContainerClass(items[active].id)}`}>
+                    <motion.div
+                      initial={{
+                        opacity: 0,
+                        scale: 0.8,
+                        rotateY: 180,
+                        transformStyle: 'preserve-3d'
+                      }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        rotateY: 360
+                      }}
+                      exit={{
+                        opacity: 0,
+                        scale: 0.8,
+                        rotateY: 0
+                      }}
+                      transition={{
+                        duration: 1.2,
+                        ease: [0.4, 0, 0.2, 1]
+                      }}
+                      className="w-full h-full"
+                    >
+                      <motion.div
+                        initial={{ clipPath: 'circle(0% at 50% 50%)' }}
+                        animate={{ clipPath: 'circle(100% at 50% 50%)' }}
+                        exit={{ clipPath: 'circle(0% at 50% 50%)' }}
+                        transition={{
+                          duration: 1.2,
+                          ease: [0.4, 0, 0.2, 1]
+                        }}
+                        className="w-full h-full"
+                      >
+                        <img
+                          src={items[active].image || '/placeholder.svg'}
+                          alt={items[active].name}
+                          className="w-full h-full object-contain"
+                        />
+                      </motion.div>
+                    </motion.div>
+
+                    {/* Floating images */}
+                    <AnimatePresence mode="wait">
+                      {[
+                        { position: 'top-left', index: 0 },
+                        { position: 'top-right', index: 1 },
+                        { position: 'bottom-left', index: 2 },
+                        { position: 'bottom-right', index: 3 }
+                      ].map(({ position, index }) => (
+                        <motion.div
+                          key={`${active}-${position}`}
+                          className={`absolute ${getPosition(active, position)} ${getImageSize(active, position)}`}
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{
+                            opacity: 1,
+                            scale: 1,
+                            y: ['-10px', '10px'],
+                            rotate: getRotateValues(active, position),
+                            transition: {
+                              opacity: { duration: 1.2, ease: 'easeOut' },
+                              scale: { duration: 1.2, ease: 'easeOut' },
+                              y: {
+                                duration: 3,
+                                repeat: Infinity,
+                                repeatType: 'reverse',
+                                ease: 'easeInOut'
+                              }
+                            }
+                          }}
+                          exit={{ opacity: 0, scale: 0.5, transition: { duration: 1 } }}
+                        >
+                          <img
+                            src={items[active].floatingImages[index]}
+                            alt="Floating product"
+                            className="w-full h-full object-contain rounded-lg"
+                            style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}
+                          />
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div
+            className="absolute bottom-2 md:bottom-8 left-0 right-0 flex justify-center gap-4 z-50"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
           >
-            &#8249;
-          </button>
-          <button
-            onClick={nextSlider}
-            className="h-10 w-10 md:h-12 md:w-12 rounded-full border border-white/60 bg-white/30 text-xl text-white transition-colors hover:bg-white/40 focus:outline-none focus:ring-2 focus:ring-white/60"
-            aria-label="Next slide"
-          >
-            &#8250;
-          </button>
-        </div>
-      </div>
+            <button
+              onClick={prevSlider}
+              className="h-12 w-12 rounded-full border border-white/60 bg-white/30 text-xl text-white transition-colors hover:bg-white/40"
+              aria-label="Previous slide"
+            >
+              ‹
+            </button>
+            <button
+              onClick={nextSlider}
+              className="h-12 w-12 rounded-full border border-white/60 bg-white/30 text-xl text-white transition-colors hover:bg-white/40"
+              aria-label="Next slide"
+            >
+              ›
+            </button>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
