@@ -19,8 +19,9 @@ const config = withTV({
       slg: '850px',
       lg: '1024px',
       xl: '1280px',
-      '2xl': '1536px',
-      // Specific device breakpoints
+      '2xl': '1400px',
+      '3xl': '1550px',
+      '4xl': '1700px',
       tablet: '640px',
       laptop: '1024px',
       desktop: '1280px'
@@ -112,6 +113,10 @@ const config = withTV({
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' }
         }
       },
       animation: {
@@ -119,7 +124,9 @@ const config = withTV({
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        float: 'float 6s ease-in-out infinite',
+        'float-delayed': 'float 6s ease-in-out infinite 2s'
       }
     }
   },

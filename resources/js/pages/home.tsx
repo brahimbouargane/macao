@@ -17,29 +17,16 @@ export default function Home() {
     <>
       <HeroSlide />
       <div className="flex min-h-screen flex-col">
-        {/* Contained sections */}
-        {/* <Container>
-          <CategoryGrid />
-        </Container> */}
         <CategoryGrid />
-        {/* Full-width section */}
-
         <div className="w-full">
           <TextSlider speed={8} pauseOnHover={true} />
         </div>
         <PastorMacaoHero />
-        <Container>
-          <BestSellers />
-        </Container>
+        <BestSellers />
 
-        {/* Full-width section */}
-        {/* <div className="w-full">
-          <TextSlider speed={8} pauseOnHover={true} />
-        </div> */}
         <DisplaySection />
         <Container>
-          {/* <CertificatesSection /> */}
-          <ContactSection />
+          <ContactSection id="contact" />
         </Container>
       </div>
     </>

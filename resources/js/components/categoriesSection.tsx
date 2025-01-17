@@ -47,7 +47,7 @@ const categories: Category[] = [
   {
     title: 'Fêtes et événements',
     image: candy,
-    href: '/products/Fêtes%20et%20événements/Confiserie%20fine',
+    href: '/products/Fêtes%20et%20événements/Chocolats%20fins%20fourrés',
     description: 'Découvrez nos douceurs parfaites pour toutes vos célébrations '
   }
 ];
@@ -259,7 +259,7 @@ export default function CategoryGrid() {
           <motion.h2
             variants={fadeInUp}
             className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
-          text-sm sm:text-base"
+          text-sm sm:text-lg"
           >
             NOS PRODUITS
           </motion.h2>
