@@ -68,6 +68,25 @@ const HeroSlide = () => {
   const countItem = items.length;
   const rotateAdd = 360 / countItem;
 
+  //   const slideVariants = useMemo(
+  //     () => ({
+  //       enter: (direction) => ({
+  //         y: direction === 'right' ? -50 : 50,
+  //         opacity: 0
+  //       }),
+  //       center: {
+  //         zIndex: 1,
+  //         y: 0,
+  //         opacity: 1
+  //       },
+  //       exit: (direction) => ({
+  //         zIndex: 0,
+  //         y: direction === 'right' ? 50 : -50,
+  //         opacity: 0
+  //       })
+  //     }),
+  //     []
+  //   );
   const slideVariants = useMemo(
     () => ({
       enter: (direction) => ({
@@ -87,7 +106,6 @@ const HeroSlide = () => {
     }),
     []
   );
-
   const getRotateValues = (active, position) => {
     // Base sizes for each active state
     const rotate = {
@@ -149,7 +167,7 @@ const HeroSlide = () => {
     // Custom positions for each active state
     const positions = {
       0: {
-        'top-left': '-left-4 -top-20 md:-left-16 md:-top-20',
+        'top-left': '-left-4 -top-20 md:-left-12 md:-top-16',
         'top-right': '-right-2 -top-16 md:-right-8 md:-top-20',
         'bottom-left': '-left-0 -bottom-10 md:-left-0 md:-bottom-20',
         'bottom-right': '-right-0 -bottom-10 md:-right-4 md:-bottom-20'
@@ -216,6 +234,12 @@ const HeroSlide = () => {
   }, [rotate, countItem, rotateAdd]);
   return (
     <div className="relative h-screen max-w-full overflow-hidden">
+      <div
+        className="absolute inset-0 transition-colors duration-700"
+        style={{
+          background: items[active].gradient
+        }}
+      />
       <AnimatePresence initial={false} custom={direction} mode="sync">
         <motion.div
           key={active}
@@ -224,11 +248,15 @@ const HeroSlide = () => {
           initial="enter"
           animate="center"
           exit="exit"
-          className="absolute inset-0"
-          style={{
-            background: items[active].gradient,
-            transformStyle: 'preserve-3d'
+          transition={{
+            y: { type: 'tween', duration: 0.5 },
+            opacity: { duration: 0.3 }
           }}
+          className="absolute inset-0"
+          //   style={{
+          //     background: items[active].gradient,
+          //     transformStyle: 'preserve-3d'
+          //   }}
         >
           <div className="relative h-[calc(100vh-6rem)] mt-24">
             {' '}

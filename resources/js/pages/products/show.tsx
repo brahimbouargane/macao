@@ -90,7 +90,7 @@ const ProductShow = ({ product, relatedProducts }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <motion.button
             onClick={() => window.history.back()}
-            className="flex items-center mb-5 text-gray-200 bg-red-500 p-2 rounded-lg hover:text-gray-900 transition-colors"
+            className="flex items-center mb-5 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white  p-2 rounded-lg  transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -301,9 +301,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                   </motion.span>
                   <Link
                     href={`/products/${relatedProduct.id}`}
-                    className="mt-3 w-full block text-center rounded-full bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
-                    // whileHover={{ scale: 1.02 }}
-                    // whileTap={{ scale: 0.98 }}
+                    className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white mt-3 w-full block text-center rounded-full  px-3 py-2 text-sm font-medium  transition-colors"
                   >
                     Voir plus
                   </Link>

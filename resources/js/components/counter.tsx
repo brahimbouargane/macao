@@ -1,3 +1,4 @@
+import statS1 from '@/assets/images/stats-1.png';
 import { motion } from 'framer-motion';
 import { Award, Briefcase, Clock, Users } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
@@ -87,14 +88,18 @@ const StatsDashboard = () => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="absolute top-4 right-4 w-8 h-8 bg-red-500 rounded-full opacity-30"
-        />
+          className="absolute top-4 right-4 w-16 h-16 rounded-full opacity-50"
+        >
+          <img src={statS1} />
+        </motion.div>
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="absolute bottom-4 left-4 w-12 h-12 bg-red-500 rounded-full opacity-30"
-        />
+          className="absolute bottom-4 left-4 w-20 h-20  rounded-full opacity-70"
+        >
+          <img src={statS1} />
+        </motion.div>
 
         {/* Stats grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
