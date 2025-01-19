@@ -1,6 +1,8 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Open+Sans:wght@300;400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -56,6 +58,11 @@
     --chart-9: oklch(0.785 0.14 5.1);
     --chart-10: oklch(0.81 0.13 2.3);
     --fg: oklch(0.141 0.005 285.823);
+    /* Font Variables */
+
+    --font-primary: 'Playfair Display', serif;
+    --font-secondary: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
   }
 
   .dark {
@@ -105,14 +112,31 @@
 
 @layer base {
   /* Optional: Apply globally */
-  body {
+  /* body {
     font-family: 'Open Sans', serif;
-  }
+  } */
 
   html {
     @apply h-full scroll-smooth text-sm font-normal xl:text-base;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-primary);
+  }
+  p,
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  button {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
   html {
     @apply h-full scroll-smooth font-normal xl:text-base;
   }

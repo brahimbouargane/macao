@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/shadcn-navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/shadcn-sheet';
 import useWindowSize from '@/hooks/useWindowSize';
+import { usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import {
   Candy,
@@ -151,6 +152,9 @@ export function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [showBanner, setShowBanner] = useState(true);
   const { width } = useWindowSize();
+  const { url } = usePage();
+
+  const isProductDetailPage = /^\/products\/[^\/]+$/.test(url);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -228,10 +232,27 @@ export function Navbar() {
         </div>
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         className={`relative ${scrolled ? 'bg-white shadow-md' : 'bg-gradient-to-b from-black/60 to-transparent'}`}
         animate={{
           backgroundColor: scrolled ? 'rgba(255, 255, 255, 1)' : 'rgba(0, 0, 0, 0)',
+          transition: { duration: 0.3 }
+        }}
+      > */}
+      <motion.div
+        className={`relative ${
+          isProductDetailPage
+            ? 'bg-gradient-to-r from-red-600 to-red-800'
+            : scrolled
+              ? 'bg-white shadow-md'
+              : 'bg-gradient-to-b from-black/60 to-transparent'
+        }`}
+        animate={{
+          background: isProductDetailPage
+            ? 'linear-gradient(to right, rgb(220, 38, 38), rgb(153, 27, 27))' // from-red-600 to-red-800
+            : scrolled
+              ? 'rgba(255, 255, 255, 1)'
+              : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent)',
           transition: { duration: 0.3 }
         }}
       >

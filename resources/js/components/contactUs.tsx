@@ -189,13 +189,13 @@ export default function ContactSection(id) {
             <Textarea
               id="message"
               placeholder="Entrez votre message"
-              className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all min-h-[120px]"
+              className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-transparent transition-all min-h-[120px]"
             />
           </div>
 
           <Button
             type="submit"
-            className="bg-red-500 hover:bg-red-600 text-white px-8 py-2 rounded-none w-full transition-colors duration-300 flex items-center justify-center gap-2"
+            className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-8 py-2 rounded-none w-full transition-colors duration-300 flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
             Envoyer le message
