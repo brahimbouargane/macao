@@ -271,11 +271,6 @@ const Products = () => {
       {/* Hero Section */}
       <motion.div
         ref={scrollRef}
-        style={{
-          opacity: headerOpacity,
-          y: headerY,
-          scale: headerScale
-        }}
         className={`relative overflow-hidden bg-gradient-to-r ${
           categoryContent[parentCategory.name]?.bgColor || 'from-red-600 to-red-700'
         }`}
