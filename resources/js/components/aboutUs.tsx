@@ -57,7 +57,7 @@ export default function PastorMacaoHero() {
         </motion.div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 min-h-[calc(100vh-300px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 min-h-[calc(100vh-300px)] z-40">
           {/* Left Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -71,7 +71,7 @@ export default function PastorMacaoHero() {
 
           {/* Center Content */}
           <motion.div
-            className="flex flex-col items-center justify-center px-6 lg:px-8 lg:mb-16"
+            className="flex flex-col items-center justify-center px-6 lg:px-8 lg:mb-24 z-40"
             initial="hidden"
             animate="visible"
             variants={staggerChildren}
@@ -95,7 +95,7 @@ export default function PastorMacaoHero() {
                 nouveaux adeptes.
               </p>
 
-              <motion.div variants={fadeInUp} className="pt-4 text-center">
+              <motion.div variants={fadeInUp} className="pt-4 text-center z-40">
                 <button
                   className="group relative px-8 py-3 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white text-lg
                     overflow-hidden rounded-md transition-transform hover:scale-105"
@@ -116,7 +116,7 @@ export default function PastorMacaoHero() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative h-[400px] lg:h-full lg:bottom-20 rounded-2xl lg:rounded-r-none overflow-hidden"
+            className="relative h-[400px] lg:h-full lg:bottom-20 rounded-2xl lg:rounded-r-none overflow-hidden z-40"
           >
             <img src={second} alt="Finished chocolate products" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
