@@ -158,9 +158,9 @@ export default function ProductTabs() {
   const [isHovered, setIsHovered] = useState<string | null>(null);
 
   const tabTitles = {
-    nouveaute: 'Nouveauté',
-    meilleursVentes: 'Meilleurs ventes',
-    promotion: 'Promotion'
+    nouveaute: 'Nouveautés',
+    meilleursVentes: 'Meilleures ventes',
+    promotion: 'Promotions'
   };
 
   return (
