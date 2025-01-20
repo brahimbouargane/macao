@@ -116,7 +116,7 @@ export default function PastorMacaoHero() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative h-[400px] lg:h-full bottom-20 rounded-2xl lg:rounded-r-none overflow-hidden"
+            className="relative h-[400px] lg:h-full lg:bottom-20 rounded-2xl lg:rounded-r-none overflow-hidden"
           >
             <img src={second} alt="Finished chocolate products" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />

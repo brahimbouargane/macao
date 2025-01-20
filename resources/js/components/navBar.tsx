@@ -365,8 +365,8 @@ export function Navbar() {
                     </motion.div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <MotionLink href="#conatct">
+                {/* <NavigationMenuItem>
+                  <MotionLink href="#contact">
                     <NavigationMenuLink
                       className={`text-lg font-medium rounded-md  ${
                         scrolled
@@ -380,6 +380,44 @@ export function Navbar() {
                       CONTACTT
                     </NavigationMenuLink>
                   </MotionLink>
+                </NavigationMenuItem> */}
+                <NavigationMenuItem>
+                  <a
+                    href="#contact"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const contactSection = document.getElementById('contact');
+                      if (contactSection) {
+                        // First hide the banner since we know it will hide on scroll
+                        setShowBanner(false);
+
+                        // Small delay to let the banner animation complete
+                        setTimeout(() => {
+                          const navbarHeight = 96; // height-20 or height-24 from your navbar
+                          const elementPosition = contactSection.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                          });
+                        }, 100);
+                      }
+                    }}
+                  >
+                    <NavigationMenuLink
+                      className={`text-lg font-medium rounded-md  ${
+                        scrolled
+                          ? 'text-gray-800 hover:bg-red-50 hover:text-red-600'
+                          : 'text-white hover:bg-red-100 hover:text-red-600'
+                      } hover:text-red-600 transition-colors duration-300 px-3 py-2 flex items-center gap-2`}
+                    >
+                      <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.3 }}>
+                        <NotebookTabs className="h-5 w-5" />
+                      </motion.div>
+                      CONTACT
+                    </NavigationMenuLink>
+                  </a>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -444,7 +482,7 @@ export function Navbar() {
                         </Link>
                       </SheetClose>
                       <SheetClose asChild>
-                        <Link href="#contact" className="block mb-6">
+                        <Link href="#contact" className="mb-6 block">
                           <span className="text-lg font-semibold text-red-600 hover:text-gray-900">CONTACT</span>
                         </Link>
                       </SheetClose>
