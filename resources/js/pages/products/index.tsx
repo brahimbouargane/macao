@@ -233,31 +233,31 @@ const Products = () => {
         background: `url('${bgcandy}')`,
         overlay: 'rgba(0, 0, 0, 0.5)',
         position: 'center',
-        size: 'auto 100%'
+        size: '100% 100%'
       },
       Chocolat: {
         background: `url('${chocobg}')`,
         overlay: 'rgba(0, 0, 0, 0.5)',
         position: 'center',
-        size: '100% auto'
+        size: '100% 100%'
       },
       Gaufrettes: {
         background: `url('${wafersbg}')`,
         overlay: 'rgba(0, 0, 0, 0.5)',
         position: 'center',
-        size: '100% auto'
+        size: '100% 100%'
       },
       'Produits pâtissiers': {
         background: `url('${pastrybg}')`,
         overlay: 'rgba(0, 0, 0, 0.5)',
         position: 'center',
-        size: 'auto 100%'
+        size: '100% 100%'
       },
       'Fêtes et événements': {
         background: `url('${fetebg}')`,
         overlay: 'rgba(0, 0, 0, 0.5)',
         position: 'center',
-        size: 'auto 100%'
+        size: '100% 100%'
       }
     };
 

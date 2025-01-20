@@ -122,14 +122,14 @@ export default function ContactSection(id) {
       </motion.div>
 
       {/* Right side with contact form */}
-      <motion.div className="space-y-8" variants={itemVariants}>
+      <motion.div className="space-y-8 text-black" variants={itemVariants}>
         <motion.div className="space-y-6" variants={itemVariants}>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-tight">Contactez-nous</h1>
+          <h1 className="text-4xl text-black md:text-5xl lg:text-6xl font-light leading-tight">Contactez-nous</h1>
           <p className="text-gray-600">Nous sommes là pour vous aider</p>
         </motion.div>
 
         <motion.form className="space-y-6" variants={itemVariants}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
             <div className="space-y-2">
               <Label htmlFor="Prénom" className="flex items-center gap-2">
                 <User className="w-4 h-4" />

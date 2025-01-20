@@ -57,7 +57,7 @@ const CareersSection = () => {
   };
 
   return (
-    <div className="w-full bg-gray-50">
+    <div className="w-full bg-gray-50 text-gray-800">
       {/* <div className="absolute -bottom-[80%] left-10 w-20 h-20 animate-float">
             <div className="w-full h-full rounded-full bg-black backdrop-blur-sm"></div>
         </div>
@@ -236,7 +236,7 @@ const CareersSection = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-8 py-3 rounded-lg flex items-center gap-2 transform hover:scale-105 transition-all duration-300"
+                  className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-12 py-6 font-bold text-lg rounded-lg flex items-center gap-2 transform hover:scale-105 transition-all duration-300"
                 >
                   {isSubmitting ? (
                     'Envoi en cours...'
