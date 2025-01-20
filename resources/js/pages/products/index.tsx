@@ -3,7 +3,7 @@ import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
 import chocobg from '@/assets/images/chocolat-bg.webp';
 import choco from '@/assets/images/chocolate.webp';
-import fetebg from '@/assets/images/cofes-bg.jpg';
+import fetebg from '@/assets/images/event-bg.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import pastrybg from '@/assets/images/pastry-bg.webp';
 import wafersbg from '@/assets/images/wafer-bg.webp';
