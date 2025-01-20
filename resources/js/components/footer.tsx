@@ -1,5 +1,6 @@
 import iso from '@/assets/images/iso.webp';
 import macaoImage from '@/assets/images/macao_logo.png';
+import onssa from '@/assets/images/onssa.webp';
 import video from '@/assets/images/test-footer-video.mp4';
 import { motion } from 'framer-motion';
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from 'lucide-react';
@@ -94,13 +95,13 @@ const certifications = [
     name: 'ISO 9001:2015',
     image: iso,
     alt: 'ISO 9001:2015 Certification'
+  },
+  {
+    id: 'haccp',
+    name: 'HACCP',
+    image: onssa,
+    alt: 'HACCP Certification'
   }
-  //   {
-  //     id: 'haccp',
-  //     name: 'HACCP',
-  //     image: onssa,
-  //     alt: 'HACCP Certification'
-  //   }
   //   {
   //     id: 'iso22000',
   //     name: 'ISO 22000',

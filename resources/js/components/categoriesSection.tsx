@@ -263,10 +263,13 @@ export default function CategoryGrid() {
           >
             NOS PRODUITS
           </motion.h2>
-          <motion.h1 variants={fadeInUp} className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-medium mb-2">
+          <motion.h1
+            variants={fadeInUp}
+            className="text-gray-700 text-4xl uppercase md:text-5xl lg:text-6xl font-medium mb-2"
+          >
             Tout un monde
           </motion.h1>
-          <motion.h2 variants={fadeInUp} className="text-gray-700 text-2xl md:text-3xl lg:text-4xl mb-12">
+          <motion.h2 variants={fadeInUp} className="text-gray-700 text-2xl uppercase md:text-3xl lg:text-4xl mb-12">
             de plaisir
           </motion.h2>
         </motion.div>
