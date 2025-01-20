@@ -2,7 +2,7 @@ import candies from '@/assets/images/candies.webp';
 import commercial from '@/assets/images/commercial.webp';
 import composition from '@/assets/images/composition.webp';
 import iso from '@/assets/images/iso.jpg';
-import pastoLogo from '@/assets/images/macoa-logo-small.svg';
+import pastoLogo from '@/assets/images/macao_logo.png';
 import showcase from '@/assets/images/showcasing.webp';
 import ContactSection from '@/components/contactUs';
 import SEO from '@/components/seo';
@@ -210,7 +210,7 @@ function History() {
         />
       </div>
       <Container>
-        <ContactSection />
+        <ContactSection id="contact" />
       </Container>
     </div>
   );
