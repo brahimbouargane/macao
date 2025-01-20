@@ -17,16 +17,20 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger
 } from '@/components/ui/shadcn-navigation-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/shadcn-sheet';
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/shadcn-sheet';
 import useWindowSize from '@/hooks/useWindowSize';
+import { usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import {
+  Cake,
   Candy,
   ChevronDown,
   Cookie,
   Facebook,
+  Gift,
   History,
   Instagram,
+  Layers,
   Linkedin,
   Menu,
   NotebookTabs,
@@ -90,6 +94,7 @@ const featuredCategories = [
   {
     id: 'Produits pâtissiers',
     title: 'Produits pâtissiers',
+    icon: Cake,
     iconImage: patesserieicon,
     description: "L'excellence de la pâtisserie française",
     image: leonardo,
@@ -99,6 +104,7 @@ const featuredCategories = [
   {
     id: 'gaufrettes',
     title: 'Gaufrettes',
+    icon: Layers,
     iconImage: wafericon,
     description: 'La légèreté et le croustillant à la perfection',
     image: wafer,
@@ -108,7 +114,7 @@ const featuredCategories = [
   {
     id: 'Fêtes et événements',
     title: 'Fêtes et événements',
-    icon: Candy,
+    icon: Gift,
     description: 'La légèreté et le croustillant à la perfection',
     image: candy,
     highlight: 'Collections Saisonnières',
@@ -121,7 +127,7 @@ const IconRenderer = ({ category, scrolled }) => {
     const IconComponent = category.icon;
     return (
       <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.3 }}>
-        <IconComponent className="h-5 w-5" />
+        <IconComponent className="h-5 w-5 " />
       </motion.div>
     );
   }
@@ -151,6 +157,9 @@ export function Navbar() {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [showBanner, setShowBanner] = useState(true);
   const { width } = useWindowSize();
+  const { url } = usePage();
+
+  const isProductDetailPage = /^\/products\/[^\/]+$/.test(url);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -163,6 +172,7 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   return (
     <motion.header className="fixed top-0 z-50 w-full" initial="initial" animate="animate" variants={fadeIn}>
       {/* Special Announcement Banner */}
@@ -229,9 +239,19 @@ export function Navbar() {
       </motion.div>
 
       <motion.div
-        className={`relative ${scrolled ? 'bg-white shadow-md' : 'bg-gradient-to-b from-black/60 to-transparent'}`}
+        className={`relative ${
+          isProductDetailPage
+            ? 'bg-gradient-to-r from-red-600 to-red-800'
+            : scrolled
+              ? 'bg-white shadow-md'
+              : 'bg-gradient-to-b from-black/60 to-transparent'
+        }`}
         animate={{
-          backgroundColor: scrolled ? 'rgba(255, 255, 255, 1)' : 'rgba(0, 0, 0, 0)',
+          background: isProductDetailPage
+            ? 'linear-gradient(to right, rgb(220, 38, 38), rgb(153, 27, 27))' // from-red-600 to-red-800
+            : scrolled
+              ? 'rgba(255, 255, 255, 1)'
+              : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent)',
           transition: { duration: 0.3 }
         }}
       >
@@ -418,12 +438,16 @@ export function Navbar() {
                 <SheetContent side="right" className="w-full max-w-sm">
                   <ScrollArea className="h-screen">
                     <nav className="mt-6">
-                      <Link href="/history" className="block mb-6">
-                        <span className="text-lg font-semibold  text-red-600 hover:text-gray-900">NOTRE HISTOIRE</span>
-                      </Link>
-                      <Link href="#contact" className="block mb-6">
-                        <span className="text-lg font-semibold  text-red-600 hover:text-gray-900">CONTACT</span>
-                      </Link>
+                      <SheetClose asChild>
+                        <Link href="/history" className="block mb-6">
+                          <span className="text-lg font-semibold text-red-600 hover:text-gray-900">NOTRE HISTOIRE</span>
+                        </Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link href="#contact" className="block mb-6">
+                          <span className="text-lg font-semibold text-red-600 hover:text-gray-900">CONTACT</span>
+                        </Link>
+                      </SheetClose>
                       {featuredCategories.map((category) => (
                         <div key={category.id} className="mb-10">
                           <h3 className="text-lg font-semibold text-red-600 mb-4">{category.title}</h3>
@@ -435,20 +459,22 @@ export function Navbar() {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.1 }}
                               >
-                                <Link href={`/products/${category.id}/${item.toLowerCase()}`} className="block group">
-                                  <motion.div
-                                    className="p-4 rounded-lg bg-gray-50 hover:bg-red-50 border border-gray-100 hover:border-red-100 transition-all duration-300"
-                                    whileHover={{
-                                      scale: 1.03,
-                                      y: -2,
-                                      transition: { duration: 0.2 }
-                                    }}
-                                  >
-                                    <span className="text-gray-800 group-hover:text-red-600 font-medium transition-colors duration-300">
-                                      {item}
-                                    </span>
-                                  </motion.div>
-                                </Link>
+                                <SheetClose asChild>
+                                  <Link href={`/products/${category.id}/${item.toLowerCase()}`} className="block group">
+                                    <motion.div
+                                      className="p-4 rounded-lg bg-gray-50 hover:bg-red-50 border border-gray-100 hover:border-red-100 transition-all duration-300"
+                                      whileHover={{
+                                        scale: 1.03,
+                                        y: -2,
+                                        transition: { duration: 0.2 }
+                                      }}
+                                    >
+                                      <span className="text-gray-800 group-hover:text-red-600 font-medium transition-colors duration-300">
+                                        {item}
+                                      </span>
+                                    </motion.div>
+                                  </Link>
+                                </SheetClose>
                               </motion.div>
                             ))}
                           </div>

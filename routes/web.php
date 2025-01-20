@@ -19,24 +19,8 @@ Route::get('/', Controllers\HomeController::class)->name('home');
 Route::get('history', Controllers\HistoryController::class)->name('history');
 Route::get('certification', Controllers\CertifactionController::class)->name('certification');
 Route::get('career', Controllers\CareerController::class)->name('career');
-
-
-//Route::get('products', [ProductController::class, 'index'])->name('products.index');
-
 Route::get('products/{parentCategory}/{childCategory}', [ProductController::class, 'showBySubcategory'])
 ->name('products.home');
-// Category-specific product routes
-//Route::get('products/confiserie-chocolat', [ProductController::class, 'confiserieChocolat'])
-//    ->name('products.confiserie-chocolat');
-//
-//Route::get('products/fetes-evenements', [ProductController::class, 'fetesEvenements'])
-//    ->name('products.fetes-evenements');
-//
-//Route::get('products/gaufrettes', [ProductController::class, 'gaufrettes'])
-//    ->name('products.gaufrettes');
-//
-//Route::get('products/patisserie', [ProductController::class, 'patisserie'])->name('products.patisserie');
-
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.display');
 
 
