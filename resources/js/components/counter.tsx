@@ -208,7 +208,7 @@ const StatsDashboard = () => {
     <div
       className="relative min-h-[400px] lg:min-h-[450px] flex flex-col rounded-lg items-center justify-center py-16 px-4 -mt-24 mx-4 shadow-xl md:p-10"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bg})`,
+        backgroundImage: `linear-gradient(rgba(211, 35, 43, 0.5), rgba(211, 35, 43, 0.5)), url(${bg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}

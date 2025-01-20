@@ -319,14 +319,14 @@ const Products = () => {
 
       {/* Main Content */}
       <div
-        className="min-w-full min-h-screen"
-        style={{
-          background: `linear-gradient(${getCategoryBackground(parentCategory.name).overlay}, ${getCategoryBackground(parentCategory.name).overlay}), ${getCategoryBackground(parentCategory.name).background}`,
-          backgroundSize: getCategoryBackground(parentCategory.name).size,
-          backgroundPosition: getCategoryBackground(parentCategory.name).position,
-          backgroundRepeat: 'no-repeat', // Changed to repeat for seamless tiling
-          transition: 'background 0.3s ease-in-out'
-        }}
+        className="min-w-full min-h-screen bg-gray-200	"
+        // style={{
+        //   background: `linear-gradient(${getCategoryBackground(parentCategory.name).overlay}, ${getCategoryBackground(parentCategory.name).overlay}), ${getCategoryBackground(parentCategory.name).background}`,
+        //   backgroundSize: getCategoryBackground(parentCategory.name).size,
+        //   backgroundPosition: getCategoryBackground(parentCategory.name).position,
+        //   backgroundRepeat: 'no-repeat', // Changed to repeat for seamless tiling
+        //   transition: 'background 0.3s ease-in-out'
+        // }}
       >
         <motion.div
           variants={pageTransition}
