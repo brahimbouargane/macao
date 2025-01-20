@@ -51,7 +51,7 @@ export default function DisplaySection() {
   const [hoveredStat, setHoveredStat] = useState(null);
 
   return (
-    <section className="relative py-8 sm:py-12 lg:py-16 ">
+    <section className="relative py-8 md:py-0 ">
       <motion.div className="text-center " initial="hidden" animate="visible" variants={staggerChildren}>
         <motion.h2
           variants={fadeInUp}
