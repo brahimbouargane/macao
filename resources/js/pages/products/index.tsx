@@ -3,7 +3,7 @@ import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
 import chocobg from '@/assets/images/chocolat-bg.webp';
 // import choco from '@/assets/images/chocolate.webp';
-import bgChoco from '@/assets/images/BANNER-1.jpg';
+import bgChoco from '@/assets/images/BANNER-11.png';
 import fetebg from '@/assets/images/event-bg.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import pastrybg from '@/assets/images/pastry-bg.webp';
@@ -45,7 +45,7 @@ const categoryContent = {
   Chocolat: {
     title: 'CHOCOLAT EXQUIS',
     subtitle: 'Des créations chocolatées pour tous les plaisirs.',
-    bgColor: 'from-amber-800 to-amber-900',
+    bgColor: 'from-amber-900 to-amber-900',
     bgImage: bgChoco,
     overlayOpacity: '40'
   },
@@ -270,7 +270,7 @@ const Products = () => {
       <ScrollProgress />
 
       {/* Hero Section */}
-      <motion.div
+      {/* <motion.div
         ref={scrollRef}
         className={`relative overflow-hidden bg-gradient-to-r ${
           categoryContent[parentCategory.name]?.bgColor || 'from-red-600 to-red-700'
@@ -285,6 +285,52 @@ const Products = () => {
             style={{
               backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
               opacity: '0.70'
+            }}
+          />
+          <div
+            className={`absolute inset-0 bg-gradient-to-t from-orange-950 ${
+              categoryContent[parentCategory.name]?.overlayOpacity
+            } to-transparent`}
+          />
+        </div>
+
+        <div className="container relative mx-auto px-4">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            className="flex min-h-[500px] items-center justify-center py-20"
+          >
+            <div className="text-center">
+              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
+                {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
+              </motion.h1>
+              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
+                {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
+              </motion.p>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div> */}
+      {/* Hero Section */}
+      <motion.div
+        ref={scrollRef}
+        className={`relative overflow-visible bg-gradient-to-r ${
+          categoryContent[parentCategory.name]?.bgColor || 'from-red-600 to-red-700'
+        }`}
+      >
+        <div className="absolute inset-0">
+          <motion.div
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
+              backgroundSize: '100%',
+              backgroundPosition: 'center top',
+              backgroundRepeat: 'no-repeat',
+              marginBottom: '-20%' // Adjust this value to show more or less of the drip
             }}
           />
           {/* <div
