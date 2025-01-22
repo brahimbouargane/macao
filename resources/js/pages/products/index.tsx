@@ -17,7 +17,6 @@ import { GuestLayout } from '@/layouts';
 import { cn } from '@/utils/classes';
 import { router, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
-import _ from 'lodash';
 import { ChevronLeft, ChevronRight, ImageIcon, Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -45,7 +44,7 @@ const categoryContent = {
   Chocolat: {
     title: 'CHOCOLAT EXQUIS',
     subtitle: 'Des créations chocolatées pour tous les plaisirs.',
-    bgColor: 'from-amber-900 to-amber-900',
+    bgColor: 'from-[#280300] to-[#280300]',
     bgImage: bgChoco,
     overlayOpacity: '40'
   },
@@ -191,43 +190,94 @@ const Products = () => {
   };
 
   // Pagination component
-  const PaginationControls = () => (
-    <div className="mt-8 flex items-center justify-center gap-2 text-white">
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-        disabled={currentPage === 1}
-        className="hover:text-black"
-      >
-        <ChevronLeft className="h-4 w-4" />
-      </Button>
+  const PaginationControls = () => {
+    const getPageNumbers = () => {
+      const pageNumbers = [];
+      const start = Math.max(1, currentPage - 1);
+      const end = Math.min(start + 2, totalPages);
 
-      <div className="flex gap-1">
-        {_.range(1, totalPages + 1).map((page) => (
-          <Button
-            key={page}
-            variant={currentPage === page ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setCurrentPage(page)}
-            className={cn('min-w-[2.5rem] hover:text-black', currentPage === page && 'bg-red-600 hover:bg-red-700')}
-          >
-            {page}
-          </Button>
-        ))}
+      for (let i = start; i <= end; i++) {
+        pageNumbers.push(i);
+      }
+
+      return pageNumbers;
+    };
+    return (
+      //   <div className="mt-8 flex items-center justify-center gap-2 text-white">
+      //     <Button
+      //       variant="outline"
+      //       size="icon"
+      //       onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+      //       disabled={currentPage === 1}
+      //       className="hover:text-black"
+      //     >
+      //       <ChevronLeft className="h-4 w-4" />
+      //     </Button>
+
+      //     <div className="flex gap-1">
+      //       {_.range(1, totalPages + 1).map((page) => (
+      //         <Button
+      //           key={page}
+      //           variant={currentPage === page ? 'default' : 'outline'}
+      //           size="sm"
+      //           onClick={() => setCurrentPage(page)}
+      //           className={cn('min-w-[2.5rem] hover:text-black', currentPage === page && 'bg-red-600 hover:bg-red-700')}
+      //         >
+      //           {page}
+      //         </Button>
+      //       ))}
+      //     </div>
+
+      //     <Button
+      //       variant="outline"
+      //       size="icon"
+      //       onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+      //       disabled={currentPage === totalPages}
+      //       className="hover:text-black"
+      //     >
+      //       <ChevronRight className="h-4 w-4" />
+      //     </Button>
+      //   </div>
+      <div className="mt-8 flex items-center justify-center gap-2 text-black">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+          disabled={currentPage === 1}
+          className="hover:text-black bg-white"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+
+        <div className="flex gap-1">
+          {getPageNumbers().map((page) => (
+            <Button
+              key={page}
+              variant={currentPage === page ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setCurrentPage(page)}
+              className={cn(
+                'min-w-[2.5rem] bg-white hover:text-black',
+                currentPage === page && 'bg-red-600 hover:bg-red-700'
+              )}
+            >
+              {page}
+            </Button>
+          ))}
+        </div>
+
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+          disabled={currentPage === totalPages}
+          className="hover:text-black bg-white"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
       </div>
-
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-        disabled={currentPage === totalPages}
-        className="hover:text-black"
-      >
-        <ChevronRight className="h-4 w-4" />
-      </Button>
-    </div>
-  );
+    );
+  };
   const getCategoryBackground = (categoryName) => {
     const bgStyles = {
       Confiserie: {
@@ -313,12 +363,8 @@ const Products = () => {
         </div>
       </motion.div> */}
       {/* Hero Section */}
-      <motion.div
-        ref={scrollRef}
-        className={`relative overflow-visible bg-gradient-to-r ${
-          categoryContent[parentCategory.name]?.bgColor || 'from-red-600 to-red-700'
-        }`}
-      >
+      <motion.div ref={scrollRef} className="relative overflow-visible bg-gray-200	    ">
+        {/* <motion.div ref={scrollRef} className={`relative overflow-visible bg-[#280300]`}> */}
         <div className="absolute inset-0">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -330,7 +376,7 @@ const Products = () => {
               backgroundSize: '100%',
               backgroundPosition: 'center top',
               backgroundRepeat: 'no-repeat',
-              marginBottom: '-20%' // Adjust this value to show more or less of the drip
+              marginBottom: '-30%' // Adjust this value to show more or less of the drip
             }}
           />
           {/* <div
