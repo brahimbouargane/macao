@@ -2,7 +2,8 @@ import bgcandy from '@/assets/images/bg-candy.webp';
 import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
 import chocobg from '@/assets/images/chocolat-bg.webp';
-import choco from '@/assets/images/chocolate.webp';
+// import choco from '@/assets/images/chocolate.webp';
+import bgChoco from '@/assets/images/BANNER-1.jpg';
 import fetebg from '@/assets/images/event-bg.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import pastrybg from '@/assets/images/pastry-bg.webp';
@@ -45,8 +46,8 @@ const categoryContent = {
     title: 'CHOCOLAT EXQUIS',
     subtitle: 'Des créations chocolatées pour tous les plaisirs.',
     bgColor: 'from-amber-800 to-amber-900',
-    bgImage: choco,
-    overlayOpacity: '50'
+    bgImage: bgChoco,
+    overlayOpacity: '40'
   },
   Gaufrettes: {
     title: 'GAUFRETTES CROUSTILLANTES',
@@ -283,14 +284,14 @@ const Products = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
-              opacity: '0.20'
+              opacity: '0.70'
             }}
           />
-          <div
-            className={`absolute inset-0 bg-gradient-to-t from-black ${
+          {/* <div
+            className={`absolute inset-0 bg-gradient-to-t from-orange-950 ${
               categoryContent[parentCategory.name]?.overlayOpacity
             } to-transparent`}
-          />
+          /> */}
         </div>
 
         <div className="container relative mx-auto px-4">
