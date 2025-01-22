@@ -45,6 +45,7 @@ const categoryContent = {
     title: 'CHOCOLAT EXQUIS',
     subtitle: 'Des créations chocolatées pour tous les plaisirs.',
     bgColor: 'from-[#280300] to-[#280300]',
+    bgBodyColor: 'bg-[#280300c2]',
     bgImage: bgChoco,
     overlayOpacity: '40'
   },
@@ -203,41 +204,6 @@ const Products = () => {
       return pageNumbers;
     };
     return (
-      //   <div className="mt-8 flex items-center justify-center gap-2 text-white">
-      //     <Button
-      //       variant="outline"
-      //       size="icon"
-      //       onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-      //       disabled={currentPage === 1}
-      //       className="hover:text-black"
-      //     >
-      //       <ChevronLeft className="h-4 w-4" />
-      //     </Button>
-
-      //     <div className="flex gap-1">
-      //       {_.range(1, totalPages + 1).map((page) => (
-      //         <Button
-      //           key={page}
-      //           variant={currentPage === page ? 'default' : 'outline'}
-      //           size="sm"
-      //           onClick={() => setCurrentPage(page)}
-      //           className={cn('min-w-[2.5rem] hover:text-black', currentPage === page && 'bg-red-600 hover:bg-red-700')}
-      //         >
-      //           {page}
-      //         </Button>
-      //       ))}
-      //     </div>
-
-      //     <Button
-      //       variant="outline"
-      //       size="icon"
-      //       onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-      //       disabled={currentPage === totalPages}
-      //       className="hover:text-black"
-      //     >
-      //       <ChevronRight className="h-4 w-4" />
-      //     </Button>
-      //   </div>
       <div className="mt-8 flex items-center justify-center gap-2 text-black">
         <Button
           variant="outline"
@@ -271,7 +237,7 @@ const Products = () => {
           size="icon"
           onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
           disabled={currentPage === totalPages}
-          className="hover:text-black bg-white"
+          className="hover:text-black bg-white "
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
@@ -320,70 +286,33 @@ const Products = () => {
       <ScrollProgress />
 
       {/* Hero Section */}
-      {/* <motion.div
+      <motion.div
         ref={scrollRef}
-        className={`relative overflow-hidden bg-gradient-to-r ${
-          categoryContent[parentCategory.name]?.bgColor || 'from-red-600 to-red-700'
-        }`}
+        className={`relative overflow-visible ${categoryContent[parentCategory.name]?.bgBodyColor || 'bg-gray-200'}`}
       >
-        <div className="absolute inset-0">
+        <div className="absolute inset-0  ">
           <motion.div
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
-            className="absolute inset-0 bg-cover bg-center"
+            transition={{ duration: 0.2 }}
+            // className="absolute inset-0 "
+            className="absolute inset-0 "
+            // style={{
+            //   backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
+            //   backgroundSize: '100%',
+            //   backgroundPosition: 'center top',
+            //   backgroundRepeat: 'no-repeat',
+            //   marginBottom: categoryContent[parentCategory.name].title === 'CHOCOLAT EXQUIS' ? '-30%' : '0%'
+            // }}
             style={{
               backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
-              opacity: '0.70'
-            }}
-          />
-          <div
-            className={`absolute inset-0 bg-gradient-to-t from-orange-950 ${
-              categoryContent[parentCategory.name]?.overlayOpacity
-            } to-transparent`}
-          />
-        </div>
-
-        <div className="container relative mx-auto px-4">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            className="flex min-h-[500px] items-center justify-center py-20"
-          >
-            <div className="text-center">
-              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
-                {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
-              </motion.h1>
-              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
-              </motion.p>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div> */}
-      {/* Hero Section */}
-      <motion.div ref={scrollRef} className="relative overflow-visible bg-gray-200	    ">
-        {/* <motion.div ref={scrollRef} className={`relative overflow-visible bg-[#280300]`}> */}
-        <div className="absolute inset-0">
-          <motion.div
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
-              backgroundSize: '100%',
+              //   backgroundSize: window.innerWidth < 768 ? 'cover' : '100%',
+              backgroundSize: 'cover',
               backgroundPosition: 'center top',
               backgroundRepeat: 'no-repeat',
-              marginBottom: '-30%' // Adjust this value to show more or less of the drip
+              marginBottom: categoryContent[parentCategory.name].title === 'CHOCOLAT EXQUIS' ? '-15%' : '0%'
             }}
           />
-          {/* <div
-            className={`absolute inset-0 bg-gradient-to-t from-orange-950 ${
-              categoryContent[parentCategory.name]?.overlayOpacity
-            } to-transparent`}
-          /> */}
         </div>
 
         <div className="container relative mx-auto px-4">
@@ -407,7 +336,7 @@ const Products = () => {
 
       {/* Main Content */}
       <div
-        className="min-w-full min-h-screen bg-gray-200	"
+        className={`min-w-full min-h-screen  ${categoryContent[parentCategory.name]?.bgBodyColor || 'bg-gray-200'}`}
         // style={{
         //   background: `linear-gradient(${getCategoryBackground(parentCategory.name).overlay}, ${getCategoryBackground(parentCategory.name).overlay}), ${getCategoryBackground(parentCategory.name).background}`,
         //   backgroundSize: getCategoryBackground(parentCategory.name).size,
@@ -519,7 +448,7 @@ const Products = () => {
                           </Badge>
                           <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
                           <p className="mt-1 text-sm text-gray-600">{product.description}</p>
-                          <div className="mt-4 flex items-center justify-between">
+                          <div className="mt-4 flex items-center justify-end">
                             <motion.button
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
