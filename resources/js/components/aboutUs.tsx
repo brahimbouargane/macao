@@ -80,7 +80,7 @@ export default function PastorMacaoHero() {
               <img src={pastoLogo} alt="Logo Pastor Macao" className="w-28 h-28 mb-6" />
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="space-y-6 text-gray-600 text-lg">
+            <motion.div variants={fadeInUp} className="space-y-6 text-gray-600 text-lg text-center">
               <p className="leading-relaxed">
                 Fondé en 1954, PASTOR MACAO est le leader marocain en confiserie-chocolaterie, offrant une large gamme
                 de produits de qualité pour satisfaire tous les goûts au meilleur prix.
