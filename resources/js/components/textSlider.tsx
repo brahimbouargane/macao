@@ -1,4 +1,4 @@
-import macaoLogoRed from '@/assets/images/macoa-logo-small.svg';
+import macaoLogoRed from '@/assets/images/macoa-logo-small-red.svg';
 import React, { useState } from 'react';
 
 type TextSliderProps = {

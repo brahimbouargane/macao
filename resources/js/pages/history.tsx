@@ -97,7 +97,7 @@ const ContentBlock = ({ imageOnLeft, title, content, imageSrc }) => {
             </div>
 
             {/* Content with enhanced typography */}
-            <p className="text-lg leading-relaxed text-gray-700 space-y-4">
+            <p className="text-lg leading-relaxed text-gray-700 space-y-4 text-justify">
               {content.split('.').map(
                 (sentence, index) =>
                   sentence.trim() && (
@@ -137,12 +137,12 @@ function History() {
       <Head title="Macao" />
 
       <motion.div
-        ref={scrollRef}
-        style={{
-          opacity: headerOpacity,
-          y: headerY,
-          scale: headerScale
-        }}
+        // ref={scrollRef}
+        // style={{
+        //   opacity: headerOpacity,
+        //   y: headerY,
+        //   scale: headerScale
+        // }}
         className="relative overflow-hidden bg-gradient-to-r from-red-400 to-red-500"
       >
         <div className="absolute inset-0">

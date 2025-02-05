@@ -1,8 +1,8 @@
 // import first from '@/assets/images/4.png';
 // import chocolateImg from '@/assets/images/aboutuspic.webp';
 import pastoLogo from '@/assets/images/macao_logo.png';
-import first from '@/assets/images/macoa-1.webp';
-import second from '@/assets/images/macoa-2.webp';
+import first from '@/assets/images/pic1.png';
+import second from '@/assets/images/pic9.png';
 import { motion } from 'framer-motion';
 
 export default function PastorMacaoHero() {
@@ -63,7 +63,7 @@ export default function PastorMacaoHero() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative h-[400px] lg:h-full lg:bottom-20 rounded-2xl lg:rounded-l-none overflow-hidden"
+            className="relative h-[400px] lg:h-[80%]   rounded-2xl lg:rounded-l-none overflow-hidden"
           >
             <img src={first} alt="Chocolate making process" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -71,7 +71,7 @@ export default function PastorMacaoHero() {
 
           {/* Center Content */}
           <motion.div
-            className="flex flex-col items-center justify-center px-6 lg:px-8 lg:mb-24 z-40"
+            className="flex flex-col items-center justify-start px-6 lg:px-8 lg:mb-24 z-40"
             initial="hidden"
             animate="visible"
             variants={staggerChildren}
@@ -81,19 +81,21 @@ export default function PastorMacaoHero() {
             </motion.div>
 
             <motion.div variants={fadeInUp} className="space-y-6 text-gray-600 text-lg text-center">
-              <p className="leading-relaxed">
-                Fondé en 1954, PASTOR MACAO est le leader marocain en confiserie-chocolaterie, offrant une large gamme
-                de produits de qualité pour satisfaire tous les goûts au meilleur prix.
-              </p>
-              <p className="leading-relaxed">
-                La satisfaction de nos clients est au cœur de nos préoccupations. Nous vous proposons une large gamme de
-                produits halal, conçus avec les meilleurs ingrédients répondant aux normes de qualité les plus strictes
-                pour satisfaire tous les goûts.
-              </p>
-              <p className="leading-relaxed">
-                La qualité de nos produits est reconnue au-delà des frontières du Maroc et nécessite de faire de
-                nouveaux adeptes.
-              </p>
+              <div className="text-justify ">
+                <p className="leading-relaxed mb-4">
+                  Fondé en 1954, PASTOR MACAO est le leader marocain en confiserie-chocolaterie, offrant une large gamme
+                  de produits de qualité pour satisfaire tous les goûts au meilleur prix.
+                </p>
+                <p className="leading-relaxed mb-4">
+                  La satisfaction de nos clients est au cœur de nos préoccupations. Nous vous proposons une large gamme
+                  de produits halal, conçus avec les meilleurs ingrédients répondant aux normes de qualité les plus
+                  strictes pour satisfaire tous les goûts.
+                </p>
+                <p className="leading-relaxed mb-4">
+                  La qualité de nos produits est reconnue au-delà des frontières du Maroc et nécessite de faire de
+                  nouveaux adeptes.
+                </p>
+              </div>
 
               <motion.div variants={fadeInUp} className="pt-4 text-center z-40">
                 <button
@@ -116,7 +118,7 @@ export default function PastorMacaoHero() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative h-[400px] lg:h-full lg:bottom-20 rounded-2xl lg:rounded-r-none overflow-hidden z-40"
+            className="relative h-[400px] lg:h-[80%]  rounded-2xl lg:rounded-r-none overflow-hidden z-40"
           >
             <img src={second} alt="Finished chocolate products" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
