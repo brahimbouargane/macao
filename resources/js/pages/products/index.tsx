@@ -1,37 +1,54 @@
-import bgcandy from '@/assets/images/bg-candy.webp';
 import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
-import chocobg from '@/assets/images/chocolat-bg.webp';
-// import choco from '@/assets/images/chocolate.webp';
-import bgChoco from '@/assets/images/BANNER-11.png';
-import fetebg from '@/assets/images/event-bg.webp';
+import choco from '@/assets/images/Chocolatebanner.png';
 import leonardo from '@/assets/images/Leonardo.webp';
-import pastrybg from '@/assets/images/pastry-bg.webp';
-import wafersbg from '@/assets/images/wafer-bg.webp';
+import logo from '@/assets/images/macoa-logo-small.svg';
 import wafer from '@/assets/images/wafer.webp';
 
 import { Badge } from '@/components/ui/shadcn-badge';
 import { Button } from '@/components/ui/shadcn-button';
+import { Checkbox } from '@/components/ui/shadcn-checkbox';
 import { Input } from '@/components/ui/shadcn-input';
+import { Select, SelectContent, SelectItem } from '@/components/ui/shadcn-select';
+import { Separator } from '@/components/ui/shadcn-separator';
 import { GuestLayout } from '@/layouts';
 import { cn } from '@/utils/classes';
 import { router, usePage } from '@inertiajs/react';
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ImageIcon, Search } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { SelectTrigger, SelectValue } from '@radix-ui/react-select';
+import { AnimatePresence, motion, useScroll } from 'framer-motion';
+import _ from 'lodash';
+import { ImageIcon, Search } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-// Product interface definition
 interface Product {
   id: number;
   name: string;
   description: string;
-  image: string;
-  pieces: number;
-  category: string;
-  product_type: { name: string };
-  primaryImage: { optimized: string };
+  brand_id: number;
+  ref: string;
+  packaging: string;
+  weight: number;
+  categoriesNames: string[];
+  product_type: {
+    id: number;
+    name: string;
+  };
+  primaryImage: {
+    optimized: string | null;
+    thumbnail: string | null;
+  };
+  created_at: string;
+  updated_at: string;
+  tc_20: string;
+  tc_40: string;
 }
-
+interface FilterState {
+  sortBy: string;
+  productTypes: string[];
+  weightRange: [number, number] | null;
+  packagingTypes: string[];
+  searchTerm: string;
+}
 // Category content configuration
 const categoryContent = {
   Confiserie: {
@@ -44,10 +61,9 @@ const categoryContent = {
   Chocolat: {
     title: 'CHOCOLAT EXQUIS',
     subtitle: 'Des créations chocolatées pour tous les plaisirs.',
-    bgColor: 'from-[#280300] to-[#280300]',
-    bgBodyColor: 'bg-[#280300c2]',
-    bgImage: bgChoco,
-    overlayOpacity: '40'
+    bgColor: 'from-amber-800 to-amber-900',
+    bgImage: choco,
+    overlayOpacity: '50'
   },
   Gaufrettes: {
     title: 'GAUFRETTES CROUSTILLANTES',
@@ -129,7 +145,6 @@ const ScrollProgress = () => {
 
 // Constants
 const ITEMS_PER_PAGE = 9;
-const PLACEHOLDER_IMAGE = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EMACAO%3C/text%3E%3C/svg%3E`;
 
 const Products = () => {
   // State management
@@ -140,15 +155,19 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const [filters, setFilters] = useState<FilterState>({
+    sortBy: 'name-asc',
+    productTypes: [],
+    weightRange: [0, 1000],
+    packagingTypes: [],
+    searchTerm: ''
+  });
+
   // Scroll animations
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ['start start', 'end start']
   });
-
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const headerScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
-  const headerY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
 
   // Get page props
   const { products, parentCategory, childCategory } = usePage<{
@@ -157,18 +176,77 @@ const Products = () => {
     childCategory: { name: string };
   }>().props;
 
-  // Search and filter logic
-  const filteredProducts = products
-    .filter((product) => (selectedCategory ? product.category === selectedCategory : true))
-    .filter((product) => {
-      if (!searchQuery) return true;
-      const searchLower = searchQuery.toLowerCase();
-      return (
-        product.name.toLowerCase().includes(searchLower) ||
-        product.description.toLowerCase().includes(searchLower) ||
-        product.product_type.name.toLowerCase().includes(searchLower)
-      );
-    });
+  const uniquePackagingTypes = useMemo(() => Array.from(new Set(products.map((p) => p.packaging))), [products]);
+
+  const uniqueProductTypes = useMemo(() => Array.from(new Set(products.map((p) => p.product_type.name))), [products]);
+
+  const updateFilters = (newFilters: Partial<FilterState>) => {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+    setCurrentPage(1); // Reset pagination when filters change
+  };
+
+  const filteredProducts = useMemo(() => {
+    return products
+      .filter((product) => {
+        // Category filter (existing)
+        if (selectedCategory && product.categoriesNames) {
+          if (!product.categoriesNames.includes(selectedCategory)) {
+            return false;
+          }
+        }
+
+        // Search term filter
+        if (filters.searchTerm) {
+          const searchLower = filters.searchTerm.toLowerCase();
+          const searchMatch = [
+            product.name,
+            product.description,
+            product.ref,
+            product.packaging,
+            product.product_type.name
+          ].some((field) => field?.toLowerCase().includes(searchLower));
+
+          if (!searchMatch) return false;
+        }
+
+        // Product type filter
+        if (filters.productTypes.length > 0 && !filters.productTypes.includes(product.product_type.name)) {
+          return false;
+        }
+
+        // Weight range filter
+        if (filters.weightRange && product.weight) {
+          if (product.weight < filters.weightRange[0] || product.weight > filters.weightRange[1]) {
+            return false;
+          }
+        }
+
+        // Packaging filter
+        if (filters.packagingTypes.length > 0 && !filters.packagingTypes.includes(product.packaging)) {
+          return false;
+        }
+
+        return true;
+      })
+      .sort((a, b) => {
+        switch (filters.sortBy) {
+          case 'name-asc':
+            return a.name.localeCompare(b.name);
+          case 'name-desc':
+            return b.name.localeCompare(a.name);
+          case 'weight-asc':
+            return (a.weight || 0) - (b.weight || 0);
+          case 'weight-desc':
+            return (b.weight || 0) - (a.weight || 0);
+          case 'reference':
+            return a.ref.localeCompare(b.ref);
+          case 'newest':
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          default:
+            return 0;
+        }
+      });
+  }, [products, selectedCategory, filters]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -191,40 +269,28 @@ const Products = () => {
   };
 
   // Pagination component
-  const PaginationControls = () => {
-    const getPageNumbers = () => {
-      const pageNumbers = [];
-      const start = Math.max(1, currentPage - 1);
-      const end = Math.min(start + 2, totalPages);
-
-      for (let i = start; i <= end; i++) {
-        pageNumbers.push(i);
-      }
-
-      return pageNumbers;
-    };
-    return (
-      <div className="mt-8 flex items-center justify-center gap-2 text-black">
+  const PaginationControls = () => (
+    <div>
+      <div className=" mt-8 flex items-center justify-center  text-black">
         <Button
           variant="outline"
-          size="icon"
-          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+          onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
           disabled={currentPage === 1}
-          className="hover:text-black bg-white"
+          className="text-gray-500  border-0 border-transparent  hover:bg-red-700 hover:text-white"
         >
-          <ChevronLeft className="h-4 w-4" />
+          Precedent
         </Button>
 
-        <div className="flex gap-1">
-          {getPageNumbers().map((page) => (
+        <div className="flex items-center border-r border-l border-gray-200">
+          {_.range(1, totalPages + 1).map((page) => (
             <Button
               key={page}
               variant={currentPage === page ? 'default' : 'outline'}
               size="sm"
               onClick={() => setCurrentPage(page)}
               className={cn(
-                'min-w-[2.5rem] bg-white hover:text-black',
-                currentPage === page && 'bg-red-600 hover:bg-red-700'
+                'min-w-[2.5rem]  border-0 border-transparent bot text-gray-500 hover:bg-red-700 hover:text-white',
+                currentPage === page && 'bg-red-600 text-white hover:bg-red-700'
               )}
             >
               {page}
@@ -234,117 +300,107 @@ const Products = () => {
 
         <Button
           variant="outline"
-          size="icon"
-          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+          onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
           disabled={currentPage === totalPages}
-          className="hover:text-black bg-white "
+          className="px-4 py-2 border-0 border-transparent text-gray-600 hover:bg-red-700 hover:text-white disabled:opacity-50"
         >
-          <ChevronRight className="h-4 w-4" />
+          Suivant
         </Button>
       </div>
-    );
-  };
-  const getCategoryBackground = (categoryName) => {
-    const bgStyles = {
-      Confiserie: {
-        background: `url('${bgcandy}')`,
-        overlay: 'rgba(0, 0, 0, 0.5)',
-        position: 'center',
-        size: '100% 100%'
-      },
-      Chocolat: {
-        background: `url('${chocobg}')`,
-        overlay: 'rgba(0, 0, 0, 0.5)',
-        position: 'center',
-        size: '100% 100%'
-      },
-      Gaufrettes: {
-        background: `url('${wafersbg}')`,
-        overlay: 'rgba(0, 0, 0, 0.5)',
-        position: 'center',
-        size: '100% 100%'
-      },
-      'Produits pâtissiers': {
-        background: `url('${pastrybg}')`,
-        overlay: 'rgba(0, 0, 0, 0.5)',
-        position: 'center',
-        size: '100% 100%'
-      },
-      'Fêtes et événements': {
-        background: `url('${fetebg}')`,
-        overlay: 'rgba(0, 0, 0, 0.5)',
-        position: 'center',
-        size: '100% 100%'
-      }
-    };
-
-    return bgStyles[categoryName] || bgStyles.Chocolat;
-  };
+    </div>
+  );
 
   return (
     <>
       <ScrollProgress />
 
-      {/* Hero Section */}
-      <motion.div
-        ref={scrollRef}
-        className={`relative overflow-visible ${categoryContent[parentCategory.name]?.bgBodyColor || 'bg-gray-200'}`}
-      >
-        <div className="absolute inset-0  ">
-          <motion.div
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.2 }}
-            // className="absolute inset-0 "
-            className="absolute inset-0 "
-            // style={{
-            //   backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
-            //   backgroundSize: '100%',
-            //   backgroundPosition: 'center top',
-            //   backgroundRepeat: 'no-repeat',
-            //   marginBottom: categoryContent[parentCategory.name].title === 'CHOCOLAT EXQUIS' ? '-30%' : '0%'
-            // }}
-            style={{
-              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
-              //   backgroundSize: window.innerWidth < 768 ? 'cover' : '100%',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center top',
-              backgroundRepeat: 'no-repeat',
-              marginBottom: categoryContent[parentCategory.name].title === 'CHOCOLAT EXQUIS' ? '-15%' : '0%'
-            }}
-          />
-        </div>
+      {/* <motion.div className="relative w-full h-[350px] overflow-hidden bg-gray-100">
+        <div className="absolute inset-0">
+          <div className="relative w-full h-full">
+            <motion.img
+              initial={{ scale: 1.1, opacity: 0.8 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                duration: 1.5,
+                ease: 'easeOut'
+              }}
+              src={categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'}
+              alt={categoryContent[parentCategory.name]?.title || 'Category banner'}
+              className="w-full h-full object-cover object-center"
+              style={{
+                transform: 'scale(0.7)'
+              }}
+            />
 
-        <div className="container relative mx-auto px-4">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            className="flex min-h-[500px] items-center justify-center py-20"
-          >
-            <div className="text-center">
-              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
-                {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
-              </motion.h1>
-              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
-              </motion.p>
+=            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
+          </div>
+
+          <div className="absolute inset-0 flex items-center">
+            <div className="container pl-34">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="max-w-2xl mt-16"
+              >
+                <motion.h1
+                  className="text-4xl md:text-5xl font-bold text-white mb-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  {categoryContent[parentCategory.name]?.title}
+                </motion.h1>
+
+                <motion.p
+                  className="text-lg text-white/90"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  {categoryContent[parentCategory.name]?.subtitle}
+                </motion.p>
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
+        </div>
+      </motion.div> */}
+
+      <motion.div className="relative h-[350px] w-full overflow-hidden">
+        {/* Main container for image and text */}
+        <div className="absolute inset-0">
+          {/* Image wrapper */}
+          <div className="relative h-full w-full">
+            <motion.img
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.5 }}
+              src={categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'}
+              alt={categoryContent[parentCategory.name]?.title || 'Banner'}
+              className="h-full w-full object-cover"
+            />
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-transparent" />
+          </div>
+
+          {/* Text content */}
+          <div className="absolute inset-0 flex items-center mt-16">
+            <div className="mx-auto w-full max-w-7xl  ">
+              <div className="max-w-xl">
+                <h1 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+                  {categoryContent[parentCategory.name]?.title}
+                </h1>
+                <p className="text-base text-white/90 sm:text-lg md:text-xl">
+                  {categoryContent[parentCategory.name]?.subtitle}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
 
       {/* Main Content */}
-      <div
-        className={`min-w-full min-h-screen  ${categoryContent[parentCategory.name]?.bgBodyColor || 'bg-gray-200'}`}
-        // style={{
-        //   background: `linear-gradient(${getCategoryBackground(parentCategory.name).overlay}, ${getCategoryBackground(parentCategory.name).overlay}), ${getCategoryBackground(parentCategory.name).background}`,
-        //   backgroundSize: getCategoryBackground(parentCategory.name).size,
-        //   backgroundPosition: getCategoryBackground(parentCategory.name).position,
-        //   backgroundRepeat: 'no-repeat', // Changed to repeat for seamless tiling
-        //   transition: 'background 0.3s ease-in-out'
-        // }}
-      >
+      <div className="min-w-full min-h-screen bg-gray-200	">
         <motion.div
           variants={pageTransition}
           initial="hidden"
@@ -355,21 +411,6 @@ const Products = () => {
             {/* Sidebar */}
             <motion.div variants={fadeInUp} initial="hidden" animate="visible" className="w-full lg:w-72">
               <div className="sticky top-36 space-y-6">
-                {/* Search Input */}
-                <div className="rounded-xl bg-white p-6 shadow-lg">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                    <Input
-                      type="text"
-                      placeholder="Rechercher..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                </div>
-
-                {/* Categories */}
                 <div className="rounded-xl bg-white p-6 shadow-lg">
                   <h2 className="mb-4 text-lg font-semibold tracking-tight text-black">{parentCategory.name}</h2>
                   <div className="space-y-2">
@@ -398,6 +439,84 @@ const Products = () => {
                     ))}
                   </div>
                 </div>
+                {/* Search Input */}
+                <div className="rounded-xl bg-white p-6 shadow-lg">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                    <Input
+                      type="text"
+                      placeholder="Rechercher..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                  <div className="py-6 text-black">
+                    <h3 className="font-medium text-sm mb-2 text-black">Trier par</h3>
+                    <Select value={filters.sortBy} onValueChange={(value) => updateFilters({ sortBy: value })}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Trier par" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="name-asc">Nom (A-Z)</SelectItem>
+                        <SelectItem value="name-desc">Nom (Z-A)</SelectItem>
+                        <SelectItem value="weight-asc">Poids (Croissant)</SelectItem>
+                        <SelectItem value="weight-desc">Poids (Décroissant)</SelectItem>
+                        <SelectItem value="reference">Référence</SelectItem>
+                        <SelectItem value="newest">Plus récent</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Separator />
+                  <div className="py-4">
+                    <h3 className="font-medium text-sm mb-2 text-black">Types de produit</h3>
+                    <div className="space-y-2 text-black">
+                      {uniqueProductTypes.map((type) => (
+                        <div key={type} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={`type-${type}`}
+                            checked={filters.productTypes.includes(type)}
+                            onCheckedChange={(checked) => {
+                              updateFilters({
+                                productTypes: checked
+                                  ? [...filters.productTypes, type]
+                                  : filters.productTypes.filter((t) => t !== type)
+                              });
+                            }}
+                          />
+                          <label htmlFor={`type-${type}`} className="text-sm cursor-pointer">
+                            {type}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <Separator />
+
+                  <div className="py-4">
+                    <h3 className="font-medium text-sm pb-4 text-black">Conditionnement</h3>
+                    <div className="space-y-2">
+                      {uniquePackagingTypes.map((type) => (
+                        <div key={type} className="flex items-center space-x-2 text-black">
+                          <Checkbox
+                            id={`packaging-${type}`}
+                            checked={filters.packagingTypes.includes(type)}
+                            onCheckedChange={(checked) => {
+                              updateFilters({
+                                packagingTypes: checked
+                                  ? [...filters.packagingTypes, type]
+                                  : filters.packagingTypes.filter((t) => t !== type)
+                              });
+                            }}
+                          />
+                          <label htmlFor={`packaging-${type}`} className="text-sm cursor-pointer truncate">
+                            {type}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
 
@@ -421,10 +540,11 @@ const Products = () => {
                         className="group relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
                       >
                         <div className="aspect-square overflow-hidden">
+                          {' '}
                           <motion.img
                             whileHover={{ scale: 1.05 }}
                             transition={{ duration: 0.4 }}
-                            src={product.primaryImage.optimized || PLACEHOLDER_IMAGE}
+                            src={product.primaryImage.optimized || logo}
                             alt={product.name}
                             width={400}
                             height={400}
@@ -443,17 +563,17 @@ const Products = () => {
                           </div>
                         )}
                         <div className="p-6">
-                          <Badge variant="secondary" className="mb-2 transition-colors hover:bg-red-100">
+                          <Badge variant="secondary" className="mb-2 transition-colors  bg-gray-500 ">
                             {product.product_type.name}
                           </Badge>
                           <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
                           <p className="mt-1 text-sm text-gray-600">{product.description}</p>
-                          <div className="mt-4 flex items-center justify-end">
+                          <div className="mt-4 flex items-center justify-between">
                             <motion.button
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                               onClick={() => router.visit(`/products/${product.id}`)}
-                              className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+                              className="rounded-full bg-red-600 px-4 py-2 text-sm w-full font-medium text-white transition-colors hover:bg-red-700"
                             >
                               Voir plus
                             </motion.button>
