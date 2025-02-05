@@ -24,7 +24,6 @@ import { motion } from 'framer-motion';
 import {
   Cake,
   Candy,
-  ChevronDown,
   Cookie,
   Facebook,
   Gift,
@@ -38,7 +37,6 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Container, Link } from './ui';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/shadcn-dropdown-menu';
 import { ScrollArea } from './ui/shadcn-scroll-area';
 
 const MotionLink = motion(Link);
@@ -71,7 +69,7 @@ const featuredCategories = [
     description: 'Découvrez notre sélection de chocolats fins',
     image: choco,
     highlight: 'Nouvelle Collection',
-    items: ['Pâtes à tartiner', 'Chocolats variés', 'Chocolats sans sucre']
+    items: ['Pâtes à tartiner', 'Chocolats variés', 'Chocolats sans sucre', 'Tablettes de chocolats']
   },
   {
     id: 'confiserie',
@@ -87,8 +85,7 @@ const featuredCategories = [
       'Dragées',
       'Caramel',
       'Bonbons durs sans sucre',
-      'Bonbons Durs',
-      'Tablettes de chocolats'
+      'Bonbons Durs'
     ]
   },
   {
@@ -99,7 +96,7 @@ const featuredCategories = [
     description: "L'excellence de la pâtisserie française",
     image: leonardo,
     highlight: 'Création Artisanale',
-    items: ['Chocolats pâtissiers', 'Fourrage & décoration', 'Poudre de cacao sucré']
+    items: ['Chocolats pâtissiers', 'Fourrage & décoration', 'Poudre de cacao sucré', 'Fruits confits']
   },
   {
     id: 'gaufrettes',
@@ -118,7 +115,7 @@ const featuredCategories = [
     description: 'La légèreté et le croustillant à la perfection',
     image: candy,
     highlight: 'Collections Saisonnières',
-    items: ['Chocolats fins fourrés', 'Confiserie fine', 'Fruits confits', 'Saint-Valentin', 'Nougat']
+    items: ['Chocolats fins fourrés', 'Confiserie fine', 'Nougat', 'Fruits confits - f&e']
   }
 ];
 
@@ -334,9 +331,9 @@ export function Navbar() {
                                 transition={{ duration: 0.4 }}
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                              <span className="absolute bottom-2 left-2 text-white text-sm font-medium">
+                              {/* <span className="absolute bottom-2 left-2 text-white text-sm font-medium">
                                 {category.highlight}
-                              </span>
+                              </span> */}
                             </div>
 
                             {/* Category Items */}
@@ -444,9 +441,9 @@ export function Navbar() {
                 ))}
               </div>
 
-              <motion.div className="h-4 w-px bg-gray-200 " variants={scaleUp} />
+              {/* <motion.div className="h-4 w-px bg-gray-200 " variants={scaleUp} /> */}
 
-              <DropdownMenu>
+              {/* <DropdownMenu>
                 <DropdownMenuTrigger
                   className={`flex items-center space-x-2 ${
                     scrolled ? 'text-gray-800' : 'text-white'
@@ -459,7 +456,7 @@ export function Navbar() {
                   <DropdownMenuItem>English</DropdownMenuItem>
                   <DropdownMenuItem>Français</DropdownMenuItem>
                 </DropdownMenuContent>
-              </DropdownMenu>
+              </DropdownMenu> */}
 
               {/* Mobile Menu */}
               <Sheet>
