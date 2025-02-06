@@ -1,6 +1,6 @@
 import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
-import choco from '@/assets/images/Chocolatebanner.png';
+import choco from '@/assets/images/chocolats-banner3.png';
 import leonardo from '@/assets/images/Leonardo.webp';
 import logo from '@/assets/images/macoa-logo-small.svg';
 import wafer from '@/assets/images/wafer.webp';
@@ -366,37 +366,15 @@ const Products = () => {
         </div>
       </motion.div> */}
 
-      <motion.div className="relative h-[350px] w-full overflow-hidden">
-        {/* Main container for image and text */}
-        <div className="absolute inset-0">
-          {/* Image wrapper */}
-          <div className="relative h-full w-full">
-            <motion.img
-              initial={{ scale: 1.1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 1.5 }}
-              src={categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'}
-              alt={categoryContent[parentCategory.name]?.title || 'Banner'}
-              className="h-full w-full object-cover"
-            />
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-transparent" />
-          </div>
-
-          {/* Text content */}
-          <div className="absolute inset-0 flex items-center mt-16">
-            <div className="mx-auto w-full max-w-7xl  ">
-              <div className="max-w-xl">
-                <h1 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl">
-                  {categoryContent[parentCategory.name]?.title}
-                </h1>
-                <p className="text-base text-white/90 sm:text-lg md:text-xl">
-                  {categoryContent[parentCategory.name]?.subtitle}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <motion.div className="relative top-10 h-[340px] w-full overflow-hidden">
+        <motion.img
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5 }}
+          src={categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'}
+          alt={categoryContent[parentCategory.name]?.title || 'Banner'}
+          className="h-full w-full object-center"
+        />
       </motion.div>
 
       {/* Main Content */}
