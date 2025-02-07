@@ -9,6 +9,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import { useRoute } from 'ziggy-js';
 
 import { HelmetProvider } from 'react-helmet-async';
+import LoadingScreen from './components/LoadingScreen';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -21,7 +22,9 @@ createInertiaApp({
     const appElement = (
       <HelmetProvider>
         <Providers>
-          <App {...props} />
+          <LoadingScreen>
+            <App {...props} />
+          </LoadingScreen>
         </Providers>
       </HelmetProvider>
     );

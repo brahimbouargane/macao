@@ -35,7 +35,7 @@ const tabsData = {
       id: '1',
       title: 'Chocolat Noir Premium',
       subtitle: 'Chocolat 85% cacao',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: bestSelling2,
       href: '/products/chocolat-noir-premium'
     },
@@ -43,7 +43,7 @@ const tabsData = {
       id: '2',
       title: 'CHOCOLAT LIGHT NOIR',
       subtitle: 'Chocolat Sans Sucre 73 % de Cacao',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: pro1,
       href: '/products/pralines-assorties'
     },
@@ -51,7 +51,7 @@ const tabsData = {
       id: '3',
       title: 'CHOCOLAT FONDANT NOIR',
       subtitle: 'Tablette de Chocolat 73% de Cacao',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: pro2,
       href: '/products/truffes-royales'
     }
@@ -61,7 +61,7 @@ const tabsData = {
       id: '4',
       title: 'CHOCODÉJ',
       subtitle: 'Poudre de Cacao Sucré',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: pro6,
       href: '/products/chocolat-light-noir'
     },
@@ -69,7 +69,7 @@ const tabsData = {
       id: '5',
       title: 'Pâte à mâcher fruitée',
       subtitle: 'Bonbon fruité',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: pro3,
       href: '/products/pate-a-macher-fruitee'
     },
@@ -77,7 +77,7 @@ const tabsData = {
       id: '6',
       title: 'Pépites de chocolat noir',
       subtitle: 'Pépites de chocolat',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: bestSelling,
       href: '/products/pepites-de-chocolate'
     }
@@ -87,7 +87,7 @@ const tabsData = {
       id: '7',
       title: 'CHOCOLAT DE COUVERTURE NOIR 57% CACAO',
       subtitle: 'Chocolat de Couverture Noir 57% Cacao',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: pro4,
       href: '/products/assortiment-degustation'
     },
@@ -95,7 +95,7 @@ const tabsData = {
       id: '8',
       title: 'DIAMANTS',
       subtitle: 'Assortiment De Chocolats Fins',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: pro5,
       href: '/products/coffret-prestige'
     },
@@ -103,7 +103,7 @@ const tabsData = {
       id: '9',
       title: 'Pralines Signature',
       subtitle: 'Collection exclusive',
-      details: 'Savoir plus',
+      details: 'En savoir plus',
       image: bestSelling3,
       href: '/products/pralines-signature'
     }
