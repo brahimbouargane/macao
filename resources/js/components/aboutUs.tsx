@@ -1,8 +1,8 @@
 // import first from '@/assets/images/4.png';
 // import chocolateImg from '@/assets/images/aboutuspic.webp';
 import pastoLogo from '@/assets/images/macao_logo.png';
-import first from '@/assets/images/pic1.png';
-import second from '@/assets/images/pic9.png';
+import first from '@/assets/images/pic1.webp';
+import second from '@/assets/images/pic9.webp';
 import { motion } from 'framer-motion';
 
 export default function PastorMacaoHero() {
