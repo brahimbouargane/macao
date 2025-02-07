@@ -541,7 +541,10 @@ const Products = () => {
                           </div>
                         )}
                         <div className="p-6">
-                          <Badge variant="secondary" className="mb-2 transition-colors  bg-gray-500 ">
+                          <Badge
+                            variant="secondary"
+                            className="mb-2 transition-colors text-white  bg-red-400 hover:text-black "
+                          >
                             {product.product_type.name}
                           </Badge>
                           <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
