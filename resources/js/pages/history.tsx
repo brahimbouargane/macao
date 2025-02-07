@@ -1,9 +1,10 @@
 import candies from '@/assets/images/candies.webp';
-import commercial from '@/assets/images/commercial.webp';
-import composition from '@/assets/images/composition.webp';
-import iso from '@/assets/images/iso.jpg';
+// import commercial from '@/assets/images/commercial.webp';
+// import composition from '@/assets/images/composition.webp';
+// import iso from '@/assets/images/iso.jpg';
 import pastoLogo from '@/assets/images/macao_logo.png';
-import showcase from '@/assets/images/showcasing.webp';
+// import showcase from '@/assets/images/showcasing.webp';
+import logo from '@/assets/images/macoa-logo-small.svg';
 import ContactSection from '@/components/contactUs';
 import SEO from '@/components/seo';
 import { Container } from '@/components/ui';
@@ -59,7 +60,7 @@ const ContentBlock = ({ imageOnLeft, title, content, imageSrc }) => {
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="absolute inset-0 bg-red-500/10 group-hover:bg-red-500/0 transition-colors duration-300 rounded-lg" />
+          {/* <div className="absolute inset-0 bg-red-500/10 group-hover:bg-red-500/0 transition-colors duration-300 rounded-lg" /> */}
           <div className="absolute inset-0 border-2 border-red-500/20 rounded-lg transform -rotate-1" />
           <div className="absolute inset-0 border-2 border-gray-900/10 rounded-lg transform rotate-1" />
           <img
@@ -185,28 +186,28 @@ function History() {
           imageOnLeft={true}
           title="PASTOR MACAO SAVOUREZ LA VIE !"
           content="Fondé en 1954, PASTOR MACAO est le leader marocain en confiserie-chocolaterie, offrant une large gamme de produits de qualité pour satisfaire tous les goûts au meilleur prix.La satisfaction de nos clients est au cœur de nos préoccupations. Nous avons développé une large gamme de produits Halal, conçus avec les meilleurs ingrédients et répondant aux normes de qualité les plus strictes pour satisfaire tous les goûts. La qualité de nos produits est reconnue au-delà des frontières du Maroc et ne cesse de faire de nouveaux adeptes.Nos sites, à la pointe de la technologie, nous permettent de répondre à toutes les demandes du marché et de continuer d’innover pour satisfaire nos clients."
-          imageSrc={commercial}
+          imageSrc={logo}
         />
 
         <ContentBlock
           imageOnLeft={false}
           title="L'historique"
           content="PASTOR MACAO a démarré en 1948 comme une petite unité de production. Elle est graduellement devenue une société de confiserie-chocolaterie en plein essor en 1954.L’amour de notre métier, l’exigence de sélectionner les meilleurs ingrédients et notre recherche constante de l’excellence ont fait de nous le leader au Maroc de la confiserie- chocolaterie. Au-delà de ce positionnement, ce qui nous inspire c’est la confiance de nos consommateurs. Nos bonbons, chocolats, gaufrettes, produits pâtissiers, pâtes à tartiner et autres friandises, ont fait partie du quotidien de millions de marocains, toutes générations confondues.L’éléphant blanc sur fond rouge, logo emblématique de notre marque, est reconnaissable par tous les marocains de tous les âges.Aujourd’hui, nos produits sont appréciés dans plusieurs pays. Notre savoir-faire et le large choix de nos produits, élaborés selon les normes de qualité les plus strictes, nous permettent de répondre aux demandes de tous les marchés de la confiserie-chocolaterie aux meilleurs prix."
-          imageSrc={composition}
+          imageSrc={logo}
         />
 
         <ContentBlock
           imageOnLeft={true}
           title="Une qualité supérieure constante"
           content="La confiance, la satisfaction et la santé de nos consommateurs sont au sommet de nos priorités. Pour cela, tous nos produits sont conçus selon les normes de qualité les plus strictes et avec des matières premières premium pour garantir goût et excellence.Nos processus sophistiqués nous permettent une traçabilité de chaque élément, assurant ainsi la qualité et la sécurité de chaque produit.Nos sites de productions sont à la pointe de la technologie. Nos équipes qui élaborent nos produits sont tous animées par la même philosophie d’offrir les produits de la plus hautequalité aux consommateurs. Nos collaborateurs sont constamment formés et encadrés pour donner le meilleur d’eux-mêmes."
-          imageSrc={showcase}
+          imageSrc={logo}
         />
 
         <ContentBlock
           imageOnLeft={false}
           title="Un partenaire fiable et responsable"
           content="PASTOR MACAO place la sécurité alimentaire au cœur de ses priorités. Nous effectuons des contrôles de qualité quotidiennement sur nos sites afin de veiller au respect des normes alimentaires et d’hygiène en vigueur au Maroc et à l’étranger.Notre société est certifiée ISO 9001 et peut exporter ses produits à l’étranger en vertu d’une autorisation de l’Office National de Sécurité Sanitaire au Maroc (ONSSA). PASTOR MACAO dispose d’un laboratoire de Recherche & Développement lui permettant de développer de nouveaux produits en réponses à toutes les nouveautés.C’est ainsi que notre gamme de produits ne cesse de s’étoffer. De nouveaux produits, telle notre gamme de chocolat sans sucre ont été conçus en réponse à un segment très largement sous-servi au Maroc.Notre succès, aujourd’hui incontesté, est le fruit de longues années de travail, de passion et de sérieux. En choisissant de travailler avec nous, vous avez la garantie d’un partenaire fiable et capable de garantir des produits premiums de qualité supérieure."
-          imageSrc={iso}
+          imageSrc={logo}
         />
       </div>
       <Container>

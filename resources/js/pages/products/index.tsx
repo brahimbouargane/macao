@@ -1,9 +1,9 @@
-import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
-import choco from '@/assets/images/chocolats-banner3.png';
-import leonardo from '@/assets/images/Leonardo.webp';
+import choco from '@/assets/images/chocolats-banner3.webp';
+import candies from '@/assets/images/confesserie-banner.webp';
+import wafer from '@/assets/images/gauffres.webp';
 import logo from '@/assets/images/macoa-logo-small.svg';
-import wafer from '@/assets/images/wafer.webp';
+import leonardo from '@/assets/images/patisserie-bim.webp';
 
 import { Badge } from '@/components/ui/shadcn-badge';
 import { Button } from '@/components/ui/shadcn-button';
@@ -366,14 +366,14 @@ const Products = () => {
         </div>
       </motion.div> */}
 
-      <motion.div className="relative top-10 h-[340px] w-full overflow-hidden">
+      <motion.div className="relative top-10 h-[220px] md:h-[340px] w-full overflow-hidden">
         <motion.img
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5 }}
           src={categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'}
           alt={categoryContent[parentCategory.name]?.title || 'Banner'}
-          className="h-full w-full object-center"
+          className="h-full w-full object-fill"
         />
       </motion.div>
 
