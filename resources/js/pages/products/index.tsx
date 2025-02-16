@@ -621,7 +621,7 @@ const categoryContent = {
   'Produits pâtissiers': {
     title: 'PÂTISSERIE RAFFINÉE',
     subtitle: "L'excellence de la pâtisserie traditionnelle",
-    bgColor: 'from- to-rose-600',
+    bgColor: 'from-rose-600 to-rose-800',
     bgImage: leonardo,
     overlayOpacity: '45'
   },
@@ -832,8 +832,6 @@ const Products = () => {
 
   return (
     <>
-      <ScrollProgress />
-
       {/* Hero Section */}
       <motion.div
         // ref={scrollRef}
@@ -869,7 +867,7 @@ const Products = () => {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] items-center justify-center py-20"
+            className="flex min-h-[400px] items-center justify-center pt-48 pb-20"
           >
             <div className="text-center">
               <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
@@ -978,7 +976,7 @@ const Products = () => {
                               alt={product.name}
                               width={400}
                               height={400}
-                              className={cn('h-full w-full object-cover bg-black', imageError && 'bg-red-300')}
+                              className={cn('h-full w-full object-cover bg-gray-200', imageError && 'bg-red-300')}
                               onError={() => setImageError(true)}
                             />
                           </div>

@@ -159,6 +159,18 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductsOpen, handleOpen, handleClose] = useDropdownTimer(false, 400) as [boolean, () => void, () => void];
   const dropdownRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll event
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 250);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Handle keyboard navigation
   const handleKeyDown = (event) => {
@@ -184,229 +196,248 @@ export default function Navbar() {
     };
   }, [handleClose]);
   return (
-    <Container>
-      <div className="container z-50 flex h-16 items-center justify-between px-4 sticky top-0 bg-transparent">
-        <button
-          className="lg:hidden text-gray-600 hover:text-primary"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-expanded={isMobileMenuOpen}
-          aria-controls="mobile-menu"
-        >
-          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
-        {/* Left side navigation */}
-        <div className=" hidden lg:flex  items-center space-x-6 gap-8">
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/"
-            className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 ${
+        isScrolled ? 'bg-white shadow-md' : 'bg-white'
+      }`}
+    >
+      <Container>
+        {/* <div className="container z-50 flex h-16 items-center justify-between px-4 sticky top-0 bg-transparent"> */}
+        <div className="container flex h-16 items-center justify-between px-4">
+          <button
+            className="lg:hidden text-gray-600 hover:text-primary"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
-            ACCUEIL
-          </MotionLink>
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="history"
-            className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-          >
-            NOTRE HISTOIRE
-          </MotionLink>
-          <div ref={dropdownRef} className="relative" onMouseEnter={handleOpen} onMouseLeave={handleClose}>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-sm font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
-              aria-expanded={isProductsOpen}
-              id="products-menu"
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+          {/* Left side navigation */}
+          <div className=" hidden lg:flex  items-center space-x-6 gap-8">
+            <MotionLink
+              whileHover={{ scale: 1.1, rotate: 1 }}
+              href="/"
+              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
-              NOS PRODUITS
-              <ChevronDown
-                className={`ml-1 h-4 w-4 transform transition-transform duration-300 ${
-                  isProductsOpen ? 'rotate-180' : ''
-                }`}
-              />
-            </motion.button>
-
-            <AnimatePresence>
-              {isProductsOpen && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="absolute top-[48px] md:-left-28 lg:-left-72 w-[90vw] max-w-[1500px] bg-white shadow-lg grid grid-cols-1 md:grid-cols-5 z-50"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="products-menu"
-                >
-                  {featuredCategories.map((category, index) => (
-                    <CategoryCard key={category.id} category={category} index={index} />
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Center logo */}
-
-        <div className="flex-1 flex justify-center relative top-8">
-          <MotionLink whileHover={{ scale: 1.1, rotate: 1 }} href="/" className="flex items-center">
-            <img src={macaoImage} alt="product macao logo" width={200} height={80} className="h-28 w-auto" />
-          </MotionLink>
-        </div>
-
-        {/* Right side navigation */}
-        <div className="hidden lg:flex  items-center space-x-6 gap-8">
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="#"
-            className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-          >
-            CONTACT
-          </MotionLink>
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="career"
-            className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-          >
-            NOUS REJOINDRE
-          </MotionLink>
-          <div className="flex items-center space-x-4">
-            {[
-              { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
-              { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },
-              { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
-              { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
-            ].map(({ icon: Icon, href }) => (
-              <MotionLink
-                key={href}
-                href={href}
-                target="_blank"
-                className="text-black hover:text-red-600"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
+              ACCUEIL
+            </MotionLink>
+            <MotionLink
+              whileHover={{ scale: 1.1, rotate: 1 }}
+              href="history"
+              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            >
+              NOTRE HISTOIRE
+            </MotionLink>
+            <div ref={dropdownRef} className="relative" onMouseEnter={handleOpen} onMouseLeave={handleClose}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-sm font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+                aria-expanded={isProductsOpen}
+                id="products-menu"
               >
-                <Icon className="h-5 w-5" />
-              </MotionLink>
-            ))}
+                NOS PRODUITS
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transform transition-transform duration-300 ${
+                    isProductsOpen ? 'rotate-180' : ''
+                  }`}
+                />
+              </motion.button>
+
+              <AnimatePresence>
+                {isProductsOpen && (
+                  <motion.div
+                    variants={dropdownVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="absolute top-[48px] md:-left-28 lg:-left-72 w-[90vw] max-w-[1500px] bg-white shadow-lg grid grid-cols-1 md:grid-cols-5 z-50"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="products-menu"
+                  >
+                    {featuredCategories.map((category, index) => (
+                      <CategoryCard key={category.id} category={category} index={index} />
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Center logo */}
+
+          <div className="flex-1 flex justify-center">
+            <MotionLink
+              whileHover={{ scale: 1.1, rotate: 1 }}
+              href="/"
+              className={`flex items-center transition-all duration-200 ${
+                isScrolled ? 'relative top-2' : 'relative top-5'
+              }`}
+            >
+              <img
+                src={macaoImage}
+                alt="product macao logo"
+                width={200}
+                height={80}
+                className={`transition-all duration-200 ${isScrolled ? 'h-20 w-auto' : 'h-24 w-auto'}`}
+              />
+            </MotionLink>
+          </div>
+
+          {/* Right side navigation */}
+          <div className="hidden lg:flex  items-center space-x-6 gap-8">
+            <MotionLink
+              whileHover={{ scale: 1.1, rotate: 1 }}
+              href="/contact"
+              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            >
+              CONTACT
+            </MotionLink>
+            <MotionLink
+              whileHover={{ scale: 1.1, rotate: 1 }}
+              href="career"
+              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            >
+              NOUS REJOINDRE
+            </MotionLink>
+            <div className="flex items-center space-x-4">
+              {[
+                { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
+                { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
+                { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
+              ].map(({ icon: Icon, href }) => (
+                <MotionLink
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  className="text-black hover:text-red-600"
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Icon className="h-5 w-5" />
+                </MotionLink>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'tween', duration: 0.3 }}
-            className="lg:hidden fixed inset-0 z-50 bg-white"
-          >
-            <div className="min-w-screen bg-white z-50 px-4 py-6">
-              <div className="flex justify-between items-center mb-8">
-                <Link href="/" className="flex items-center">
-                  <img src={macaoImage} alt="product macao logo" width={120} height={48} className="h-12 w-auto" />
-                </Link>
-                <button className="text-gray-600 hover:text-primary" onClick={() => setIsMobileMenuOpen(false)}>
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-
-              <nav className="space-y-6">
-                <Link
-                  href="/"
-                  className="block text-lg font-medium text-gray-600 hover:text-primary"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  ACCUEIL
-                </Link>
-                <Link
-                  href="#"
-                  className="block text-lg font-medium text-gray-600 hover:text-primary"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  NOTRE HISTOIRE
-                </Link>
-
-                {/* Mobile Products Menu */}
-                <div className="space-y-4">
-                  <button
-                    className="flex items-center justify-between w-full text-lg font-medium text-gray-600 hover:text-primary"
-                    onClick={isProductsOpen ? handleClose : handleOpen}
-                  >
-                    NOS PRODUITS
-                    <ChevronDown
-                      className={`h-5 w-5 transform transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`}
-                    />
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="lg:hidden fixed inset-0 z-50 bg-white"
+            >
+              <div className="min-w-screen bg-white z-50 px-4 py-6">
+                <div className="flex justify-between items-center mb-8">
+                  <Link href="/" className="flex items-center">
+                    <img src={macaoImage} alt="product macao logo" width={120} height={48} className="h-12 w-auto" />
+                  </Link>
+                  <button className="text-gray-600 hover:text-primary" onClick={() => setIsMobileMenuOpen(false)}>
+                    <X className="h-6 w-6" />
                   </button>
+                </div>
 
-                  <AnimatePresence>
-                    {isProductsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="pl-4 max-h-80 overflow-y-auto"
-                      >
-                        <div className="grid grid-cols-2 gap-4">
-                          {featuredCategories.map((category) => (
-                            <div key={category.id} className="space-y-2 ">
-                              <h4 className="font-medium text-primary text-sm sticky top-0 bg-white py-2">
-                                {category.title}
-                              </h4>
-                              <div className="space-y-1">
-                                {category.items.map((item, index) => (
-                                  <Link
-                                    key={index}
-                                    href={`/products/${category.id}/${item.toLowerCase()}`}
-                                    className="block text-gray-600 hover:text-primary text-sm py-1"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                  >
-                                    {item}
-                                  </Link>
-                                ))}
+                <nav className="space-y-6">
+                  <Link
+                    href="/"
+                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    ACCUEIL
+                  </Link>
+                  <Link
+                    href="#"
+                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    NOTRE HISTOIRE
+                  </Link>
+
+                  {/* Mobile Products Menu */}
+                  <div className="space-y-4">
+                    <button
+                      className="flex items-center justify-between w-full text-lg font-medium text-gray-600 hover:text-primary"
+                      onClick={isProductsOpen ? handleClose : handleOpen}
+                    >
+                      NOS PRODUITS
+                      <ChevronDown
+                        className={`h-5 w-5 transform transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {isProductsOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="pl-4 max-h-80 overflow-y-auto"
+                        >
+                          <div className="grid grid-cols-2 gap-4">
+                            {featuredCategories.map((category) => (
+                              <div key={category.id} className="space-y-2 ">
+                                <h4 className="font-medium text-primary text-sm sticky top-0 bg-white py-2">
+                                  {category.title}
+                                </h4>
+                                <div className="space-y-1">
+                                  {category.items.map((item, index) => (
+                                    <Link
+                                      key={index}
+                                      href={`/products/${category.id}/${item.toLowerCase()}`}
+                                      className="block text-gray-600 hover:text-primary text-sm py-1"
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                      {item}
+                                    </Link>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-                <Link
-                  href="#"
-                  className="block text-lg font-medium text-gray-600 hover:text-primary"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  CONTACT
-                </Link>
-                <Link
-                  href="career"
-                  className="block text-lg font-medium text-gray-600 hover:text-primary"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  NOUS REJOINDRE
-                </Link>
+                  <Link
+                    href="#"
+                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    CONTACT
+                  </Link>
+                  <Link
+                    href="career"
+                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    NOUS REJOINDRE
+                  </Link>
 
-                {/* Social Media Links */}
-                <div className="flex items-center space-x-4 pt-4">
-                  {[
-                    { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
-                    { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },
-                    { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
-                    { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
-                  ].map(({ icon: Icon, href }) => (
-                    <Link key={href} href={href} target="_blank" className="text-black hover:text-red-600">
-                      <Icon className="h-5 w-5" />
-                    </Link>
-                  ))}
-                </div>
-              </nav>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </Container>
+                  {/* Social Media Links */}
+                  <div className="flex items-center space-x-4 pt-4">
+                    {[
+                      { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
+                      { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },
+                      { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
+                      { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
+                    ].map(({ icon: Icon, href }) => (
+                      <Link key={href} href={href} target="_blank" className="text-black hover:text-red-600">
+                        <Icon className="h-5 w-5" />
+                      </Link>
+                    ))}
+                  </div>
+                </nav>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
+    </nav>
   );
 }

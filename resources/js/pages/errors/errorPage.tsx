@@ -1,12 +1,9 @@
-import { Button } from '@/components/ui';
-import { AppLayout } from '@/layouts';
 import { PagePropsData } from '@/types';
 import __ from '@/utils/translations';
 import { Link, usePage } from '@inertiajs/react';
 
-import macaoImage from '@/assets/images/macao_logo.jpg'
+import macaoImage from '@/assets/images/macao_logo.jpg';
 import { FaBackspace, FaHome } from 'react-icons/fa';
-import { RiArrowGoBackFill } from 'react-icons/ri';
 
 export default function ErrorPage({ status }) {
   const translations = usePage<PagePropsData>().props.translations;
@@ -25,9 +22,8 @@ export default function ErrorPage({ status }) {
     403: 'Sorry, you are forbidden from accessing this page.'
   }[status];
 
-
   return (
-    <main className="relative flex flex-col items-center justify-center w-full h-full text-xl bg-red-500 max-md:px-6">
+    <main className="relative flex flex-col items-center justify-center w-full h-screen text-xl bg-red-500 max-md:px-6">
       <img src={macaoImage} alt="macao logo" className="mb-8" />
       <div className="relative">
         <h1 className="font-extrabold tracking-widest text-red-300 text-[10rem]">{status}</h1>
