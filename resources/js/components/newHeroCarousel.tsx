@@ -3,11 +3,12 @@ import carousel2 from '@/assets/images/h1-rev-img2.jpeg';
 import carousel3 from '@/assets/images/h1-rev-img3.jpeg';
 import { usePage } from '@inertiajs/react';
 import { useCallback, useEffect, useState } from 'react';
+import HeroSlide from './heroCarousel';
 import Navbar from './newNavBar';
 
 const Header = () => {
   const { url } = usePage();
-  const isHomePage = url === '/newhome';
+  const isHomePage = url === '/';
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -77,10 +78,8 @@ const Header = () => {
   if (!isHomePage) {
     return (
       <div className="relative">
-        <div className="relative">
-          <div className="bg-white/80 backdrop-blur-sm z-50 relative">
-            <Navbar />
-          </div>
+        <div className="fixed top-0  left-0 right-0 bg-transparent backdrop-blur-sm z-50">
+          <Navbar />
         </div>
       </div>
     );
@@ -161,7 +160,7 @@ const Header = () => {
   return (
     <div className="relative">
       {/* Hero Carousel */}
-      <div
+      {/* <div
         className="absolute inset-0 h-[100vh] md:h-screen w-full overflow-hidden"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -175,7 +174,6 @@ const Header = () => {
             }`}
           >
             <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
-            {/* Overlay and Text */}
             <div className="absolute inset-0 bg-black/30">
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4 text-center">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4">{item.title}</h2>
@@ -185,7 +183,6 @@ const Header = () => {
           </div>
         ))}
 
-        {/* Navigation Buttons - Hidden on mobile, visible on larger screens */}
         <button
           onClick={goToPrevSlide}
           className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-4
@@ -207,7 +204,6 @@ const Header = () => {
           </div>
         </button>
 
-        {/* Dots Indicator */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
           {carouselItems.map((_, index) => (
             <button
@@ -220,14 +216,15 @@ const Header = () => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
+      <HeroSlide />
 
       {/* Semi-transparent overlay for navbar background */}
-      <div className="relative h-[100vh] md:h-screen">
-        <div className="absolute top-0 left-0 right-0 bg-white/80 backdrop-blur-sm">
-          <Navbar />
-        </div>
+      {/* <div className="relative h-[100vh] md:h-screen"> */}
+      <div className="fixed top-0  left-0 right-0 bg-white/80 backdrop-blur-sm z-50">
+        <Navbar />
       </div>
+      {/* </div> */}
     </div>
   );
 };

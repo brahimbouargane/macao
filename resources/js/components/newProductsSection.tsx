@@ -175,7 +175,7 @@ const ProductShowcase = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-4 py-4 md:py-8">
+      <div className="max-w-[90rem] mx-auto px-4 py-4 md:py-8">
         {/* Header Section */}
         <motion.div className="text-center mb-6 md:mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
           <motion.h2

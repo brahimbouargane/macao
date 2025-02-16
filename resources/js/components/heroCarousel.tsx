@@ -17,8 +17,103 @@ import strawberry from '@/assets/images/strawbery.webp';
 import '../../css/app.css';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from './ui';
+
+const FloatingImage = memo(({ position, index, active, image, getPosition, getImageSize, getRotateValues }: any) => (
+  <motion.div
+    key={`${active}-${position}`}
+    className={`absolute ${getPosition(active, position)} ${getImageSize(active, position)}`}
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{
+      opacity: 1,
+      scale: 1,
+      y: ['-10px', '10px'],
+      rotate: getRotateValues(active, position),
+      transition: {
+        opacity: { duration: 1.2, ease: 'easeOut' },
+        scale: { duration: 1.2, ease: 'easeOut' },
+        y: {
+          duration: 3,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut'
+        }
+      }
+    }}
+    exit={{ opacity: 0, scale: 0.5, transition: { duration: 1 } }}
+  >
+    <img
+      src={image}
+      alt="Floating product"
+      className="w-full h-full object-contain rounded-sm"
+      style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}
+      loading="lazy"
+    />
+  </motion.div>
+));
+
+const MainImage = memo(({ image, name }: any) => (
+  <motion.div
+    initial={{
+      opacity: 0,
+      scale: 0.8,
+      rotateY: 180,
+      transformStyle: 'preserve-3d'
+    }}
+    animate={{
+      opacity: 1,
+      scale: 1,
+      rotateY: 360
+    }}
+    exit={{
+      opacity: 0,
+      scale: 0.8,
+      rotateY: 0
+    }}
+    transition={{
+      duration: 1.2,
+      ease: [0.4, 0, 0.2, 1]
+    }}
+    className="w-full h-full"
+  >
+    <motion.div
+      initial={{ clipPath: 'circle(0% at 50% 50%)' }}
+      animate={{ clipPath: 'circle(100% at 50% 50%)' }}
+      exit={{ clipPath: 'circle(0% at 50% 50%)' }}
+      transition={{
+        duration: 1.2,
+        ease: [0.4, 0, 0.2, 1]
+      }}
+      className="w-full h-full"
+    >
+      <img src={image || '/placeholder.svg'} alt={name} className="w-full h-full object-contain" loading="lazy" />
+    </motion.div>
+  </motion.div>
+));
+
+const NavigationButtons = memo(({ onPrev, onNext, onHoverChange }: any) => (
+  <div
+    className="absolute bottom-2 md:bottom-8 left-0 right-0 flex justify-center gap-4 z-50"
+    onMouseEnter={() => onHoverChange(true)}
+    onMouseLeave={() => onHoverChange(false)}
+  >
+    <button
+      onClick={onPrev}
+      className="h-12 w-12 rounded-sm border border-white/60 bg-white/30 text-xl text-white transition-colors hover:bg-white/40"
+      aria-label="Previous slide"
+    >
+      ‹
+    </button>
+    <button
+      onClick={onNext}
+      className="h-12 w-12 rounded-sm border border-white/60 bg-white/30 text-xl text-white transition-colors hover:bg-white/40"
+      aria-label="Next slide"
+    >
+      ›
+    </button>
+  </div>
+));
 
 const HeroSlide = () => {
   const [rotate, setRotate] = useState(0);
@@ -34,8 +129,9 @@ const HeroSlide = () => {
         name: 'pâtisserie',
         description:
           'Délicieux gâteaux et pâtisseries faits avec soin pour toutes les occasions. Découvrez des créations artisanales qui allient tradition et raffinement pour régaler vos papilles.',
-        gradient: 'linear-gradient(135deg, #DC143C 0%, #FF69B4 50%, #FFC0CB 100%)',
-        textGradient: 'linear-gradient(135deg, #FF69B4 0%, #FFE5EE 50%, #FFC0CB 100%)',
+        gradient:
+          'linear-gradient(135deg, rgba(139, 30, 63, 0.85) 0%, rgba(178, 56, 80, 0.75) 50%, rgba(232, 223, 224, 0.65) 100%)',
+        textGradient: 'linear-gradient(135deg, #E8DFE0 0%, #FFFFFF 100%)',
         floatingImages: [cake, cokies, choko2, cupcake],
         page: 'products/Produits%20pâtissiers/chocolats%20pâtissiers'
       },
@@ -45,8 +141,8 @@ const HeroSlide = () => {
         name: 'CONFISERIE',
         description:
           'Douceurs sucrées comme caramels, nougats et bonbons colorés. Une gamme variée de petits plaisirs pour satisfaire toutes vos envies gourmandes.',
-        gradient: 'linear-gradient(135deg, #FF69B4 0%, #800080 50%, #4B0082 100%)',
-        textGradient: 'linear-gradient(135deg, #800080 0%, #DA70D6 50%, #FFF0F5 100%)',
+        gradient: 'linear-gradient(135deg, #D4AF37 0%, #D4AF37 50%, #D4AF37 100%)',
+        textGradient: 'linear-gradient(135deg, #E8DFE0 0%, #FFFFFF 100%)',
         floatingImages: [strawberry, cherry, orange, bluebereies],
         page: 'products/confiserie/sucettes'
       },
@@ -56,8 +152,9 @@ const HeroSlide = () => {
         name: 'chocolat',
         description:
           'Chocolats gourmands, des truffes aux tablettes, fabriqués avec du cacao premium. Laissez-vous tenter par des saveurs intenses et une texture fondante irrésistible.',
-        gradient: 'linear-gradient(135deg, #8B4513 0%, #975C1C 25%, #C19435 50%, #FFD700 100%)',
-        textGradient: 'linear-gradient(135deg, #FFD700 0%, #FFF8DC 50%, #FFE4B5 100%)',
+        gradient:
+          'linear-gradient(135deg, rgba(62, 39, 35, 0.85) 0%, rgba(93, 64, 55, 0.75) 50%, rgba(141, 110, 99, 0.65) 100%)',
+        textGradient: 'linear-gradient(135deg, #D7CCC8 0%, #FFFFFF 100%)',
         floatingImages: [piple, piple2, piple3, piple4],
         page: 'products/chocolat/pâtes%20à%20tartiner'
       }
@@ -106,35 +203,58 @@ const HeroSlide = () => {
     }),
     []
   );
-  const getRotateValues = (active, position) => {
-    // Base sizes for each active state
+  //   const getRotateValues = (active, position) => {
+  //     // Base sizes for each active state
+  //     const rotate = {
+  //       0: {
+  //         // First slide
+  //         'top-left': -25,
+  //         'top-right': 30,
+  //         'bottom-left': 120,
+  //         'bottom-right': 20
+  //       },
+  //       1: {
+  //         // Second slide
+  //         'top-left': -25,
+  //         'top-right': 30,
+  //         'bottom-left': 10,
+  //         'bottom-right': 20
+  //       },
+  //       2: {
+  //         // Third slide
+  //         'top-left': -25,
+  //         'top-right': 60,
+  //         'bottom-left': -120,
+  //         'bottom-right': -20
+  //       }
+  //     };
+
+  //     return rotate[active]?.[position] || 0; // Default size
+  //   };
+  const getRotateValues = useCallback((active, position) => {
     const rotate = {
       0: {
-        // First slide
         'top-left': -25,
         'top-right': 30,
         'bottom-left': 120,
         'bottom-right': 20
       },
       1: {
-        // Second slide
         'top-left': -25,
         'top-right': 30,
         'bottom-left': 10,
         'bottom-right': 20
       },
       2: {
-        // Third slide
         'top-left': -25,
         'top-right': 60,
         'bottom-left': -120,
         'bottom-right': -20
       }
     };
-
-    return rotate[active]?.[position] || 0; // Default size
-  };
-  const getImageSize = (active, position) => {
+    return rotate[active]?.[position] || 0;
+  }, []);
+  const getImageSize = useCallback((active, position) => {
     // Base sizes for each active state
     const sizes = {
       0: {
@@ -161,9 +281,9 @@ const HeroSlide = () => {
     };
 
     return sizes[active]?.[position] || 'w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48'; // Default size
-  };
+  }, []);
 
-  const getPosition = (active, position) => {
+  const getPosition = useCallback((active, position) => {
     // Custom positions for each active state
     const positions = {
       0: {
@@ -187,14 +307,14 @@ const HeroSlide = () => {
     };
 
     return positions[active]?.[position] || '-left-16 -top-20'; // Default position
-  };
+  }, []);
 
-  const getImageContainerClass = (itemId) => {
+  const getImageContainerClass = useCallback((itemId) => {
     if (itemId === 1) {
       return 'w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px]';
     }
     return 'w-[280px] h-[280px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]';
-  };
+  }, []);
   // Memoized navigation functions
   const nextSlider = useCallback(() => {
     setDirection('left');
@@ -297,15 +417,15 @@ const HeroSlide = () => {
                     ease: 'easeInOut',
                     delay: 0.3
                   }}
-                  className="absolute left-0 lg:left-10 2xl:left-6 3xl:-left-28 top-[75%] lg:top-[55%] -translate-y-1/2 z-40 w-full  md:max-w-md mt-4 md:mt-0"
+                  className="absolute left-0 lg:left-10 2xl:left-6 3xl:-left-28 top-[75%] lg:top-[60%] -translate-y-1/2 z-40 w-full  md:max-w-md mt-4 md:mt-0"
                 >
-                  <div className="flex flex-col mt-8 md:mt-0 md:block  backdrop-blur-md bg-white/10 py-2 px-4 md:p-6 rounded-2xl border border-white/20">
+                  <div className="flex flex-col mt-8 md:mt-0 md:block  backdrop-blur-md bg-white/10 py-2 px-4 md:p-6 rounded-sm border border-white/20">
                     <p className="text-white text-center md:text-left text-base md:text-lg lg:text-xl leading-relaxed mb-2 md:mb-6">
                       {items[active].description}
                     </p>
                     <Link
                       href={items[active].page}
-                      className="inline-block text-center md:text-left px-8 py-3 text-white rounded-full transition-colors duration-500 border border-white/60 hover:bg-white/30"
+                      className="inline-block text-center md:text-left px-8 py-3 text-white rounded-sm transition-colors duration-500 border border-white/60 hover:bg-white/30"
                       style={{
                         background: items[active].gradient
                       }}
@@ -324,7 +444,7 @@ const HeroSlide = () => {
                 >
                   {/* Fixed size container for main image */}
                   <div className={`relative ${getImageContainerClass(items[active].id)}`}>
-                    <motion.div
+                    {/* <motion.div
                       initial={{
                         opacity: 0,
                         scale: 0.8,
@@ -363,7 +483,8 @@ const HeroSlide = () => {
                           className="w-full h-full object-contain"
                         />
                       </motion.div>
-                    </motion.div>
+                    </motion.div> */}
+                    <MainImage image={items[active].image} name={items[active].name} />
 
                     {/* Floating images */}
                     <AnimatePresence mode="wait">
@@ -373,35 +494,45 @@ const HeroSlide = () => {
                         { position: 'bottom-left', index: 2 },
                         { position: 'bottom-right', index: 3 }
                       ].map(({ position, index }) => (
-                        <motion.div
+                        // <motion.div
+                        //   key={`${active}-${position}`}
+                        //   className={`absolute ${getPosition(active, position)} ${getImageSize(active, position)}`}
+                        //   initial={{ opacity: 0, scale: 0.5 }}
+                        //   animate={{
+                        //     opacity: 1,
+                        //     scale: 1,
+                        //     y: ['-10px', '10px'],
+                        //     rotate: getRotateValues(active, position),
+                        //     transition: {
+                        //       opacity: { duration: 1.2, ease: 'easeOut' },
+                        //       scale: { duration: 1.2, ease: 'easeOut' },
+                        //       y: {
+                        //         duration: 3,
+                        //         repeat: Infinity,
+                        //         repeatType: 'reverse',
+                        //         ease: 'easeInOut'
+                        //       }
+                        //     }
+                        //   }}
+                        //   exit={{ opacity: 0, scale: 0.5, transition: { duration: 1 } }}
+                        // >
+                        //   <img
+                        //     src={items[active].floatingImages[index]}
+                        //     alt="Floating product"
+                        //     className="w-full h-full object-contain rounded-sm"
+                        //     style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}
+                        //   />
+                        // </motion.div>
+                        <FloatingImage
                           key={`${active}-${position}`}
-                          className={`absolute ${getPosition(active, position)} ${getImageSize(active, position)}`}
-                          initial={{ opacity: 0, scale: 0.5 }}
-                          animate={{
-                            opacity: 1,
-                            scale: 1,
-                            y: ['-10px', '10px'],
-                            rotate: getRotateValues(active, position),
-                            transition: {
-                              opacity: { duration: 1.2, ease: 'easeOut' },
-                              scale: { duration: 1.2, ease: 'easeOut' },
-                              y: {
-                                duration: 3,
-                                repeat: Infinity,
-                                repeatType: 'reverse',
-                                ease: 'easeInOut'
-                              }
-                            }
-                          }}
-                          exit={{ opacity: 0, scale: 0.5, transition: { duration: 1 } }}
-                        >
-                          <img
-                            src={items[active].floatingImages[index]}
-                            alt="Floating product"
-                            className="w-full h-full object-contain rounded-lg"
-                            style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }}
-                          />
-                        </motion.div>
+                          position={position}
+                          index={index}
+                          active={active}
+                          image={items[active].floatingImages[index]}
+                          getPosition={getPosition}
+                          getImageSize={getImageSize}
+                          getRotateValues={getRotateValues}
+                        />
                       ))}
                     </AnimatePresence>
                   </div>
@@ -411,7 +542,7 @@ const HeroSlide = () => {
           </div>
 
           {/* Navigation Buttons */}
-          <div
+          {/* <div
             className="absolute bottom-2 md:bottom-8 left-0 right-0 flex justify-center gap-4 z-50"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
@@ -430,7 +561,8 @@ const HeroSlide = () => {
             >
               ›
             </button>
-          </div>
+          </div> */}
+          <NavigationButtons onPrev={prevSlider} onNext={nextSlider} onHoverChange={setIsHovering} />
         </motion.div>
       </AnimatePresence>
     </div>

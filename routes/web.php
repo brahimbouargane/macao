@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 
 
 Route::get('/', Controllers\HomeController::class)->name('home');
-Route::get('/newhome', Controllers\NewHomeController::class)->name('newhome');
+Route::get('newhome', Controllers\NewHomeController::class)->name('newhome');
+Route::get('contact', Controllers\ContactController::class)->name('contact');
 Route::get('history', Controllers\HistoryController::class)->name('history');
 Route::get('certification', Controllers\CertifactionController::class)->name('certification');
 Route::get('career', Controllers\CareerController::class)->name('career');
