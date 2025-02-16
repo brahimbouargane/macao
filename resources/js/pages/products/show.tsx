@@ -90,7 +90,7 @@ const ProductShow = ({ product, relatedProducts }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <motion.button
             onClick={() => window.history.back()}
-            className="flex items-center mb-5 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white  p-2 rounded-lg  transition-colors"
+            className="flex items-center mb-5 bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white  p-2 rounded-sm  transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -98,7 +98,7 @@ const ProductShow = ({ product, relatedProducts }) => {
             <span>Retour</span>
           </motion.button>
 
-          <motion.div className="bg-white rounded-xl shadow-sm overflow-hidden" variants={itemVariants}>
+          <motion.div className="bg-white rounded-sm shadow-sm overflow-hidden" variants={itemVariants}>
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Left Column - Images */}
               <motion.div
@@ -106,7 +106,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                 variants={imageVariants}
               >
                 <div className="space-y-6">
-                  <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100">
+                  <div className="relative aspect-square rounded-sm overflow-hidden bg-gray-100">
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={selectedImageIndex}
@@ -129,7 +129,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                       >
                         <motion.button
                           onClick={previousImage}
-                          className="p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
+                          className="p-2 rounded-sm bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                         >
@@ -137,7 +137,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                         </motion.button>
                         <motion.button
                           onClick={nextImage}
-                          className="p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
+                          className="p-2 rounded-sm bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white transition-colors"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                         >
@@ -156,7 +156,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                         <motion.button
                           key={index}
                           onClick={() => setSelectedImageIndex(index)}
-                          className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors
+                          className={`flex-shrink-0 w-20 h-20 rounded-sm overflow-hidden border-2 transition-colors
                           ${selectedImageIndex === index ? 'border-red-500' : 'border-gray-200'}`}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
@@ -180,7 +180,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                     {product.categoriesNames.map((category, index) => (
                       <motion.span
                         key={index}
-                        className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full"
+                        className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-sm"
                         variants={categoryVariants}
                         custom={index}
                         whileHover={{ scale: 1.05 }}
@@ -204,7 +204,7 @@ const ProductShow = ({ product, relatedProducts }) => {
 
                 <motion.div className="mb-7" variants={itemVariants}>
                   <motion.span
-                    className="px-3 py-1 bg-red-500 text-gray-100 text-sm rounded-full"
+                    className="px-3 py-1 bg-red-500 text-gray-100 text-sm rounded-sm"
                     whileHover={{ scale: 1.05 }}
                   >
                     {product.product_type.name}
@@ -212,7 +212,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                 </motion.div>
 
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 rounded-lg"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 rounded-sm"
                   variants={specificationVariants}
                 >
                   {/* Weight and Packaging */}
@@ -274,7 +274,7 @@ const ProductShow = ({ product, relatedProducts }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.5 }}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="bg-white rounded-xl shadow-sm overflow-hidden"
+                className="bg-white rounded-sm shadow-sm overflow-hidden"
               >
                 <div className="aspect-square overflow-hidden">
                   <motion.img
@@ -294,14 +294,14 @@ const ProductShow = ({ product, relatedProducts }) => {
                   <span className="text-sm text-gray-500 mb-1 block">{relatedProduct.ref}</span>
                   <h3 className="font-semibold text-gray-900 mb-2 truncate">{relatedProduct.name}</h3>
                   <motion.span
-                    className="px-2 py-1 bg-red-500 text-white text-xs rounded-full"
+                    className="px-2 py-1 bg-red-500 text-white text-xs rounded-sm"
                     whileHover={{ scale: 1.05 }}
                   >
                     {relatedProduct.product_type?.name}
                   </motion.span>
                   <Link
                     href={`/products/${relatedProduct.id}`}
-                    className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white mt-3 w-full block text-center rounded-full  px-3 py-2 text-sm font-medium  transition-colors"
+                    className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white mt-3 w-full block text-center rounded-sm  px-3 py-2 text-sm font-medium  transition-colors"
                   >
                     Voir plus
                   </Link>
