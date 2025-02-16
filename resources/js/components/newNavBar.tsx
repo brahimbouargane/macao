@@ -343,20 +343,20 @@ export default function Navbar() {
                 </div>
 
                 <nav className="space-y-6">
-                  <Link
+                  <MotionLink
                     href="/"
                     className="block text-lg font-medium text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     ACCUEIL
-                  </Link>
-                  <Link
-                    href="#"
+                  </MotionLink>
+                  <MotionLink
+                    href="/history"
                     className="block text-lg font-medium text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     NOTRE HISTOIRE
-                  </Link>
+                  </MotionLink>
 
                   {/* Mobile Products Menu */}
                   <div className="space-y-4">
@@ -404,20 +404,20 @@ export default function Navbar() {
                     </AnimatePresence>
                   </div>
 
-                  <Link
-                    href="#"
+                  <MotionLink
+                    href="/contact"
                     className="block text-lg font-medium text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     CONTACT
-                  </Link>
-                  <Link
-                    href="career"
+                  </MotionLink>
+                  <MotionLink
+                    href="/career"
                     className="block text-lg font-medium text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     NOUS REJOINDRE
-                  </Link>
+                  </MotionLink>
 
                   {/* Social Media Links */}
                   <div className="flex items-center space-x-4 pt-4">
