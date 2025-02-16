@@ -4,13 +4,10 @@ import { PagePropsData } from '@/types';
 import { cn } from '@/utils/classes';
 import __ from '@/utils/translations';
 import { Head, useForm, usePage } from '@inertiajs/react';
-import { IconKey, IconMail, IconMailFill } from 'justd-icons';
-import { AppLayout } from 'layouts';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { FaHome } from 'react-icons/fa';
-import { Fa2 } from 'react-icons/fa6';
 import { MdAlternateEmail, MdOutlinePassword } from 'react-icons/md';
-import { Button, Card, Checkbox, Form, Link, ProgressCircle, Separator, TextField, buttonStyles } from 'ui';
+import { Button, Card, Checkbox, Form, Link, ProgressCircle, TextField } from 'ui';
 
 interface LoginProps {
   status: string;
@@ -49,7 +46,7 @@ export default function Login(args: LoginProps) {
   return (
     // h-[calc(100vh-64px)]
     <>
-      <div className={cn(`w-full px-4 flex flex-col items-center justify-center bg-red-500 h-full`, ``)}>
+      <div className={cn(`w-full px-4 flex flex-col items-center justify-center bg-red-500 h-screen `, ``)}>
         <Link
           href="/"
           className="flex items-center justify-between gap-2 bg-primary p-2 rounded-md text-sm text-white mb-16 transition-all duration-200 hover:-rotate-3"
