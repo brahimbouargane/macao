@@ -1,54 +1,90 @@
 import video from '@/assets/images/VIDEO-2023-01-06-12-46-20.mp4';
 import { motion } from 'framer-motion';
-import { Globe2, History, MapPin, Package } from 'lucide-react';
-import { useState } from 'react';
+import { Play } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import StatsDashboard from './counter';
 import { Container } from './ui';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/shadcn-dailog';
-const stats = [
-  {
-    number: 70,
-    label: "ans d'expertise",
-    subtext: 'depuis 1954',
-    icon: <History className="stroke-primary w-12 h-12" />,
-    formatter: (value) => `${value}+`
-  },
-  {
-    number: 20,
-    label: 'pays',
-    subtext: 'à travers le monde',
-    icon: <Globe2 className="stroke-primary w-12 h-12" />,
-    formatter: (value) => `${value}+`
-  },
-  {
-    number: 3,
-    label: 'continents',
-    subtext: 'Afrique, Europe, Asie',
-    icon: <MapPin className="stroke-primary w-12 h-12" />
-  },
-  {
-    number: 300,
-    label: 'produits',
-    subtext: 'diversifiés',
-    icon: <Package className="stroke-primary w-12 h-12" />,
-    formatter: (value) => `${value}+`
-  }
-];
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
-const staggerChildren = {
-  visible: {
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
+
+const CircularCursor = ({ position, isHovering }) => {
+  const [rotation, setRotation] = useState(0);
+  const text = 'PARCOURS ARTISANAL • PASTORE MACAO • ';
+  const radius = 30;
+  const characters = text.split('');
+
+  useEffect(() => {
+    const animate = () => {
+      setRotation((prev) => (prev + 1) % 360);
+    };
+    const intervalId = setInterval(animate, 30);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return (
+    <div
+      className="fixed pointer-events-none "
+      style={{
+        left: position.x - radius,
+        top: position.y - radius,
+        opacity: isHovering ? 1 : 0,
+        transition: 'opacity 0.3s ease'
+      }}
+    >
+      <div className="relative w-28 h-28">
+        <Play className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white w-8 h-8" />
+        {characters.map((char, i) => {
+          const angle = (i * 360) / characters.length + rotation;
+          return (
+            <span
+              key={i}
+              className="absolute text-white text-sm  tracking-[0.3em]"
+              style={{
+                left: '50%',
+                top: '50%',
+                letterSpacing: '8em',
+                transform: `
+                    translate(-50%, -50%)
+                    rotate(${angle}deg)
+                    translateY(-${radius}px)
+                    rotate(90deg)
+                  `,
+                transition: 'transform 0.1s linear'
+              }}
+            >
+              {char}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default function DisplaySection() {
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredStat, setHoveredStat] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const staggerChildren = {
+    visible: {
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
 
   return (
     <section className="relative py-8 md:py-0 ">
@@ -65,42 +101,23 @@ export default function DisplaySection() {
         </motion.h1>
       </motion.div>
 
-      {/* Video Section with Enhanced Styling */}
-      <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full overflow-hidden group">
+      {/* Video Section with Custom Cursor and Overlay */}
+      <div
+        className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full overflow-hidden group cursor-none"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        onClick={() => setIsOpen(true)}
+      >
         <div className="absolute inset-0 w-full h-full">
-          {/* <img
-            src={videoPlay}
-            alt="Behind the scenes of our chocolate crafting"
-            className="w-full h-full object-cover object-center transform scale-100 group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" /> */}
-          <video autoPlay loop muted playsInline className="object-cover w-full h-full ">
+          <video autoPlay loop muted playsInline className="object-cover w-full h-full">
             <source src={video} type="video/mp4" />
           </video>
+          {/* Black overlay that appears on hover */}
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition-all duration-300" />
         </div>
 
-        {/* Enhanced Play Button */}
-        {/* <button
-          onClick={() => setIsOpen(true)}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-          w-20 h-20 md:w-24 md:h-24 bg-white/95 rounded-full
-          flex items-center justify-center
-          transform transition-all duration-500
-          hover:scale-110 hover:bg-white focus:outline-none
-          focus:ring-4 focus:ring-red-500 focus:ring-offset-2
-          group/btn cursor-pointer z-10 shadow-lg"
-          aria-label="Watch our story"
-        >
-          <Play className="w-10 h-10 md:w-12 md:h-12 text-red-500 ml-1 group-hover/btn:text-red-600 transition-colors" />
-          <div className="absolute w-24 h-24 md:w-28 md:h-28 border-2 border-white/80 rounded-full animate-ping opacity-75" />
-        </button> */}
-
-        {/* Video Caption */}
-        {/* <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-          <p className="text-white text-center text-lg md:text-xl font-light">
-            Discover the artistry behind our creations
-          </p>
-        </div> */}
+        {/* Custom Cursor */}
+        <CircularCursor position={position} isHovering={isHovering} />
       </div>
 
       {/* Enhanced Video Modal */}

@@ -351,7 +351,7 @@ function CategoryCard({ title, image, href, description = '', priority = false }
           <a
             href={href}
             className="inline-flex items-center justify-center px-6 py-2 bg-white text-red-500 font-medium rounded-full
-                   transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-300
+                   transform translate-y-4 group-hover:translate-y-0  duration-300 delay-300
                    hover:bg-red-50 hover:scale-105 transition-all"
           >
             Découvrir
