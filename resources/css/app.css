@@ -207,6 +207,29 @@
     border-radius: 14px !important;
     border: 3px solid transparent !important;
   }
+  #bp-web-widget {
+    --bp-font-family: 'Inter', sans-serif;
+    --bp-layout-width: 50px;
+    --bp-layout-height: 50px;
+    --bp-header-height: 52px;
+
+    .bpw-header {
+      padding: 12px 16px;
+    }
+
+    .bpw-chat-container {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .bpw-message-container {
+      padding: 16px;
+    }
+    .bpWebchat {
+      width: 350px !important;
+      height: 350px !important;
+    }
+  }
 }
 .encode-sans {
   font-family: 'Encode Sans', sans-serif;
