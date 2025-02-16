@@ -15,7 +15,7 @@ const LoadingScreen: React.FC<PropsWithChildren> = ({ children }) => {
     <AnimatePresence mode="wait">
       {isLoading ? (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-red-300 to-red-200"
+          className="fixed inset-0 flex items-center justify-center bg-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{

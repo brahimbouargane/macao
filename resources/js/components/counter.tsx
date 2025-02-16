@@ -1,4 +1,4 @@
-import bg from '@/assets/images/bg-numbers.png';
+import bg from '@/assets/images/bg-numbers.webp';
 import { motion } from 'framer-motion';
 import { CalendarClock, LucideIcon, Map, MapPin, Package } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -73,7 +73,7 @@ const AnimatedCounter = ({ end = 0, duration = 2000, ringColor, label, icon: Ico
           <Icon className="w-6 h-6 lg:w-8 lg:h-8 text-red-600" />
         </div>
       </motion.div>
-      <span className="text-white text-center font-light">{label}</span>
+      <span className="text-white text-lg text-center font-semibold">{label}</span>
     </div>
   );
 };
@@ -108,9 +108,9 @@ const StatsDashboard = () => {
 
   return (
     <div
-      className="relative min-h-[400px] lg:min-h-[450px] flex flex-col rounded-lg items-center justify-center py-16 px-4 -mt-24 mx-4 shadow-xl md:p-10"
+      className="relative min-h-[400px] lg:min-h-[450px] flex flex-col rounded-sm items-center justify-center py-16 px-4 -mt-24 mx-4 shadow-xl md:p-10"
       style={{
-        backgroundImage: `linear-gradient(rgba(211, 35, 43, 0.8), rgba(211, 35, 43, 0.8)), url(${bg})`,
+        backgroundImage: `linear-gradient(rgba(211, 35, 43, 0.7), rgba(0, 0, 0, 0.7)), url(${bg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}
