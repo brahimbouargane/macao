@@ -1,4 +1,4 @@
-import { GuestLayout } from '@/layouts';
+import { NewLayout } from '@/layouts/new-layout';
 import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Box, ChevronLeft, Package, Weight } from 'lucide-react';
@@ -317,4 +317,4 @@ const ProductShow = ({ product, relatedProducts }) => {
 };
 
 export default ProductShow;
-ProductShow.layout = (page: any) => <GuestLayout children={page} />;
+ProductShow.layout = (page: any) => <NewLayout children={page} />;

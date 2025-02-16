@@ -1,9 +1,9 @@
 import CareersSection from '@/components/careerSection';
-import { GuestLayout } from '@/layouts';
+import { NewLayout } from '@/layouts/new-layout';
 
 function Career() {
   return <CareersSection />;
 }
 
 export default Career;
-Career.layout = (page: any) => <GuestLayout children={page} />;
+Career.layout = (page: any) => <NewLayout children={page} />;
