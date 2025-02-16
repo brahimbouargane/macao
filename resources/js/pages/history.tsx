@@ -2,13 +2,10 @@ import candies from '@/assets/images/candies.webp';
 // import commercial from '@/assets/images/commercial.webp';
 // import composition from '@/assets/images/composition.webp';
 // import iso from '@/assets/images/iso.jpg';
-import pastoLogo from '@/assets/images/macao_logo.png';
 // import showcase from '@/assets/images/showcasing.webp';
 import logo from '@/assets/images/macoa-logo-small.svg';
-import ContactSection from '@/components/contactUs';
 import SEO from '@/components/seo';
-import { Container } from '@/components/ui';
-import { GuestLayout } from '@/layouts';
+import { NewLayout } from '@/layouts/new-layout';
 import { Head } from '@inertiajs/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
@@ -83,13 +80,13 @@ const ContentBlock = ({ imageOnLeft, title, content, imageSrc }) => {
             <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-gray-100 rounded-full" />
 
             {/* Logo */}
-            <motion.img
+            {/* <motion.img
               src={pastoLogo}
               alt="Logo Pastor Macao"
               className="w-24 h-24 mb-8"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
-            />
+            /> */}
 
             {/* Title with decorative underline */}
             <div className="relative mb-6">
@@ -210,12 +207,12 @@ function History() {
           imageSrc={logo}
         />
       </div>
-      <Container>
+      {/* <Container>
         <ContactSection id="contact" />
-      </Container>
+      </Container> */}
     </div>
   );
 }
 
 export default History;
-History.layout = (page: any) => <GuestLayout children={page} />;
+History.layout = (page: any) => <NewLayout children={page} />;

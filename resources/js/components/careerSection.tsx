@@ -120,11 +120,11 @@ const CareersSection = () => {
             ].map((benefit, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8"
+                className="group relative overflow-hidden bg-white rounded-sm shadow-lg hover:shadow-xl transition-all duration-300 p-8"
               >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-red-800 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
                 <div className="flex flex-col items-center text-center">
-                  <div className="bg-red-50 p-4 rounded-2xl mb-6 group-hover:bg-red-100 transition-colors duration-300">
+                  <div className="bg-red-50 p-4 rounded-sm mb-6 group-hover:bg-red-100 transition-colors duration-300">
                     <benefit.icon className="h-8 w-8 text-red-600" />
                   </div>
                   <h3 className="text-xl font-semibold mb-4">{benefit.title}</h3>
@@ -135,7 +135,7 @@ const CareersSection = () => {
           </div>
 
           {/* Why Join Us Section */}
-          <div className="bg-white rounded-2xl shadow-lg p-12 mb-24">
+          <div className="bg-white rounded-sm shadow-lg p-12 mb-24">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h3 className="text-3xl font-bold mb-6">Pourquoi Nous Rejoindre?</h3>
@@ -153,14 +153,14 @@ const CareersSection = () => {
                   ))}
                 </div>
               </div>
-              <div className="relative h-64 rounded-2xl overflow-hidden">
+              <div className="relative h-64 rounded-sm overflow-hidden">
                 <img src={office} alt="Office Life" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
 
           {/* Application Form */}
-          <div className=" mx-auto bg-white rounded-2xl shadow-lg p-12">
+          <div className=" mx-auto bg-white rounded-sm shadow-lg p-12">
             <h3 className="text-3xl font-bold mb-8 text-center">Déposez Votre Candidature</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -172,7 +172,7 @@ const CareersSection = () => {
                     id="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="rounded-lg border-gray-200 focus:border-red-500 focus:ring-red-500"
+                    className="rounded-sm border-gray-200 focus:border-red-500 focus:ring-red-500"
                     required
                   />
                 </div>
@@ -185,7 +185,7 @@ const CareersSection = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="rounded-lg border-gray-200 focus:border-red-500 focus:ring-red-500"
+                    className="rounded-sm border-gray-200 focus:border-red-500 focus:ring-red-500"
                     required
                   />
                 </div>
@@ -200,7 +200,7 @@ const CareersSection = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="rounded-lg border-gray-200 focus:border-red-500 focus:ring-red-500"
+                  className="rounded-sm border-gray-200 focus:border-red-500 focus:ring-red-500"
                   required
                 />
               </div>
@@ -213,7 +213,7 @@ const CareersSection = () => {
                   id="coverLetter"
                   value={formData.coverLetter}
                   onChange={handleChange}
-                  className="rounded-lg border-gray-200 focus:border-red-500 focus:ring-red-500 min-h-[160px]"
+                  className="rounded-sm border-gray-200 focus:border-red-500 focus:ring-red-500 min-h-[160px]"
                   rows={6}
                 />
               </div>
@@ -227,7 +227,7 @@ const CareersSection = () => {
                   type="file"
                   accept=".pdf"
                   onChange={handleChange}
-                  className="rounded-lg border-gray-200 focus:border-red-500 focus:ring-red-500"
+                  className="rounded-sm border-gray-200 focus:border-red-500 focus:ring-red-500"
                   required
                 />
               </div>
@@ -236,7 +236,7 @@ const CareersSection = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-12 py-6 font-bold text-lg rounded-lg flex items-center gap-2 transform hover:scale-105 transition-all duration-300"
+                  className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-12 py-6 font-bold text-lg rounded-sm flex items-center gap-2 transform hover:scale-105 transition-all duration-300"
                 >
                   {isSubmitting ? (
                     'Envoi en cours...'
