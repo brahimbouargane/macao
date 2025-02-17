@@ -10,6 +10,7 @@ import { useRoute } from 'ziggy-js';
 
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingScreen from './components/LoadingScreen';
+import BotpressChat from './components/botpress';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -23,6 +24,7 @@ createInertiaApp({
       <HelmetProvider>
         <Providers>
           <LoadingScreen>
+            <BotpressChat />
             <App {...props} />
           </LoadingScreen>
         </Providers>
