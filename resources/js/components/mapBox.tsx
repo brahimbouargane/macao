@@ -12,9 +12,13 @@ const LeafletMap = () => {
     });
 
     // Add colorful tile layer - using Stadia Maps Outdoors
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
-      maxZoom: 20
+    // L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+    //   attribution: '&copy; OpenStreetMap contributors',
+    //   maxZoom: 20
+    // }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
     }).addTo(map);
 
     // Enhanced custom marker icon with animation
