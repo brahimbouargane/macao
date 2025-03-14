@@ -197,15 +197,15 @@ export default function Navbar() {
   }, [handleClose]);
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-white'
+      className={`fixed top-0 left-0 py-2 w-full z-50 transition-all duration-200 ${
+        isScrolled ? 'bg-transparent' : 'bg-transparent'
       }`}
     >
       <Container>
         {/* <div className="container z-50 flex h-16 items-center justify-between px-4 sticky top-0 bg-transparent"> */}
-        <div className="container flex h-16 items-center justify-between px-4">
+        <div className="md:container bg-black rounded-full flex h-16  items-center justify-between px-8">
           <button
-            className="lg:hidden text-gray-600 hover:text-primary"
+            className="lg:hidden text-white hover:text-primary"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -217,14 +217,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/"
-              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               ACCUEIL
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/history"
-              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               NOTRE HISTOIRE
             </MotionLink>
@@ -232,7 +232,7 @@ export default function Navbar() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-sm font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+                className="text-sm font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
                 aria-expanded={isProductsOpen}
                 id="products-menu"
               >
@@ -290,14 +290,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/contact"
-              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               CONTACT
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/career"
-              className="text-md font-medium text-gray-600 hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               NOUS REJOINDRE
             </MotionLink>
@@ -312,7 +312,7 @@ export default function Navbar() {
                   key={href}
                   href={href}
                   target="_blank"
-                  className="text-black hover:text-red-600"
+                  className="text-white hover:text-red-600"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                 >

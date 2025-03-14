@@ -199,7 +199,7 @@ const ProductShowcase = () => {
         </motion.div>
 
         {/* Navigation Tabs */}
-        <div className="flex flex-col sm:flex-row justify-center gap-2 sm:space-x-4 mb-6 md:mb-8 relative">
+        <div className="flex flex-col sm:flex-row justify-center gap-2 sm:space-x-4 mb-6 md:mb-8 relative rounded-xl">
           {[
             { id: 'nouveautes', label: 'Nouveautés' },
             { id: 'meilleures-ventes', label: 'Meilleures ventes' },
@@ -207,7 +207,7 @@ const ProductShowcase = () => {
           ].map((tab) => (
             <button
               key={tab.id}
-              className={`px-4 sm:px-6 py-2 text-base md:text-lg transition-colors duration-300 ${
+              className={`px-4 sm:px-6 py-2 text-base md:text-lg transition-colors duration-300 rounded-xl ${
                 activeTab === tab.id ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-red-50'
               }`}
               onClick={() => {
@@ -226,16 +226,16 @@ const ProductShowcase = () => {
             <>
               <button
                 onClick={slideLeft}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 bg-white p-1 sm:p-2 shadow-lg z-10 hover:bg-gray-50 transition-colors duration-300"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 text-white/80 bg-red-500 hover:text-white hover:bg-red-600 p-1 sm:p-2 shadow-lg z-10 transition-colors duration-300 rounded-full"
               >
-                <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-red-500" />
+                <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </button>
 
               <button
                 onClick={slideRight}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 bg-white p-1 sm:p-2 shadow-lg z-10 hover:bg-gray-50 transition-colors duration-300"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 text-white/80 bg-red-500 hover:text-white hover:bg-red-600 p-1 sm:p-2 shadow-lg z-10 transition-colors duration-300 rounded-full"
               >
-                <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-red-500" />
+                <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </button>
             </>
           )}
@@ -250,8 +250,8 @@ const ProductShowcase = () => {
               transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               {filteredProducts.map((product) => (
-                <div key={product.id} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4">
-                  <div className="border border-dashed border-red-300 p-3 sm:p-6 bg-white transition-shadow duration-300 hover:shadow-lg">
+                <div key={product.id} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4 ">
+                  <div className="border-2 border-red-500 p-3 sm:p-6  transition-shadow duration-300 rounded-xl hover:shadow-lg bg-[#FDFAF1]">
                     <div className="aspect-w-4 aspect-h-5 mb-3 sm:mb-4">
                       <img
                         src={product.image}
@@ -259,10 +259,12 @@ const ProductShowcase = () => {
                         className="w-full h-[200px] sm:h-[280px] md:h-[350px] object-contain"
                       />
                     </div>
-                    <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2 sm:mb-3">{product.name}</h3>
+                    <h3 className="text-base sm:text-lg font-medium text-red-900 mb-2 sm:mb-3">{product.name}</h3>
                     <div className="flex flex-col gap-1 sm:gap-2">
-                      <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-red-500 text-white">{product.type}</span>
-                      <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-red-100 text-red-800">
+                      <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-red-500 text-white rounded-full">
+                        {product.type}
+                      </span>
+                      <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-red-100 text-red-800 rounded-full">
                         {product.category}
                       </span>
                     </div>
