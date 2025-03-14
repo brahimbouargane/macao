@@ -98,9 +98,9 @@ const certifications = [
   },
   {
     id: 'haccp',
-    name: 'HACCP',
+    name: 'ONSSA',
     image: onssa,
-    alt: 'HACCP Certification'
+    alt: 'ONSSA Certification'
   }
   //   {
   //     id: 'iso22000',
