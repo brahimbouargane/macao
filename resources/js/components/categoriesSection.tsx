@@ -30,7 +30,7 @@
 
 //   return (
 //     <div
-//       className="group relative block overflow-hidden rounded-none transition-transform duration-300 hover:-translate-y-1"
+//       className="relative block overflow-hidden transition-transform duration-300 rounded-none group hover:-translate-y-1"
 //       aria-label={`Voir la catégorie ${title}`}
 //     >
 //       <div className="aspect-[3/4] relative bg-gray-100 overflow-hidden">
@@ -46,17 +46,15 @@
 //           loading={priority ? 'eager' : 'lazy'}
 //           onLoad={() => setIsLoaded(true)}
 //         />
-//         {!isLoaded && <div className="absolute inset-0 animate-pulse bg-gray-200" />}
+//         {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
 
-//         <div className="absolute inset-0 bg-black/0 group-hover:bg-red-500/90 transition-all duration-500 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 p-6">
-//           <p className="text-white text-center mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-400 text-lg">
+//         <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-all duration-500 opacity-0 bg-black/0 group-hover:bg-red-500/90 group-hover:opacity-100">
+//           <p className="mb-6 text-lg text-center text-white transition-transform transform translate-y-4 group-hover:translate-y-0 duration-400">
 //             {description}
 //           </p>
 //           <a
 //             href={href}
-//             className="inline-flex items-center justify-center px-6 py-2 bg-white text-red-500 font-medium rounded-full
-//                    transform translate-y-4 group-hover:translate-y-0  duration-300 delay-300
-//                    hover:bg-red-50 hover:scale-105 transition-all"
+//             className="inline-flex items-center justify-center px-6 py-2 font-medium text-red-500 transition-all duration-300 delay-300 transform translate-y-4 bg-white rounded-full // group-hover:translate-y-0 hover:bg-red-50 hover:scale-105"
 //           >
 //             Découvrir
 //             <svg
@@ -71,7 +69,7 @@
 //         </div>
 //       </div>
 
-//       <div className="relative bottom-2 left-0 right-0">
+//       <div className="relative left-0 right-0 bottom-2">
 //         <svg
 //           className="w-full h-auto"
 //           viewBox="0 0 280 108"
@@ -86,7 +84,7 @@
 //           />
 //         </svg>
 //         <div className="absolute inset-0 flex items-center justify-center">
-//           <h3 className="text-center pb-4 font-medium text-white drop-shadow-md transform -translate-y-2 text-xl sm:text-xl md:text-2xl lg:text-xl xl:text-2xl">
+//           <h3 className="pb-4 text-xl font-medium text-center text-white transform -translate-y-2 drop-shadow-md sm:text-xl md:text-2xl lg:text-xl xl:text-2xl">
 //             {title}
 //           </h3>
 //         </div>
@@ -161,20 +159,20 @@
 
 //   return (
 //     <section className="mx-auto w-full max-w-[98rem] py-8 sm:py-12 lg:py-16 relative overflow-hidden px-4">
-//       <motion.div className="text-center mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
+//       <motion.div className="mb-12 text-center" initial="hidden" animate="visible" variants={staggerChildren}>
 //         <motion.h2
 //           variants={fadeInUp}
-//           className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+//           className="mb-3 text-sm font-medium tracking-wide text-red-500 uppercase sm:mb-4 sm:text-lg"
 //         >
 //           NOS PRODUITS
 //         </motion.h2>
 //         <motion.h1
 //           variants={fadeInUp}
-//           className="text-gray-700 text-4xl uppercase md:text-5xl lg:text-6xl font-medium mb-2"
+//           className="mb-2 text-4xl font-medium text-gray-700 uppercase md:text-5xl lg:text-6xl"
 //         >
 //           Tout un monde
 //         </motion.h1>
-//         <motion.h2 variants={fadeInUp} className="text-gray-700 text-2xl uppercase md:text-3xl lg:text-4xl">
+//         <motion.h2 variants={fadeInUp} className="text-2xl text-gray-700 uppercase md:text-3xl lg:text-4xl">
 //           de plaisir
 //         </motion.h2>
 //       </motion.div>
@@ -225,7 +223,7 @@ import { useEffect, useState } from 'react';
 import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
 import choco from '@/assets/images/chocolate.webp';
-import leonardo from '@/assets/images/leonardo.webp';
+import leonardo from '@/assets/images/Leonardo.webp';
 import wafer from '@/assets/images/wafer.webp';
 
 interface Category {
@@ -316,7 +314,7 @@ function CategoryCard3D({
 
   return (
     <div
-      className="group absolute top-0 left-0 w-full transition-all duration-500 rounded-2xl"
+      className="absolute top-0 left-0 w-full transition-all duration-500 group rounded-2xl"
       style={getStyles()}
       aria-label={`Voir la catégorie ${title}`}
     >
@@ -336,27 +334,25 @@ function CategoryCard3D({
           />
 
           {/* Loading placeholder */}
-          {!isLoaded && <div className="absolute inset-0 animate-pulse bg-gray-200" />}
+          {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
 
           {/* Red gradient overlay - added this element */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-red-600/40 to-black transition-opacity duration-500"></div>
+            <div className="absolute inset-0 transition-opacity duration-500 bg-gradient-to-b from-white/40 via-red-600/40 to-black"></div>
           )}
           {/* Hover overlay with increased red opacity */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-600/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-600/40 group-hover:opacity-100"></div>
           )}
           {/* Content overlay */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-red-500/20 transition-all duration-500 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 p-6">
-              <p className="text-white text-center mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-400 text-lg">
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-all duration-500 opacity-0 bg-black/0 group-hover:bg-red-500/20 group-hover:opacity-100">
+              <p className="mb-6 text-lg text-center text-white transition-transform transform translate-y-4 group-hover:translate-y-0 duration-400">
                 {description}
               </p>
               <a
                 href={href}
-                className="inline-flex items-center justify-center px-6 py-2 bg-white text-red-500 font-medium rounded-full
-                   transform translate-y-4 group-hover:translate-y-0 duration-300 delay-300
-                    transition-all"
+                className="inline-flex items-center justify-center px-6 py-2 font-medium text-red-500 transition-all duration-300 delay-300 transform translate-y-4 bg-white rounded-full group-hover:translate-y-0"
               >
                 Découvrir
                 <svg
@@ -453,27 +449,27 @@ export default function Category3DCarousel() {
 
   return (
     <section className="mx-auto w-full max-w-[98rem] py-8 sm:py-12 lg:py-16 relative overflow-hidden px-4">
-      <motion.div className="text-center mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
+      <motion.div className="mb-12 text-center" initial="hidden" animate="visible" variants={staggerChildren}>
         <motion.h2
           variants={fadeInUp}
-          className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+          className="mb-3 text-sm font-medium tracking-wide text-red-500 uppercase sm:mb-4 sm:text-lg"
         >
           NOS PRODUITS
         </motion.h2>
         <motion.h1
           variants={fadeInUp}
-          className="text-gray-700 text-4xl uppercase md:text-5xl lg:text-6xl font-medium mb-2"
+          className="mb-2 text-4xl font-medium text-gray-700 uppercase md:text-5xl lg:text-6xl"
         >
           Tout un monde
         </motion.h1>
-        <motion.h2 variants={fadeInUp} className="text-gray-700 text-2xl uppercase md:text-3xl lg:text-4xl">
+        <motion.h2 variants={fadeInUp} className="text-2xl text-gray-700 uppercase md:text-3xl lg:text-4xl">
           de plaisir
         </motion.h2>
       </motion.div>
 
       {/* 3D Carousel Container */}
       <div className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center perspective-1000 overflow-hidden">
-        <div className="relative w-full max-w-md h-full transform-style-3d">
+        <div className="relative w-full h-full max-w-md transform-style-3d">
           {categories.map((category, index) => (
             <CategoryCard3D
               key={category.title}
@@ -489,7 +485,7 @@ export default function Category3DCarousel() {
         {/* Custom Navigation Buttons */}
         <button
           onClick={handlePrev}
-          className="absolute left-4 z-10 w-12 h-12 flex items-center justify-center rounded-full text-white/80 bg-red-500 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute z-10 flex items-center justify-center w-12 h-12 transition-all duration-300 bg-red-500 rounded-full shadow-md left-4 text-white/80 hover:text-white hover:bg-red-600"
           aria-label="Previous slide"
         >
           <svg
@@ -508,7 +504,7 @@ export default function Category3DCarousel() {
 
         <button
           onClick={handleNext}
-          className="absolute right-4 z-10 w-12 h-12 flex items-center justify-center rounded-full text-white/80 bg-red-500 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute z-10 flex items-center justify-center w-12 h-12 transition-all duration-300 bg-red-500 rounded-full shadow-md right-4 text-white/80 hover:text-white hover:bg-red-600"
           aria-label="Next slide"
         >
           <svg
