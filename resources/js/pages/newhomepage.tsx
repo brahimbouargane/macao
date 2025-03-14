@@ -1,4 +1,3 @@
-import Category3DCarousel from '@/components/categoriesSection';
 import DisplaySection from '@/components/displaySection';
 import ImageGrid from '@/components/gridImages';
 import PralineAdvertisement from '@/components/newAbout';
@@ -7,12 +6,12 @@ import TextSlider from '@/components/textSlider';
 
 import { NewLayout } from '@/layouts/new-layout';
 
-function Newhome() {
+function NewhomePage() {
   return (
     <>
       {' '}
       {/* <BentoGrid /> */}
-      <Category3DCarousel />
+      {/* <CategoryCarousel /> */}
       <div className="w-full">
         <TextSlider speed={8} pauseOnHover={true} />
       </div>
@@ -24,5 +23,5 @@ function Newhome() {
   );
 }
 
-export default Newhome;
-Newhome.layout = (page: any) => <NewLayout children={page} />;
+export default NewhomePage;
+NewhomePage.layout = (page: any) => <NewLayout children={page} />;
