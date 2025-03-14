@@ -91,12 +91,15 @@ export default function DisplaySection() {
       <motion.div className="text-center " initial="hidden" animate="visible" variants={staggerChildren}>
         <motion.h2
           variants={fadeInUp}
-          className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4
+          className="text-red-500 font-custom font-bold  tracking-wide uppercase mb-3 sm:mb-4
                 text-sm sm:text-lg"
         >
           Découvrez notre parcours artisanal
         </motion.h2>
-        <motion.h1 variants={fadeInUp} className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-medium mb-12">
+        <motion.h1
+          variants={fadeInUp}
+          className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-custom font-bold  mb-12"
+        >
           Expérimentez le mélange parfait
         </motion.h1>
       </motion.div>
