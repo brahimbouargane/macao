@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
 import choco from '@/assets/images/chocolate.webp';
-import leonardo from '@/assets/images/leonardo.webp';
+import leonardo from '@/assets/images/Leonardo.webp';
 import wafer from '@/assets/images/wafer.webp';
 
 interface Category {
