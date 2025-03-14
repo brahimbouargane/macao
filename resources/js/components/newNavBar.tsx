@@ -85,10 +85,10 @@ const CategoryCard = ({ category, index }) => {
 
   return (
     <div className={`p-4 md:p-8 ${isAlternate ? 'bg-gray-50' : ''}`}>
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center font-custom  gap-2 mb-4">
         {category.icon && <category.icon className="h-5 w-5 text-primary" />}
         {category.iconImage && <img src={category.iconImage} alt={`${category.title} icon`} className="h-5 w-5" />}
-        <h2 className="text-xl md:text-2xl italic mb-2">
+        <h2 className="text-xl font-custom  md:text-2xl italic mb-2">
           <span
             className={`${
               index === 0
@@ -112,7 +112,7 @@ const CategoryCard = ({ category, index }) => {
           <li key={itemIndex} role="none">
             <Link
               href={`/products/${category.id}/${item.toLowerCase()}`}
-              className="text-gray-600 hover:text-primary text-sm md:text-base block transition-colors duration-200"
+              className="text-gray-600 font-custom  hover:text-primary text-sm md:text-base block transition-colors duration-200"
               role="menuitem"
             >
               {item}
@@ -217,14 +217,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/"
-              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               ACCUEIL
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/history"
-              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               NOTRE HISTOIRE
             </MotionLink>
@@ -232,7 +232,7 @@ export default function Navbar() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-sm font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+                className="text-sm font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
                 aria-expanded={isProductsOpen}
                 id="products-menu"
               >
@@ -251,7 +251,7 @@ export default function Navbar() {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="absolute top-[48px] md:-left-28 lg:-left-72 w-[90vw] max-w-[1500px] bg-white shadow-lg grid grid-cols-1 md:grid-cols-5 z-50"
+                    className="absolute font-custom  top-[48px] md:-left-28 lg:-left-72 w-[90vw] max-w-[1500px] bg-white shadow-lg grid grid-cols-1 md:grid-cols-5 z-50"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="products-menu"
@@ -272,7 +272,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/"
               className={`flex items-center transition-all duration-200 ${
-                isScrolled ? 'relative top-2' : 'relative top-5'
+                isScrolled ? 'relative top-2' : 'relative top-4'
               }`}
             >
               <img
@@ -290,14 +290,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/contact"
-              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               CONTACT
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/career"
-              className="text-md font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               NOUS REJOINDRE
             </MotionLink>
