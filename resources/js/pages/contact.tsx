@@ -71,14 +71,14 @@ export default function Contact() {
             transition={{ delay: 0.2 }}
             className="w-24 h-1 bg-red-500 mb-4"
           />
-          <motion.p
+          {/* <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
             className="text-white/90 text-lg max-w-2xl"
           >
             Nous sommes là pour vous aider
-          </motion.p>
+          </motion.p> */}
         </div>
       </div>
 
@@ -95,7 +95,7 @@ export default function Contact() {
             <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
               <div className="w-full flex justify-center ">
                 <iframe
-                  className="h-auto lg:h-60"
+                  className="h-auto lg:h-44"
                   src="https://lottie.host/embed/c9e29a29-f842-4cb2-a9fa-3a06c146797b/S1h2hUYs2W.lottie"
                 ></iframe>
               </div>
@@ -149,8 +149,8 @@ export default function Contact() {
           {/* Contact Form */}
           <motion.div className="space-y-8 text-black" variants={itemVariants}>
             <motion.div className="space-y-6" variants={itemVariants}>
-              <h2 className="text-4xl text-black md:text-5xl lg:text-6xl font-light leading-tight">Contactez-nous</h2>
-              <p className="text-gray-600">Nous sommes là pour vous aider</p>
+              {/* <h2 className="text-4xl text-black md:text-5xl lg:text-6xl font-light leading-tight">Contactez-nous</h2> */}
+              <p className="text-2xl text-black md:text-4xl lg:text-4xl">Nous sommes là pour vous aider</p>
             </motion.div>
 
             <motion.form className="space-y-6" variants={itemVariants}>

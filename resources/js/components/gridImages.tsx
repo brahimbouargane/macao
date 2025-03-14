@@ -76,13 +76,13 @@ const ImageGrid = () => {
   ];
 
   return (
-    <div className="w-full mx-auto py-6 sm:py-8 lg:py-16">
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+    <div className="w-full mx-auto py-6 sm:py-8 lg:py-16 rounded-2xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 rounded-2xl">
         {images.map((image, index) => (
           <div
             key={index}
             className={cn(
-              'relative aspect-square',
+              'relative aspect-square rounded-2xl',
               image.hideOnMobile ? 'hidden sm:block' : 'block',
               // Adjust size based on priority
               image.priority === 'high'
@@ -93,7 +93,7 @@ const ImageGrid = () => {
             )}
           >
             {image.href ? (
-              <a href={image.href} target="_blank" rel="noreferrer" className="block w-full h-full">
+              <a href={image.href} target="_blank" rel="noreferrer" className="block w-full h-full  rounded-2xl">
                 <ImageContent image={image} />
               </a>
             ) : (
@@ -109,7 +109,7 @@ const ImageGrid = () => {
 // Separate component for image content to improve maintainability
 const ImageContent = ({ image }) => (
   <>
-    <div className="relative w-full h-full overflow-hidden rounded-sm group">
+    <div className="relative w-full h-full overflow-hidden rounded-2xl group ">
       <img
         src={image.src}
         alt={image.alt}
