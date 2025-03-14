@@ -31,7 +31,8 @@ const config = withTV({
         sans: ['Figtree', ...fontFamily.sans],
         primary: ['Playfair Display', 'serif'],
         secondary: ['Montserrat', 'sans-serif'],
-        body: ['Open Sans', 'sans-serif']
+        body: ['Open Sans', 'sans-serif'],
+        custom: ['azzawilafont', 'sans-serif']
       },
       colors: {
         light: 'hsl(var(--light))',

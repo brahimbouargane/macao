@@ -1,221 +1,3 @@
-// import candies from '@/assets/images/candies.webp';
-// import candy from '@/assets/images/candy.webp';
-// import choco from '@/assets/images/chocolate.webp';
-// import leonardo from '@/assets/images/Leonardo.webp';
-// import wafer from '@/assets/images/wafer.webp';
-// import { motion } from 'framer-motion';
-// import React, { useState } from 'react';
-// import {
-//   Carousel,
-//   CarouselApi,
-//   CarouselContent,
-//   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious
-// } from './ui/shadcn-carousel';
-
-// interface Category {
-//   title: string;
-//   image: string;
-//   href: string;
-//   description?: string;
-// }
-
-// interface CategoryCardProps extends Category {
-//   priority?: boolean;
-// }
-
-// function CategoryCard({ title, image, href, description = '', priority = false }: CategoryCardProps) {
-//   const [isLoaded, setIsLoaded] = useState(false);
-
-//   return (
-//     <div
-//       className="relative block overflow-hidden transition-transform duration-300 rounded-none group hover:-translate-y-1"
-//       aria-label={`Voir la catégorie ${title}`}
-//     >
-//       <div className="aspect-[3/4] relative bg-gray-100 overflow-hidden">
-//         <img
-//           src={image}
-//           alt={description || `Image de la catégorie ${title}`}
-//           className={`
-//           absolute inset-0 h-full w-full object-cover transition-all duration-300
-//           group-hover:scale-105 group-hover:blur-sm
-//           ${isLoaded ? 'opacity-100' : 'opacity-0'}
-//         `}
-//           sizes="(min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-//           loading={priority ? 'eager' : 'lazy'}
-//           onLoad={() => setIsLoaded(true)}
-//         />
-//         {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
-
-//         <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-all duration-500 opacity-0 bg-black/0 group-hover:bg-red-500/90 group-hover:opacity-100">
-//           <p className="mb-6 text-lg text-center text-white transition-transform transform translate-y-4 group-hover:translate-y-0 duration-400">
-//             {description}
-//           </p>
-//           <a
-//             href={href}
-//             className="inline-flex items-center justify-center px-6 py-2 font-medium text-red-500 transition-all duration-300 delay-300 transform translate-y-4 bg-white rounded-full // group-hover:translate-y-0 hover:bg-red-50 hover:scale-105"
-//           >
-//             Découvrir
-//             <svg
-//               className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
-//               fill="none"
-//               viewBox="0 0 24 24"
-//               stroke="currentColor"
-//             >
-//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-//             </svg>
-//           </a>
-//         </div>
-//       </div>
-
-//       <div className="relative left-0 right-0 bottom-2">
-//         <svg
-//           className="w-full h-auto"
-//           viewBox="0 0 280 108"
-//           fill="none"
-//           xmlns="http://www.w3.org/2000/svg"
-//           aria-hidden="true"
-//         >
-//           <path
-//             d="M0 41.4273V107.993C0 107.993 44.631 108.828 83.2438 92.187C121.857 75.5456 213.69 53.9182 279.809 107.158C280.239 100.919 279.809 0 279.809 0H0.0942532L0 41.4273Z"
-//             fill="#FF2600"
-//             className="transition-colors duration-300 group-hover:fill-red-700"
-//           />
-//         </svg>
-//         <div className="absolute inset-0 flex items-center justify-center">
-//           <h3 className="pb-4 text-xl font-medium text-center text-white transform -translate-y-2 drop-shadow-md sm:text-xl md:text-2xl lg:text-xl xl:text-2xl">
-//             {title}
-//           </h3>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// const categories: Category[] = [
-//   {
-//     title: 'Chocolats',
-//     image: choco,
-//     href: '/products/chocolat/pâtes%20à%20tartiner',
-//     description: 'Découvrez notre sélection de chocolats premium'
-//   },
-//   {
-//     title: 'Confiseries',
-//     image: candies,
-//     href: '/products/confiserie/sucettes',
-//     description: 'Découvrez notre gamme de confiseries artisanales'
-//   },
-//   {
-//     title: 'Gaufrettes',
-//     image: wafer,
-//     href: '/products/Gaufrettes/Gaufrettes enrobées',
-//     description: 'Parcourez notre collection de gaufrettes croustillantes'
-//   },
-//   {
-//     title: 'Pâtisseries',
-//     image: leonardo,
-//     href: '/products/Produits%20pâtissiers/chocolats%20pâtissiers',
-//     description: 'Découvrez nos pâtisseries fraîchement préparées'
-//   },
-//   {
-//     title: 'Fêtes et événements',
-//     image: candy,
-//     href: '/products/Fêtes%20et%20événements/Chocolats%20fins%20fourrés',
-//     description: 'Découvrez nos douceurs parfaites pour toutes vos célébrations'
-//   }
-// ];
-
-// const fadeInUp = {
-//   hidden: { opacity: 0, y: 20 },
-//   visible: { opacity: 1, y: 0 }
-// };
-
-// const staggerChildren = {
-//   visible: {
-//     transition: {
-//       staggerChildren: 0.2
-//     }
-//   }
-// };
-
-// export default function CategoryCarousel() {
-//   const [api, setApi] = React.useState<CarouselApi>();
-//   const [current, setCurrent] = React.useState(0);
-//   const [count, setCount] = React.useState(0);
-
-//   React.useEffect(() => {
-//     if (!api) {
-//       return;
-//     }
-
-//     setCount(api.scrollSnapList().length);
-//     setCurrent(api.selectedScrollSnap());
-
-//     api.on('select', () => {
-//       setCurrent(api.selectedScrollSnap());
-//     });
-//   }, [api]);
-
-//   return (
-//     <section className="mx-auto w-full max-w-[98rem] py-8 sm:py-12 lg:py-16 relative overflow-hidden px-4">
-//       <motion.div className="mb-12 text-center" initial="hidden" animate="visible" variants={staggerChildren}>
-//         <motion.h2
-//           variants={fadeInUp}
-//           className="mb-3 text-sm font-medium tracking-wide text-red-500 uppercase sm:mb-4 sm:text-lg"
-//         >
-//           NOS PRODUITS
-//         </motion.h2>
-//         <motion.h1
-//           variants={fadeInUp}
-//           className="mb-2 text-4xl font-medium text-gray-700 uppercase md:text-5xl lg:text-6xl"
-//         >
-//           Tout un monde
-//         </motion.h1>
-//         <motion.h2 variants={fadeInUp} className="text-2xl text-gray-700 uppercase md:text-3xl lg:text-4xl">
-//           de plaisir
-//         </motion.h2>
-//       </motion.div>
-
-//       <Carousel
-//         setApi={setApi}
-//         className="w-full"
-//         opts={{
-//           align: 'start',
-//           loop: true
-//         }}
-//       >
-//         <CarouselContent className="-ml-4">
-//           {categories.map((category, index) => (
-//             <CarouselItem key={category.title} className="pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-//               <a href={category.href} className="block">
-//                 <CategoryCard {...category} priority={index < 2} />
-//               </a>
-//             </CarouselItem>
-//           ))}
-//         </CarouselContent>
-//         <CarouselPrevious className="hidden sm:flex" />
-//         <CarouselNext className="hidden sm:flex" />
-//       </Carousel>
-
-//       <div className="py-4 text-center">
-//         <div className="flex items-center justify-center gap-2">
-//           {Array.from({ length: count }).map((_, index) => (
-//             <button
-//               key={index}
-//               className={`h-2 w-2 rounded-full transition-all duration-300 ${
-//                 index === current ? 'w-4 bg-red-500' : 'bg-gray-300'
-//               }`}
-//               onClick={() => api?.scrollTo(index)}
-//               aria-label={`Go to slide ${index + 1}`}
-//             />
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
@@ -223,7 +5,7 @@ import { useEffect, useState } from 'react';
 import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
 import choco from '@/assets/images/chocolate.webp';
-import leonardo from '@/assets/images/Leonardo.webp';
+import leonardo from '@/assets/images/leonardo.webp';
 import wafer from '@/assets/images/wafer.webp';
 
 interface Category {
@@ -314,7 +96,7 @@ function CategoryCard3D({
 
   return (
     <div
-      className="absolute top-0 left-0 w-full transition-all duration-500 group rounded-2xl"
+      className="group absolute top-0 left-0 w-full transition-all duration-500 rounded-2xl"
       style={getStyles()}
       aria-label={`Voir la catégorie ${title}`}
     >
@@ -334,29 +116,38 @@ function CategoryCard3D({
           />
 
           {/* Loading placeholder */}
-          {!isLoaded && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
+          {!isLoaded && <div className="absolute inset-0 animate-pulse bg-gray-200" />}
 
           {/* Red gradient overlay - added this element */}
           {position === 0 && (
-            <div className="absolute inset-0 transition-opacity duration-500 bg-gradient-to-b from-white/40 via-red-600/40 to-black"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-red-600/40 to-black transition-opacity duration-500"></div>
           )}
           {/* Hover overlay with increased red opacity */}
           {position === 0 && (
-            <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-600/40 group-hover:opacity-100"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-600/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          )}
+          {position === 0 && (
+            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-12 pb-4 px-4">
+              <h2 className="text-white text-center text-2xl md:text-5xl drop-shadow-md font-custom font-bold">
+                {title}
+              </h2>
+            </div>
           )}
           {/* Content overlay */}
+
           {position === 0 && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transition-all duration-500 opacity-0 bg-black/0 group-hover:bg-red-500/20 group-hover:opacity-100">
-              <p className="mb-6 text-lg text-center text-white transition-transform transform translate-y-4 group-hover:translate-y-0 duration-400">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10 transition-all duration-300 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100">
+              <p className="text-white text-center mb-6 font-custom font-medium transform scale-95 group-hover:scale-100 transition-all duration-300 text-lg">
                 {description}
               </p>
               <a
                 href={href}
-                className="inline-flex items-center justify-center px-6 py-2 font-medium text-red-500 transition-all duration-300 delay-300 transform translate-y-4 bg-white rounded-full group-hover:translate-y-0"
+                className="inline-flex font-custom font-medium items-center justify-center px-6 py-2 bg-white text-red-500  rounded-full
+        shadow-md hover:shadow-lg transition-all duration-300 hover:bg-red-50"
               >
                 Découvrir
                 <svg
-                  className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
+                  className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -447,29 +238,144 @@ export default function Category3DCarousel() {
     return () => clearInterval(interval);
   }, [currentIndex, isTransitioning]);
 
+  const PulsingButton = ({ onClick, children, ...props }) => {
+    const [isActive, setIsActive] = useState(false);
+
+    // Add animation styles
+    useEffect(() => {
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        @keyframes ping-slow {
+          0% {
+            transform: scale(1);
+            opacity: 0.4;
+          }
+          50% {
+            transform: scale(1.5);
+            opacity: 0.2;
+          }
+          100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+
+        @keyframes ping-delayed {
+          0% {
+            transform: scale(1);
+            opacity: 0.5;
+          }
+          70% {
+            transform: scale(1.3);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scale(1.7);
+            opacity: 0;
+          }
+        }
+
+        .animate-ping-slow {
+          animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .animate-ping-delayed {
+          animation: ping-delayed 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+          animation-delay: 0.3s;
+        }
+      `;
+      document.head.appendChild(styleEl);
+
+      return () => {
+        document.head.removeChild(styleEl);
+      };
+    }, []);
+
+    return (
+      <button
+        onClick={(e) => {
+          setIsActive(true);
+          setTimeout(() => setIsActive(false), 1000);
+          onClick && onClick(e);
+        }}
+        onMouseEnter={() => setIsActive(true)}
+        onMouseLeave={() => setIsActive(false)}
+        className="relative focus:outline-none pointer-events-auto"
+        {...props}
+      >
+        {/* Container for all elements - important for proper positioning */}
+        <div className="relative w-12 h-12">
+          {/* Fixed: Animation layers now properly centered and visible */}
+          {/* The key fix is using inset-0 instead of left/top + translate */}
+
+          {/* Outermost pulsing circle */}
+          <div
+            className={`absolute inset-0 m-auto rounded-full
+                       bg-rose-200/30 ${isActive ? 'animate-ping-slow' : ''}
+                       transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
+          ></div>
+
+          {/* Middle pulsing circle with delay */}
+          <div
+            className={`absolute inset-0 m-auto w-10 h-10 rounded-full
+                       bg-rose-300/40 ${isActive ? 'animate-ping-delayed' : ''}
+                       transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
+          ></div>
+
+          {/* Base button with gradient */}
+          <div
+            className={`absolute inset-0 w-12 h-12 rounded-full
+                       bg-gradient-to-r from-rose-300/80 via-rose-400/80 to-rose-300/80
+                       flex items-center justify-center z-10
+                       transition-all duration-300 ${isActive ? 'scale-110' : ''}`}
+          >
+            {/* Middle circle */}
+            <div
+              className={`w-8 h-8 rounded-full
+                         bg-gradient-to-br from-rose-500/90 to-red-500/90
+                         transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+            >
+              {/* Inner circle with content */}
+              <div
+                className={`w-5 h-5 rounded-full
+                           bg-gradient-to-br from-red-600 to-red-800
+                           transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+              >
+                <span className="text-white text-xl">{children}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+    );
+  };
+
   return (
     <section className="mx-auto w-full max-w-[98rem] py-8 sm:py-12 lg:py-16 relative overflow-hidden px-4">
-      <motion.div className="mb-12 text-center" initial="hidden" animate="visible" variants={staggerChildren}>
+      <motion.div className="text-center mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
         <motion.h2
           variants={fadeInUp}
-          className="mb-3 text-sm font-medium tracking-wide text-red-500 uppercase sm:mb-4 sm:text-lg"
+          className="text-red-500 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
         >
           NOS PRODUITS
         </motion.h2>
         <motion.h1
           variants={fadeInUp}
-          className="mb-2 text-4xl font-medium text-gray-700 uppercase md:text-5xl lg:text-6xl"
+          className="text-gray-700 text-4xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2"
         >
           Tout un monde
         </motion.h1>
-        <motion.h2 variants={fadeInUp} className="text-2xl text-gray-700 uppercase md:text-3xl lg:text-4xl">
+        <motion.h2
+          variants={fadeInUp}
+          className="text-gray-700 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl"
+        >
           de plaisir
         </motion.h2>
       </motion.div>
 
       {/* 3D Carousel Container */}
       <div className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center perspective-1000 overflow-hidden">
-        <div className="relative w-full h-full max-w-md transform-style-3d">
+        <div className="relative w-full max-w-md h-full transform-style-3d">
           {categories.map((category, index) => (
             <CategoryCard3D
               key={category.title}
@@ -483,14 +389,14 @@ export default function Category3DCarousel() {
         </div>
 
         {/* Custom Navigation Buttons */}
-        <button
+        <PulsingButton
           onClick={handlePrev}
-          className="absolute z-10 flex items-center justify-center w-12 h-12 transition-all duration-300 bg-red-500 rounded-full shadow-md left-4 text-white/80 hover:text-white hover:bg-red-600"
+          className="absolute left-4 z-10 w-16 h-16 flex items-center justify-center rounded-full text-white/80  hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Previous slide"
         >
           <svg
-            width="24"
-            height="24"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -500,16 +406,16 @@ export default function Category3DCarousel() {
           >
             <path d="M15 18l-6-6 6-6" />
           </svg>
-        </button>
+        </PulsingButton>
 
-        <button
+        <PulsingButton
           onClick={handleNext}
-          className="absolute z-10 flex items-center justify-center w-12 h-12 transition-all duration-300 bg-red-500 rounded-full shadow-md right-4 text-white/80 hover:text-white hover:bg-red-600"
+          className="absolute right-4 z-10 w-16 h-16 flex items-center justify-center rounded-full text-white/80  hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Next slide"
         >
           <svg
-            width="24"
-            height="24"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -519,7 +425,7 @@ export default function Category3DCarousel() {
           >
             <path d="M9 18l6-6-6-6" />
           </svg>
-        </button>
+        </PulsingButton>
       </div>
     </section>
   );

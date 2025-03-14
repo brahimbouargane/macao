@@ -597,6 +597,7 @@ import '../../css/app.css';
 import { AnimatePresence, motion } from 'framer-motion';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from './ui';
+import { Button } from './ui/shadcn-button';
 
 const FloatingImage = memo(({ position, index, active, image, getPosition, getImageSize, getRotateValues }: any) => (
   <motion.div
@@ -659,50 +660,166 @@ const MainImage = memo(({ image, name }: any) => (
         duration: 0.8,
         ease: 'easeInOut'
       }}
-      className="w-full h-full lg:h-[400px] 2xl:h-full"
+      className="w-full h-full lg:h-[400px] 2xl:h-[500px] 3xl:h-[550px]"
     >
       <img src={image || '/placeholder.svg'} alt={name} className="w-full h-full object-contain" loading="lazy" />
     </motion.div>
   </motion.div>
 ));
 
-const NavigationButtons = memo(({ onPrev, onNext, onHoverChange, active, total }: any) => (
-  <div className="absolute bottom-4 left-0 right-0 flex flex-col items-center gap-4 z-50">
-    {/* Progress indicators */}
-    <div className="flex gap-2 mb-2">
-      {Array.from({ length: total }).map((_, i) => (
-        <button
-          key={`indicator-${i}`}
-          onClick={() => (i < active ? onPrev(active - i) : onNext(i - active))}
-          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-            i === active ? 'w-6 bg-white' : 'bg-white/50 hover:bg-white/70'
-          }`}
-          aria-label={`Go to slide ${i + 1}`}
-          aria-current={i === active ? 'true' : 'false'}
-        />
-      ))}
-    </div>
+// const NavigationButtons = memo(({ onPrev, onNext, onHoverChange, active, total }: any) => (
+//   <div className="absolute top-0 bottom-0 left-0 right-0 z-50 pointer-events-none">
+//     {/* Navigation buttons */}
+//     <div
+//       className="h-full w-full flex items-center justify-between px-6 md:px-10"
+//       onMouseEnter={() => onHoverChange(true)}
+//       onMouseLeave={() => onHoverChange(false)}
+//     >
+//       <button
+//         onClick={() => onPrev(1)}
+//         className="h-10 w-10 rounded-full border border-white/60 bg-white/20 text-xl text-white transition-colors hover:bg-white/40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50 pointer-events-auto"
+//         aria-label="Previous slide"
+//       >
+//         ‹
+//       </button>
+//       <button
+//         onClick={() => onNext(1)}
+//         className="h-10 w-10 rounded-full border border-white/60 bg-white/20 text-xl text-white transition-colors hover:bg-white/40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50 pointer-events-auto"
+//         aria-label="Next slide"
+//       >
+//         ›
+//       </button>
+//     </div>
+//   </div>
+// ));
 
+const PulsingButton = ({ onClick, children, ...props }) => {
+  const [isActive, setIsActive] = useState(false);
+
+  // Add animation styles
+  useEffect(() => {
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
+      @keyframes ping-slow {
+        0% {
+          transform: scale(1);
+          opacity: 0.4;
+        }
+        50% {
+          transform: scale(1.5);
+          opacity: 0.2;
+        }
+        100% {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+
+      @keyframes ping-delayed {
+        0% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        70% {
+          transform: scale(1.3);
+          opacity: 0.3;
+        }
+        100% {
+          transform: scale(1.7);
+          opacity: 0;
+        }
+      }
+
+      .animate-ping-slow {
+        animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+      }
+
+      .animate-ping-delayed {
+        animation: ping-delayed 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        animation-delay: 0.3s;
+      }
+    `;
+    document.head.appendChild(styleEl);
+
+    return () => {
+      document.head.removeChild(styleEl);
+    };
+  }, []);
+
+  return (
+    <button
+      onClick={(e) => {
+        setIsActive(true);
+        setTimeout(() => setIsActive(false), 1000);
+        onClick && onClick(e);
+      }}
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+      className="relative focus:outline-none pointer-events-auto"
+      {...props}
+    >
+      {/* Container for all elements - important for proper positioning */}
+      <div className="relative w-16 h-16">
+        {/* Fixed: Animation layers now properly centered and visible */}
+        {/* The key fix is using inset-0 instead of left/top + translate */}
+
+        {/* Outermost pulsing circle */}
+        <div
+          className={`absolute inset-0 m-auto rounded-full
+                     bg-rose-200/30 ${isActive ? 'animate-ping-slow' : ''}
+                     transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
+        ></div>
+
+        {/* Middle pulsing circle with delay */}
+        <div
+          className={`absolute inset-0 m-auto w-12 h-12 rounded-full
+                     bg-rose-300/40 ${isActive ? 'animate-ping-delayed' : ''}
+                     transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
+        ></div>
+
+        {/* Base button with gradient */}
+        <div
+          className={`absolute inset-0 w-16 h-16 rounded-full
+                     bg-gradient-to-r from-rose-300/80 via-rose-400/80 to-rose-300/80
+                     flex items-center justify-center z-10
+                     transition-all duration-300 ${isActive ? 'scale-110' : ''}`}
+        >
+          {/* Middle circle */}
+          <div
+            className={`w-12 h-12 rounded-full
+                       bg-gradient-to-br from-rose-500/90 to-red-500/90
+                       transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+          >
+            {/* Inner circle with content */}
+            <div
+              className={`w-8 h-8 rounded-full
+                         bg-[#AA071A]
+                         transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+            >
+              <span className="text-white text-xl">{children}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+};
+
+const NavigationButtons = memo(({ onPrev, onNext, onHoverChange, active, total }: any) => (
+  <div className="absolute top-0 bottom-0 left-0 right-0 z-50 pointer-events-none">
     {/* Navigation buttons */}
     <div
-      className="flex justify-center gap-4"
+      className="h-full w-full flex items-center justify-between px-6 md:px-10"
       onMouseEnter={() => onHoverChange(true)}
       onMouseLeave={() => onHoverChange(false)}
     >
-      <button
-        onClick={() => onPrev(1)}
-        className="h-10 w-10 rounded-full border border-white/60 bg-white/20 text-xl text-white transition-colors hover:bg-white/40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50"
-        aria-label="Previous slide"
-      >
+      <PulsingButton onClick={() => onPrev(1)} aria-label="Previous slide">
         ‹
-      </button>
-      <button
-        onClick={() => onNext(1)}
-        className="h-10 w-10 rounded-full border border-white/60 bg-white/20 text-xl text-white transition-colors hover:bg-white/40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50"
-        aria-label="Next slide"
-      >
+      </PulsingButton>
+
+      <PulsingButton onClick={() => onNext(1)} aria-label="Next slide">
         ›
-      </button>
+      </PulsingButton>
     </div>
   </div>
 ));
@@ -864,7 +981,7 @@ const HeroSlide = () => {
         'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
         'top-right': 'w-36 h-36 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
         'bottom-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
-        'bottom-right': 'w-24 h-24 md:w-36 md:h-36 lg:w-32 lg:h-32 xl:w-36 xl:h-36 2xl:w-40 2xl:h-40'
+        'bottom-right': 'w-24 h-24 md:w-36 md:h-36 lg:w-32 lg:h-32 xl:w-32 xl:h-32 2xl:w-32 2xl:h-32'
       },
       2: {
         // Third slide
@@ -882,26 +999,27 @@ const HeroSlide = () => {
     // Custom positions for each active state
     const positions = {
       0: {
-        'top-left': '-left-4 -top-20 md:-left-12 md:-top-16  lg:-left-0 lg:-top-24 ',
-        'top-right': '-right-2 -top-16 md:-right-8 md:-top-20 lg:-right-0 lg:-top-24',
-        'bottom-left': '-left-0 -bottom-10 md:-left-0 md:-bottom-20 lg:-left-0 lg:-bottom-0',
-        'bottom-right': '-right-0 -bottom-10 md:-right-4 md:-bottom-20 lg:-right-0 lg:-bottom-0'
+        'top-left': '-left-4 -top-20 md:-left-12 md:-top-16  lg:-left-0 lg:-top-24 2xl:-left-10 2xl:-top-24',
+        'top-right': '-right-2 -top-16 md:-right-8 md:-top-20 lg:-right-0 lg:-top-24  2xl:-right-10 2xl:-top-24',
+        'bottom-left': '-left-0 -bottom-10 md:-left-0 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-8 2xl:-bottom-20',
+        'bottom-right':
+          '-right-0 -bottom-10 md:-right-4 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-8 2xl:-bottom-20'
       },
       1: {
         'top-left': '-left-16 -top-20 md:-left-20 md:-top-24 lg:-left-0 lg:-top-24 2xl:-left-20 2xl:-top-24',
         'top-right': '-right-16 -top-20 md:-right-20 md:-top-24 lg:-right-0 lg:-top-24  2xl:-right-20 2xl:-top-24',
         'bottom-left':
-          '-left-16 -bottom-16 md:-left-20 md:-bottom-16 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-10',
+          '-left-16 -bottom-16 md:-left-20 md:-bottom-16 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
         'bottom-right':
-          '-right-16 -bottom-16 md:-right-20 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-20 2xl:-bottom-10'
+          '-right-16 -bottom-16 md:-right-20 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-20 2xl:-bottom-32'
       },
       2: {
         'top-left': '-left-16 -top-20 md:-left-24 md:-top-28 lg:-left-0 lg:-top-24 2xl:-left-20 2xl:-top-24',
         'top-right': '-right-16 -top-20 md:-right-24 md:-top-28 lg:-right-0 lg:-top-24 2xl:-right-20 2xl:-top-24',
         'bottom-left':
-          '-left-16 -bottom-16 md:-left-16 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-10',
+          '-left-16 -bottom-16 md:-left-16 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
         'bottom-right':
-          '-right-16 -bottom-16 md:-right-24 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-20 2xl:-bottom-10'
+          '-right-16 -bottom-16 md:-right-24 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-20 2xl:-bottom-32'
       }
     };
 
@@ -940,12 +1058,12 @@ const HeroSlide = () => {
   }, [nextSlider, prevSlider]);
 
   // Auto-rotation effect
-  //   useEffect(() => {
-  //     if (!isHovering) {
-  //       const interval = setInterval(nextSlider, 5000);
-  //       return () => clearInterval(interval);
-  //     }
-  //   }, [nextSlider, isHovering]);
+  useEffect(() => {
+    if (!isHovering) {
+      const interval = setInterval(nextSlider, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [nextSlider, isHovering]);
 
   // Normalize rotation angle
   useEffect(() => {
@@ -981,7 +1099,7 @@ const HeroSlide = () => {
             transformStyle: 'preserve-3d'
           }}
         >
-          <div className="relative h-[calc(100vh-6rem)] mt-24">
+          <div className="relative h-[calc(100vh-6rem)] mt-16">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -999,7 +1117,7 @@ const HeroSlide = () => {
                   duration: 1,
                   ease: 'easeOut'
                 }}
-                className="encode-sans  lg:tracking-[-1.6rem] mt-10 md:mt-24 text-7xl md:text-[12rem] lg:text-[16rem] font-bold uppercase leading-none bg-clip-text text-transparent 2xl:text-[18rem] 3xl:text-[20rem] lg:max-w-full 3xl:max-w-[98rem]"
+                className="encode-sans  lg:tracking-[-1.6rem] mt-10 md:mt-28 text-7xl md:text-[12rem] lg:text-[16rem] font-bold uppercase leading-none bg-clip-text text-transparent 2xl:text-[18rem] 3xl:text-[18rem] lg:max-w-full 3xl:max-w-[90rem]"
                 style={{
                   backgroundImage: items[active].textGradient,
                   WebkitBackgroundClip: 'text',
@@ -1030,12 +1148,20 @@ const HeroSlide = () => {
                     </p>
                     <Link
                       href={items[active].page}
-                      className="inline-block text-center md:text-left px-8 py-3 text-white rounded-full transition-colors duration-500 border border-white/60 hover:bg-white/30"
+                      //   className="inline-block text-center md:text-left px-8 py-3 text-white rounded-full transition-colors duration-500 border border-white/60 hover:bg-white/30"
                       style={{
                         background: 'rgba(0,0,0,0.3)'
                       }}
                     >
-                      Découvrir
+                      <Button
+                        variant="outline"
+                        className="bg-black hover:bg-gray-800 text-white rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                      >
+                        Découvrir
+                        <span className="ml-2 inline-block transform group-hover:translate-x-1 transition-transform duration-200">
+                          →
+                        </span>
+                      </Button>
                     </Link>
                   </div>
                 </motion.div>

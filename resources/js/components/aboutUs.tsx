@@ -41,17 +41,20 @@ export default function PastorMacaoHero() {
         <motion.div className="text-center py-8 sm:py-12" initial="hidden" animate="visible" variants={staggerChildren}>
           <motion.h1
             variants={fadeInUp}
-            className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+            className="text-red-500 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
           >
             À propos de nous
           </motion.h1>
           <motion.h2
             variants={fadeInUp}
-            className="text-gray-700 uppercase text-4xl md:text-5xl lg:text-6xl font-medium mb-2"
+            className="text-gray-700 uppercase text-4xl md:text-5xl lg:text-6xl font-custom mb-2"
           >
             PASTOR MACAO
           </motion.h2>
-          <motion.h2 variants={fadeInUp} className="text-gray-700 uppercase text-2xl md:text-3xl lg:text-4xl mb-12">
+          <motion.h2
+            variants={fadeInUp}
+            className="text-gray-700 font-custom uppercase text-2xl md:text-3xl lg:text-4xl mb-12"
+          >
             SAVOUREZ LA VIE !
           </motion.h2>
         </motion.div>

@@ -24,7 +24,7 @@ const CIRCLE_COLORS = [
 const TextSlider = ({
   topWords = DEFAULT_TOP_WORDS,
   bottomWords = DEFAULT_BOTTOM_WORDS,
-  speed = 80,
+  speed = 1,
   pauseOnHover = true,
   className = ''
 }) => {
@@ -35,7 +35,7 @@ const TextSlider = ({
     <div className="flex items-center gap-8">
       {topWords.map((word, idx) => (
         <div key={`top-${word}-${idx}`} className="flex items-center gap-10">
-          <span className="text-4xl md:text-5xl lg:text-4xl font-light text-gray-800 uppercase whitespace-nowrap">
+          <span className="text-4xl font-custom font-bold md:text-5xl lg:text-4xl  text-gray-800 uppercase whitespace-nowrap">
             {word}
           </span>
           <div
@@ -58,7 +58,7 @@ const TextSlider = ({
           >
             <img src={macaoLogoRed} alt="Logo" className="w-10 h-10" />
           </div>
-          <span className="text-4xl md:text-5xl lg:text-4xl font-light text-gray-800 uppercase whitespace-nowrap">
+          <span className="text-4xl font-custom font-bold md:text-5xl lg:text-4xl  text-gray-800 uppercase whitespace-nowrap">
             {word}
           </span>
         </div>
@@ -76,8 +76,8 @@ const TextSlider = ({
   };
 
   // Calculate animation duration based on speed
-  const animationDuration = `${speed * 1.3}s`;
-  const reverseAnimationDuration = `${speed * 2}s`; // Slightly different speed for visual interest
+  const animationDuration = `${speed * 3}s`;
+  const reverseAnimationDuration = `${speed * 3}s`; // Slightly different speed for visual interest
 
   const topSlideStyles = {
     animation: `scroll ${animationDuration} linear infinite`,

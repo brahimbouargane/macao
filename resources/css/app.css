@@ -1,8 +1,16 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
+
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Open+Sans:wght@300;400;500&display=swap');
 
+@font-face {
+  font-family: 'azzawilafont';
+  src: url('/fonts/your-font-name/your-font.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -124,7 +132,7 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-primary);
+    font-family: var(--font-custom);
   }
   p,
   body {
@@ -133,9 +141,12 @@
     line-height: 1.6;
   }
   button {
-    font-family: var(--font-secondary);
+    font-family: var(--font-custom);
     font-weight: 600;
     letter-spacing: 0.03em;
+  }
+  a {
+    font-family: var(--font-custom);
   }
   html {
     @apply h-full scroll-smooth font-normal xl:text-base;
