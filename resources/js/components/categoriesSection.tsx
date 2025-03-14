@@ -346,21 +346,28 @@ function CategoryCard3D({
           {position === 0 && (
             <div className="absolute inset-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-600/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           )}
-          {/* Content overlay */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-red-500/20 transition-all duration-500 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 p-6">
-              <p className="text-white text-center mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-400 text-lg">
+            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-12 pb-4 px-4">
+              <h2 className="text-white text-center text-2xl md:text-5xl drop-shadow-md font-custom font-bold">
+                {title}
+              </h2>
+            </div>
+          )}
+          {/* Content overlay */}
+
+          {position === 0 && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10 transition-all duration-300 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100">
+              <p className="text-white text-center mb-6 font-custom font-medium transform scale-95 group-hover:scale-100 transition-all duration-300 text-lg">
                 {description}
               </p>
               <a
                 href={href}
-                className="inline-flex items-center justify-center px-6 py-2 bg-white text-red-500 font-medium rounded-full
-                   transform translate-y-4 group-hover:translate-y-0 duration-300 delay-300
-                    transition-all"
+                className="inline-flex font-custom font-medium items-center justify-center px-6 py-2 bg-white text-red-500  rounded-full
+        shadow-md hover:shadow-lg transition-all duration-300 hover:bg-red-50"
               >
                 Découvrir
                 <svg
-                  className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
+                  className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -451,22 +458,137 @@ export default function Category3DCarousel() {
     return () => clearInterval(interval);
   }, [currentIndex, isTransitioning]);
 
+  const PulsingButton = ({ onClick, children, ...props }) => {
+    const [isActive, setIsActive] = useState(false);
+
+    // Add animation styles
+    useEffect(() => {
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        @keyframes ping-slow {
+          0% {
+            transform: scale(1);
+            opacity: 0.4;
+          }
+          50% {
+            transform: scale(1.5);
+            opacity: 0.2;
+          }
+          100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+
+        @keyframes ping-delayed {
+          0% {
+            transform: scale(1);
+            opacity: 0.5;
+          }
+          70% {
+            transform: scale(1.3);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scale(1.7);
+            opacity: 0;
+          }
+        }
+
+        .animate-ping-slow {
+          animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .animate-ping-delayed {
+          animation: ping-delayed 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+          animation-delay: 0.3s;
+        }
+      `;
+      document.head.appendChild(styleEl);
+
+      return () => {
+        document.head.removeChild(styleEl);
+      };
+    }, []);
+
+    return (
+      <button
+        onClick={(e) => {
+          setIsActive(true);
+          setTimeout(() => setIsActive(false), 1000);
+          onClick && onClick(e);
+        }}
+        onMouseEnter={() => setIsActive(true)}
+        onMouseLeave={() => setIsActive(false)}
+        className="relative focus:outline-none pointer-events-auto"
+        {...props}
+      >
+        {/* Container for all elements - important for proper positioning */}
+        <div className="relative w-12 h-12">
+          {/* Fixed: Animation layers now properly centered and visible */}
+          {/* The key fix is using inset-0 instead of left/top + translate */}
+
+          {/* Outermost pulsing circle */}
+          <div
+            className={`absolute inset-0 m-auto rounded-full
+                       bg-rose-200/30 ${isActive ? 'animate-ping-slow' : ''}
+                       transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
+          ></div>
+
+          {/* Middle pulsing circle with delay */}
+          <div
+            className={`absolute inset-0 m-auto w-10 h-10 rounded-full
+                       bg-rose-300/40 ${isActive ? 'animate-ping-delayed' : ''}
+                       transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
+          ></div>
+
+          {/* Base button with gradient */}
+          <div
+            className={`absolute inset-0 w-12 h-12 rounded-full
+                       bg-gradient-to-r from-rose-300/80 via-rose-400/80 to-rose-300/80
+                       flex items-center justify-center z-10
+                       transition-all duration-300 ${isActive ? 'scale-110' : ''}`}
+          >
+            {/* Middle circle */}
+            <div
+              className={`w-8 h-8 rounded-full
+                         bg-gradient-to-br from-rose-500/90 to-red-500/90
+                         transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+            >
+              {/* Inner circle with content */}
+              <div
+                className={`w-5 h-5 rounded-full
+                           bg-gradient-to-br from-red-600 to-red-800
+                           transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+              >
+                <span className="text-white text-xl">{children}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+    );
+  };
+
   return (
     <section className="mx-auto w-full max-w-[98rem] py-8 sm:py-12 lg:py-16 relative overflow-hidden px-4">
       <motion.div className="text-center mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
         <motion.h2
           variants={fadeInUp}
-          className="text-red-500 font-medium tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+          className="text-red-500 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
         >
           NOS PRODUITS
         </motion.h2>
         <motion.h1
           variants={fadeInUp}
-          className="text-gray-700 text-4xl uppercase md:text-5xl lg:text-6xl font-medium mb-2"
+          className="text-gray-700 text-4xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2"
         >
           Tout un monde
         </motion.h1>
-        <motion.h2 variants={fadeInUp} className="text-gray-700 text-2xl uppercase md:text-3xl lg:text-4xl">
+        <motion.h2
+          variants={fadeInUp}
+          className="text-gray-700 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl"
+        >
           de plaisir
         </motion.h2>
       </motion.div>
@@ -487,14 +609,14 @@ export default function Category3DCarousel() {
         </div>
 
         {/* Custom Navigation Buttons */}
-        <button
+        <PulsingButton
           onClick={handlePrev}
-          className="absolute left-4 z-10 w-12 h-12 flex items-center justify-center rounded-full text-white/80 bg-red-500 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute left-4 z-10 w-16 h-16 flex items-center justify-center rounded-full text-white/80  hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Previous slide"
         >
           <svg
-            width="24"
-            height="24"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -504,16 +626,16 @@ export default function Category3DCarousel() {
           >
             <path d="M15 18l-6-6 6-6" />
           </svg>
-        </button>
+        </PulsingButton>
 
-        <button
+        <PulsingButton
           onClick={handleNext}
-          className="absolute right-4 z-10 w-12 h-12 flex items-center justify-center rounded-full text-white/80 bg-red-500 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute right-4 z-10 w-16 h-16 flex items-center justify-center rounded-full text-white/80  hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Next slide"
         >
           <svg
-            width="24"
-            height="24"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -523,7 +645,7 @@ export default function Category3DCarousel() {
           >
             <path d="M9 18l6-6-6-6" />
           </svg>
-        </button>
+        </PulsingButton>
       </div>
     </section>
   );

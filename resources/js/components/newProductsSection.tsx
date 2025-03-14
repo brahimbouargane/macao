@@ -180,19 +180,19 @@ const ProductShowcase = () => {
         <motion.div className="text-center mb-6 md:mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
           <motion.h2
             variants={fadeInUp}
-            className="text-red-500 font-medium tracking-wide uppercase mb-2 md:mb-4 text-sm sm:text-base md:text-lg"
+            className="text-red-500 font-custom font-bold  tracking-wide uppercase mb-2 md:mb-4 text-sm sm:text-base md:text-lg"
           >
             NOS PRODUITS
           </motion.h2>
           <motion.h1
             variants={fadeInUp}
-            className="text-gray-700 text-2xl sm:text-3xl md:text-4xl lg:text-6xl uppercase font-medium mb-2"
+            className="text-gray-700 font-custom font-bold  text-2xl sm:text-3xl md:text-4xl lg:text-6xl uppercase  mb-2"
           >
             Un univers
           </motion.h1>
           <motion.h2
             variants={fadeInUp}
-            className="text-gray-700 text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase"
+            className="text-gray-700 font-custom font-bold  text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase"
           >
             gourmand et raffiné
           </motion.h2>
@@ -207,7 +207,7 @@ const ProductShowcase = () => {
           ].map((tab) => (
             <button
               key={tab.id}
-              className={`px-4 sm:px-6 py-2 text-base md:text-lg transition-colors duration-300 rounded-xl ${
+              className={`px-4 sm:px-6 py-2 text-base md:text-lg transition-colors duration-300 rounded-full font-custom   ${
                 activeTab === tab.id ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-red-50'
               }`}
               onClick={() => {
@@ -250,23 +250,38 @@ const ProductShowcase = () => {
               transition={{ duration: 0.5, ease: 'easeInOut' }}
             >
               {filteredProducts.map((product) => (
-                <div key={product.id} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4 ">
-                  <div className="border-2 border-red-500 p-3 sm:p-6  transition-shadow duration-300 rounded-xl hover:shadow-lg bg-[#FDFAF1]">
-                    <div className="aspect-w-4 aspect-h-5 mb-3 sm:mb-4">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-[200px] sm:h-[280px] md:h-[350px] object-contain"
-                      />
+                <div key={product.id} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4 mb-6">
+                  <div className="relative rounded-tl-[80px] rounded-bl-[80px] overflow-hidden border-2 border-red-600 transition-all duration-300 hover:shadow-xl bg-white h-full flex flex-col">
+                    {/* White content area */}
+                    <div className="flex-1 p-4 sm:p-6 relative">
+                      {/* Product image */}
+                      <div className="mb-3 sm:mb-4 flex items-center justify-center">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-contain"
+                        />
+                      </div>
+
+                      {/* Tags at the top */}
+                      <div className="flex flex-col  gap-2 mb-2">
+                        <span className="px-2 font-custom font-medium sm:px-3 py-1 text-xs sm:text-sm bg-red-500 text-white rounded-full">
+                          {product.type}
+                        </span>
+                        <span className="px-2 font-custom font-medium sm:px-3 py-1 text-xs sm:text-sm bg-red-100 text-red-800 rounded-full">
+                          {product.category}
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="text-base sm:text-lg font-medium text-red-900 mb-2 sm:mb-3">{product.name}</h3>
-                    <div className="flex flex-col gap-1 sm:gap-2">
-                      <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-red-500 text-white rounded-full">
-                        {product.type}
-                      </span>
-                      <span className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-red-100 text-red-800 rounded-full">
-                        {product.category}
-                      </span>
+
+                    {/* Red bottom banner with product name */}
+                    <div className="bg-[#AA071A] text-white p-4 rounded-tr-[50px] text-center">
+                      <h3 className="font-custom font-bold  text-base sm:text-lg tracking-wide">{product.name}</h3>
+                    </div>
+
+                    {/* Bottom right corner accent */}
+                    <div className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 bg-transparent flex items-center justify-center text-white font-bold">
+                      <span className="text-xl sm:text-2xl">+</span>
                     </div>
                   </div>
                 </div>
