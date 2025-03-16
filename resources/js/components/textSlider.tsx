@@ -1,5 +1,6 @@
 import macaoLogoRed from '@/assets/images/macoa-logo-small.svg';
-import React, { useState } from 'react';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import React, { useRef, useState } from 'react';
 
 type TextSliderProps = {
   topWords?: string[];
@@ -29,21 +30,107 @@ const TextSlider = ({
   className = ''
 }) => {
   const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: false, amount: 0.3 });
+  const controls = useAnimation();
+
+  React.useEffect(() => {
+    if (isInView) {
+      controls.start('visible');
+    } else {
+      controls.start('hidden');
+    }
+  }, [isInView, controls]);
+
+  // Container animation variants
+  const containerVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: 'easeOut',
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  // Item animation variants
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  // Circle animation variants
+  const circleVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 15
+      }
+    },
+    hover: {
+      scale: 1.1,
+      rotate: [0, 5, -5, 0],
+      transition: {
+        duration: 0.3,
+        rotate: {
+          repeat: Infinity,
+          repeatType: 'reverse',
+          duration: 1
+        }
+      }
+    }
+  };
+
+  // Text animation variants
+  const textVariants = {
+    hover: {
+      scale: 1.05,
+      color: '#FF0000',
+      transition: { duration: 0.2 }
+    }
+  };
 
   // Helper component for slide content with top words
   const TopSlideContent = React.memo(() => (
     <div className="flex items-center gap-8">
       {topWords.map((word, idx) => (
-        <div key={`top-${word}-${idx}`} className="flex items-center gap-10">
-          <span className="text-4xl font-custom font-bold md:text-5xl lg:text-4xl  text-gray-800 uppercase whitespace-nowrap">
-            {word}
-          </span>
-          <div
-            className={`w-16 h-16 rounded-full flex items-center justify-center ${CIRCLE_COLORS[idx % CIRCLE_COLORS.length]}`}
+        <motion.div
+          key={`top-${word}-${idx}`}
+          className="flex items-center gap-10"
+          variants={itemVariants}
+          whileHover="hover"
+        >
+          <motion.span
+            className="text-2xl font-custom font-bold md:text-5xl lg:text-2xl text-gray-800 uppercase whitespace-nowrap"
+            variants={textVariants}
           >
-            <img src={macaoLogoRed} alt="Logo" className="w-10 h-10" />
-          </div>
-        </div>
+            {word}
+          </motion.span>
+          <motion.div
+            className={`w-14 h-14 rounded-full flex items-center justify-center ${CIRCLE_COLORS[idx % CIRCLE_COLORS.length]}`}
+            variants={circleVariants}
+            whileHover="hover"
+          >
+            <motion.img
+              src={macaoLogoRed}
+              alt="Logo"
+              className="w-8 h-8"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.8 }}
+            />
+          </motion.div>
+        </motion.div>
       ))}
     </div>
   ));
@@ -52,54 +139,82 @@ const TextSlider = ({
   const BottomSlideContent = React.memo(() => (
     <div className="flex items-center gap-8">
       {bottomWords.map((word, idx) => (
-        <div key={`bottom-${word}-${idx}`} className="flex items-center gap-10">
-          <div
-            className={`w-16 h-16 rounded-full flex items-center justify-center ${CIRCLE_COLORS[(idx + 2) % CIRCLE_COLORS.length]}`}
+        <motion.div
+          key={`bottom-${word}-${idx}`}
+          className="flex items-center gap-10"
+          variants={itemVariants}
+          whileHover="hover"
+        >
+          <motion.div
+            className={`w-14 h-14 rounded-full flex items-center justify-center ${CIRCLE_COLORS[(idx + 2) % CIRCLE_COLORS.length]}`}
+            variants={circleVariants}
+            whileHover="hover"
           >
-            <img src={macaoLogoRed} alt="Logo" className="w-10 h-10" />
-          </div>
-          <span className="text-4xl font-custom font-bold md:text-5xl lg:text-4xl  text-gray-800 uppercase whitespace-nowrap">
+            <motion.img
+              src={macaoLogoRed}
+              alt="Logo"
+              className="w-8 h-8"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.8 }}
+            />
+          </motion.div>
+          <motion.span
+            className="text-2xl font-custom font-bold md:text-5xl lg:text-2xl text-gray-800 uppercase whitespace-nowrap"
+            variants={textVariants}
+          >
             {word}
-          </span>
-        </div>
+          </motion.span>
+        </motion.div>
       ))}
     </div>
   ));
 
-  // Function to calculate appropriate width to ensure smooth scrolling
+  // Calculate appropriate width to ensure smooth scrolling
   const calculateContentWidth = () => {
-    // This is a runtime calculation that helps ensure the animation is smooth
     return {
-      // We need to apply this to ensure the animation is calculated properly
       minWidth: 'max-content'
     };
   };
 
   // Calculate animation duration based on speed
   const animationDuration = `${speed * 3}s`;
-  const reverseAnimationDuration = `${speed * 3}s`; // Slightly different speed for visual interest
+  const reverseAnimationDuration = `${speed * 3}s`;
 
   const topSlideStyles = {
     animation: `scroll ${animationDuration} linear infinite`,
     animationPlayState: isPaused ? 'paused' : 'running',
-    willChange: 'transform' // Performance optimization
+    willChange: 'transform'
   };
 
   const bottomSlideStyles = {
     animation: `scrollReverse ${reverseAnimationDuration} linear infinite`,
     animationPlayState: isPaused ? 'paused' : 'running',
-    willChange: 'transform' // Performance optimization
+    willChange: 'transform'
   };
 
   return (
-    <div
+    <motion.div
+      ref={containerRef}
       className={`relative w-full overflow-hidden bg-white ${className}`}
       onMouseEnter={() => pauseOnHover && setIsPaused(true)}
       onMouseLeave={() => pauseOnHover && setIsPaused(false)}
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
     >
       {/* Gradient Edges */}
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent z-10" />
-      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10" />
+      <motion.div
+        className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      />
+      <motion.div
+        className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      />
 
       <style>
         {`
@@ -119,11 +234,23 @@ const TextSlider = ({
               transform: translateX(0);
             }
           }
+
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.05);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
         `}
       </style>
 
       {/* Top Slider Track */}
-      <div className="relative py-6 overflow-hidden border-b border-gray-100">
+      <motion.div className="relative py-6 overflow-hidden border-b border-gray-100" variants={itemVariants}>
         <div className="flex whitespace-nowrap" style={{ ...topSlideStyles, ...calculateContentWidth() }}>
           {/* We need two sets to create a seamless loop effect */}
           <div className="flex shrink-0">
@@ -133,10 +260,10 @@ const TextSlider = ({
             <TopSlideContent />
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Bottom Slider Track - Moving in opposite direction */}
-      <div className="relative py-6 overflow-hidden">
+      <motion.div className="relative py-6 overflow-hidden" variants={itemVariants}>
         <div className="flex whitespace-nowrap" style={{ ...bottomSlideStyles, ...calculateContentWidth() }}>
           {/* We need two sets to create a seamless loop effect */}
           <div className="flex shrink-0">
@@ -146,8 +273,8 @@ const TextSlider = ({
             <BottomSlideContent />
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

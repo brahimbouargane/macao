@@ -119,9 +119,9 @@ const StatsDashboard = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-3xl font-custom font-bold  md:text-4xl text-white  mb-16 text-center"
+        className="text-3xl font-custom font-bold  md:text-5xl text-white  mb-16 text-center"
       >
-        NOTRE EXCELLENCE EN CHIFFRES
+        NOTRE EXCELLENCE <br /> EN CHIFFRES
       </motion.h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-20 max-w-7xl mx-auto">

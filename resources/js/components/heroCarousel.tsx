@@ -667,32 +667,6 @@ const MainImage = memo(({ image, name }: any) => (
   </motion.div>
 ));
 
-// const NavigationButtons = memo(({ onPrev, onNext, onHoverChange, active, total }: any) => (
-//   <div className="absolute top-0 bottom-0 left-0 right-0 z-50 pointer-events-none">
-//     {/* Navigation buttons */}
-//     <div
-//       className="h-full w-full flex items-center justify-between px-6 md:px-10"
-//       onMouseEnter={() => onHoverChange(true)}
-//       onMouseLeave={() => onHoverChange(false)}
-//     >
-//       <button
-//         onClick={() => onPrev(1)}
-//         className="h-10 w-10 rounded-full border border-white/60 bg-white/20 text-xl text-white transition-colors hover:bg-white/40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50 pointer-events-auto"
-//         aria-label="Previous slide"
-//       >
-//         ‹
-//       </button>
-//       <button
-//         onClick={() => onNext(1)}
-//         className="h-10 w-10 rounded-full border border-white/60 bg-white/20 text-xl text-white transition-colors hover:bg-white/40 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/50 pointer-events-auto"
-//         aria-label="Next slide"
-//       >
-//         ›
-//       </button>
-//     </div>
-//   </div>
-// ));
-
 const PulsingButton = ({ onClick, children, ...props }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -766,14 +740,14 @@ const PulsingButton = ({ onClick, children, ...props }) => {
         {/* Outermost pulsing circle */}
         <div
           className={`absolute inset-0 m-auto rounded-full
-                     bg-rose-200/30 ${isActive ? 'animate-ping-slow' : ''}
+                     bg-rose-200/30 animate-ping-slow
                      transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
         ></div>
 
         {/* Middle pulsing circle with delay */}
         <div
           className={`absolute inset-0 m-auto w-12 h-12 rounded-full
-                     bg-rose-300/40 ${isActive ? 'animate-ping-delayed' : ''}
+                     bg-rose-300/40 animate-ping-delayed
                      transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
         ></div>
 
@@ -1149,13 +1123,10 @@ const HeroSlide = () => {
                     <Link
                       href={items[active].page}
                       //   className="inline-block text-center md:text-left px-8 py-3 text-white rounded-full transition-colors duration-500 border border-white/60 hover:bg-white/30"
-                      style={{
-                        background: 'rgba(0,0,0,0.3)'
-                      }}
                     >
                       <Button
                         variant="outline"
-                        className="bg-black hover:bg-gray-800 text-white rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                        className="bg-black w-full lg:w-fit hover:bg-gray-800 text-white rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
                       >
                         Découvrir
                         <span className="ml-2 inline-block transform group-hover:translate-x-1 transition-transform duration-200">
