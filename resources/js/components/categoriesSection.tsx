@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 // Import images from your assets
 import candies from '@/assets/images/candies.webp';
@@ -128,7 +128,7 @@ function CategoryCard3D({
           )}
           {position === 0 && (
             <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-12 pb-4 px-4">
-              <h2 className="text-white text-center text-2xl md:text-5xl drop-shadow-md font-custom font-bold">
+              <h2 className="text-white text-center text-4xl md:text-5xl drop-shadow-md font-custom font-bold">
                 {title}
               </h2>
             </div>
@@ -196,12 +196,44 @@ const categories: Category[] = [
   }
 ];
 
+const fadeInLeft = {
+  hidden: { opacity: 0, x: -100 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
+};
+
+const fadeInRight = {
+  hidden: { opacity: 0, x: 100 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
+};
+
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
 };
 
 const staggerChildren = {
+  hidden: {},
   visible: {
     transition: {
       staggerChildren: 0.2
@@ -212,6 +244,18 @@ const staggerChildren = {
 export default function Category3DCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Add refs for scroll detection
+  const headerRef = useRef(null);
+  const carouselRef = useRef(null);
+  const leftContentRef = useRef(null);
+  const rightContentRef = useRef(null);
+
+  // Check if elements are in view
+  const headerInView = useInView(headerRef, { once: false, amount: 0.3 });
+  const carouselInView = useInView(carouselRef, { once: false, amount: 0.2 });
+  const leftContentInView = useInView(leftContentRef, { once: false, amount: 0.3 });
+  const rightContentInView = useInView(rightContentRef, { once: false, amount: 0.3 });
 
   const handleNext = () => {
     if (!isTransitioning) {
@@ -304,42 +348,42 @@ export default function Category3DCarousel() {
         {...props}
       >
         {/* Container for all elements - important for proper positioning */}
-        <div className="relative w-12 h-12">
+        <div className="relative w-16 h-16">
           {/* Fixed: Animation layers now properly centered and visible */}
           {/* The key fix is using inset-0 instead of left/top + translate */}
 
           {/* Outermost pulsing circle */}
           <div
             className={`absolute inset-0 m-auto rounded-full
-                       bg-rose-200/30 ${isActive ? 'animate-ping-slow' : ''}
+                       bg-red-600  animate-ping-slow
                        transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
           ></div>
 
           {/* Middle pulsing circle with delay */}
           <div
             className={`absolute inset-0 m-auto w-10 h-10 rounded-full
-                       bg-rose-300/40 ${isActive ? 'animate-ping-delayed' : ''}
+                       bg-red-600 animate-ping-delayed
                        transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
           ></div>
 
           {/* Base button with gradient */}
           <div
-            className={`absolute inset-0 w-12 h-12 rounded-full
+            className={`absolute inset-0 w-16 h-16 rounded-full
                        bg-gradient-to-r from-rose-300/80 via-rose-400/80 to-rose-300/80
                        flex items-center justify-center z-10
-                       transition-all duration-300 ${isActive ? 'scale-110' : ''}`}
+                       transition-all duration-300 ${isActive ? 'scale-100' : ''}`}
           >
             {/* Middle circle */}
             <div
-              className={`w-8 h-8 rounded-full
+              className={`w-12 h-12 rounded-full
                          bg-gradient-to-br from-rose-500/90 to-red-500/90
-                         transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+                         transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-100' : ''}`}
             >
               {/* Inner circle with content */}
               <div
-                className={`w-5 h-5 rounded-full
-                           bg-gradient-to-br from-red-600 to-red-800
-                           transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-110' : ''}`}
+                className={`w-8 h-8 rounded-full
+                           bg-[#AA071A]
+                           transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-100' : ''}`}
               >
                 <span className="text-white text-xl">{children}</span>
               </div>
@@ -351,30 +395,43 @@ export default function Category3DCarousel() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[98rem] py-8 sm:py-12 lg:py-16 relative overflow-hidden px-4">
-      <motion.div className="text-center mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
+    <section className="mx-auto w-full max-w-[100rem] pt-8 sm:py-12 lg:py-16 relative overflow-hidden px-8">
+      <motion.div
+        ref={headerRef}
+        className="text-center mb-12"
+        initial="hidden"
+        animate={headerInView ? 'visible' : 'hidden'}
+        variants={staggerChildren}
+      >
         <motion.h2
           variants={fadeInUp}
-          className="text-red-500 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+          className="text-gray-700  font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
         >
           NOS PRODUITS
         </motion.h2>
         <motion.h1
-          variants={fadeInUp}
-          className="text-gray-700 text-4xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2"
+          variants={fadeInLeft}
+          className="text-red-600 text-2xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2"
         >
           Tout un monde
         </motion.h1>
         <motion.h2
-          variants={fadeInUp}
-          className="text-gray-700 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl"
+          variants={fadeInRight}
+          className="text-red-600 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl"
         >
           de plaisir
         </motion.h2>
       </motion.div>
 
       {/* 3D Carousel Container */}
-      <div className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center perspective-1000 overflow-hidden">
+      <motion.div
+        ref={carouselRef}
+        className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center perspective-1000 overflow-hidden"
+        initial={{ opacity: 0, y: 60 }}
+        animate={
+          carouselInView ? { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } } : { opacity: 0, y: 60 }
+        }
+      >
         <div className="relative w-full max-w-md h-full transform-style-3d">
           {categories.map((category, index) => (
             <CategoryCard3D
@@ -391,7 +448,7 @@ export default function Category3DCarousel() {
         {/* Custom Navigation Buttons */}
         <PulsingButton
           onClick={handlePrev}
-          className="absolute left-4 z-10 w-16 h-16 flex items-center justify-center rounded-full text-white/80  hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute left-0 md:left-4 z-10 w-16 h-16 md:ml-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Previous slide"
         >
           <svg
@@ -410,7 +467,7 @@ export default function Category3DCarousel() {
 
         <PulsingButton
           onClick={handleNext}
-          className="absolute right-4 z-10 w-16 h-16 flex items-center justify-center rounded-full text-white/80  hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute right-0 md:right-4 z-10 w-16 h-16 md:mr-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Next slide"
         >
           <svg
@@ -426,7 +483,7 @@ export default function Category3DCarousel() {
             <path d="M9 18l6-6-6-6" />
           </svg>
         </PulsingButton>
-      </div>
+      </motion.div>
     </section>
   );
 }
