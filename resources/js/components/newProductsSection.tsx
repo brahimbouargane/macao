@@ -1,4 +1,3 @@
-import bgimage from '@/assets/images/463.webp';
 import product1Display from '@/assets/images/product1-display.webp';
 import product2Display from '@/assets/images/product2-display.webp';
 import product3Display from '@/assets/images/product3-display.webp';
@@ -8,14 +7,53 @@ import product6Display from '@/assets/images/product6-display.webp';
 import product7Display from '@/assets/images/product7-display.webp';
 import product8Display from '@/assets/images/product8-display.webp';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+const fadeInLeft = {
+  hidden: { opacity: 0, x: -100 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
+};
+
+const fadeInRight = {
+  hidden: { opacity: 0, x: 100 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut'
+    }
+  }
+};
 
 const ProductShowcase = () => {
   const [activeTab, setActiveTab] = useState('nouveautes');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
+  const headerRef = useRef(null);
+  const headerInView = useInView(headerRef, { once: false, amount: 0.3 });
 
   const products = [
     {
@@ -163,132 +201,361 @@ const ProductShowcase = () => {
     }
     return 3;
   };
+  const PulsingButton = ({ onClick, children, ...props }) => {
+    const [isActive, setIsActive] = useState(false);
+
+    // Add animation styles
+    useEffect(() => {
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        @keyframes ping-slow {
+          0% {
+            transform: scale(1);
+            opacity: 0.4;
+          }
+          50% {
+            transform: scale(1.5);
+            opacity: 0.2;
+          }
+          100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+
+        @keyframes ping-delayed {
+          0% {
+            transform: scale(1);
+            opacity: 0.5;
+          }
+          70% {
+            transform: scale(1.3);
+            opacity: 0.3;
+          }
+          100% {
+            transform: scale(1.7);
+            opacity: 0;
+          }
+        }
+
+        .animate-ping-slow {
+          animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .animate-ping-delayed {
+          animation: ping-delayed 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+          animation-delay: 0.3s;
+        }
+      `;
+      document.head.appendChild(styleEl);
+
+      return () => {
+        document.head.removeChild(styleEl);
+      };
+    }, []);
+
+    return (
+      <button
+        onClick={(e) => {
+          setIsActive(true);
+          setTimeout(() => setIsActive(false), 1000);
+          onClick && onClick(e);
+        }}
+        onMouseEnter={() => setIsActive(true)}
+        onMouseLeave={() => setIsActive(false)}
+        className="relative focus:outline-none pointer-events-auto"
+        {...props}
+      >
+        {/* Container for all elements - important for proper positioning */}
+        <div className="relative w-16 h-16">
+          {/* Fixed: Animation layers now properly centered and visible */}
+          {/* The key fix is using inset-0 instead of left/top + translate */}
+
+          {/* Outermost pulsing circle */}
+          <div
+            className={`absolute inset-0 m-auto rounded-full
+                       bg-red-600  animate-ping-slow
+                       transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
+          ></div>
+
+          {/* Middle pulsing circle with delay */}
+          <div
+            className={`absolute inset-0 m-auto w-10 h-10 rounded-full
+                       bg-gray-600 animate-ping-delayed
+                       transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
+          ></div>
+
+          {/* Base button with gradient */}
+          <div
+            className={`absolute inset-0 w-16 h-16 rounded-full
+                       bg-gradient-to-r from-rose-300/80 via-rose-400/80 to-rose-300/80
+                       flex items-center justify-center z-10
+                       transition-all duration-300 ${isActive ? 'scale-100' : ''}`}
+          >
+            {/* Middle circle */}
+            <div
+              className={`w-12 h-12 rounded-full
+                         bg-gradient-to-br from-rose-500/90 to-red-500/90
+                         transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-100' : ''}`}
+            >
+              {/* Inner circle with content */}
+              <div
+                className={`w-8 h-8 rounded-full
+                           bg-[#AA071A]
+                           transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-100' : ''}`}
+              >
+                <span className="text-white text-xl">{children}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+    );
+  };
+
+  const TabsRef = useRef(null);
+  const CarouselRef = useRef(null);
+
+  // Track when elements are in viewport
+  const isTabsInView = useInView(TabsRef, {
+    once: false, // Set to true if you want the animation to happen only once
+    amount: 0.3 // How much of the element should be in view (0-1)
+  });
+
+  const isCarouselInView = useInView(CarouselRef, {
+    once: false,
+    amount: 0.2
+  });
 
   return (
     <div className="relative py-4 md:py-8">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${bgimage})`,
-          filter: 'brightness(0.9)'
-        }}
-      />
-
       <div className="max-w-[90rem] mx-auto px-4 py-4 md:py-8">
         {/* Header Section */}
-        <motion.div className="text-center mb-6 md:mb-12" initial="hidden" animate="visible" variants={staggerChildren}>
+        <motion.div
+          ref={headerRef}
+          className="text-center mb-12"
+          initial="hidden"
+          animate={headerInView ? 'visible' : 'hidden'}
+          variants={staggerChildren}
+        >
           <motion.h2
             variants={fadeInUp}
-            className="text-red-500 font-custom font-bold  tracking-wide uppercase mb-2 md:mb-4 text-sm sm:text-base md:text-lg"
+            className="text-gray-700 font-custom font-bold  tracking-wide uppercase mb-2 md:mb-4 text-sm sm:text-base md:text-lg"
           >
             NOS PRODUITS
           </motion.h2>
           <motion.h1
-            variants={fadeInUp}
-            className="text-gray-700 font-custom font-bold  text-2xl sm:text-3xl md:text-4xl lg:text-6xl uppercase  mb-2"
+            variants={fadeInLeft}
+            className=" text-red-600   font-custom font-bold  text-2xl sm:text-3xl md:text-4xl lg:text-6xl uppercase  mb-2"
           >
             Un univers
           </motion.h1>
           <motion.h2
-            variants={fadeInUp}
-            className="text-gray-700 font-custom font-bold  text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase"
+            variants={fadeInRight}
+            className=" text-red-600  font-custom font-bold  text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase"
           >
             gourmand et raffiné
           </motion.h2>
         </motion.div>
 
-        {/* Navigation Tabs */}
-        <div className="flex flex-col sm:flex-row justify-center gap-2 sm:space-x-4 mb-6 md:mb-8 relative rounded-xl">
+        {/* Animated Tabs */}
+        <motion.div
+          ref={TabsRef}
+          className="flex flex-col sm:flex-row justify-center gap-2 sm:space-x-4 mb-6 md:mb-8 relative rounded-xl"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{
+            opacity: isTabsInView ? 1 : 0,
+            y: isTabsInView ? 0 : 50
+          }}
+          transition={{
+            duration: 0.6,
+            ease: 'easeOut'
+          }}
+        >
           {[
             { id: 'nouveautes', label: 'Nouveautés' },
             { id: 'meilleures-ventes', label: 'Meilleures ventes' },
             { id: 'promotions', label: 'Promotions' }
           ].map((tab) => (
-            <button
+            <motion.button
               key={tab.id}
-              className={`px-4 sm:px-6 py-2 text-base md:text-lg transition-colors duration-300 rounded-full font-custom   ${
-                activeTab === tab.id ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-red-50'
+              className={`px-4 sm:px-6 py-2 text-base md:text-lg transition-colors duration-300 rounded-full font-custom ${
+                activeTab === tab.id ? 'bg-[#AA071A] text-white' : 'text-gray-600 hover:bg-red-50'
               }`}
               onClick={() => {
                 setActiveTab(tab.id);
                 setCurrentIndex(0);
               }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.1)'
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+              layout
             >
               {tab.label}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Carousel Section */}
-        <div className="relative" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+        {/* Carousel Section with fade-up animation */}
+        <motion.div
+          ref={CarouselRef}
+          className="relative"
+          initial={{ opacity: 0, y: 60 }}
+          animate={{
+            opacity: isCarouselInView ? 1 : 0,
+            y: isCarouselInView ? 0 : 60
+          }}
+          transition={{
+            duration: 0.8,
+            ease: 'easeOut',
+            delay: 0.2
+          }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           {filteredProducts.length > getVisibleSlides() && (
             <>
-              <button
-                onClick={slideLeft}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 text-white/80 bg-red-500 hover:text-white hover:bg-red-600 p-1 sm:p-2 shadow-lg z-10 transition-colors duration-300 rounded-full"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
-              </button>
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+                <PulsingButton
+                  onClick={slideLeft}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-20 p-1 sm:p-2 z-10 transition-colors duration-300 rounded-full"
+                >
+                  <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                </PulsingButton>
+              </motion.div>
 
-              <button
-                onClick={slideRight}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 text-white/80 bg-red-500 hover:text-white hover:bg-red-600 p-1 sm:p-2 shadow-lg z-10 transition-colors duration-300 rounded-full"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
-              </button>
+              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+                <PulsingButton
+                  onClick={slideRight}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-20 p-1 sm:p-2 z-10 transition-colors duration-300 rounded-full"
+                >
+                  <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                </PulsingButton>
+              </motion.div>
             </>
           )}
 
           <div className="overflow-hidden">
-            <motion.div
-              className="flex"
-              initial={false}
-              animate={{
-                x: `-${currentIndex * (100 / getVisibleSlides())}%`
-              }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-            >
-              {filteredProducts.map((product) => (
-                <div key={product.id} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4 mb-6">
-                  <div className="relative rounded-tl-[80px] rounded-bl-[80px] overflow-hidden border-2 border-red-600 transition-all duration-300 hover:shadow-xl bg-white h-full flex flex-col">
-                    {/* White content area */}
-                    <div className="flex-1 p-4 sm:p-6 relative">
-                      {/* Product image */}
-                      <div className="mb-3 sm:mb-4 flex items-center justify-center">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-contain"
-                        />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                className="flex"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  x: `-${currentIndex * (100 / getVisibleSlides())}%`
+                }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  opacity: { duration: 0.3 },
+                  x: { duration: 0.5, ease: 'easeInOut' }
+                }}
+              >
+                {filteredProducts.map((product, index) => (
+                  <motion.div
+                    key={product.id}
+                    className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4 mb-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        delay: index * 0.1,
+                        duration: 0.5
+                      }
+                    }}
+                  >
+                    <motion.div
+                      className="relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[80px] rounded-bl-[80px] transition-all duration-300"
+                      whileHover={{
+                        scale: 1.01,
+                        boxShadow: '0px 10px 25px rgba(170, 7, 26, 0.2)',
+                        transition: { duration: 0.3 }
+                      }}
+                    >
+                      {/* Main container with red background that extends to top-right */}
+                      <div className="relative bg-[#AA071A] h-full">
+                        {/* White section for product image with curved bottom-right corner */}
+                        <div className="relative bg-white">
+                          {/* This creates the curved corner effect */}
+                          <motion.div
+                            className="relative p-10 md:p-16"
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.4 }}
+                          >
+                            <div className="flex items-center justify-center mb-3 sm:mb-4">
+                              <motion.img
+                                src={product.image || '/placeholder.svg'}
+                                alt={product.name}
+                                className="w-full object-contain"
+                                whileHover={{
+                                  rotate: [0, -1, 1, -1, 0],
+                                  transition: {
+                                    duration: 0.6,
+                                    ease: 'easeInOut'
+                                  }
+                                }}
+                              />
+                            </div>
+                          </motion.div>
+
+                          {/* SVG for the curved corner */}
+                          <svg
+                            className="absolute bottom-0 right-0 text-[#AA071A]"
+                            width="150"
+                            height="150"
+                            viewBox="0 0 140 150"
+                            fill="none"
+                            preserveAspectRatio="none"
+                          >
+                            <path d="M150,0 L150,150 L0,150 C82.5,150 150,82.5 150,0 Z" fill="currentColor" />
+                          </svg>
+                        </div>
+
+                        {/* Content container */}
+                        <div className="relative flex px-4 py-6 text-center justify-center items-center">
+                          <motion.h3
+                            className="font-custom font-bold text-white text-base sm:text-lg tracking-wide"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                          >
+                            {product.name}
+                          </motion.h3>
+                        </div>
+
+                        {/* Animated Plus Icon */}
+                        <motion.div
+                          className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white font-bold"
+                          whileHover={{
+                            scale: 1.2,
+                            rotate: 90,
+                            transition: { duration: 0.3 }
+                          }}
+                          initial={{ rotate: 0 }}
+                          animate={{
+                            rotate: [0, 5, -5, 0],
+                            transition: {
+                              repeat: Infinity,
+                              repeatType: 'mirror',
+                              duration: 2,
+                              ease: 'easeInOut'
+                            }
+                          }}
+                        >
+                          <span className="text-xl sm:text-2xl">+</span>
+                        </motion.div>
                       </div>
-
-                      {/* Tags at the top */}
-                      <div className="flex flex-col  gap-2 mb-2">
-                        <span className="px-2 font-custom font-medium sm:px-3 py-1 text-xs sm:text-sm bg-red-500 text-white rounded-full">
-                          {product.type}
-                        </span>
-                        <span className="px-2 font-custom font-medium sm:px-3 py-1 text-xs sm:text-sm bg-red-100 text-red-800 rounded-full">
-                          {product.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Red bottom banner with product name */}
-                    <div className="bg-[#AA071A] text-white p-4 rounded-tr-[50px] text-center">
-                      <h3 className="font-custom font-bold  text-base sm:text-lg tracking-wide">{product.name}</h3>
-                    </div>
-
-                    {/* Bottom right corner accent */}
-                    <div className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 bg-transparent flex items-center justify-center text-white font-bold">
-                      <span className="text-xl sm:text-2xl">+</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

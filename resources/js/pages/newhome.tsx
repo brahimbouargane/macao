@@ -1,6 +1,5 @@
 import Category3DCarousel from '@/components/categoriesSection';
 import DisplaySection from '@/components/displaySection';
-import ImageGrid from '@/components/gridImages';
 import PralineAdvertisement from '@/components/newAbout';
 import ProductShowcase from '@/components/newProductsSection';
 import TextSlider from '@/components/textSlider';
@@ -19,7 +18,7 @@ function Newhome() {
       <PralineAdvertisement />
       <ProductShowcase />
       <DisplaySection />
-      <ImageGrid />
+      {/* <ImageGrid /> */}
     </>
   );
 }
