@@ -217,14 +217,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/"
-              className="text-md font-custom font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               ACCUEIL
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/history"
-              className="text-md font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom   font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               NOTRE HISTOIRE
             </MotionLink>
@@ -232,13 +232,13 @@ export default function Navbar() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-sm font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+                className="text-md font-custom  font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
                 aria-expanded={isProductsOpen}
                 id="products-menu"
               >
                 NOS PRODUITS
                 <ChevronDown
-                  className={`ml-1 h-4 w-4 transform transition-transform duration-300 ${
+                  className={`ml-1 h-5 w-5 transform transition-transform duration-300 ${
                     isProductsOpen ? 'rotate-180' : ''
                   }`}
                 />
@@ -290,14 +290,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/contact"
-              className="text-md font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom  font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               CONTACT
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/career"
-              className="text-md font-custom  font-medium text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className="text-md font-custom  font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               NOUS REJOINDRE
             </MotionLink>
@@ -345,14 +345,14 @@ export default function Navbar() {
                 <nav className="space-y-6">
                   <MotionLink
                     href="/"
-                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     ACCUEIL
                   </MotionLink>
                   <MotionLink
                     href="/history"
-                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     NOTRE HISTOIRE
@@ -361,7 +361,7 @@ export default function Navbar() {
                   {/* Mobile Products Menu */}
                   <div className="space-y-4">
                     <button
-                      className="flex items-center justify-between w-full text-lg font-medium text-gray-600 hover:text-primary"
+                      className="flex items-center justify-between w-full text-lg font-semibold text-gray-600 hover:text-primary"
                       onClick={isProductsOpen ? handleClose : handleOpen}
                     >
                       NOS PRODUITS
@@ -381,7 +381,7 @@ export default function Navbar() {
                           <div className="grid grid-cols-2 gap-4">
                             {featuredCategories.map((category) => (
                               <div key={category.id} className="space-y-2 ">
-                                <h4 className="font-medium text-primary text-sm sticky top-0 bg-white py-2">
+                                <h4 className="font-semibold text-primary text-sm sticky top-0 bg-white py-2">
                                   {category.title}
                                 </h4>
                                 <div className="space-y-1">
@@ -406,14 +406,14 @@ export default function Navbar() {
 
                   <MotionLink
                     href="/contact"
-                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     CONTACT
                   </MotionLink>
                   <MotionLink
                     href="/career"
-                    className="block text-lg font-medium text-gray-600 hover:text-primary"
+                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     NOUS REJOINDRE
