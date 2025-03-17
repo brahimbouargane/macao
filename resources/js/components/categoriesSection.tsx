@@ -106,10 +106,10 @@ function CategoryCard3D({
             src={image}
             alt={description || `Image de la catégorie ${title}`}
             className={`
-              absolute inset-0 h-full w-full object-cover transition-all duration-300
-              group-hover:scale-105 group-hover:blur-sm
-              ${isLoaded ? 'opacity-100' : 'opacity-0'}
-            `}
+                absolute inset-0 h-full w-full object-cover transition-all duration-300
+                group-hover:scale-105 group-hover:blur-sm
+                ${isLoaded ? 'opacity-100' : 'opacity-0'}
+              `}
             sizes="(min-width: 1536px) 20vw, (min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             loading={priority ? 'eager' : 'lazy'}
             onLoad={() => setIsLoaded(true)}
@@ -120,30 +120,46 @@ function CategoryCard3D({
 
           {/* Red gradient overlay - added this element */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-red-600/40 to-black transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-red-700/75 to-black transition-opacity duration-500"></div>
           )}
+
           {/* Hover overlay with increased red opacity */}
           {position === 0 && (
             <div className="absolute inset-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-600/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           )}
+
+          {/* Title at bottom */}
           {position === 0 && (
-            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-12 pb-4 px-4">
+            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-12 pb-4 px-4 transition-all duration-500">
               <h2 className="text-white text-center text-4xl md:text-5xl drop-shadow-md font-custom font-bold">
                 {title}
               </h2>
             </div>
           )}
-          {/* Content overlay */}
 
+          {/* Content overlay with fade-up animation */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10 transition-all duration-300 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100">
-              <p className="text-white text-center mb-6 font-custom font-medium transform scale-95 group-hover:scale-100 transition-all duration-300 text-lg">
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10 transition-all duration-500
+                  flex flex-col items-center justify-center p-6
+                  opacity-0 group-hover:opacity-100
+                  transform translate-y-4 group-hover:translate-y-0"
+            >
+              <p
+                className="text-white text-center mb-6 font-custom font-medium
+                    transform translate-y-6 group-hover:translate-y-0 scale-95 group-hover:scale-100
+                    transition-all duration-500 ease-out text-lg opacity-0 group-hover:opacity-100"
+              >
                 {description}
               </p>
+
               <a
                 href={href}
-                className="inline-flex font-custom font-medium items-center justify-center px-6 py-2 bg-white text-red-500  rounded-full
-        shadow-md hover:shadow-lg transition-all duration-300 hover:bg-red-50"
+                className="inline-flex font-custom font-medium items-center justify-center px-6 py-2
+                    bg-white text-red-500 rounded-full shadow-md hover:shadow-lg
+                    transition-all duration-500 ease-out
+                    transform translate-y-8 group-hover:translate-y-0 opacity-0 group-hover:opacity-100
+                    hover:bg-red-50"
               >
                 Découvrir
                 <svg
@@ -162,7 +178,6 @@ function CategoryCard3D({
     </div>
   );
 }
-
 const categories: Category[] = [
   {
     title: 'Chocolats',
@@ -395,7 +410,7 @@ export default function Category3DCarousel() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[100rem] pt-8 sm:py-12 lg:py-16 relative overflow-hidden px-8">
+    <section className="mx-auto w-full max-w-[100rem] pt-8 sm:py-16 lg:py-24 relative overflow-hidden px-8">
       <motion.div
         ref={headerRef}
         className="text-center mb-12"

@@ -103,16 +103,16 @@ const TextSlider = ({
 
   // Helper component for slide content with top words
   const TopSlideContent = React.memo(() => (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center gap-4">
       {topWords.map((word, idx) => (
         <motion.div
           key={`top-${word}-${idx}`}
-          className="flex items-center gap-10"
+          className="flex items-center gap-6"
           variants={itemVariants}
           whileHover="hover"
         >
           <motion.span
-            className="text-2xl font-custom font-bold md:text-5xl lg:text-2xl text-gray-800 uppercase whitespace-nowrap"
+            className="text-xl font-custom font-bold md:text-xl lg:text-2xl text-gray-800 uppercase whitespace-nowrap"
             variants={textVariants}
           >
             {word}
@@ -137,11 +137,11 @@ const TextSlider = ({
 
   // Helper component for slide content with bottom words
   const BottomSlideContent = React.memo(() => (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center gap-4">
       {bottomWords.map((word, idx) => (
         <motion.div
           key={`bottom-${word}-${idx}`}
-          className="flex items-center gap-10"
+          className="flex items-center gap-6"
           variants={itemVariants}
           whileHover="hover"
         >
@@ -159,7 +159,7 @@ const TextSlider = ({
             />
           </motion.div>
           <motion.span
-            className="text-2xl font-custom font-bold md:text-5xl lg:text-2xl text-gray-800 uppercase whitespace-nowrap"
+            className="text-xl font-custom font-bold md:text-2xl lg:text-2xl text-gray-800 uppercase whitespace-nowrap"
             variants={textVariants}
           >
             {word}
