@@ -214,7 +214,7 @@ export default function DisplaySection() {
   };
 
   return (
-    <section className="relative py-8 md:py-16 ">
+    <section className="relative py-8 md:pt-20 md:pb-28">
       <motion.div
         ref={headerRef}
         className="text-center mb-12"
@@ -233,7 +233,7 @@ export default function DisplaySection() {
           variants={fadeInLeft}
           className=" text-red-600  text-3xl md:text-5xl lg:text-5xl font-custom font-bold  "
         >
-          Expérimentez le mélange parfait
+          Expérimentez le mélange
         </motion.h1>
         <motion.h1
           variants={fadeInRight}

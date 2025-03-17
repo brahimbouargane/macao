@@ -328,8 +328,8 @@ const ProductShowcase = () => {
   });
 
   return (
-    <div className="relative py-4 md:py-8">
-      <div className="max-w-[90rem] mx-auto px-4 py-4 md:py-8">
+    <div className="relative py-4 md:pb-20 md:pt-0">
+      <div className="max-w-[75rem] 3xl:max-w-[100rem] mx-auto px-4">
         {/* Header Section */}
         <motion.div
           ref={headerRef}
