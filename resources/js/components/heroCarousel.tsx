@@ -1113,7 +1113,7 @@ const HeroSlide = () => {
                     ease: 'easeInOut',
                     delay: 0.3
                   }}
-                  className="absolute left-0 lg:left-10 2xl:left-6 3xl:-left-28 top-[75%] lg:top-[60%] -translate-y-1/2 z-40 w-full md:max-w-md mt-4 md:mt-0"
+                  className="absolute left-0 lg:left-10 2xl:left-6 3xl:-left-28 top-[85%] lg:top-[60%] -translate-y-1/2 z-40 w-full md:max-w-md mt-4 md:mt-0"
                   style={{ transformOrigin: 'center center' }}
                 >
                   <div className="flex flex-col mt-8 md:mt-0 md:block backdrop-blur-md bg-black/30 py-2 px-4 md:p-6 rounded-2xl border border-white/20">

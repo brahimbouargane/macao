@@ -195,7 +195,7 @@ const TextSlider = ({
   return (
     <motion.div
       ref={containerRef}
-      className={`relative py:10 md:py-16 w-full overflow-hidden bg-white  ${className}`}
+      className={`relative pt-20 pb-14 md:py-16 w-full overflow-hidden bg-white  ${className}`}
       onMouseEnter={() => pauseOnHover && setIsPaused(true)}
       onMouseLeave={() => pauseOnHover && setIsPaused(false)}
       initial="hidden"
