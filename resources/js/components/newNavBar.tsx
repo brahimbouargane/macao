@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Container } from './ui';
 
 const MotionLink = motion(Link);
+const MotionTag = motion.a;
 
 const featuredCategories = [
   {
@@ -308,7 +309,7 @@ export default function Navbar() {
                 { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
                 { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
               ].map(({ icon: Icon, href }) => (
-                <MotionLink
+                <MotionTag
                   key={href}
                   href={href}
                   target="_blank"
@@ -317,7 +318,7 @@ export default function Navbar() {
                   whileTap={{ scale: 0.9 }}
                 >
                   <Icon className="h-5 w-5" />
-                </MotionLink>
+                </MotionTag>
               ))}
             </div>
           </div>
