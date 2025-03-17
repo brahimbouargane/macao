@@ -260,7 +260,7 @@ export default function ChocolateHeroSection() {
               <motion.img
                 src={cardBgImage}
                 alt="Background"
-                className="absolute inset-0 h-[1147px] w-[700px] md:h-[980px]"
+                className="absolute inset-0 h-[1070px] md:h-[1027px] w-[700px] "
                 initial={{ scale: 1.1, opacity: 0.8 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 2.5 }}
@@ -302,7 +302,7 @@ export default function ChocolateHeroSection() {
                   Aux Normes De Qualité Les Plus Strictes Pour Satisfaire Tous Les Goûts.
                 </motion.p>
 
-                <motion.div variants={itemVariants} className="mt-32">
+                <motion.div variants={itemVariants} className=" md:mt-32">
                   <a href="/history">
                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                       <Button

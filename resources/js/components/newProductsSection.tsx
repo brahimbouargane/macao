@@ -503,7 +503,7 @@ const ProductShowcase = () => {
                         </div>
                         <div className="relative flex px-4 py-6 text-center justify-center items-center">
                           <motion.h3
-                            className="font-custom font-bold text-white text-base sm:text-lg tracking-wide"
+                            className="font-custom font-bold h-full lg:h-[56px] text-white text-base sm:text-lg tracking-wide"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.2, duration: 0.5 }}

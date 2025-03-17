@@ -65,7 +65,7 @@ function ContactHome() {
   };
   return (
     <motion.section
-      className="max-w-[90rem] mx-auto px-4 pb-10 md:pb-14"
+      className="max-w-[90rem] mx-auto px-4 py-16 md:pb-14"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -81,21 +81,21 @@ function ContactHome() {
           variants={fadeInUp}
           className=" text-red-600 mb-8 uppercase text-3xl md:text-5xl lg:text-5xl font-custom font-bold  "
         >
-          INFORMATIONS DE CONTACT
+          INFORMATIONS <br /> DE CONTACT
         </motion.h1>
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Contact Information Cards */}
           <motion.div className="relative space-y-8" variants={itemVariants}>
             <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
-              <div className="w-full flex justify-center ">
+              <div className="w-full flex justify-center  ">
                 <iframe
                   className="h-auto lg:h-44"
                   src="https://lottie.host/embed/c9e29a29-f842-4cb2-a9fa-3a06c146797b/S1h2hUYs2W.lottie"
                 ></iframe>
               </div>
               <motion.div className="bg-white p-4 rounded-full shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col md:flex-row md:justify-center items-center gap-3">
                   <div className="text-red-600">
                     <Phone className="w-5 h-5" />
                   </div>
@@ -106,7 +106,7 @@ function ContactHome() {
                 </div>
               </motion.div>
               <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col md:flex-row  md:justify-center   items-center gap-3">
                   <div className="text-red-600">
                     <Mail className="w-5 h-5" />
                   </div>
@@ -117,7 +117,7 @@ function ContactHome() {
                 </div>
               </motion.div>
               <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col md:flex-row  md:justify-center   items-center gap-3">
                   <div className="text-red-600">
                     <MapPin className="w-5 h-5" />
                   </div>
@@ -128,7 +128,7 @@ function ContactHome() {
                 </div>
               </motion.div>
               <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col md:flex-row  md:justify-center  items-center gap-3">
                   <div className="text-red-600">
                     <Clock className="w-5 h-5" />
                   </div>
