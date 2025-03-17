@@ -214,7 +214,7 @@ export default function DisplaySection() {
   };
 
   return (
-    <section className="relative py-8 md:pt-20 md:pb-28">
+    <section className="relative py-8 md:pt-16 md:pb-24">
       <motion.div
         ref={headerRef}
         className="text-center mb-12"
@@ -224,20 +224,20 @@ export default function DisplaySection() {
       >
         <motion.h2
           variants={fadeInUp}
-          className="text-gray-700 font-custom font-bold  tracking-wide uppercase mb-3 sm:mb-4
+          className="text-gray-700 font-custom font-bold uppercase  tracking-wide  mb-3 sm:mb-4
                 text-sm md:text-xl"
         >
           Découvrez notre parcours artisanal
         </motion.h2>
         <motion.h1
           variants={fadeInLeft}
-          className=" text-red-600  text-3xl md:text-5xl lg:text-5xl font-custom font-bold  "
+          className=" text-red-600 uppercase text-3xl md:text-5xl lg:text-5xl font-custom font-bold  "
         >
           Expérimentez le mélange
         </motion.h1>
         <motion.h1
           variants={fadeInRight}
-          className=" text-red-600  text-3xl md:text-5xl lg:text-5xl font-custom font-bold"
+          className=" text-red-600 uppercase  text-3xl md:text-5xl lg:text-5xl font-custom font-bold"
         >
           parfait
         </motion.h1>

@@ -1,4 +1,5 @@
 import Category3DCarousel from '@/components/categoriesSection';
+import ContactHome from '@/components/ContactHome';
 import DisplaySection from '@/components/displaySection';
 import PralineAdvertisement from '@/components/newAbout';
 import ProductShowcase from '@/components/newProductsSection';
@@ -18,6 +19,7 @@ function Newhome() {
       <PralineAdvertisement />
       <ProductShowcase />
       <DisplaySection />
+      <ContactHome />
       {/* <ImageGrid /> */}
     </>
   );

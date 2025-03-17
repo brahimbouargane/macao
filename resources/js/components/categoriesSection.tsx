@@ -33,7 +33,17 @@ function CategoryCard3D({
   totalItems = 5
 }: CategoryCardProps) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1440);
   let position = null;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   // Calculate 3D position
   const getStyles = () => {
     // Calculate relative position (-2, -1, 0, 1, 2)
@@ -50,6 +60,27 @@ function CategoryCard3D({
     let opacity = 0;
     let scale = 1;
     let zIndex = 5;
+    const getResponsiveTranslateX = (baseValue) => {
+      if (windowWidth >= 1536) {
+        // 2xl
+        return position * baseValue;
+      } else if (windowWidth >= 1280) {
+        // xl
+        return position * (baseValue * 0.85);
+      } else if (windowWidth >= 1024) {
+        // lg
+        return position * (baseValue * 0.7);
+      } else if (windowWidth >= 768) {
+        // md
+        return position * (baseValue * 0.6);
+      } else if (windowWidth >= 640) {
+        // sm
+        return position * (baseValue * 0.5);
+      } else {
+        // xs
+        return position * (baseValue * 0.4);
+      }
+    };
 
     if (position === 0) {
       // Current image (center)
@@ -62,20 +93,16 @@ function CategoryCard3D({
     } else if (position === 1 || position === -1) {
       // Images to sides
       translateZ = -150;
-      translateX = position * 300;
-      //   rotateY = position * -30;
+      translateX = getResponsiveTranslateX(435);
       rotateY = 0;
-
       opacity = 0.9;
-      scale = 1;
+      scale = 0.85;
       zIndex = 5;
     } else if (position === 2 || position === -2) {
       // Images further to sides
       translateZ = -300;
-      translateX = position * 350;
-      //   rotateY = position * -45;
+      translateX = getResponsiveTranslateX(400);
       rotateY = 0;
-
       opacity = 0.5;
       scale = 0.7;
       zIndex = 1;
@@ -120,18 +147,18 @@ function CategoryCard3D({
 
           {/* Red gradient overlay - added this element */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-red-700/75 to-black transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent  to-red-700 transition-opacity duration-500"></div>
           )}
 
           {/* Hover overlay with increased red opacity */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-600/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-red-500/0 via-red-500/20 to-red-700/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           )}
 
           {/* Title at bottom */}
           {position === 0 && (
-            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-12 pb-4 px-4 transition-all duration-500">
-              <h2 className="text-white text-center text-4xl md:text-5xl drop-shadow-md font-custom font-bold">
+            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t to-red-700/60  pt-12 pb-4 px-4 transition-all duration-500 uppercase">
+              <h2 className="text-white text-center text-4xl md:text-5xl drop-shadow-md font-custom font-bold uppercase">
                 {title}
               </h2>
             </div>
@@ -364,9 +391,6 @@ export default function Category3DCarousel() {
       >
         {/* Container for all elements - important for proper positioning */}
         <div className="relative w-16 h-16">
-          {/* Fixed: Animation layers now properly centered and visible */}
-          {/* The key fix is using inset-0 instead of left/top + translate */}
-
           {/* Outermost pulsing circle */}
           <div
             className={`absolute inset-0 m-auto rounded-full
@@ -410,7 +434,7 @@ export default function Category3DCarousel() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[100rem] pt-8 sm:py-16 lg:py-24 relative overflow-hidden px-8">
+    <section className="mx-auto w-full max-w-full pt-8 sm:py-16 lg:py-24 relative overflow-hidden px-0">
       <motion.div
         ref={headerRef}
         className="text-center mb-12"
@@ -420,9 +444,9 @@ export default function Category3DCarousel() {
       >
         <motion.h2
           variants={fadeInUp}
-          className="text-gray-700  font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+          className="text-gray-700 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
         >
-          NOS PRODUITS
+          NOS CATeGORIES
         </motion.h2>
         <motion.h1
           variants={fadeInLeft}
@@ -441,7 +465,7 @@ export default function Category3DCarousel() {
       {/* 3D Carousel Container */}
       <motion.div
         ref={carouselRef}
-        className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center perspective-1000 overflow-hidden"
+        className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center  overflow-hidden"
         initial={{ opacity: 0, y: 60 }}
         animate={
           carouselInView ? { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } } : { opacity: 0, y: 60 }
@@ -463,7 +487,7 @@ export default function Category3DCarousel() {
         {/* Custom Navigation Buttons */}
         <PulsingButton
           onClick={handlePrev}
-          className="absolute left-0 md:left-4 z-10 w-16 h-16 md:ml-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute left-0 md:left-[20%] lg:left-[30%] z-10 w-16 h-16 md:ml-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Previous slide"
         >
           <svg
@@ -482,7 +506,7 @@ export default function Category3DCarousel() {
 
         <PulsingButton
           onClick={handleNext}
-          className="absolute right-0 md:right-4 z-10 w-16 h-16 md:mr-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute right-0 md:right-[20%] lg:right-[30%] z-10 w-16 h-16 md:mr-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
           aria-label="Next slide"
         >
           <svg
