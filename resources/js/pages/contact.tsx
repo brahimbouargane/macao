@@ -29,7 +29,7 @@ export default function Contact() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.2,
         ease: 'easeOut'
       }
     }
@@ -99,7 +99,7 @@ export default function Contact() {
                   src="https://lottie.host/embed/c9e29a29-f842-4cb2-a9fa-3a06c146797b/S1h2hUYs2W.lottie"
                 ></iframe>
               </div>
-              <motion.div className="bg-white p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <Phone className="w-5 h-5" />
@@ -110,7 +110,7 @@ export default function Contact() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div className="bg-white p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <Mail className="w-5 h-5" />
@@ -121,7 +121,7 @@ export default function Contact() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div className="bg-white p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <MapPin className="w-5 h-5" />
@@ -132,7 +132,7 @@ export default function Contact() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div className="bg-white p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <Clock className="w-5 h-5" />
@@ -234,7 +234,7 @@ export default function Contact() {
 
               <Button
                 type="submit"
-                className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-8 py-2 rounded-none w-full transition-colors duration-300 flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-8 py-2 rounded-full w-full transition-colors duration-300 flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 Envoyer le message

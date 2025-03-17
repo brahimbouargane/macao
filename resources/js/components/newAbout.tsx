@@ -1,5 +1,5 @@
 import cardBgImage from '@/assets/images/g5500-6.svg';
-import bgimage from '@/assets/images/Group 111.png';
+import bgimage from '@/assets/images/show-section.png';
 
 import { Button } from '@/components/ui/shadcn-button';
 import { motion, useInView, useScroll, useSpring, useTransform } from 'framer-motion';
@@ -57,6 +57,17 @@ export default function ChocolateHeroSection() {
       y: 0,
       transition: {
         duration: 0.6,
+        ease: [0.25, 0.1, 0.25, 1.0]
+      }
+    }
+  };
+  const fadeInImgae = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
         ease: [0.25, 0.1, 0.25, 1.0]
       }
     }
@@ -140,9 +151,19 @@ export default function ChocolateHeroSection() {
     }
   };
 
+  const CarouselRef = useRef(null);
+
+  const isCarouselInView = useInView(CarouselRef, {
+    once: false,
+    amount: 0.2
+  });
+
   return (
     <>
-      <div ref={sectionRef} className="relative overflow-hidden py-8 lg:py-24 max-w-[100rem] mx-auto">
+      <div
+        ref={sectionRef}
+        className="relative overflow-hidden py-8 lg:py-24 max-w-[100rem] mx-auto rounded-l-[80px] rounded-br-[80px]"
+      >
         {/* Logo - With rotation animation */}
         <motion.div
           className="absolute top-4 right-4 sm:top-6 sm:right-8 md:right-16 lg:right-20 z-10"
@@ -193,17 +214,17 @@ export default function ChocolateHeroSection() {
         </motion.div>
 
         {/* Main Hero Section with Background and Card */}
-        <div className="relative w-full min-h-[400px] sm:min-h-[450px] md:h-[600px] lg:h-[700px] overflow-hidden">
+        <div className="relative w-full min-h-[400px] sm:min-h-[450px] md:h-[600px] lg:h-[750px] overflow-hidden">
           {/* Background Image with Zoom and Parallax Effect */}
           <motion.div
             className="absolute inset-0 w-full h-full"
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 8, ease: 'easeOut' }}
+            // transition={{ duration: 8, ease: 'easeOut' }}
             style={{
-              scale: bgScale,
+              //   scale: bgScale,
               opacity: bgOpacity
             }}
+            variants={fadeInImgae}
+            animate={isHeadingInView ? 'visible' : 'hidden'}
           >
             <img
               src={bgimage}
@@ -239,7 +260,7 @@ export default function ChocolateHeroSection() {
               <motion.img
                 src={cardBgImage}
                 alt="Background"
-                className="absolute inset-0 h-[1147px] w-[700px] md:h-[870px]"
+                className="absolute inset-0 h-[1147px] w-[700px] md:h-[980px]"
                 initial={{ scale: 1.1, opacity: 0.8 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 2.5 }}
@@ -247,7 +268,7 @@ export default function ChocolateHeroSection() {
               />
 
               <motion.div
-                className="relative z-10 h-[310px] md:h-[780px] font-custom flex flex-col gap-4 sm:gap-6 md:gap-8"
+                className="relative z-10 h-[310px] md:h-[710px] font-custom flex flex-col gap-4 sm:gap-6 md:gap-8"
                 variants={containerVariants}
                 initial="hidden"
                 animate={isLoaded && isCardInView ? 'visible' : 'hidden'}
@@ -272,24 +293,21 @@ export default function ChocolateHeroSection() {
                   Fondée En 1954, PASTOR MACAO Est Le Leader Marocain En Confiserie-Chocolaterie, Offrant Une Large
                   Gamme De Produits De Qualité Pour Satisfaire Tous Les Goûts Au Meilleur Prix. La Satisfaction De Nos
                   Clients Est Au Cœur De Nos Préoccupations.
-                  <br className="hidden sm:block" />
-                  <motion.span
-                    className="sm:mt-2 inline-block"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2, duration: 0.8 }}
-                  >
-                    Nous Vous Proposons Une Large Gamme De Produits Halal, Conçus Avec Les Meilleurs Ingrédients
-                    Répondant Aux Normes De Qualité Les Plus Strictes Pour Satisfaire Tous Les Goûts.
-                  </motion.span>
+                </motion.p>
+                <motion.p
+                  className="text-xs sm:text-sm md:text-lg mb-4 font-custom font-medium leading-relaxed text-justify"
+                  variants={textReveal}
+                >
+                  Nous Vous Proposons Une Large Gamme De Produits Halal, Conçus Avec Les Meilleurs Ingrédients Répondant
+                  Aux Normes De Qualité Les Plus Strictes Pour Satisfaire Tous Les Goûts.
                 </motion.p>
 
-                <motion.div variants={itemVariants} className="mt-2">
+                <motion.div variants={itemVariants} className="mt-32">
                   <a href="/history">
                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                       <Button
                         variant="outline"
-                        className="bg-black hover:bg-gray-800 font-custom font-bold text-white rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm md:text-xl md:py-6 md:px-8 transform transition-all duration-300 hover:scale-105 "
+                        className="bg-black hover:bg-gray-800 font-custom font-bold text-white rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm md:text-lg md:py-4 md:px-6 transform transition-all duration-300 hover:scale-105 "
                       >
                         Découvrir
                         <motion.span

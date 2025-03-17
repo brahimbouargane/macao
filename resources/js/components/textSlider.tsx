@@ -103,11 +103,11 @@ const TextSlider = ({
 
   // Helper component for slide content with top words
   const TopSlideContent = React.memo(() => (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-6">
       {topWords.map((word, idx) => (
         <motion.div
           key={`top-${word}-${idx}`}
-          className="flex items-center gap-6"
+          className="flex items-center gap-16"
           variants={itemVariants}
           whileHover="hover"
         >
@@ -137,11 +137,11 @@ const TextSlider = ({
 
   // Helper component for slide content with bottom words
   const BottomSlideContent = React.memo(() => (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-6">
       {bottomWords.map((word, idx) => (
         <motion.div
           key={`bottom-${word}-${idx}`}
-          className="flex items-center gap-6"
+          className="flex items-center gap-16"
           variants={itemVariants}
           whileHover="hover"
         >
@@ -195,7 +195,7 @@ const TextSlider = ({
   return (
     <motion.div
       ref={containerRef}
-      className={`relative w-full overflow-hidden bg-white ${className}`}
+      className={`relative py:10 md:py-16 w-full overflow-hidden bg-white  ${className}`}
       onMouseEnter={() => pauseOnHover && setIsPaused(true)}
       onMouseLeave={() => pauseOnHover && setIsPaused(false)}
       initial="hidden"
