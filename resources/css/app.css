@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: 'azzawilafont';
-  src: url('/fonts/your-font-name/your-font.otf') format('opentype');
+  src: url('../../public/fonts/Novecento Slab Medium.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

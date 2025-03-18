@@ -330,7 +330,7 @@ const ProductShowcase = () => {
 
   return (
     <div className="relative py-4 md:pb-20 md:pt-0">
-      <div className="max-w-[75rem] 3xl:max-w-[85rem] mx-auto px-4">
+      <div className="max-w-[75rem] 3xl:max-w-[85rem] mx-auto px-4 ">
         {/* Header Section */}
         <motion.div
           ref={headerRef}
@@ -533,73 +533,6 @@ const ProductShowcase = () => {
                           <span className="text-xl sm:text-2xl">+</span>
                         </motion.div>
                       </div>
-                      {/* <div className="relative bg-[#AA071A] h-full">
-                        <div className="relative bg-white">
-                          <motion.div
-                            className="relative p-10 md:p-16"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.4 }}
-                          >
-                            <div className="flex items-center justify-center mb-3 sm:mb-4">
-                              <motion.img
-                                src={product.image || '/placeholder.svg'}
-                                alt={product.name}
-                                className="w-full object-contain"
-                                whileHover={{
-                                  rotate: [0, -1, 1, -1, 0],
-                                  transition: {
-                                    duration: 0.6,
-                                    ease: 'easeInOut'
-                                  }
-                                }}
-                              />
-                            </div>
-                          </motion.div>
-
-                          <svg
-                            className="absolute -bottom-10 right-0 text-[#AA071A]"
-                            width="150"
-                            height="150"
-                            viewBox="0 0 140 150"
-                            fill="none"
-                            preserveAspectRatio="none"
-                          >
-                            <path d="M150,0 L150,150 L0,150 C82.5,150 150,82.5 150,0 Z" fill="currentColor" />
-                          </svg>
-                        </div>
-
-                        <div className="relative flex px-4 py-6 text-center justify-center items-center">
-                          <motion.h3
-                            className="font-custom font-bold text-white text-base sm:text-lg tracking-wide"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                          >
-                            {product.name}
-                          </motion.h3>
-                        </div>
-
-                        <motion.div
-                          className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white font-bold"
-                          whileHover={{
-                            scale: 1.2,
-                            rotate: 90,
-                            transition: { duration: 0.3 }
-                          }}
-                          initial={{ rotate: 0 }}
-                          animate={{
-                            rotate: [0, 5, -5, 0],
-                            transition: {
-                              repeat: Infinity,
-                              repeatType: 'mirror',
-                              duration: 2,
-                              ease: 'easeInOut'
-                            }
-                          }}
-                        >
-                          <span className="text-xl sm:text-2xl">+</span>
-                        </motion.div>
-                      </div> */}
                     </motion.div>
                   </motion.div>
                 ))}

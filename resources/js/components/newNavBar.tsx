@@ -1,5 +1,5 @@
 import macaoImage from '@/assets/images/macao_logo.png';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Facebook, Instagram, Linkedin, Menu, X, Youtube } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -157,10 +157,22 @@ const useDropdownTimer = (initialState = false, delayTime = 300) => {
 };
 
 export default function Navbar() {
+  const { url } = usePage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProductsOpen, handleOpen, handleClose] = useDropdownTimer(false, 400) as [boolean, () => void, () => void];
   const dropdownRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Function to check if link is active
+  const isActive = (path) => {
+    // Handle home page
+    if (path === '/' && url === '/') {
+      return true;
+    }
+    // Handle other pages - check if the URL starts with the path
+    // This ensures that subpages are also highlighted correctly
+    return path !== '/' && url.startsWith(path);
+  };
 
   // Handle scroll event
   useEffect(() => {
@@ -204,7 +216,7 @@ export default function Navbar() {
     >
       <Container>
         {/* <div className="container z-50 flex h-16 items-center justify-between px-4 sticky top-0 bg-transparent"> */}
-        <div className="md:container bg-black rounded-full flex h-16  items-center justify-between px-8">
+        <div className="md:container font-custom  bg-black rounded-full flex h-16  items-center justify-between px-8">
           <button
             className="lg:hidden text-white hover:text-primary"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -218,14 +230,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/"
-              className="text-md font-custom font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className={`text-md font-custom font-semibold ${isActive('/') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
             >
               ACCUEIL
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/history"
-              className="text-md font-custom   font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className={`text-md font-custom font-semibold ${isActive('/history') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
             >
               NOTRE HISTOIRE
             </MotionLink>
@@ -233,7 +245,7 @@ export default function Navbar() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-md font-custom  font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+                className={`text-md font-custom font-semibold ${url.startsWith('/products') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center`}
                 aria-expanded={isProductsOpen}
                 id="products-menu"
               >
@@ -291,14 +303,14 @@ export default function Navbar() {
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/contact"
-              className="text-md font-custom  font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className={`text-md font-custom font-semibold ${isActive('/contact') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
             >
               CONTACT
             </MotionLink>
             <MotionLink
               whileHover={{ scale: 1.1, rotate: 1 }}
               href="/career"
-              className="text-md font-custom  font-semibold text-white hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              className={`text-md font-custom font-semibold ${isActive('/career') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
             >
               NOUS REJOINDRE
             </MotionLink>
@@ -331,7 +343,7 @@ export default function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="lg:hidden fixed inset-0 z-50 bg-white"
+              className="lg:hidden font-custom  fixed inset-0 z-50 bg-white"
             >
               <div className="min-w-screen bg-white z-50 px-4 py-6">
                 <div className="flex justify-between items-center mb-8">
@@ -344,25 +356,25 @@ export default function Navbar() {
                 </div>
 
                 <nav className="space-y-6">
-                  <MotionLink
+                  <Link
                     href="/"
-                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
+                    className={`block text-lg font-custom  font-semibold ${isActive('/') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     ACCUEIL
-                  </MotionLink>
-                  <MotionLink
+                  </Link>
+                  <Link
                     href="/history"
-                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
+                    className={`block text-lg font-custom  font-semibold ${isActive('/history') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     NOTRE HISTOIRE
-                  </MotionLink>
+                  </Link>
 
                   {/* Mobile Products Menu */}
                   <div className="space-y-4">
                     <button
-                      className="flex items-center justify-between w-full text-lg font-semibold text-gray-600 hover:text-primary"
+                      className={`flex items-center justify-between w-full text-lg font-custom  font-semibold ${url.startsWith('/products') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                       onClick={isProductsOpen ? handleClose : handleOpen}
                     >
                       NOS PRODUITS
@@ -377,7 +389,7 @@ export default function Navbar() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          className="pl-4 max-h-80 overflow-y-auto"
+                          className="pl-4 max-h-80 overflow-y-auto font-custom "
                         >
                           <div className="grid grid-cols-2 gap-4">
                             {featuredCategories.map((category) => (
@@ -405,31 +417,31 @@ export default function Navbar() {
                     </AnimatePresence>
                   </div>
 
-                  <MotionLink
+                  <Link
                     href="/contact"
-                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
+                    className={`block text-lg font-custom  font-semibold ${isActive('/contact') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     CONTACT
-                  </MotionLink>
-                  <MotionLink
+                  </Link>
+                  <Link
                     href="/career"
-                    className="block text-lg font-semibold text-gray-600 hover:text-primary"
+                    className={`block text-lg font-custom  font-semibold ${isActive('/career') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     NOUS REJOINDRE
-                  </MotionLink>
+                  </Link>
 
                   {/* Social Media Links */}
-                  <div className="flex items-center space-x-4 pt-4">
+                  <div className="flex font-custom  items-center space-x-4 pt-4">
                     {[
                       { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
                       { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },
                       { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
                       { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
                     ].map(({ icon: Icon, href }) => (
-                      <Link key={href} href={href} target="_blank" className="text-black hover:text-red-600">
-                        <Icon className="h-5 w-5" />
+                      <Link key={href} href={href} target="_blank" className="text-black hover:text-red-700">
+                        <Icon className="h-6 w-6" />
                       </Link>
                     ))}
                   </div>

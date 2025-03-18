@@ -118,7 +118,7 @@ const TextSlider = ({
             {word}
           </motion.span>
           <motion.div
-            className={`w-14 h-14 rounded-full flex items-center justify-center ${CIRCLE_COLORS[idx % CIRCLE_COLORS.length]}`}
+            className={`w-14 h-14 rounded-full flex items-center justify-center mr-6 ${CIRCLE_COLORS[idx % CIRCLE_COLORS.length]}`}
             variants={circleVariants}
             whileHover="hover"
           >
@@ -146,7 +146,7 @@ const TextSlider = ({
           whileHover="hover"
         >
           <motion.div
-            className={`w-14 h-14 rounded-full flex items-center justify-center ${CIRCLE_COLORS[(idx + 2) % CIRCLE_COLORS.length]}`}
+            className={`w-14 h-14 rounded-full flex items-center justify-center ml-6  ${CIRCLE_COLORS[(idx + 2) % CIRCLE_COLORS.length]}`}
             variants={circleVariants}
             whileHover="hover"
           >
