@@ -123,12 +123,12 @@ function CategoryCard3D({
 
   return (
     <div
-      className="group absolute top-0 left-0 w-full transition-all duration-500 rounded-2xl"
+      className="group absolute top-0 left-0 w-full transition-all duration-500 "
       style={getStyles()}
       aria-label={`Voir la catégorie ${title}`}
     >
       <a href={href}>
-        <div className="aspect-[3/4] relative bg-gray-100 overflow-hidden rounded-2xl">
+        <div className="aspect-[3/4] relative bg-gray-100 overflow-hidden rounded-[30px]">
           <img
             src={image}
             alt={description || `Image de la catégorie ${title}`}
@@ -331,45 +331,45 @@ export default function Category3DCarousel() {
     useEffect(() => {
       const styleEl = document.createElement('style');
       styleEl.textContent = `
-        @keyframes ping-slow {
-          0% {
-            transform: scale(1);
-            opacity: 0.4;
+          @keyframes ping-slow {
+            0% {
+              transform: scale(1);
+              opacity: 0.4;
+            }
+            50% {
+              transform: scale(1.5);
+              opacity: 0.2;
+            }
+            100% {
+              transform: scale(2);
+              opacity: 0;
+            }
           }
-          50% {
-            transform: scale(1.5);
-            opacity: 0.2;
-          }
-          100% {
-            transform: scale(2);
-            opacity: 0;
-          }
-        }
 
-        @keyframes ping-delayed {
-          0% {
-            transform: scale(1);
-            opacity: 0.5;
+          @keyframes ping-delayed {
+            0% {
+              transform: scale(1);
+              opacity: 0.5;
+            }
+            70% {
+              transform: scale(1.3);
+              opacity: 0.3;
+            }
+            100% {
+              transform: scale(1.7);
+              opacity: 0;
+            }
           }
-          70% {
-            transform: scale(1.3);
-            opacity: 0.3;
-          }
-          100% {
-            transform: scale(1.7);
-            opacity: 0;
-          }
-        }
 
-        .animate-ping-slow {
-          animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-        }
+          .animate-ping-slow {
+            animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+          }
 
-        .animate-ping-delayed {
-          animation: ping-delayed 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-          animation-delay: 0.3s;
-        }
-      `;
+          .animate-ping-delayed {
+            animation: ping-delayed 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+            animation-delay: 0.3s;
+          }
+        `;
       document.head.appendChild(styleEl);
 
       return () => {
@@ -392,43 +392,43 @@ export default function Category3DCarousel() {
         {/* Container for all elements - important for proper positioning */}
         <div className="relative w-16 h-16">
           {/* Outermost pulsing circle */}
-          <div
+          {/* <div
             className={`absolute inset-0 m-auto rounded-full
                        bg-red-600  animate-ping-slow
                        transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
-          ></div>
+          ></div> */}
 
           {/* Middle pulsing circle with delay */}
-          <div
+          {/* <div
             className={`absolute inset-0 m-auto w-10 h-10 rounded-full
                        bg-red-600 animate-ping-delayed
                        transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
-          ></div>
+          ></div> */}
 
           {/* Base button with gradient */}
-          <div
+          {/* <div
             className={`absolute inset-0 w-16 h-16 rounded-full
                        bg-gradient-to-r from-rose-300/80 via-rose-400/80 to-rose-300/80
                        flex items-center justify-center z-10
                        transition-all duration-300 ${isActive ? 'scale-100' : ''}`}
-          >
-            {/* Middle circle */}
-            <div
-              className={`w-12 h-12 rounded-full
+          > */}
+          {/* Middle circle */}
+          <div
+            className={`w-12 h-12 rounded-full
                          bg-gradient-to-br from-rose-500/90 to-red-500/90
                          transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-100' : ''}`}
-            >
-              {/* Inner circle with content */}
-              <div
-                className={`w-8 h-8 rounded-full
+          >
+            {/* Inner circle with content */}
+            <div
+              className={`w-8 h-8 rounded-full
                            bg-[#AA071A]
                            transition-all duration-300 flex items-center justify-center ${isActive ? 'scale-100' : ''}`}
-              >
-                <span className="text-white text-xl">{children}</span>
-              </div>
+            >
+              <span className="text-white text-xl">{children}</span>
             </div>
           </div>
         </div>
+        {/* </div> */}
       </button>
     );
   };
@@ -465,13 +465,13 @@ export default function Category3DCarousel() {
       {/* 3D Carousel Container */}
       <motion.div
         ref={carouselRef}
-        className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center  overflow-hidden"
+        className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center  overflow-x-hidden"
         initial={{ opacity: 0, y: 60 }}
         animate={
           carouselInView ? { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } } : { opacity: 0, y: 60 }
         }
       >
-        <div className="relative w-full max-w-md h-full transform-style-3d">
+        <div className="relative w-full max-w-md h-full transform-style-3d ">
           {categories.map((category, index) => (
             <CategoryCard3D
               key={category.title}
@@ -487,7 +487,7 @@ export default function Category3DCarousel() {
         {/* Custom Navigation Buttons */}
         <PulsingButton
           onClick={handlePrev}
-          className="absolute left-0 md:left-[20%] lg:left-[30%] z-10 w-16 h-16 md:ml-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute left-0 md:left-[20%] lg:left-[30%] z-10 w-16 h-16 md:ml-4 flex items-center justify-center rounded-full text-white/80 hover:text-white  transition-all duration-300"
           aria-label="Previous slide"
         >
           <svg
@@ -506,7 +506,7 @@ export default function Category3DCarousel() {
 
         <PulsingButton
           onClick={handleNext}
-          className="absolute right-0 md:right-[20%] lg:right-[30%] z-10 w-16 h-16 md:mr-4 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-red-600 transition-all duration-300 shadow-md"
+          className="absolute right-0 md:right-[20%] lg:right-[30%] z-10 w-16 h-16 md:mr-4 flex items-center justify-center rounded-full text-white/80 hover:text-white  transition-all duration-300"
           aria-label="Next slide"
         >
           <svg

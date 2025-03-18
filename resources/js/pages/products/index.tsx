@@ -1,4 +1,6 @@
 import candies from '@/assets/images/candies.webp';
+import macao from '@/assets/images/macoa-logo-small-red.svg';
+
 import candy from '@/assets/images/candy.webp';
 import choco from '@/assets/images/chocolate.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
@@ -127,48 +129,91 @@ const ProductCard = ({ product, onError }) => {
   return (
     <motion.div
       whileHover={{ y: -8 }}
-      className="group relative overflow-hidden rounded-lg bg-[#fffcf4] shadow-lg transition-all duration-300 hover:shadow-xl"
+      //   className="group relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[80px] rounded-bl-[80px] transition-all duration-300"
+      className="group relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[60px] rounded-bl-[60px] transition-all duration-300 max-w-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="aspect-square overflow-hidden relative">
-        <motion.img
-          initial={{ scale: 1 }}
-          animate={{ scale: isHovered ? 1.05 : 1 }}
-          transition={{ duration: 0.4 }}
-          src={product.primaryImage.optimized || PLACEHOLDER_IMAGE}
-          alt={product.name}
-          className="h-full w-full object-cover"
-          onError={onError}
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
-        >
-          <Button
-            variant="outline"
-            className="text-white border-white hover:bg-white hover:text-black rounded-full"
-            onClick={() => router.visit(`/products/${product.id}`)}
+      <motion.div
+        className="absolute top-2 right-2 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-red-700 font-bold"
+        whileHover={{
+          scale: 1.2,
+          //   rotate: 25,
+          transition: { duration: 0.3 }
+        }}
+        initial={{ rotate: 0 }}
+        animate={{
+          rotate: [0, 5, -5, 0],
+          transition: {
+            repeat: Infinity,
+            repeatType: 'mirror',
+            duration: 2,
+            ease: 'easeInOut'
+          }
+        }}
+      >
+        <img src={macao} alt="macao pastore" className="h-10 w-10" />
+      </motion.div>
+      <div className="bg-red-700">
+        <div className="aspect-square overflow-hidden relative rounded-br-[80px]">
+          <motion.img
+            initial={{ scale: 1 }}
+            animate={{ scale: isHovered ? 1.05 : 1 }}
+            transition={{ duration: 0.4 }}
+            src={product.primaryImage.optimized || PLACEHOLDER_IMAGE}
+            alt={product.name}
+            className="h-full w-full object-cover"
+            onError={onError}
+          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
           >
-            Voir les détails
-          </Button>
-        </motion.div>
-      </div>
+            <Button
+              variant="outline"
+              className="text-white border-white hover:bg-white hover:text-black rounded-full"
+              onClick={() => router.visit(`/products/${product.id}`)}
+            >
+              Voir les détails
+            </Button>
+          </motion.div>
+        </div>
 
-      <div className="py-8 px-6">
-        <div className="mb-2 text-sm text-red-600 font-medium">{product.product_type.name}</div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
-        <div className="flex items-center justify-end relative -bottom-3">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => router.visit(`/products/${product.id}`)}
-            className="rounded-full bg-red-600 px-6 py-2 text-sm  font-medium text-white transition-colors hover:bg-red-700"
+        <div className="p-6">
+          {/* <div className="mb-2 text-sm text-white font-medium">{product.product_type.name}</div> */}
+          <h3 className="text-lg font-semibold text-white mb-2">{product.name}</h3>
+          <motion.div
+            className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white font-bold"
+            whileHover={{
+              scale: 1.2,
+              rotate: 90,
+              transition: { duration: 0.3 }
+            }}
+            initial={{ rotate: 0 }}
+            animate={{
+              rotate: [0, 5, -5, 0],
+              transition: {
+                repeat: Infinity,
+                repeatType: 'mirror',
+                duration: 2,
+                ease: 'easeInOut'
+              }
+            }}
           >
-            Voir plus
-          </motion.button>
+            <span className="text-xl sm:text-2xl">+</span>
+          </motion.div>
+          {/* <div className="flex items-center justify-end relative -bottom-3">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.visit(`/products/${product.id}`)}
+              className="rounded-full bg-white px-6 py-2 text-base  font-semibold text-red-700 transition-colors hover:bg-red-100"
+            >
+              Voir plus
+            </motion.button>
+          </div> */}
         </div>
       </div>
     </motion.div>

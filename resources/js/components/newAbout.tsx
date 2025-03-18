@@ -162,21 +162,8 @@ export default function ChocolateHeroSection() {
     <>
       <div
         ref={sectionRef}
-        className="relative overflow-hidden py-8 lg:py-24 max-w-[100rem] mx-auto rounded-l-[80px] rounded-br-[80px]"
+        className="relative overflow-hidden py-8 lg:py-24 max-w-[110rem] mx-auto rounded-l-[80px] rounded-br-[80px]"
       >
-        {/* Logo - With rotation animation */}
-        <motion.div
-          className="absolute top-4 right-4 sm:top-6 sm:right-8 md:right-16 lg:right-20 z-10"
-          initial={{ opacity: 0, rotate: -10 }}
-          animate={{ opacity: 1, rotate: 0 }}
-          transition={{
-            opacity: { delay: 0.5, duration: 0.8 },
-            rotate: { delay: 0.7, duration: 0.5, ease: 'backOut' }
-          }}
-        >
-          {/* Logo content */}
-        </motion.div>
-
         {/* Header Text Section with scroll parallax */}
         <motion.div
           ref={headingRef}
@@ -209,85 +196,41 @@ export default function ChocolateHeroSection() {
               transition: { duration: 0.2 }
             }}
           >
-            SAVOUREZ LA VIE !
+            SAVOUREZ LA VIE
           </motion.h2>
         </motion.div>
 
         {/* Main Hero Section with Background and Card */}
-        <div className="relative w-full min-h-[400px] sm:min-h-[450px] md:h-[600px] lg:h-[750px] overflow-hidden">
+        <div className="relative w-full min-h-[400px] sm:min-h-[450px] md:h-[600px] lg:h-[780px] ">
           {/* Background Image with Zoom and Parallax Effect */}
-          <motion.div
-            className="absolute inset-0 w-full h-full"
-            // transition={{ duration: 8, ease: 'easeOut' }}
-            style={{
-              //   scale: bgScale,
-              opacity: bgOpacity
-            }}
-            variants={fadeInImgae}
-            animate={isHeadingInView ? 'visible' : 'hidden'}
-          >
+          <motion.div className="absolute md:inset-0 md:w-full md:h-full">
             <img
               src={bgimage}
               alt="Chocolatier preparing gourmet chocolates"
-              className="object-fill w-full h-[85%]"
+              className="object-fill !max-w-none md:w-full md:h-[85%] "
               onLoad={() => setIsLoaded(true)}
             />
           </motion.div>
 
           {/* Red Card with scroll animation */}
-          <div className="absolute inset-0 flex items-center h-auto md:h-[924px] justify-center sm:justify-end px-4 py-8 sm:px-6 md:px-8 lg:px-12 lg:mr-52">
+          <div className="absolute py-8 md:py-0 inset-0 flex items-center lg:h-full rounded-3xl justify-center sm:justify-end p-10  sm:px-6 md:px-8 lg:px-12 md:mr-10 lg:mr-28   ">
             <motion.div
               ref={cardRef}
-              className="w-full h-[1200px] max-w-2xl sm:w-4/5 md:w-2/3 lg:w-4/5 text-white p-6 sm:p-8 md:p-10  overflow-hidden rounded-2xl sm:rounded-3xl flex flex-col justify-center relative"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{
-                opacity: isLoaded && isCardInView ? 1 : 0,
-                y: isLoaded && isCardInView ? 0 : 30,
-                rotateY: isLoaded && isCardInView ? 0 : 5
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 0.2,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              style={{ y: cardY }}
-              whileHover={{
-                // boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-                transition: { duration: 0.4 }
-              }}
+              className="w-full  max-w-2xl sm:w-4/5 md:w-2/3 lg:w-4/5 text-white p-6 sm:p-8 md:py-6   flex flex-col justify-center relative overflow-hidden rounded-tl-[80px] "
             >
               {/* Background Image with subtle animation */}
-              <motion.img
-                src={cardBgImage}
-                alt="Background"
-                className="absolute inset-0 h-[1070px] md:h-[1027px] w-[700px] "
-                initial={{ scale: 1.1, opacity: 0.8 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 2.5 }}
-                whileHover={{ scale: 1.05, transition: { duration: 1.5 } }}
-              />
+              <div className="absolute inset-0  ">
+                <motion.img src={cardBgImage} alt="Background" className="w-full h-full " />
+              </div>
 
-              <motion.div
-                className="relative z-10 h-[310px] md:h-[710px] font-custom flex flex-col gap-4 sm:gap-6 md:gap-8"
-                variants={containerVariants}
-                initial="hidden"
-                animate={isLoaded && isCardInView ? 'visible' : 'hidden'}
-              >
-                <motion.h2
-                  className="text-xl sm:text-2xl md:text-4xl font-custom font-bold mb-2 sm:mb-4 md:mb-6"
-                  variants={itemVariants}
-                  whileHover={{
-                    x: 5,
-                    // textShadow: '0px 0px 8px rgba(255, 255, 255, 0.5)',
-                    transition: { duration: 0.2 }
-                  }}
-                >
+              <motion.div className="relative pb-6 px-4 md:py-10 lg:pt-16 z-10 h-[310px] md:h-[460px] lg:h-[710px] font-custom flex flex-col gap-2 md:gap-2 lg:gap-8">
+                <motion.h2 className="text-xl sm:text-2xl md:text-4xl font-custom font-bold mb-2 sm:mb-4 md:mb-6">
                   PLAISIR <br />
                   GOURMAND
                 </motion.h2>
 
                 <motion.p
-                  className="text-xs sm:text-sm md:text-lg mb-4 font-custom font-medium leading-relaxed text-justify"
+                  className="text-xs sm:text-sm md:text-lg mb-4 font-body font-medium leading-relaxed text-justify"
                   variants={textReveal}
                 >
                   Fondée En 1954, PASTOR MACAO Est Le Leader Marocain En Confiserie-Chocolaterie, Offrant Une Large
@@ -295,20 +238,17 @@ export default function ChocolateHeroSection() {
                   Clients Est Au Cœur De Nos Préoccupations.
                 </motion.p>
                 <motion.p
-                  className="text-xs sm:text-sm md:text-lg mb-4 font-custom font-medium leading-relaxed text-justify"
+                  className="text-xs sm:text-sm md:text-lg mb-4 font-body font-medium leading-relaxed text-justify"
                   variants={textReveal}
                 >
                   Nous Vous Proposons Une Large Gamme De Produits Halal, Conçus Avec Les Meilleurs Ingrédients Répondant
                   Aux Normes De Qualité Les Plus Strictes Pour Satisfaire Tous Les Goûts.
                 </motion.p>
 
-                <motion.div variants={itemVariants} className=" md:mt-32">
+                <motion.div variants={itemVariants} className=" md:mt-8 lg:mt-40">
                   <a href="/history">
                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
-                      <Button
-                        variant="outline"
-                        className="bg-black hover:bg-gray-800 font-custom font-bold text-white rounded-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm md:text-lg md:py-4 md:px-6 transform transition-all duration-300 hover:scale-105 "
-                      >
+                      <Button className="bg-black hover:bg-gray-800 font-body font-bold text-white rounded-l-full rounded-br-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm md:text-lg md:py-4 md:px-6 transform transition-all duration-300 hover:scale-105 ">
                         Découvrir
                         <motion.span
                           className="ml-2 inline-block"
