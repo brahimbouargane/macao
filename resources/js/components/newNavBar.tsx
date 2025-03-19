@@ -85,7 +85,7 @@ const CategoryCard = ({ category, index }) => {
   const isAlternate = index % 2 === 1;
 
   return (
-    <div className={`p-4 md:p-8 ${isAlternate ? 'bg-gray-50' : ''}`}>
+    <div className={`p-4 md:p-8  ${isAlternate ? 'bg-gray-50' : ''}`}>
       <div className="flex items-center font-custom  gap-2 mb-4">
         {category.icon && <category.icon className="h-5 w-5 text-primary" />}
         {category.iconImage && <img src={category.iconImage} alt={`${category.title} icon`} className="h-5 w-5" />}
@@ -264,7 +264,7 @@ export default function Navbar() {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="absolute font-custom  top-[48px] md:-left-28 lg:-left-72 w-[90vw] max-w-[1500px] bg-white shadow-lg grid grid-cols-1 md:grid-cols-5 z-50"
+                    className="absolute font-custom rounded-[80px]  top-[80px] md:-left-28 lg:-left-80 w-[90vw] max-w-[1500px] bg-white shadow-lg grid grid-cols-1 md:grid-cols-5 z-50"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="products-menu"
