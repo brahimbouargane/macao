@@ -155,7 +155,7 @@ const ProductCard = ({ product, onError }) => {
         <img src={macao} alt="macao pastore" className="h-10 w-10" />
       </motion.div>
       <div className="bg-red-700">
-        <div className="aspect-square overflow-hidden relative rounded-br-[80px]">
+        <div className="aspect-square overflow-hidden relative rounded-br-[80px] bg-white">
           <motion.img
             initial={{ scale: 1 }}
             animate={{ scale: isHovered ? 1.05 : 1 }}
@@ -183,7 +183,7 @@ const ProductCard = ({ product, onError }) => {
 
         <div className="p-6">
           {/* <div className="mb-2 text-sm text-white font-medium">{product.product_type.name}</div> */}
-          <h3 className="text-lg font-semibold text-white mb-2">{product.name}</h3>
+          <h3 className="text-lg font-semibold text-white mb-2 h-12">{product.name}</h3>
           <motion.div
             className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white font-bold"
             whileHover={{
@@ -531,7 +531,7 @@ const Products = () => {
                         size="sm"
                         onClick={() => setCurrentPage(page)}
                         className={cn(
-                          'min-w-[2.5rem] text-black hover:text-white',
+                          'min-w-[2.5rem] text-black hover:bg-red-700 hover:text-white',
                           currentPage === page && 'bg-red-600 text-white hover:bg-red-700'
                         )}
                       >
