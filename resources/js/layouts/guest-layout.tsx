@@ -1,5 +1,6 @@
 import Footer from '@/components/footer';
-import Navbar from '@/components/navBar';
+import LuxuryPastryHero from '@/components/luxury-pastry-hero';
+import Navbar from '@/components/newNavBar';
 import ScrollToTopButton from '@/components/scrollUp';
 import SEO from '@/components/seo';
 import { Head } from '@inertiajs/react';
@@ -20,6 +21,7 @@ export function GuestLayout({ description = null, header = null, children }: Pro
       />
       <Head title="Macao" />
       <Navbar />
+      <LuxuryPastryHero />
 
       <div>{children}</div>
       <Footer />
