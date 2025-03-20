@@ -1,4 +1,4 @@
-import macaoImage from '@/assets/images/macao_logo.png';
+import macaoImage from '@/assets/images/LOGO-MACAO.svg';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { PropsWithChildren, useEffect, useState } from 'react';
@@ -33,7 +33,7 @@ const LoadingScreen: React.FC<PropsWithChildren> = ({ children }) => {
           <motion.img
             src={macaoImage}
             alt="Logo"
-            className="w-28 h-28 object-cover"
+            className=""
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.7, 1, 0.7]

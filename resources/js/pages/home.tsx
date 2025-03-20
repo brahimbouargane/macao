@@ -2,7 +2,7 @@ import PastorMacaoHero from '@/components/aboutUs';
 import CategoryGrid from '@/components/categoriesSection';
 import ContactSection from '@/components/contactUs';
 import DisplaySection from '@/components/displaySection';
-import HeroSlide from '@/components/heroCarousel';
+import LuxuryPastryHero from '@/components/luxury-pastry-hero';
 import BestSellers from '@/components/productsSection';
 import TextSlider from '@/components/textSlider';
 import { Container } from '@/components/ui';
@@ -15,7 +15,8 @@ export default function Home() {
   }, []);
   return (
     <>
-      <HeroSlide />
+      {/* <HeroSlide /> */}
+      <LuxuryPastryHero />
       <div className="flex min-h-screen flex-col">
         <CategoryGrid />
         <div className="w-full">

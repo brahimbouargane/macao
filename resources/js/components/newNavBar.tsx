@@ -1,4 +1,4 @@
-import macaoImage from '@/assets/images/macao_logo.png';
+import macaoImage from '@/assets/images/LOGO-MACAO.svg';
 import { Link, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Facebook, Instagram, Linkedin, Menu, X, Youtube } from 'lucide-react';
@@ -85,23 +85,24 @@ const CategoryCard = ({ category, index }) => {
   const isAlternate = index % 2 === 1;
 
   return (
-    <div className={`p-4 md:p-8  ${isAlternate ? 'bg-gray-50' : ''}`}>
+    <div className={`p-4 md:px-8 md:py-6 bg-white rounded-l-[80px] rounded-tr-[80px]`}>
       <div className="flex items-center font-custom  gap-2 mb-4">
         {category.icon && <category.icon className="h-5 w-5 text-primary" />}
         {category.iconImage && <img src={category.iconImage} alt={`${category.title} icon`} className="h-5 w-5" />}
         <h2 className="text-xl font-custom  md:text-2xl italic mb-2">
           <span
-            className={`${
-              index === 0
-                ? 'text-[#C69C3F]'
-                : index === 1
-                  ? 'text-amber-600'
-                  : index === 2
-                    ? 'text-rose-600'
-                    : index === 3
-                      ? 'text-orange-600'
-                      : 'text-purple-800'
-            }`}
+            // className={`${
+            //   index === 0
+            //     ? 'text-[#C69C3F]'
+            //     : index === 1
+            //       ? 'text-amber-600'
+            //       : index === 2
+            //         ? 'text-rose-600'
+            //         : index === 3
+            //           ? 'text-orange-600'
+            //           : 'text-purple-800'
+            // }`}
+            className="text-red-700"
           >
             {category.title}
           </span>
@@ -264,7 +265,7 @@ export default function Navbar() {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="absolute font-custom rounded-[80px]  top-[80px] md:-left-28 lg:-left-80 w-[90vw] max-w-[1500px] bg-white shadow-lg grid grid-cols-1 md:grid-cols-5 z-50"
+                    className="absolute font-custom rounded-[80px]  top-[80px] md:-left-28 lg:-left-80 w-[90vw] max-w-[1500px] gap-2  grid grid-cols-1 md:grid-cols-5 z-50"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="products-menu"

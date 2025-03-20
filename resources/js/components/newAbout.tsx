@@ -162,7 +162,7 @@ export default function ChocolateHeroSection() {
     <>
       <div
         ref={sectionRef}
-        className="relative overflow-hidden py-8 lg:py-24 max-w-[110rem] mx-auto rounded-l-[80px] rounded-br-[80px]"
+        className="relative overflow-hidden py-8 lg:py-24 max-w-[90%] mx-auto rounded-l-[80px] rounded-br-[80px]"
       >
         {/* Header Text Section with scroll parallax */}
         <motion.div
@@ -203,27 +203,27 @@ export default function ChocolateHeroSection() {
         {/* Main Hero Section with Background and Card */}
         <div className="relative w-full min-h-[400px] sm:min-h-[450px] md:h-[600px] lg:h-[780px] ">
           {/* Background Image with Zoom and Parallax Effect */}
-          <motion.div className="absolute md:inset-0 md:w-full md:h-full">
+          <motion.div className="absolute md:w-full md:h-full">
             <img
               src={bgimage}
               alt="Chocolatier preparing gourmet chocolates"
-              className="object-fill !max-w-none md:w-full md:h-[85%] "
+              className="object-fill !max-w-none md:w-full md:h-[82%] "
               onLoad={() => setIsLoaded(true)}
             />
           </motion.div>
 
           {/* Red Card with scroll animation */}
-          <div className="absolute py-8 md:py-0 inset-0 flex items-center lg:h-full rounded-3xl justify-center sm:justify-end p-10  sm:px-6 md:px-8 lg:px-12 md:mr-10 lg:mr-28   ">
+          <div className="absolute py-8 md:py-0 inset-0  flex items-center lg:h-full rounded-3xl justify-center sm:justify-end p-10  sm:px-6 md:px-8 lg:px-12 md:mr-10 lg:mr-24 ">
             <motion.div
-              ref={cardRef}
-              className="w-full  max-w-2xl sm:w-4/5 md:w-2/3 lg:w-4/5 text-white p-6 sm:p-8 md:py-6   flex flex-col justify-center relative overflow-hidden rounded-tl-[80px] "
+              //   ref={cardRef}
+              className="w-full h-full  max-w-2xl sm:w-4/5 md:w-2/3 lg:w-4/5 text-white    flex flex-col justify-center relative overflow-hidden rounded-tl-[80px] "
             >
               {/* Background Image with subtle animation */}
-              <div className="absolute inset-0  ">
+              <div className="absolute  ">
                 <motion.img src={cardBgImage} alt="Background" className="w-full h-full " />
               </div>
 
-              <motion.div className="relative pb-6 px-4 md:py-10 lg:pt-16 z-10 h-[310px] md:h-[460px] lg:h-[710px] font-custom flex flex-col gap-2 md:gap-2 lg:gap-8">
+              <motion.div className="relative pb-6 px-8 md:py-10 lg:pt-16 z-10 h-[310px] md:h-[460px] lg:h-[710px] font-custom flex flex-col gap-2 md:gap-2 lg:gap-8">
                 <motion.h2 className="text-xl sm:text-2xl md:text-4xl font-custom font-bold mb-2 sm:mb-4 md:mb-6">
                   PLAISIR <br />
                   GOURMAND
