@@ -41,35 +41,35 @@ const categoryContent = {
   Confiserie: {
     title: 'DÉLICES SUCRÉS MACAO',
     subtitle: 'Une gamme complète de confiseries artisanales',
-    bgColor: 'from-red-600 to-red-700',
+    bgColor: 'from-red-700 to-red-800',
     bgImage: candies,
     overlayOpacity: 'opacity-80'
   },
   Chocolat: {
     title: 'CHOCOLAT EXQUIS',
     subtitle: 'Des créations chocolatées pour tous les plaisirs.',
-    bgColor: 'from-amber-800 to-amber-900',
+    bgColor: 'from-amber-900 to-amber-950',
     bgImage: choco,
     overlayOpacity: '50'
   },
   Gaufrettes: {
     title: 'GAUFRETTES CROUSTILLANTES',
     subtitle: 'La légèreté et le croustillant à la perfection',
-    bgColor: 'from-orange-400 to-orange-600',
+    bgColor: 'from-orange-600 to-orange-700',
     bgImage: wafer,
     overlayOpacity: '40'
   },
   'Produits pâtissiers': {
     title: 'PÂTISSERIE RAFFINÉE',
     subtitle: "L'excellence de la pâtisserie traditionnelle",
-    bgColor: 'from-rose-600 to-rose-800',
+    bgColor: 'from-rose-800 to-rose-900',
     bgImage: leonardo,
     overlayOpacity: '45'
   },
   'Fêtes et événements': {
     title: 'CÉLÉBREZ VOS MOMENTS',
     subtitle: 'Des créations spéciales pour vos occasions',
-    bgColor: 'from-purple-500 to-purple-700',
+    bgColor: 'from-purple-700 to-purple-800',
     bgImage: candy,
     overlayOpacity: '55'
   }
@@ -129,7 +129,6 @@ const ProductCard = ({ product, onError }) => {
   return (
     <motion.div
       whileHover={{ y: -8 }}
-      //   className="group relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[80px] rounded-bl-[80px] transition-all duration-300"
       className="group relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[60px] rounded-bl-[60px] transition-all duration-300 max-w-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -183,7 +182,7 @@ const ProductCard = ({ product, onError }) => {
 
         <div className="p-6">
           {/* <div className="mb-2 text-sm text-white font-medium">{product.product_type.name}</div> */}
-          <h3 className="text-lg font-semibold text-white mb-2 h-12">{product.name}</h3>
+          <h3 className="text-lg font-semibold text-white font-custom mb-2 h-12">{product.name}</h3>
           <motion.div
             className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white font-bold"
             whileHover={{
@@ -204,16 +203,6 @@ const ProductCard = ({ product, onError }) => {
           >
             <span className="text-xl sm:text-2xl">+</span>
           </motion.div>
-          {/* <div className="flex items-center justify-end relative -bottom-3">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => router.visit(`/products/${product.id}`)}
-              className="rounded-full bg-white px-6 py-2 text-base  font-semibold text-red-700 transition-colors hover:bg-red-100"
-            >
-              Voir plus
-            </motion.button>
-          </div> */}
         </div>
       </div>
     </motion.div>
@@ -222,9 +211,9 @@ const ProductCard = ({ product, onError }) => {
 
 // Filter Bar Component
 const FilterBar = ({ onSortChange, totalProducts }) => (
-  <div className="mb-8 flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
-    <div className="text-sm text-black">{totalProducts} produits trouvés</div>
-    <div className="flex gap-4 text-black">
+  <div className="mb-8 flex items-center justify-between bg-[#EDEDED] p-4 rounded-full shadow-sm font-custom">
+    <div className="text-sm text-red-700">{totalProducts} produits trouvés</div>
+    <div className="flex gap-4 text-black rounded-full  ">
       <Select onValueChange={onSortChange}>
         <SelectTrigger className="w-[180px] text-black">
           <SelectValue placeholder="Trier par" />
@@ -404,7 +393,7 @@ const Products = () => {
             className="flex min-h-[400px] items-center justify-center pt-48 pb-20"
           >
             <div className="text-center">
-              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
+              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold font-custom text-white md:text-6xl">
                 {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
               </motion.h1>
               <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
@@ -429,22 +418,26 @@ const Products = () => {
             <motion.div variants={fadeInUp} initial="hidden" animate="visible" className="w-full lg:w-80">
               <div className="sticky top-36 space-y-6">
                 {/* Search Input */}
-                <div className="rounded-lg bg-white p-6 shadow-sm">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-                    <Input
-                      type="text"
-                      placeholder="Rechercher..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
+                {/* <div className="rounded-lg bg-white p-6 shadow-sm"> */}
+                <div className="relative rounded-full bg-[#EDEDED]">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black" />
+                  <Input
+                    type="text"
+                    placeholder="Rechercher..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 rounded-full bg-[#EDEDED] text-black"
+                  />
                 </div>
+                {/* </div> */}
 
                 {/* Categories */}
-                <div className="rounded-lg bg-white p-6 shadow-sm">
-                  <h2 className="mb-4 text-lg font-semibold tracking-tight text-gray-900">{parentCategory.name}</h2>
+                <div className="rounded-full px-6 py-4 bg-[#EDEDED] shadow-sm">
+                  <h2 className="text-2xl font-semibold font-custom tracking-tight text-red-700 justify-center">
+                    {parentCategory.name}
+                  </h2>
+                </div>
+                <div className="rounded-[40px] font-custom bg-[#EDEDED] p-6 shadow-sm">
                   <div className="space-y-2">
                     {parentCategory.childCategoriesNames.map((name) => (
                       <motion.button
@@ -454,10 +447,10 @@ const Products = () => {
                         onClick={() => handleCategoryChange(name)}
                         disabled={isLoading}
                         className={cn(
-                          'flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all',
+                          'flex w-full items-center justify-between rounded-full px-3 py-2 text-sm font-medium transition-all',
                           childCategory.name === name
-                            ? 'bg-red-50 text-red-600'
-                            : 'text-gray-600 hover:bg-red-50 hover:text-red-600',
+                            ? 'bg-red-50 text-red-700'
+                            : 'text-gray-600 hover:bg-red-50 hover:text-red-700',
                           isLoading && 'opacity-50 cursor-not-allowed'
                         )}
                       >
@@ -466,7 +459,7 @@ const Products = () => {
                           <motion.div
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                            className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full"
+                            className="h-4 w-4 border-2 border-red-700 border-t-transparent rounded-full"
                           />
                         )}
                       </motion.button>
