@@ -424,25 +424,25 @@ function History() {
             </div>
 
             <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
-              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight">
+              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight text-start">
                 Une qualité supérieure constante
               </h1>
 
               <div className="mt-3 sm:mt-6">
-                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase">
+                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase text-justify">
                   La confiance, la satisfaction et <span className="text-red-600">la santé</span>
                 </p>
 
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
                   de nos consommateurs sont au sommet de nos priorités.
                 </p>
 
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
                   Tous nos produits suivent les normes les plus strictes et utilisent des matières premières premium
                   pour garantir goût et excellence.
                 </p>
 
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
                   Nos processus sophistiqués et sites technologiques assurent traçabilité, qualité et sécurité, avec des
                   équipes formées et encadrées pour l'excellence.
                 </p>
@@ -475,27 +475,27 @@ function History() {
             </div>
 
             <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
-              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight">
+              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight text-start">
                 Un partenaire fiable et responsable
               </h1>
 
               <div className="mt-3 sm:mt-6">
-                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase">
+                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase text-justify">
                   <strong className="text-red-600">PASTOR MACAO</strong> place la sécurité alimentaire au cœur de ses
                   priorités.
                 </p>
 
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
                   Nous effectuons des contrôles rigoureux pour respecter les normes marocaines et internationales.
                   Certifiée ISO 9001 et autorisée par l'ONSSA à exporter.
                 </p>
 
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
                   Notre laboratoire R&D développe constamment de nouveaux produits, comme notre gamme de chocolat sans
                   sucre.
                 </p>
 
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
                   En choisissant PASTOR MACAO, vous avez la garantie d'un partenaire fiable offrant des produits
                   premiums de qualité supérieure.
                 </p>
