@@ -1,9 +1,15 @@
-import candies from '@/assets/images/candies.webp';
+import candies from '@/assets/images/history_banner.png';
 // import commercial from '@/assets/images/commercial.webp';
 // import composition from '@/assets/images/composition.webp';
 // import iso from '@/assets/images/iso.jpg';
 // import showcase from '@/assets/images/showcasing.webp';
-import logo from '@/assets/images/macoa-logo-small.svg';
+import bgimage from '@/assets/images/history_1.png';
+import bgimage2 from '@/assets/images/history_2.png';
+import bgimage3 from '@/assets/images/history_3.png';
+import bgimage4 from '@/assets/images/history_4.png';
+
+import logored from '@/assets/images/macoa-logo-small-red.svg';
+
 import SEO from '@/components/seo';
 import { NewLayout } from '@/layouts/new-layout';
 import { Head } from '@inertiajs/react';
@@ -25,6 +31,17 @@ const fadeInUp = {
     y: -20,
     transition: {
       duration: 0.3
+    }
+  }
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      ease: 'easeInOut'
     }
   }
 };
@@ -117,6 +134,111 @@ const ContentBlock = ({ imageOnLeft, title, content, imageSrc }) => {
     </motion.div>
   );
 };
+const FlexibleSection = ({
+  imagePosition = 'left', // 'left' or 'right'
+  bgImage,
+  logo,
+  title,
+  tagline,
+  foundedYear,
+  brandName,
+  paragraphs
+}) => {
+  // Common classes
+  const containerClasses =
+    'min-h-[400px] sm:min-h-[450px] md:h-[600px] lg:h-[650px] max-w-[90%] mx-auto relative overflow-hidden';
+
+  // Classes that change based on image position
+  const getContainerRoundedClasses = () => {
+    if (imagePosition === 'left') {
+      return 'rounded-l-[200px] rounded-br-[200px]';
+    } else {
+      return 'rounded-r-[200px] rounded-bl-[200px]';
+    }
+  };
+
+  const getContentRoundedClasses = () => {
+    if (imagePosition === 'left') {
+      return 'rounded-l-[200px]';
+    } else {
+      return 'rounded-r-[200px]';
+    }
+  };
+
+  const getContentPositionClasses = () => {
+    if (imagePosition === 'left') {
+      return 'ml-auto';
+    } else {
+      return 'mr-auto';
+    }
+  };
+
+  const getBorderClasses = () => {
+    if (imagePosition === 'left') {
+      return 'border-t-2 border-b-2 border-r-2';
+    } else {
+      return 'border-t-2 border-b-2 border-l-2';
+    }
+  };
+
+  const getLogoPosition = () => {
+    if (imagePosition === 'left') {
+      return 'top-4 right-4';
+    } else {
+      return 'top-4 left-4';
+    }
+  };
+
+  const getImagePositionClasses = () => {
+    if (imagePosition === 'left') {
+      return 'left-0';
+    } else {
+      return 'right-0';
+    }
+  };
+
+  return (
+    <div className={`bg-gray-500 ${getContainerRoundedClasses()} ${containerClasses}`}>
+      {/* Background image section */}
+      <div className={`absolute inset-0 ${getImagePositionClasses()} w-[60%] z-0`}>
+        <img src={bgImage} alt="Background image" className="object-fill absolute h-full w-full" />
+      </div>
+
+      {/* Content section */}
+      <div
+        className={`bg-white ${getBorderClasses()} border-red-700 ${getContentRoundedClasses()} h-full w-[52%] ${getContentPositionClasses()} relative`}
+      >
+        {/* Logo */}
+        <div className={`absolute ${getLogoPosition()}`}>
+          <div className="flex items-center justify-center w-12 h-12">
+            <img src={logo} alt="Brand logo" />
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="pt-20 pb-28 px-20 flex flex-col justify-center h-full">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-600 mb-2 leading-tight">
+            {title}
+            <br />
+            <span className="block">{tagline}</span>
+          </h1>
+
+          <div className="mt-6">
+            <p className="text-gray-800 mb-6 text-base">
+              <strong>Founded in {foundedYear},</strong> {brandName}
+            </p>
+
+            {paragraphs.map((paragraph, index) => (
+              <p key={index} className="text-gray-700 mb-4 text-sm md:text-base">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 function History() {
   const scrollRef = useRef(null);
@@ -133,7 +255,6 @@ function History() {
     <div className="relative min-h-screen">
       <SEO title="Macao" description="Welcome to our amazing website" keywords="keyword1, keyword2, keyword3" />
       <Head title="Macao" />
-
       <motion.div
         // ref={scrollRef}
         // style={{
@@ -141,7 +262,7 @@ function History() {
         //   y: headerY,
         //   scale: headerScale
         // }}
-        className="relative overflow-hidden bg-gradient-to-r from-red-400 to-red-500"
+        className="relative  overflow-hidden bg-gradient-to-r from-amber-900 to-amber-950"
       >
         <div className="absolute inset-0">
           <motion.div
@@ -165,7 +286,10 @@ function History() {
             className="flex min-h-[500px] items-center justify-center py-20"
           >
             <div className="text-center mt-28">
-              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl uppercase">
+              <motion.h1
+                variants={fadeInUp}
+                className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
+              >
                 Notre Héritage Gourmand
               </motion.h1>
               <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
@@ -176,37 +300,211 @@ function History() {
           </motion.div>
         </div>
       </motion.div>
-
       {/* Content Blocks */}
-      <div className="bg-white py-12">
-        <ContentBlock
-          imageOnLeft={true}
-          title="PASTOR MACAO SAVOUREZ LA VIE !"
-          content="Fondé en 1954, PASTOR MACAO est le leader marocain en confiserie-chocolaterie, offrant une large gamme de produits de qualité pour satisfaire tous les goûts au meilleur prix.La satisfaction de nos clients est au cœur de nos préoccupations. Nous avons développé une large gamme de produits Halal, conçus avec les meilleurs ingrédients et répondant aux normes de qualité les plus strictes pour satisfaire tous les goûts. La qualité de nos produits est reconnue au-delà des frontières du Maroc et ne cesse de faire de nouveaux adeptes.Nos sites, à la pointe de la technologie, nous permettent de répondre à toutes les demandes du marché et de continuer d’innover pour satisfaire nos clients."
-          imageSrc={logo}
-        />
+      <div className="bg-white py-8 md:py-12 font-custom">
+        {/* First Section */}
+        <motion.div
+          className="mb-8 md:mb-16 bg-gray-500 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] rounded-br-[50px] sm:rounded-br-[100px] md:rounded-br-[150px] lg:rounded-br-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
+          <div className="absolute inset-0 left-0 w-1/2 sm:w-[55%] md:w-[60%] z-0">
+            <img
+              src={bgimage}
+              alt="Chocolatier preparing gourmet chocolates"
+              className="object-cover sm:object-fill absolute h-full w-full"
+            />
+          </div>
+          <div className="bg-white border-t-2 border-b-2 border-r-2 border-red-700 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] ml-auto relative">
+            {/* Small logo top right */}
+            <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
+              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
+                <img src={logored} alt="pastore macao logo" />
+              </div>
+            </div>
 
-        <ContentBlock
-          imageOnLeft={false}
-          title="L'historique"
-          content="PASTOR MACAO a démarré en 1948 comme une petite unité de production. Elle est graduellement devenue une société de confiserie-chocolaterie en plein essor en 1954.L’amour de notre métier, l’exigence de sélectionner les meilleurs ingrédients et notre recherche constante de l’excellence ont fait de nous le leader au Maroc de la confiserie- chocolaterie. Au-delà de ce positionnement, ce qui nous inspire c’est la confiance de nos consommateurs. Nos bonbons, chocolats, gaufrettes, produits pâtissiers, pâtes à tartiner et autres friandises, ont fait partie du quotidien de millions de marocains, toutes générations confondues.L’éléphant blanc sur fond rouge, logo emblématique de notre marque, est reconnaissable par tous les marocains de tous les âges.Aujourd’hui, nos produits sont appréciés dans plusieurs pays. Notre savoir-faire et le large choix de nos produits, élaborés selon les normes de qualité les plus strictes, nous permettent de répondre aux demandes de tous les marchés de la confiserie-chocolaterie aux meilleurs prix."
-          imageSrc={logo}
-        />
+            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
+              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-red-600 mb-2 leading-tight">
+                PASTOR MACAO SAVOUREZ LA VIE
+              </h1>
 
-        <ContentBlock
-          imageOnLeft={true}
-          title="Une qualité supérieure constante"
-          content="La confiance, la satisfaction et la santé de nos consommateurs sont au sommet de nos priorités. Pour cela, tous nos produits sont conçus selon les normes de qualité les plus strictes et avec des matières premières premium pour garantir goût et excellence.Nos processus sophistiqués nous permettent une traçabilité de chaque élément, assurant ainsi la qualité et la sécurité de chaque produit.Nos sites de productions sont à la pointe de la technologie. Nos équipes qui élaborent nos produits sont tous animées par la même philosophie d’offrir les produits de la plus hautequalité aux consommateurs. Nos collaborateurs sont constamment formés et encadrés pour donner le meilleur d’eux-mêmes."
-          imageSrc={logo}
-        />
+              <div className="mt-3 sm:mt-6">
+                <h2 className="text-red-600 font-bold mb-2 sm:mb-4 md:mb-6 uppercase text-lg sm:text-lg md:text-2xl">
+                  <span className="text-black">Fondé en</span> 1954, PASTOR MACAO
+                </h2>
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                  est le leader marocain en confiserie-chocolaterie, offrant des produits de qualité pour tous les goûts
+                  aux meilleurs prix.
+                </p>
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                  Notre gamme de produits Halal, conçue avec les meilleurs ingrédients, répond aux normes de qualité les
+                  plus strictes et est reconnue internationalement.
+                </p>
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                  Nos sites technologiques innovants répondent à toutes les demandes du marché.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
-        <ContentBlock
-          imageOnLeft={false}
-          title="Un partenaire fiable et responsable"
-          content="PASTOR MACAO place la sécurité alimentaire au cœur de ses priorités. Nous effectuons des contrôles de qualité quotidiennement sur nos sites afin de veiller au respect des normes alimentaires et d’hygiène en vigueur au Maroc et à l’étranger.Notre société est certifiée ISO 9001 et peut exporter ses produits à l’étranger en vertu d’une autorisation de l’Office National de Sécurité Sanitaire au Maroc (ONSSA). PASTOR MACAO dispose d’un laboratoire de Recherche & Développement lui permettant de développer de nouveaux produits en réponses à toutes les nouveautés.C’est ainsi que notre gamme de produits ne cesse de s’étoffer. De nouveaux produits, telle notre gamme de chocolat sans sucre ont été conçus en réponse à un segment très largement sous-servi au Maroc.Notre succès, aujourd’hui incontesté, est le fruit de longues années de travail, de passion et de sérieux. En choisissant de travailler avec nous, vous avez la garantie d’un partenaire fiable et capable de garantir des produits premiums de qualité supérieure."
-          imageSrc={logo}
-        />
+        {/* Second Section - Mirror of first section with right alignment */}
+        <motion.div
+          className="my-8 md:my-16 bg-gray-500 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] rounded-bl-[50px] sm:rounded-bl-[100px] md:rounded-bl-[150px] lg:rounded-bl-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
+          <div className="absolute inset-0 right-0 w-1/2 sm:w-[55%] md:w-[60%] ml-auto z-0">
+            <img
+              src={bgimage2}
+              alt="Chocolatier preparing gourmet chocolates"
+              className="object-cover sm:object-fill absolute h-full w-full"
+            />
+          </div>
+          <div className="bg-white border-t-2 border-b-2 border-l-2 border-red-700 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] mr-auto relative">
+            {/* Small logo top left */}
+            <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
+              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
+                <img src={logored} alt="pastore macao logo" />
+              </div>
+            </div>
+
+            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
+              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight">
+                L'historique
+              </h1>
+
+              <div className="mt-3 sm:mt-6">
+                <h2 className="text-black font-bold mb-2 sm:mb-4 md:mb-6 uppercase text-base sm:text-lg md:text-2xl text-justify">
+                  <span className="text-red-600">PASTOR MACAO</span> a démarré en{' '}
+                  <span className="text-red-600 text-lg sm:text-lg md:text-2xl">1948</span>
+                </h2>
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                  Devenue société de confiserie-chocolaterie en 1954, notre exigence d'excellence a fait de nous le
+                  leader marocain du secteur.
+                </p>
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                  Nos produits font partie du quotidien de millions de marocains et notre éléphant blanc sur fond rouge
+                  est reconnu par tous.
+                </p>
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                  Aujourd'hui, notre savoir-faire et notre gamme élaborée selon les normes strictes sont appréciés dans
+                  plusieurs pays.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Third Section - Same pattern as first */}
+        <motion.div
+          className="my-8 md:my-16 bg-gray-500 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] rounded-br-[50px] sm:rounded-br-[100px] md:rounded-br-[150px] lg:rounded-br-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
+          <div className="absolute inset-0 left-0 w-1/2 sm:w-[55%] md:w-[60%] z-0">
+            <img
+              src={bgimage3}
+              alt="Chocolatier preparing gourmet chocolates"
+              className="object-cover sm:object-fill absolute h-full w-full"
+            />
+          </div>
+          <div className="bg-white border-t-2 border-b-2 border-r-2 border-red-700 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] ml-auto relative">
+            {/* Small logo top right */}
+            <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
+              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
+                <img src={logored} alt="pastore macao logo" />
+              </div>
+            </div>
+
+            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
+              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight">
+                Une qualité supérieure constante
+              </h1>
+
+              <div className="mt-3 sm:mt-6">
+                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase">
+                  La confiance, la satisfaction et <span className="text-red-600">la santé</span>
+                </p>
+
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                  de nos consommateurs sont au sommet de nos priorités.
+                </p>
+
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                  Tous nos produits suivent les normes les plus strictes et utilisent des matières premières premium
+                  pour garantir goût et excellence.
+                </p>
+
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                  Nos processus sophistiqués et sites technologiques assurent traçabilité, qualité et sécurité, avec des
+                  équipes formées et encadrées pour l'excellence.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Fourth Section - Same pattern as second */}
+        <motion.div
+          className="my-8 md:my-16 bg-gray-500 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] rounded-bl-[50px] sm:rounded-bl-[100px] md:rounded-bl-[150px] lg:rounded-bl-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
+          <div className="absolute inset-0 right-0 w-1/2 sm:w-[55%] md:w-[60%] ml-auto z-0">
+            <img
+              src={bgimage4}
+              alt="Chocolatier preparing gourmet chocolates"
+              className="object-cover sm:object-fill absolute h-full w-full"
+            />
+          </div>
+          <div className="bg-white border-t-2 border-b-2 border-l-2 border-red-700 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] mr-auto relative">
+            {/* Small logo top left */}
+            <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
+              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
+                <img src={logored} alt="pastore macao logo" />
+              </div>
+            </div>
+
+            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
+              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight">
+                Un partenaire fiable et responsable
+              </h1>
+
+              <div className="mt-3 sm:mt-6">
+                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase">
+                  <strong className="text-red-600">PASTOR MACAO</strong> place la sécurité alimentaire au cœur de ses
+                  priorités.
+                </p>
+
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                  Nous effectuons des contrôles rigoureux pour respecter les normes marocaines et internationales.
+                  Certifiée ISO 9001 et autorisée par l'ONSSA à exporter.
+                </p>
+
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                  Notre laboratoire R&D développe constamment de nouveaux produits, comme notre gamme de chocolat sans
+                  sucre.
+                </p>
+
+                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base">
+                  En choisissant PASTOR MACAO, vous avez la garantie d'un partenaire fiable offrant des produits
+                  premiums de qualité supérieure.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
+
       {/* <Container>
         <ContactSection id="contact" />
       </Container> */}
