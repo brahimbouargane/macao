@@ -129,7 +129,7 @@ const ProductCard = ({ product, onError }) => {
   return (
     <motion.div
       whileHover={{ y: -8 }}
-      className="group relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[60px] rounded-bl-[60px] transition-all duration-300 max-w-sm"
+      className="group relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[60px] rounded-bl-[60px] transition-all duration-300 w-full md:max-w-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
