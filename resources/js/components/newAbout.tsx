@@ -219,11 +219,11 @@ export default function ChocolateHeroSection() {
               className="w-full h-full  max-w-2xl sm:w-4/5 md:w-2/3 lg:w-4/5 text-white    flex flex-col justify-center relative overflow-hidden rounded-tl-[80px] "
             >
               {/* Background Image with subtle animation */}
-              <div className="absolute  ">
-                <motion.img src={cardBgImage} alt="Background" className="w-full h-full " />
+              <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+                <motion.img src={cardBgImage} alt="Background" className="w-full h-full object-cover object-center" />
               </div>
 
-              <motion.div className="relative pb-6 px-8 md:py-10 lg:pt-16 z-10 h-[310px] md:h-[460px] lg:h-[710px] font-custom flex flex-col gap-2 md:gap-2 lg:gap-8">
+              <motion.div className="relative p-5 md:py-10 lg:pt-16 z-10 h-[310px] md:h-full lg:h-[710px] font-custom flex flex-col gap-2 md:gap-2 lg:gap-8">
                 <motion.h2 className="text-xl sm:text-2xl md:text-4xl font-custom font-bold mb-2 sm:mb-4 md:mb-6">
                   PLAISIR <br />
                   GOURMAND
