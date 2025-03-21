@@ -434,7 +434,7 @@ export default function Category3DCarousel() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-full pt-8 sm:py-16 lg:py-24 relative overflow-hidden px-0">
+    <section className="mx-auto w-full max-w-full pt-8 sm:py-16 lg:py-24 relative overflow-hidden px-0 ">
       <motion.div
         ref={headerRef}
         className="text-center mb-12"
