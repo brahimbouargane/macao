@@ -45,7 +45,7 @@ function ContactHome() {
         INFORMATIONS <span className="block md:inline">DE CONTACT</span>
       </motion.h1>
 
-      <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+      <div className="grid lg:grid-cols-2 items-center">
         {/* Map Column */}
         <motion.div
           className="h-[350px] md:h-[500px] w-full rounded-lg overflow-hidden order-1 md:order-1"
@@ -56,9 +56,9 @@ function ContactHome() {
           </div>
         </motion.div>
 
-        {/* Contact Info Column */}
-        <motion.div className="order-2 md:order-1" variants={fadeIn}>
-          <div className="relative overflow-hidden rounded-r-[40px] md:rounded-r-[80px] rounded-bl-[40px] md:rounded-bl-[80px] shadow-xl h-full">
+        {/* Contact Info Column - More compact and full width */}
+        <motion.div className="order-2 md:order-1 flex items-center justify-center w-full" variants={fadeIn}>
+          <div className="relative overflow-hidden rounded-r-[40px] md:rounded-r-[80px] rounded-bl-[40px] md:rounded-bl-[80px] shadow-xl max-h-[300px] md:max-h-[350px] w-full">
             {/* Logo */}
             <div className="absolute -top-2 md:-top-4 left-6 md:left-8 z-30">
               <div className="w-16 md:w-24 h-16 md:h-24 flex items-center justify-center">
@@ -75,49 +75,49 @@ function ContactHome() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-red-900/95 via-red-800/90 to-black/95"></div>
 
-            {/* Content */}
-            <div className="relative z-10 p-6 pt-16 md:p-10 md:pt-20 text-white h-full">
-              <div className="space-y-6 md:space-y-8">
-                {/* Company name and address */}
+            {/* Content - More condensed */}
+            <div className="relative z-10 p-4 pt-12 md:p-6 md:pt-16 text-white">
+              <div className="space-y-3 md:space-y-4">
+                {/* Company name and address - More compact */}
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-4 tracking-wide">PASTOR S.A.</h2>
-                  <div className="flex items-start space-x-3">
-                    <MapPin className="h-5 md:h-6 w-5 md:w-6 text-red-300 mt-1 flex-shrink-0" />
+                  <h2 className="text-xl md:text-2xl font-bold mb-2 tracking-wide">PASTOR S.A.</h2>
+                  <div className="flex items-start space-x-2">
+                    <MapPin className="h-4 md:h-5 w-4 md:w-5 text-red-300 mt-1 flex-shrink-0" />
                     <div>
-                      <p className="uppercase font-medium text-base md:text-lg">49 RUE ENNASRINE BEAUSEJOUR</p>
-                      <p className="uppercase font-medium text-base md:text-lg mb-2">CASABLANCA 20200 MAROC</p>
+                      <p className="uppercase font-medium text-sm md:text-base">49 RUE ENNASRINE BEAUSEJOUR</p>
+                      <p className="uppercase font-medium text-sm md:text-base mb-1">CASABLANCA 20200 MAROC</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Contact details with consistent styling */}
-                <div className="space-y-4 md:space-y-6 mt-6 md:mt-8">
+                <div className="space-y-2 md:space-y-3 mt-2 md:mt-3">
                   {/* Phone */}
-                  <div className="flex items-center space-x-3 md:space-x-4 border-b border-white/20 pb-4">
-                    <div className="bg-red-800/50 p-2 rounded-full">
-                      <Phone className="h-4 md:h-5 w-4 md:w-5 text-white flex-shrink-0" />
+                  <div className="flex items-center space-x-2 md:space-x-3 border-b border-white/20 pb-2">
+                    <div className="bg-red-800/50 p-1 md:p-2 rounded-full">
+                      <Phone className="h-3 md:h-4 w-3 md:w-4 text-white flex-shrink-0" />
                     </div>
-                    <a href="tel:+212522791000" className="text-base md:text-lg hover:underline">
+                    <a href="tel:+212522791000" className="text-sm md:text-base hover:underline">
                       +212 (5) 22 79 10 00
                     </a>
                   </div>
 
                   {/* Email */}
-                  <div className="flex items-center space-x-3 md:space-x-4 border-b border-white/20 pb-4">
-                    <div className="bg-red-800/50 p-2 rounded-full">
-                      <Mail className="h-4 md:h-5 w-4 md:w-5 text-white flex-shrink-0" />
+                  <div className="flex items-center space-x-2 md:space-x-3 border-b border-white/20 pb-2">
+                    <div className="bg-red-800/50 p-1 md:p-2 rounded-full">
+                      <Mail className="h-3 md:h-4 w-3 md:w-4 text-white flex-shrink-0" />
                     </div>
-                    <a href="mailto:commercial@pastor-macao.com" className="text-base md:text-lg hover:underline">
+                    <a href="mailto:commercial@pastor-macao.com" className="text-sm md:text-base hover:underline">
                       commercial@pastor-macao.com
                     </a>
                   </div>
 
                   {/* Hours */}
-                  <div className="flex items-center space-x-3 md:space-x-4">
-                    <div className="bg-red-800/50 p-2 rounded-full">
-                      <Clock className="h-4 md:h-5 w-4 md:w-5 text-white flex-shrink-0" />
+                  <div className="flex items-center space-x-2 md:space-x-3">
+                    <div className="bg-red-800/50 p-1 md:p-2 rounded-full">
+                      <Clock className="h-3 md:h-4 w-3 md:w-4 text-white flex-shrink-0" />
                     </div>
-                    <p className="text-base md:text-lg">Lun-Ven : 9:00 - 18:00</p>
+                    <p className="text-sm md:text-base">Lun-Ven : 9:00 - 18:00</p>
                   </div>
                 </div>
               </div>
