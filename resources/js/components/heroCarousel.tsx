@@ -1,13 +1,11 @@
-import piple from '@/assets/images/Papil.brown-blur.webp';
 import piple2 from '@/assets/images/Papil.N.webp';
-import piple4 from '@/assets/images/Papil.Or.webp';
 import piple3 from '@/assets/images/Papil.red.webp';
 
 import choko2 from '@/assets/images/black-cookies.webp';
 import bluebereies from '@/assets/images/blueberies.webp';
 import Carousel1 from '@/assets/images/carousel-1.png';
-import Carousel2 from '@/assets/images/carousel-2.webp';
-import Carousel3 from '@/assets/images/carousel-3.webp';
+import Carousel2 from '@/assets/images/carousel-2.png';
+import Carousel3 from '@/assets/images/carousel-3.png';
 import cherry from '@/assets/images/cherrs.webp';
 import cokies from '@/assets/images/cokies.webp';
 import cupcake from '@/assets/images/cupcake.webp';
@@ -17,7 +15,7 @@ import strawberry from '@/assets/images/strawbery.webp';
 import '../../css/app.css';
 
 // Import background images
-import { default as bgChocolat, default as bgConfiserie, default as bgPatisserie } from '@/assets/images/bg-slide.png';
+import { default as bgChocolat } from '@/assets/images/bg-slide.png';
 
 import '../../css/app.css';
 
@@ -26,75 +24,135 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from './ui/shadcn-button';
 
-const FloatingImage = memo(({ position, index, active, image, getPosition, getImageSize, getRotateValues }: any) => (
-  <motion.div
-    key={`${active}-${position}`}
-    className={`absolute ${getPosition(active, position)} ${getImageSize(active, position)}`}
-    initial={{
-      opacity: 0,
-      scale: 0.7,
-      y: position.includes('top') ? -30 : 30
-    }}
-    animate={{
-      opacity: 1,
-      scale: 1,
-      y: [position.includes('top') ? -8 : 8, position.includes('top') ? 8 : -8],
-      rotate: getRotateValues(active, position),
-      transition: {
-        opacity: { duration: 0.8, ease: 'easeOut', delay: index * 0.1 }, // Staggered delay
-        scale: { duration: 0.8, ease: 'easeOut', delay: index * 0.1 },
-        y: {
-          duration: 4,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'easeInOut',
-          delay: index * 0.2
-        }
+const FloatingImage = memo(
+  ({ position, index, active, image, getPosition, getImageSize, getRotateValues, direction }: any) => {
+    // Create unique bounce paths for each position - with much more dramatic bounces
+    const getBouncePathByPosition = () => {
+      switch (position) {
+        case 'top-left':
+          return [0, -65, 45, -30, 20, -10, 5, 0]; // Much more dramatic left-right bounce
+        case 'top-right':
+          return [0, 70, -50, 35, -20, 10, -5, 0]; // Opposite direction, very dramatic
+        case 'bottom-left':
+          return [0, -55, 75, -45, 25, -15, 5, 0]; // Another dramatic variation
+        case 'bottom-right':
+          return [0, 60, -80, 50, -30, 15, -8, 0]; // Most extreme bounce pattern
+        default:
+          return [0, 40, -30, 20, -10, 5, 0]; // Default dramatic bounce path
       }
-    }}
-    exit={{
-      opacity: 0,
-      scale: 0.8,
-      y: position.includes('top') ? -30 : 30,
-      transition: {
-        duration: 0.5,
-        delay: 0.1 * (4 - index) // Staggered exit
-      }
-    }}
-  >
-    <img
-      src={image}
-      alt="Floating product"
-      className="w-full h-full object-contain rounded-sm"
-      style={{
-        filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))',
-        transition: 'filter 0.3s ease'
-      }}
-      loading="lazy"
-    />
-  </motion.div>
-));
+    };
 
-const MainImage = memo(({ image, name }: any) => (
+    // Get custom delay for each position for staggered effect
+    const getCustomDelay = () => {
+      const baseDelay = 0.3; // Base delay after title and description start animating
+      // Stagger the floating images
+      switch (position) {
+        case 'top-left':
+          return baseDelay;
+        case 'top-right':
+          return baseDelay + 0.1;
+        case 'bottom-left':
+          return baseDelay + 0.2;
+        case 'bottom-right':
+          return baseDelay + 0.3;
+        default:
+          return baseDelay;
+      }
+    };
+
+    return (
+      <motion.div
+        key={`${active}-${position}`}
+        className={`absolute ${getPosition(active, position)} ${getImageSize(active, position)}`}
+        initial={{
+          opacity: 0,
+          scale: 0.7,
+          x: direction === 'next' ? (position.includes('right') ? 100 : -100) : position.includes('right') ? -100 : 100, // Direction-aware offset
+          y: position.includes('top') ? -40 : 40
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          x: getBouncePathByPosition(), // Apply custom bounce path
+          y: [position.includes('top') ? -10 : 10, position.includes('top') ? 10 : -10], // Vertical float
+          rotate: getRotateValues(active, position),
+          transition: {
+            opacity: { duration: 0.7, ease: 'easeOut', delay: getCustomDelay() },
+            scale: { duration: 0.8, ease: 'easeOut', delay: getCustomDelay() },
+            x: {
+              duration: 2.2, // Even longer duration for most dramatic effect
+              times:
+                position === 'bottom-right'
+                  ? [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1] // For most complex bounce
+                  : [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 1], // All use the same complex timing now
+              ease: 'easeOut',
+              delay: getCustomDelay()
+            },
+            y: {
+              duration: 4,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              ease: 'easeInOut',
+              delay: getCustomDelay() + index * 0.2
+            },
+            rotate: {
+              duration: 0.8,
+              ease: 'easeOut',
+              delay: getCustomDelay()
+            }
+          }
+        }}
+        exit={{
+          opacity: 0,
+          scale: 0.8,
+          x: direction === 'next' ? (position.includes('right') ? -100 : 100) : position.includes('right') ? 100 : -100,
+          y: position.includes('top') ? -40 : 40,
+          transition: {
+            duration: 0.5,
+            delay: 0.05 * (4 - index) // Staggered exit
+          }
+        }}
+      >
+        <img
+          src={image}
+          alt="Floating product"
+          className="w-full h-full object-contain rounded-sm"
+          style={{
+            filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))',
+            transition: 'filter 0.3s ease'
+          }}
+          loading="lazy"
+        />
+      </motion.div>
+    );
+  }
+);
+
+const MainImage = memo(({ image, name, direction }: any) => (
   <motion.div
     initial={{
       opacity: 0,
-      x: 50,
+      x: direction === 'next' ? 150 : -150, // Start further out
       scale: 0.95
     }}
     animate={{
       opacity: 1,
-      x: 0,
+      x: [0, -50, 35, -25, 15, -8, 0], // More dramatic bounce path with larger values
       scale: 1,
       transition: {
         opacity: { duration: 0.7, ease: 'easeOut' },
-        x: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] },
-        scale: { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] } // Slight spring effect
+        x: {
+          duration: 1.8, // Even longer duration for more visible bounce
+          times: [0, 0.25, 0.45, 0.65, 0.8, 0.9, 1], // Well-distributed bounce points
+          ease: 'easeOut',
+          delay: 0.1 // Small delay compared to title
+        },
+        scale: { duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }
       }
     }}
     exit={{
       opacity: 0,
-      x: -50,
+      x: direction === 'next' ? -80 : 80,
       scale: 0.95,
       transition: {
         duration: 0.6,
@@ -124,28 +182,33 @@ const MainImage = memo(({ image, name }: any) => (
     </motion.div>
   </motion.div>
 ));
+
 const headingVariants = {
   initial: (direction) => ({
     opacity: 0,
-    x: direction === 'next' ? 70 : -70,
+    x: direction === 'next' ? 200 : -200, // Start even further for more dramatic bounce
     y: 20,
     filter: 'blur(8px)'
   }),
   animate: {
     opacity: 1,
-    x: 0,
+    x: [0, 40, -30, 20, -10, 5, 0], // More oscillations with larger values
     y: 0,
     filter: 'blur(0px)',
     transition: {
-      x: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] },
-      opacity: { duration: 0.7, ease: 'easeOut' },
-      filter: { duration: 0.7, ease: 'easeOut' },
+      x: {
+        duration: 1.6, // Longer duration for more visible bounce
+        times: [0, 0.2, 0.4, 0.6, 0.75, 0.9, 1], // More control points for bounce
+        ease: 'easeOut'
+      },
+      opacity: { duration: 0.5, ease: 'easeOut' },
+      filter: { duration: 0.5, ease: 'easeOut' },
       y: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }
     }
   },
   exit: (direction) => ({
     opacity: 0,
-    x: direction === 'next' ? -70 : 70,
+    x: direction === 'next' ? -120 : 120,
     y: -20,
     filter: 'blur(8px)',
     transition: {
@@ -286,44 +349,77 @@ const NavigationButtons = memo(({ onPrev, onNext, onHoverChange, active, total }
   </div>
 ));
 
-const BackgroundImage = ({ src, active, isCurrentSlide, overlayColor }) => (
+const BackgroundImage = ({ src, active, isCurrentSlide, overlayColor, direction }) => (
   <motion.div
     className="absolute inset-0 w-full h-full z-1"
-    initial={{ opacity: 0, scale: 1.05 }}
+    initial={{
+      opacity: 0,
+      scale: 1.05
+    }}
     animate={{
       opacity: isCurrentSlide ? 1 : 0,
-      scale: isCurrentSlide ? 1 : 1.05
+      scale: isCurrentSlide ? 1 : 1.05,
+      transition: {
+        opacity: { duration: 0.8 },
+        scale: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1.0] }
+      }
     }}
-    exit={{ opacity: 0, scale: 0.95 }}
-    transition={{
-      opacity: { duration: 0.8 }, // Reduced from 1.2 to better match slide transitions
-      scale: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1.0] } // Reduced from 1.5
+    exit={{
+      opacity: 0,
+      scale: 0.95
     }}
   >
     {/* Add a parent div with background color to prevent flash */}
-    <div className="absolute inset-0 bg-[#0000002e]"></div>
-    <img src={src} alt="Background" className="w-full h-full object-cover" style={{ filter: 'brightness(0.1)' }} />
+    <div className="absolute inset-0"></div>
+
+    {/* Key prop ensures animation reruns for each slide */}
+    {isCurrentSlide && (
+      <motion.img
+        key={`bg-img-${active}`} // This key forces remounting on slide change
+        src={src}
+        alt="Background"
+        className="w-full h-full object-cover"
+        initial={{
+          rotate: direction === 'next' ? 8 : -8, // More dramatic initial rotation
+          x: direction === 'next' ? 60 : -60 // Initial x position
+        }}
+        animate={{
+          rotate: [0, -5, 4, -3, 2, -1, 0], // More dramatic bouncing rotation effect
+          x: [0, -25, 15, -8, 4, -2, 0], // Horizontal bounce
+          transition: {
+            rotate: {
+              duration: 2.5, // Longer duration for more visible effect
+              times: [0, 0.15, 0.3, 0.5, 0.7, 0.85, 1], // Adjusted timing
+              ease: 'easeOut',
+              delay: 0.1
+            },
+            x: {
+              duration: 2.0,
+              times: [0, 0.2, 0.4, 0.6, 0.75, 0.9, 1],
+              ease: 'easeOut',
+              delay: 0.15
+            }
+          }
+        }}
+        exit={{
+          rotate: direction === 'next' ? -6 : 6, // More dramatic exit rotation
+          x: direction === 'next' ? -60 : 60 // Exit x position
+        }}
+      />
+    )}
+
+    {/* Non-animated fallback for non-current slides */}
+    {!isCurrentSlide && <img src={src} alt="Background" className="w-full h-full object-cover" />}
+
     <div
       className="absolute inset-0"
       style={{
-        backgroundColor: overlayColor, // Always apply the color, not just when current
-        opacity: isCurrentSlide ? 0.8 : 0,
-        mixBlendMode: 'overlay',
-        transition: 'opacity 0.8s ease' // Smooth transition for color overlay
-      }}
-    />
-    <div
-      className="absolute inset-0"
-      style={{
-        background: 'linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%)',
-        opacity: isCurrentSlide ? 1 : 0,
-        mixBlendMode: 'multiply',
-        transition: 'opacity 0.8s ease' // Smooth transition for gradient
+        backgroundColor: overlayColor,
+        mixBlendMode: 'overlay'
       }}
     />
   </motion.div>
 );
-
 const HeroSlide = () => {
   const [rotate, setRotate] = useState(0);
   const [active, setActive] = useState(0);
@@ -336,7 +432,7 @@ const HeroSlide = () => {
       {
         id: 1,
         image: Carousel1,
-        bgImage: bgPatisserie,
+        bgImage: bgChocolat,
         overlayColor: '#340503',
         name: 'pâtisserie',
         description:
@@ -350,14 +446,14 @@ const HeroSlide = () => {
       {
         id: 2,
         image: Carousel3,
-        bgImage: bgConfiserie,
+        bgImage: bgChocolat,
         overlayColor: '#141E07',
         name: 'CONFISERIE',
         description:
           'Douceurs sucrées comme caramels, nougats et bonbons colorés. Une gamme variée de petits plaisirs pour satisfaire toutes vos envies gourmandes.',
         gradient: 'linear-gradient(135deg, #D4AF37 0%, #D4AF37 50%, #D4AF37 100%)',
         textGradient: 'linear-gradient(135deg, #141E07 0%, #141E07 100%)',
-        floatingImages: [strawberry, cherry, orange, bluebereies],
+        floatingImages: [cherry, bluebereies, orange, strawberry],
         page: 'products/confiserie/sucettes'
       },
       {
@@ -371,7 +467,7 @@ const HeroSlide = () => {
         gradient:
           'linear-gradient(135deg, rgba(62, 39, 35, 0.85) 0%, rgba(93, 64, 55, 0.75) 50%, rgba(141, 110, 99, 0.65) 100%)',
         textGradient: 'linear-gradient(135deg, #1E0807 0%, #1E0807 100%)',
-        floatingImages: [piple, piple2, piple3, piple4],
+        floatingImages: [piple2, piple2, piple3, piple3],
         page: 'products/chocolat/pâtes%20à%20tartiner'
       }
     ],
@@ -385,10 +481,10 @@ const HeroSlide = () => {
     () => ({
       enter: (direction) => ({
         opacity: 0,
-        x: direction === 'next' ? '100%' : '-100%',
+        x: direction === 'next' ? '130%' : '-130%',
         transition: {
           opacity: { duration: 0.6, ease: [0.645, 0.045, 0.355, 1.0] },
-          x: { duration: 0.8, ease: [0.645, 0.045, 0.355, 1.0] } // cubic-bezier for smoother motion
+          x: { duration: 0.8, ease: [0.645, 0.045, 0.355, 1.0] }
         }
       }),
       center: {
@@ -397,41 +493,49 @@ const HeroSlide = () => {
         x: 0,
         transition: {
           opacity: { duration: 0.6, ease: [0.215, 0.61, 0.355, 1] },
-          x: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }
+          x: {
+            duration: 0.9,
+            type: 'spring',
+            stiffness: 80,
+            damping: 10,
+            bounce: 0.5
+          }
         }
       },
       exit: (direction) => ({
         zIndex: 0,
         opacity: 0,
-        x: direction === 'next' ? '-50%' : '50%', // Less movement when exiting for a more subtle effect
+        x: direction === 'next' ? '-70%' : '70%',
         transition: {
-          opacity: { duration: 0.7, ease: [0.215, 0.61, 0.355, 1] }, // Increased from 0.5
-          x: { duration: 0.7, ease: [0.215, 0.61, 0.355, 1] }
+          opacity: { duration: 0.7, ease: [0.215, 0.61, 0.355, 1] },
+          x: {
+            duration: 0.7,
+            ease: [0.215, 0.61, 0.355, 1]
+          }
         }
       })
     }),
     []
   );
-
   const getRotateValues = useCallback((active, position) => {
     const rotate = {
       0: {
-        'top-left': -25,
+        'top-left': 25,
         'top-right': 30,
         'bottom-left': 120,
-        'bottom-right': 20
+        'bottom-right': -30
       },
       1: {
-        'top-left': -25,
+        'top-left': -50,
         'top-right': 30,
         'bottom-left': 10,
-        'bottom-right': 20
+        'bottom-right': -10
       },
       2: {
-        'top-left': -25,
+        'top-left': 50,
         'top-right': 60,
         'bottom-left': -120,
-        'bottom-right': -20
+        'bottom-right': -40
       }
     };
     return rotate[active]?.[position] || 0;
@@ -442,24 +546,24 @@ const HeroSlide = () => {
     const sizes = {
       0: {
         // First slide
-        'top-left': 'w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-44 2xl:h-44',
-        'top-right': 'w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-44 2xl:h-44',
-        'bottom-left': 'w-24 h-24 md:w-32 md:h-32 lg:w-32 lg:h-32 xl:w-36 xl:h-36 2xl:w-40 2xl:h-40',
-        'bottom-right': 'w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-44 2xl:h-44'
+        'top-left': 'w-32 h-32 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-48 2xl:h-48',
+        'top-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-44 2xl:h-44',
+        'bottom-left': 'w-32 h-32 md:w-32 md:h-32 lg:w-32 lg:h-32 xl:w-36 xl:h-36 2xl:w-40 2xl:h-40',
+        'bottom-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-48 2xl:h-48'
       },
       1: {
         // Second slide
-        'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
+        'top-left': 'w-48 h-48 md:w-48 md:h-48 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-72 2xl:h-72',
         'top-right': 'w-36 h-36 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
         'bottom-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
-        'bottom-right': 'w-24 h-24 md:w-36 md:h-36 lg:w-32 lg:h-32 xl:w-32 xl:h-32 2xl:w-32 2xl:h-32'
+        'bottom-right': 'w-40 h-40 md:w-40 md:h-40 lg:w-40 lg:h-40 xl:w-40 xl:h-40 2xl:w-60 2xl:h-60'
       },
       2: {
         // Third slide
-        'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
+        'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-56 2xl:h-56',
         'top-right': 'w-32 h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-52 xl:h-52 2xl:w-56 2xl:h-56',
         'bottom-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
-        'bottom-right': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48'
+        'bottom-right': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-44 2xl:h-44'
       }
     };
 
@@ -470,27 +574,31 @@ const HeroSlide = () => {
     // Custom positions for each active state
     const positions = {
       0: {
-        'top-left': '-left-4 -top-20 md:-left-12 md:-top-16  lg:-left-0 lg:-top-24 2xl:-left-10 2xl:-top-24',
-        'top-right': '-right-2 -top-16 md:-right-8 md:-top-20 lg:-right-0 lg:-top-24  2xl:-right-10 2xl:-top-24',
-        'bottom-left': '-left-0 -bottom-10 md:-left-0 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-8 2xl:-bottom-20',
+        'top-left': '-left-4 -top-20 md:-left-12 md:-top-16  lg:-left-0 lg:-top-24 2xl:-left-60 2xl:-top-0',
+        'top-right':
+          ' hidden -right-2 -top-16 md:-right-8 md:-top-20 lg:-right-0 lg:-top-24  2xl:-right-10 2xl:-top-24',
+        'bottom-left':
+          'hidden -left-0 -bottom-10 md:-left-0 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-8 2xl:-bottom-20',
         'bottom-right':
-          '-right-0 -bottom-10 md:-right-4 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-8 2xl:-bottom-20'
+          '-right-0 -bottom-24 md:-right-4 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-36 2xl:-bottom-44'
       },
       1: {
-        'top-left': '-left-16 -top-20 md:-left-20 md:-top-24 lg:-left-0 lg:-top-24 2xl:-left-20 2xl:-top-24',
-        'top-right': '-right-16 -top-20 md:-right-20 md:-top-24 lg:-right-0 lg:-top-24  2xl:-right-20 2xl:-top-24',
+        'top-left': '-left-16 -top-20 md:-left-20 md:-top-24 lg:-left-0 lg:-top-24 2xl:-left-72 2xl:top-10',
+        'top-right':
+          'hidden -right-16 -top-20 md:-right-20 md:-top-24 lg:-right-0 lg:-top-24  2xl:-right-20 2xl:-top-24',
         'bottom-left':
-          '-left-16 -bottom-16 md:-left-20 md:-bottom-16 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
+          'hidden -left-16 -bottom-16 md:-left-20 md:-bottom-16 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
         'bottom-right':
-          '-right-16 -bottom-16 md:-right-20 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-20 2xl:-bottom-32'
+          ' -right-16 -bottom-24 md:-right-20 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-56 2xl:-bottom-44'
       },
       2: {
-        'top-left': '-left-16 -top-20 md:-left-24 md:-top-28 lg:-left-0 lg:-top-24 2xl:-left-20 2xl:-top-24',
-        'top-right': '-right-16 -top-20 md:-right-24 md:-top-28 lg:-right-0 lg:-top-24 2xl:-right-20 2xl:-top-24',
+        'top-left': '-left-16 -top-20 md:-left-24 md:-top-28 lg:-left-0 lg:-top-24 2xl:-left-52 2xl:top-28',
+        'top-right':
+          'hidden -right-16 -top-20 md:-right-24 md:-top-28 lg:-right-0 lg:-top-24 2xl:-right-20 2xl:-top-24',
         'bottom-left':
-          '-left-16 -bottom-16 md:-left-16 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
+          'hidden -left-16 -bottom-16 md:-left-16 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
         'bottom-right':
-          '-right-16 -bottom-16 md:-right-24 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-20 2xl:-bottom-32'
+          '-right-16 -bottom-24 md:-right-24 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-48 2xl:-bottom-32'
       }
     };
 
@@ -499,9 +607,9 @@ const HeroSlide = () => {
 
   const getImageContainerClass = useCallback((itemId) => {
     if (itemId === 1) {
-      return 'w-[300px] h-[300px] md:w-[450px] md:h-[450px] lg:w-[500px] lg:h-[500px]';
+      return 'w-[350px] h-[350px] md:w-[450px] md:h-[450px] lg:w-[410px] lg:h-[400px] md:top-[-20px] lg:top-[-100px]';
     }
-    return 'w-[280px] h-[280px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]';
+    return 'w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[420px] md:top-[-20px] lg:top-[-100px]';
   }, []);
 
   // Memoized navigation functions
@@ -516,23 +624,23 @@ const HeroSlide = () => {
   }, [items.length]);
 
   // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (e.key === 'ArrowLeft') prevSlider();
-      if (e.key === 'ArrowRight') nextSlider();
-    };
+  //   useEffect(() => {
+  //     const handleKeyPress = (e) => {
+  //       if (e.key === 'ArrowLeft') prevSlider();
+  //       if (e.key === 'ArrowRight') nextSlider();
+  //     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [nextSlider, prevSlider]);
+  //     window.addEventListener('keydown', handleKeyPress);
+  //     return () => window.removeEventListener('keydown', handleKeyPress);
+  //   }, [nextSlider, prevSlider]);
 
   // Auto-rotation effect
-  useEffect(() => {
-    if (!isHovering) {
-      const interval = setInterval(nextSlider, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [nextSlider, isHovering]);
+  //   useEffect(() => {
+  //     if (!isHovering) {
+  //       const interval = setInterval(nextSlider, 5000);
+  //       return () => clearInterval(interval);
+  //     }
+  //   }, [nextSlider, isHovering]);
 
   // Normalize rotation angle
   useEffect(() => {
@@ -544,22 +652,26 @@ const HeroSlide = () => {
   const descriptionVariants = {
     initial: (direction) => ({
       opacity: 0,
-      x: direction === 'next' ? 50 : -50,
-      y: 20
+      x: direction === 'next' ? 180 : -180, // Even further starting point
+      y: 0
     }),
     animate: {
       opacity: 1,
-      x: 0,
+      x: [0, 60, -45, 30, -20, 10, -5, 0], // More dramatic oscillations with larger values
       y: 0,
       transition: {
-        x: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: 0.2 },
-        opacity: { duration: 0.7, ease: 'easeOut', delay: 0.2 },
-        y: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: 0.2 }
+        x: {
+          duration: 2.0, // Longest duration for maximum visibility
+          times: [0, 0.15, 0.35, 0.5, 0.65, 0.8, 0.9, 1], // Well-distributed bounce points
+          ease: 'easeOut',
+          delay: 0.25 // Slightly increased delay
+        },
+        opacity: { duration: 0.7, ease: 'easeOut', delay: 0.3 }
       }
     },
     exit: (direction) => ({
       opacity: 0,
-      x: direction === 'next' ? -50 : 50,
+      x: direction === 'next' ? -70 : 70,
       y: 0,
       transition: {
         duration: 0.5,
@@ -584,7 +696,7 @@ const HeroSlide = () => {
   return (
     <div className="relative h-screen max-w-full overflow-hidden">
       {/* Background Images */}
-      <div className="absolute inset-0 bg-[#00000000] z-0"></div>
+      {/* <div className="absolute inset-0  z-0"></div> */}
 
       {items.map((item, index) => (
         <BackgroundImage
@@ -593,6 +705,7 @@ const HeroSlide = () => {
           active={active}
           isCurrentSlide={index === active}
           overlayColor={item.overlayColor}
+          direction={direction}
         />
       ))}
 
@@ -610,7 +723,7 @@ const HeroSlide = () => {
             transformStyle: 'preserve-3d'
           }}
         >
-          <div className="relative h-[calc(100vh-6rem)] mt-16">
+          <div className="relative h-[calc(100vh-6rem)] lg:mt-16">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -618,7 +731,7 @@ const HeroSlide = () => {
                 duration: 1.2,
                 ease: 'easeOut'
               }}
-              className="absolute w-full flex justify-center"
+              className="absolute w-full h-full flex justify-center items-start md:items-center"
             >
               <motion.h1
                 custom={direction}
@@ -626,48 +739,43 @@ const HeroSlide = () => {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="encode-sans lg:tracking-[-1.6rem] mt-10 md:mt-28 text-7xl md:text-[12rem] lg:text-[16rem] font-bold uppercase leading-none lg:max-w-full 3xl:max-w-[90rem] relative z-20"
+                className="encode-sans font-custom mt-32 md:pt-0 mb-12 md:mb-48 lg:mb-40 lg:tracking-[-1.6rem] text-7xl md:text-[8rem] lg:text-[16rem] font-bold uppercase leading-none lg:max-w-full 3xl:max-w-[90rem] relative z-20 lg:text-center mx-auto"
               >
                 {/* Base layer - solid color */}
-                <span className="absolute inset-0 text-white opacity-20">{items[active].name}</span>
+                <span className="absolute inset-0 font-custom  text-white opacity-20">{items[active].name}</span>
 
                 {/* Second layer - gradient overlay */}
-                <span
-                  className="relative bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: `linear-gradient(135deg,
-        ${items[active].overlayColor || '#340503'}aa 5%,
-        ${items[active].overlayColor || '#340503'}dd 30%,
-        ${items[active].overlayColor || '#340503'} 100%,
-        )`,
-                    WebkitBackgroundClip: 'text',
-                    filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))',
-                    mixBlendMode: 'overlay'
-                  }}
-                >
-                  {items[active].name}
-                </span>
+                <span className="relative bg-clip-text font-custom  text-transparent">{items[active].name}</span>
               </motion.h1>
             </motion.div>
-            <div className="relative w-full h-[80%] z-20 lg:h-full lg:max-w-full 3xl:max-w-[82rem] mx-auto px-4">
+            <div className="relative w-full h-full md:h-[90%]  z-20 lg:h-full lg:max-w-full 3xl:max-w-[82rem] mx-auto px-4">
               <div className="relative w-full h-full flex items-center justify-center">
                 <motion.div
                   initial={{ opacity: 0, x: direction === 'next' ? 100 : -100 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: direction === 'next' ? -100 : 100 }}
                   transition={{
-                    duration: 0.8,
-                    ease: 'easeInOut',
-                    delay: 0.2
+                    opacity: { duration: 0.8, ease: 'easeOut' },
+                    x: {
+                      duration: 0.8,
+                      type: 'spring',
+                      stiffness: 80,
+                      damping: 12,
+                      bounce: 0.5
+                    }
                   }}
-                  className="absolute left-0 lg:left-10 2xl:left-6 3xl:-left-28 top-[85%] lg:top-[60%] -translate-y-1/2 z-40 w-full md:max-w-md mt-4 md:mt-0"
+                  className="absolute left-0 lg:left-10 2xl:left-6 3xl:-left-28 top-[85%] lg:top-[60%] -translate-y-1/2 z-40 w-full lg:max-w-md mt-4 lg:mt-0"
                   style={{ transformOrigin: 'center center' }}
                 >
-                  <div className="flex flex-col mt-8 md:mt-0 md:block py-2 px-4 md:p-6 rounded-2xl  ">
-                    <Link
-                      href={items[active].page}
-                      //   className="inline-block text-center md:text-left px-8 py-3 text-white rounded-full transition-colors duration-500 border border-white/60 hover:bg-white/30"
-                    >
+                  <motion.div
+                    variants={descriptionVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    custom={direction}
+                    className="flex flex-col lg:mt-0 lg:block py-2 px-4 md:p-6 rounded-2xl"
+                  >
+                    <Link href={items[active].page}>
                       <Button className="bg-red-700 font-custom w-full mb-2 lg:w-fit hover:bg-black text-white rounded-l-full rounded-br-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
                         Découvrir
                         <span className="ml-2 inline-block transform group-hover:translate-x-1 transition-transform duration-200">
@@ -675,16 +783,21 @@ const HeroSlide = () => {
                         </span>
                       </Button>
                     </Link>
-                    <p className="text-white font-light text-center md:text-left text-base md:text-lg lg:text-xl leading-relaxed  md:mb-6">
+                    <motion.p className="text-white font-light text-center md:text-left text-base md:text-lg lg:text-lg leading-relaxed md:mb-6">
                       {items[active].description}
-                    </p>
-                  </div>
+                    </motion.p>
+                  </motion.div>
                 </motion.div>
 
                 {/* Main product image - stationary at center */}
                 <div className={`relative z-30 ${getImageContainerClass(items[active].id)}`}>
                   <AnimatePresence mode="wait">
-                    <MainImage key={`main-${active}`} image={items[active].image} name={items[active].name} />
+                    <MainImage
+                      key={`main-${active}`}
+                      image={items[active].image}
+                      name={items[active].name}
+                      direction={direction}
+                    />
                   </AnimatePresence>
 
                   {/* Floating images with orbital motion */}
@@ -704,6 +817,7 @@ const HeroSlide = () => {
                         getPosition={getPosition}
                         getImageSize={getImageSize}
                         getRotateValues={getRotateValues}
+                        direction={direction} // Pass direction
                       />
                     ))}
                   </AnimatePresence>

@@ -233,7 +233,7 @@ const FilterBar = ({ onSortChange, totalProducts }) => (
 const MobileFilters = ({ categories, selectedCategory, onCategoryChange }) => (
   <Sheet>
     <SheetTrigger asChild>
-      <Button variant="outline" className="lg:hidden mb-4">
+      <Button className="lg:hidden mb-4 rounded-l-full rounded-br-full bg-red-700 text-white">
         <Filter className="h-4 w-4 mr-2" />
         Filtres
       </Button>
