@@ -84,7 +84,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
 
   const ProductFeature = ({ icon: Icon, title, description }) => (
     <motion.div
-      className="flex items-start gap-3 p-4 bg-[#fffcf4] rounded-lg shadow-sm"
+      className="flex items-start gap-3 p-4 bg-[#fffcf488] rounded-2xl shadow-sm"
       variants={childrenTransition}
       whileHover={{ y: -2, transition: { duration: 0.2 } }}
     >
@@ -101,14 +101,14 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
   if (isLoading) {
     return (
       <motion.div
-        className="min-h-screen bg-[#fffcf4] p-8"
+        className="min-h-screen bg-[#fffcf488] p-8"
         initial="hidden"
         animate="visible"
         variants={shimmerAnimation}
       >
         <div className="max-w-7xl mx-auto">
           <div className="h-8 w-48 bg-gray-200 rounded mb-8" />
-          <div className="bg-[#fffcf4] rounded-lg p-8">
+          <div className="bg-[#fffcf488] rounded-lg p-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="aspect-square bg-gray-100 rounded-lg animate-pulse" />
               <div className="space-y-4">
@@ -200,7 +200,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
           />
         </div>
 
-        <div className="relative mx-auto px-4">
+        <div className="relative mx-auto px-4 ">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
@@ -218,7 +218,12 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
           </motion.div>
         </div>
       </motion.div>
-      <motion.div className="pb-16 pt-0 bg-white" initial="hidden" animate="visible" variants={pageTransition}>
+      <motion.div
+        className="pb-16 pt-0 bg-gradient-to-b from-[#f8f4f0] to-[#f0e9e4]"
+        initial="hidden"
+        animate="visible"
+        variants={pageTransition}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* Breadcrumb */}
           <motion.nav className="flex items-center space-x-2 mb-8" variants={childrenTransition}>
@@ -233,12 +238,15 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
           </motion.nav>
 
           {/* Main Product Section */}
-          <motion.div className="bg-[#fffcf4] rounded-lg shadow-lg overflow-hidden mb-8" variants={childrenTransition}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-[#fffcf4]">
+          <motion.div
+            className="bg-[#fffcf488] rounded-2xl shadow-lg overflow-hidden mb-8"
+            variants={childrenTransition}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-[#fffcf488]">
               {/* Left Column - Product Image */}
               <motion.div className="space-y-6" variants={childrenTransition}>
                 <motion.div
-                  className="aspect-square rounded-lg overflow-hidden bg-[#fffcf4] relative group"
+                  className="aspect-square rounded-lg overflow-hidden bg-[#fffcf488] relative group"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -354,14 +362,14 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
           {/* Product Type Badge */}
 
           {/* Technical Specifications */}
-          <motion.section className="mt-16 bg-[#fffcf4] rounded-lg shadow-lg p-8" variants={childrenTransition}>
+          <motion.section className="mt-16 bg-[#fffcf488] rounded-lg shadow-lg p-8" variants={childrenTransition}>
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Spécifications techniques</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <motion.div className="space-y-6" variants={childrenTransition}>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Emballage</h3>
-                  <div className="bg-white p-4 rounded-lg">
+                  <div className="bg-gray-100 p-4 rounded-lg">
                     <dl className="space-y-3">
                       <div className="flex justify-between">
                         <dt className="text-gray-600">Unité de vente:</dt>
@@ -417,7 +425,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
               {relatedProducts?.map((relatedProduct, index) => (
                 <motion.div
                   key={relatedProduct.id}
-                  className="bg-[#fffcf4] rounded-lg shadow-sm overflow-hidden"
+                  className="bg-[#fffcf488] rounded-lg shadow-sm overflow-hidden"
                   variants={childrenTransition}
                   whileHover={{ y: -8 }}
                 >
@@ -430,17 +438,17 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                     />
                   </div>
                   <div className="p-4">
-                    <span className="text-sm text-gray-500 mb-1 block">{relatedProduct.ref}</span>
+                    {/* <span className="text-sm text-gray-500 mb-1 block">{relatedProduct.ref}</span> */}
                     <h3 className="font-semibold text-gray-900 mb-2 truncate">{relatedProduct.name}</h3>
-                    <motion.span
+                    {/* <motion.span
                       className="px-2 py-1 bg-red-500 text-white text-xs rounded-full"
                       whileHover={{ scale: 1.05 }}
                     >
                       {relatedProduct.product_type?.name}
-                    </motion.span>
+                    </motion.span> */}
                     <Link
                       href={`/products/${relatedProduct.id}`}
-                      className="bg-red-500 hover:bg-red-500/90 text-white mt-3 w-full block text-center rounded-full px-3 py-2 text-sm font-medium transition-colors"
+                      className="bg-red-700 hover:bg-red-700/90 text-white mt-3 w-full block text-center rounded-l-full rounded-br-full px-3 py-2 text-sm font-medium transition-colors"
                     >
                       Voir plus
                     </Link>
