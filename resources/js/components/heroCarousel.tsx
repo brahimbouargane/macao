@@ -1,3 +1,4 @@
+import piple1 from '@/assets/images/Papil.brown.webp';
 import piple2 from '@/assets/images/Papil.N.webp';
 import piple3 from '@/assets/images/Papil.red.webp';
 
@@ -351,61 +352,111 @@ const NavigationButtons = memo(({ onPrev, onNext, onHoverChange, active, total }
 
 const BackgroundImage = ({ src, active, isCurrentSlide, overlayColor, direction }) => (
   <motion.div
-    className="absolute inset-0 w-full h-full z-1"
+    className="absolute inset-0 w-full h-full z-1 overflow-hidden"
     initial={{
-      opacity: 0,
-      scale: 1.05
+      opacity: 0
+      //   scale: 1.05
     }}
     animate={{
       opacity: isCurrentSlide ? 1 : 0,
-      scale: isCurrentSlide ? 1 : 1.05,
       transition: {
-        opacity: { duration: 0.8 },
-        scale: { duration: 1.2, ease: [0.25, 0.1, 0.25, 1.0] }
+        opacity: { duration: 0.8 }
       }
     }}
     exit={{
-      opacity: 0,
-      scale: 0.95
+      opacity: 0
     }}
   >
-    {/* Add a parent div with background color to prevent flash */}
-    <div className="absolute inset-0"></div>
-
     {/* Key prop ensures animation reruns for each slide */}
     {isCurrentSlide && (
-      <motion.img
-        key={`bg-img-${active}`} // This key forces remounting on slide change
-        src={src}
-        alt="Background"
-        className="w-full h-full object-cover"
+      <motion.div
+        key={`bg-container-${active}`}
+        className="absolute inset-0 overflow-hidden"
+        // Oversized container to prevent edge visibility during extreme rotations
+        style={{ width: '140%', height: '140%', top: '-20%', left: '-20%' }}
+        // Initial scale depends on slide direction - slightly larger when coming from next, smaller from previous
         initial={{
-          rotate: direction === 'next' ? 8 : -8, // More dramatic initial rotation
-          x: direction === 'next' ? 60 : -60 // Initial x position
+          scale: direction === 'next' ? 1.15 : 0.9
         }}
+        // Animate to normal scale with custom easing for smooth, slightly bouncy feel
         animate={{
-          rotate: [0, -5, 4, -3, 2, -1, 0], // More dramatic bouncing rotation effect
-          x: [0, -25, 15, -8, 4, -2, 0], // Horizontal bounce
+          scale: 1,
           transition: {
-            rotate: {
-              duration: 2.5, // Longer duration for more visible effect
-              times: [0, 0.15, 0.3, 0.5, 0.7, 0.85, 1], // Adjusted timing
-              ease: 'easeOut',
-              delay: 0.1
-            },
-            x: {
-              duration: 2.0,
-              times: [0, 0.2, 0.4, 0.6, 0.75, 0.9, 1],
-              ease: 'easeOut',
-              delay: 0.15
-            }
+            scale: { duration: 2, ease: [0.22, 1, 0.36, 1] } // Custom cubic bezier curve
           }
         }}
+        // Exit animation reverses the initial scale based on direction
         exit={{
-          rotate: direction === 'next' ? -6 : 6, // More dramatic exit rotation
-          x: direction === 'next' ? -60 : 60 // Exit x position
+          scale: direction === 'next' ? 0.9 : 1.15,
+          transition: {
+            scale: { duration: 0.8, ease: [0.4, 0, 0.2, 1] } // Material design easing
+          }
         }}
-      />
+      >
+        <motion.div
+          className="w-full h-full overflow-hidden"
+          // Initial transform sets up dramatic starting position
+          initial={{
+            rotate: direction === 'next' ? 18 : -18, // Strong initial rotation
+            x: direction === 'next' ? 80 : -80, // Significant horizontal offset
+            y: 30 // Vertical offset creates dynamic entry
+          }}
+          // Complex animation with multiple keyframes for dramatic, bouncy movement
+          animate={{
+            // Rotation sequence: starts with extreme angle, bounces through opposite direction, gradually settles
+            rotate: [
+              direction === 'next' ? 20 : -40, // Initial rotation
+              direction === 'next' ? -20 : 90, // First bounce (opposite direction)
+              direction === 'next' ? 20 : -90, // Second bounce (back to original direction)
+              0 // Settled position
+            ],
+            // Horizontal movement follows similar pattern to rotation
+            x: [
+              direction === 'next' ? 80 : -80, // Initial x-offset
+              direction === 'next' ? -60 : 60, // First bounce
+              direction === 'next' ? 40 : -40, // Second bounce
+              direction === 'next' ? -25 : 25, // Third bounce
+              direction === 'next' ? 10 : -10, // Final small bounce
+              0 // Settled position
+            ],
+            // Vertical movement gradually decreases without direction changes
+            y: [40, 30, 20, 10, 4, 0], // Gradually settling from high to centered
+            transition: {
+              duration: 2, // Longer duration for more visible effect
+              times: [0, 0.2, 0.4, 0.6, 0.8, 1], // Timing distribution for keyframes
+              ease: [0.76, 0, 0.24, 1] // Custom easing for amplified motion feel
+            }
+          }}
+          // Exit animation creates smooth transition to next slide
+          exit={{
+            rotate: direction === 'next' ? -12 : 12, // Rotate opposite to entrance direction
+            x: direction === 'next' ? -70 : 70, // Move opposite to entrance direction
+            y: 15, // Slight vertical lift on exit
+            transition: {
+              duration: 0.8, // Quicker exit than entrance
+              ease: 'easeOut' // Standard ease out for natural motion
+            }
+          }}
+        >
+          <motion.img
+            src={src}
+            alt="Background"
+            className="w-full h-full object-cover"
+            // Image starts slightly darker and less saturated
+            initial={{ filter: 'brightness(0.8) saturate(0.85)' }}
+            // Image brightens and becomes more vibrant as animation completes
+            animate={{
+              filter: 'brightness(1) saturate(1.05)', // Slightly oversaturated for visual impact
+              transition: { duration: 1.4 } // Slightly slower than position changes
+            }}
+            // Image returns to darker state when exiting
+            exit={{
+              filter: 'brightness(0.8) saturate(0.85)',
+              transition: { duration: 0.6 } // Quick fade-out effect
+            }}
+          />
+        </motion.div>
+      </motion.div>
     )}
 
     {/* Non-animated fallback for non-current slides */}
@@ -420,6 +471,7 @@ const BackgroundImage = ({ src, active, isCurrentSlide, overlayColor, direction 
     />
   </motion.div>
 );
+
 const HeroSlide = () => {
   const [rotate, setRotate] = useState(0);
   const [active, setActive] = useState(0);
@@ -453,7 +505,7 @@ const HeroSlide = () => {
           'Douceurs sucrées comme caramels, nougats et bonbons colorés. Une gamme variée de petits plaisirs pour satisfaire toutes vos envies gourmandes.',
         gradient: 'linear-gradient(135deg, #D4AF37 0%, #D4AF37 50%, #D4AF37 100%)',
         textGradient: 'linear-gradient(135deg, #141E07 0%, #141E07 100%)',
-        floatingImages: [cherry, bluebereies, orange, strawberry],
+        floatingImages: [cherry, orange, bluebereies, strawberry],
         page: 'products/confiserie/sucettes'
       },
       {
@@ -467,7 +519,7 @@ const HeroSlide = () => {
         gradient:
           'linear-gradient(135deg, rgba(62, 39, 35, 0.85) 0%, rgba(93, 64, 55, 0.75) 50%, rgba(141, 110, 99, 0.65) 100%)',
         textGradient: 'linear-gradient(135deg, #1E0807 0%, #1E0807 100%)',
-        floatingImages: [piple2, piple2, piple3, piple3],
+        floatingImages: [piple2, piple1, piple3, piple3],
         page: 'products/chocolat/pâtes%20à%20tartiner'
       }
     ],
@@ -527,7 +579,7 @@ const HeroSlide = () => {
       },
       1: {
         'top-left': -50,
-        'top-right': 30,
+        'top-right': 20,
         'bottom-left': 10,
         'bottom-right': -10
       },
@@ -561,7 +613,7 @@ const HeroSlide = () => {
       2: {
         // Third slide
         'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-56 2xl:h-56',
-        'top-right': 'w-32 h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-52 xl:h-52 2xl:w-56 2xl:h-56',
+        'top-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 2xl:w-48 2xl:h-48',
         'bottom-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
         'bottom-right': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-44 2xl:h-44'
       }
@@ -575,8 +627,7 @@ const HeroSlide = () => {
     const positions = {
       0: {
         'top-left': '-left-4 -top-20 md:-left-12 md:-top-16  lg:-left-0 lg:-top-24 2xl:-left-60 2xl:-top-0',
-        'top-right':
-          ' hidden -right-2 -top-16 md:-right-8 md:-top-20 lg:-right-0 lg:-top-24  2xl:-right-10 2xl:-top-24',
+        'top-right': '  -right-4 -top-20 md:-right-12 md:-top-16 lg:-right-0 lg:-top-24  2xl:-right-52 2xl:-top-0',
         'bottom-left':
           'hidden -left-0 -bottom-10 md:-left-0 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-8 2xl:-bottom-20',
         'bottom-right':
@@ -584,8 +635,7 @@ const HeroSlide = () => {
       },
       1: {
         'top-left': '-left-16 -top-20 md:-left-20 md:-top-24 lg:-left-0 lg:-top-24 2xl:-left-72 2xl:top-10',
-        'top-right':
-          'hidden -right-16 -top-20 md:-right-20 md:-top-24 lg:-right-0 lg:-top-24  2xl:-right-20 2xl:-top-24',
+        'top-right': ' -right-16 -top-20 md:-right-20 md:-top-24 lg:-right-0 lg:-top-24  2xl:-right-72 2xl:-top-0',
         'bottom-left':
           'hidden -left-16 -bottom-16 md:-left-20 md:-bottom-16 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
         'bottom-right':
@@ -593,8 +643,7 @@ const HeroSlide = () => {
       },
       2: {
         'top-left': '-left-16 -top-20 md:-left-24 md:-top-28 lg:-left-0 lg:-top-24 2xl:-left-52 2xl:top-28',
-        'top-right':
-          'hidden -right-16 -top-20 md:-right-24 md:-top-28 lg:-right-0 lg:-top-24 2xl:-right-20 2xl:-top-24',
+        'top-right': ' -right-16 -top-20 md:-right-24 md:-top-28 lg:-right-0 lg:-top-24 2xl:-right-64 2xl:-top-0',
         'bottom-left':
           'hidden -left-16 -bottom-16 md:-left-16 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
         'bottom-right':
@@ -624,23 +673,23 @@ const HeroSlide = () => {
   }, [items.length]);
 
   // Handle keyboard navigation
-  //   useEffect(() => {
-  //     const handleKeyPress = (e) => {
-  //       if (e.key === 'ArrowLeft') prevSlider();
-  //       if (e.key === 'ArrowRight') nextSlider();
-  //     };
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'ArrowLeft') prevSlider();
+      if (e.key === 'ArrowRight') nextSlider();
+    };
 
-  //     window.addEventListener('keydown', handleKeyPress);
-  //     return () => window.removeEventListener('keydown', handleKeyPress);
-  //   }, [nextSlider, prevSlider]);
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [nextSlider, prevSlider]);
 
   // Auto-rotation effect
-  //   useEffect(() => {
-  //     if (!isHovering) {
-  //       const interval = setInterval(nextSlider, 5000);
-  //       return () => clearInterval(interval);
-  //     }
-  //   }, [nextSlider, isHovering]);
+  useEffect(() => {
+    if (!isHovering) {
+      const interval = setInterval(nextSlider, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [nextSlider, isHovering]);
 
   // Normalize rotation angle
   useEffect(() => {
