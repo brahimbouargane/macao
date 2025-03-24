@@ -405,7 +405,7 @@ const Products = () => {
       </motion.div>
 
       {/* Main Content */}
-      <div className="min-h-screen bg-red-100/20 ">
+      <div className="min-h-screen bg-gradient-to-b from-[#f8f4f0] to-[#f0e9e4] ">
         <div className="max-w-[98rem] mx-auto px-4 py-8">
           <MobileFilters
             categories={parentCategory.childCategoriesNames}

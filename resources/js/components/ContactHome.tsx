@@ -48,7 +48,7 @@ function ContactHome() {
       <div className="grid lg:grid-cols-2 items-center">
         {/* Map Column */}
         <motion.div
-          className="h-[350px] md:h-[500px] w-full rounded-lg overflow-hidden order-1 md:order-1"
+          className="h-[350px] md:h-[500px] w-full rounded-[40px] overflow-hidden order-1 md:order-1"
           variants={fadeIn}
         >
           <div className="w-full h-full bg-red-900/90 text-white relative">

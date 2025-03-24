@@ -1,5 +1,5 @@
 import LeafletMap from '@/components/mapBox';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/shadcn-button';
 import { Input } from '@/components/ui/shadcn-input';
 import { Label } from '@/components/ui/shadcn-label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/shadcn-select';
@@ -99,7 +99,7 @@ export default function Contact() {
                   src="https://lottie.host/embed/c9e29a29-f842-4cb2-a9fa-3a06c146797b/S1h2hUYs2W.lottie"
                 ></iframe>
               </div>
-              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-l-full rounded-br-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <Phone className="w-5 h-5" />
@@ -110,7 +110,7 @@ export default function Contact() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-l-full rounded-br-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <Mail className="w-5 h-5" />
@@ -121,7 +121,7 @@ export default function Contact() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-l-full rounded-br-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <MapPin className="w-5 h-5" />
@@ -132,7 +132,7 @@ export default function Contact() {
                   </div>
                 </div>
               </motion.div>
-              <motion.div className="bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <motion.div className="bg-white rounded-l-full rounded-br-full p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3">
                   <div className="text-red-600">
                     <Clock className="w-5 h-5" />
@@ -163,7 +163,7 @@ export default function Contact() {
                   <Input
                     id="Prénom"
                     placeholder="Entrez votre prénom"
-                    className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
+                    className="rounded-full border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
                   />
                 </div>
                 <div className="space-y-2">
@@ -174,7 +174,7 @@ export default function Contact() {
                   <Input
                     id="Nom"
                     placeholder="Entrez votre nom"
-                    className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
+                    className="rounded-full border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
@@ -187,7 +187,7 @@ export default function Contact() {
                   <Input
                     id="Telephone"
                     placeholder="Entrez votre numéro"
-                    className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
+                    className="rounded-full border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
                   />
                 </div>
                 <div className="space-y-2">
@@ -198,7 +198,7 @@ export default function Contact() {
                   <Input
                     id="email"
                     placeholder="Entrez votre emeil"
-                    className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
+                    className="rounded-full border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all"
                   />
                 </div>
               </div>
@@ -209,7 +209,7 @@ export default function Contact() {
                   Département
                 </Label>
                 <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                  <SelectTrigger className="w-full rounded-none border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent">
+                  <SelectTrigger className="w-full rounded-full border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent">
                     <SelectValue placeholder="Sélectionnez un département" />
                   </SelectTrigger>
                   <SelectContent>
@@ -228,13 +228,13 @@ export default function Contact() {
                 <Textarea
                   id="message"
                   placeholder="Entrez votre message"
-                  className="rounded-none border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-transparent transition-all min-h-[120px]"
+                  className="rounded-[20px] border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-transparent transition-all min-h-[120px]"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-8 py-2 rounded-full w-full transition-colors duration-300 flex items-center justify-center gap-2"
+                className="rounded-l-full rounded-br-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white px-8 py-2  w-full transition-colors duration-300 flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 Envoyer le message
@@ -244,7 +244,10 @@ export default function Contact() {
         </div>
 
         {/* Map Section at the bottom */}
-        <motion.div className="mt-12 relative h-[500px] md:h-[500px] overflow-hidden" variants={itemVariants}>
+        <motion.div
+          className="mt-12 relative h-[500px] md:h-[500px] overflow-hidden rounded-[40px]"
+          variants={itemVariants}
+        >
           <motion.div
             className="absolute inset-0 bg-red-900/90 text-white"
             initial={{ opacity: 0 }}
