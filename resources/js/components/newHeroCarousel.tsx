@@ -86,7 +86,7 @@ const Header = () => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative ">
       {/* Hero Carousel */}
       <HeroSlide />
       {/* <LuxuryPastryHero /> */}

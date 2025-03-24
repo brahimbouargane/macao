@@ -166,6 +166,7 @@
 
   #app {
     @apply h-full;
+    overflow-x: hidden;
   }
 
   /* dark mode */
