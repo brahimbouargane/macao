@@ -43,9 +43,9 @@ export function CategoryDistributionPieChart({ productsCountByCategory }: Catego
                 dataKey="value"
                 nameKey="name"
                 innerRadius={40}
-                outerRadius={80} // Radius of the outer circle
+                outerRadius={120} // Radius of the outer circle
                 cornerRadius={0} // Make the segments rounded
-                paddingAngle={1} // Space between segments
+ // Space between segments
                 label={({ payload, ...props }) => {
                   return (
                     <text
