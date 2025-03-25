@@ -80,7 +80,7 @@ export default function DashboardSidebar(props: React.ComponentProps<typeof Side
               isCurrent={component.includes('Dashboard/users')}
               icon={MdSupervisedUserCircle}
               href={route('users.index')}
-              badge={String(modelsCount.user)}
+              badge={String(modelsCount.user - 1)}
             >
               {__(translations, 'Users')}
             </Sidebar.Item>
