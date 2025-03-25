@@ -100,7 +100,8 @@ export function ProductsDataTable<TData, TValue>({
                         hidden={hideColumn(header, role)}
                         key={header.id}
                         colSpan={header.colSpan}
-                        style={{ width: header.getSize() }}
+                        
+                        style={{ width: `${header.getSize()}px`}}
                       >
                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
@@ -125,7 +126,8 @@ export function ProductsDataTable<TData, TValue>({
                         <TableCell
                             hidden={hideColumn(cell, role)}
                           key={cell.id}
-                          className={cn('!pl-4  border-2 ', row.getIsSelected() && '  !border-l-colors-primary-500')}
+                          className={cn('!pl-4  border-2 ', row.getIsSelected() && '  !border-l-colors-primary-500',row.id == 'brand' && '!px-0' )}
+                          
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </TableCell>
