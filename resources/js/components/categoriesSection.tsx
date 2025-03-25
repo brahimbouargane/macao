@@ -2,11 +2,11 @@ import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 // Import images from your assets
-import candies from '@/assets/images/candies.webp';
 import candy from '@/assets/images/candy.webp';
-import choco from '@/assets/images/chocolate.webp';
-import leonardo from '@/assets/images/Leonardo.webp';
-import wafer from '@/assets/images/wafer.webp';
+import wafer from '@/assets/images/cat-1.webp';
+import candies from '@/assets/images/cat-44.webp';
+import choco from '@/assets/images/cat-55.webp';
+import leonardo from '@/assets/images/cat-99.webp';
 
 interface Category {
   title: string;

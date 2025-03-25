@@ -1,3 +1,4 @@
+import piple4 from '@/assets/images/Papil. B.webp';
 import piple1 from '@/assets/images/Papil.brown.webp';
 import piple2 from '@/assets/images/Papil.N.webp';
 import piple3 from '@/assets/images/Papil.red.webp';
@@ -485,7 +486,7 @@ const HeroSlide = () => {
         id: 1,
         image: Carousel1,
         bgImage: bgChocolat,
-        overlayColor: '#340503',
+        overlayColor: '#5e0703',
         name: 'pâtisserie',
         description:
           'Délicieux gâteaux et pâtisseries faits avec soin pour toutes les occasions. Découvrez des créations artisanales qui allient tradition et raffinement pour régaler vos papilles.',
@@ -499,7 +500,7 @@ const HeroSlide = () => {
         id: 2,
         image: Carousel3,
         bgImage: bgChocolat,
-        overlayColor: '#141E07',
+        overlayColor: '#2f470e',
         name: 'CONFISERIE',
         description:
           'Douceurs sucrées comme caramels, nougats et bonbons colorés. Une gamme variée de petits plaisirs pour satisfaire toutes vos envies gourmandes.',
@@ -519,7 +520,7 @@ const HeroSlide = () => {
         gradient:
           'linear-gradient(135deg, rgba(62, 39, 35, 0.85) 0%, rgba(93, 64, 55, 0.75) 50%, rgba(141, 110, 99, 0.65) 100%)',
         textGradient: 'linear-gradient(135deg, #1E0807 0%, #1E0807 100%)',
-        floatingImages: [piple2, piple1, piple3, piple3],
+        floatingImages: [piple2, piple1, piple4, piple3],
         page: 'products/chocolat/pâtes%20à%20tartiner'
       }
     ],
@@ -574,17 +575,17 @@ const HeroSlide = () => {
       0: {
         'top-left': 25,
         'top-right': 30,
-        'bottom-left': 120,
+        'bottom-left': -50,
         'bottom-right': -30
       },
       1: {
         'top-left': -50,
-        'top-right': 20,
+        'top-right': -120,
         'bottom-left': 10,
         'bottom-right': -10
       },
       2: {
-        'top-left': 50,
+        'top-left': -40,
         'top-right': 60,
         'bottom-left': -120,
         'bottom-right': -40
@@ -598,24 +599,24 @@ const HeroSlide = () => {
     const sizes = {
       0: {
         // First slide
-        'top-left': 'w-32 h-32 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-48 2xl:h-48',
-        'top-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-44 2xl:h-44',
-        'bottom-left': 'w-32 h-32 md:w-32 md:h-32 lg:w-32 lg:h-32 xl:w-36 xl:h-36 2xl:w-40 2xl:h-40',
+        'top-left': 'w-28 h-28 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-40 xl:h-40 2xl:w-36 2xl:h-36',
+        'top-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-40 2xl:h-40',
+        'bottom-left': 'w-32 h-32 md:w-32 md:h-32 lg:w-32 lg:h-32 xl:w-36 xl:h-36 2xl:w-32 2xl:h-32',
         'bottom-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 2xl:w-48 2xl:h-48'
       },
       1: {
         // Second slide
-        'top-left': 'w-48 h-48 md:w-48 md:h-48 lg:w-48 lg:h-48 xl:w-56 xl:h-56 2xl:w-72 2xl:h-72',
-        'top-right': 'w-36 h-36 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
-        'bottom-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
-        'bottom-right': 'w-40 h-40 md:w-40 md:h-40 lg:w-40 lg:h-40 xl:w-40 xl:h-40 2xl:w-60 2xl:h-60'
+        'top-left': 'w-28 h-28 md:w-48 md:h-48 lg:w-48 lg:h-48 xl:w-48 xl:h-48 2xl:w-48 2xl:h-48',
+        'top-right': 'w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-40 xl:h-40 2xl:w-40 2xl:h-40',
+        'bottom-left': 'w-28 h-28 md:w-28 md:h-28 lg:w-32 lg:h-32 xl:w-32 xl:h-32 2xl:w-32 2xl:h-32',
+        'bottom-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-32 lg:h-32 xl:w-52 xl:h-52 2xl:w-60 2xl:h-60'
       },
       2: {
         // Third slide
-        'top-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-56 2xl:h-56',
-        'top-right': 'w-32 h-32 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 2xl:w-48 2xl:h-48',
-        'bottom-left': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-48 2xl:h-48',
-        'bottom-right': 'w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-44 2xl:h-44'
+        'top-left': 'w-24 h-24 md:w-24 md:h-24 lg:w-40 lg:h-40 xl:w-40 xl:h-40 2xl:w-40 2xl:h-40',
+        'top-right': 'w-24 h-24 md:w-24 md:h-24 lg:w-40 lg:h-40 xl:w-44 xl:h-44 2xl:w-44 2xl:h-44',
+        'bottom-left': 'w-16 h-16 md:w-20 md:h-20 lg:w-32 lg:h-32 xl:w-44 xl:h-44 2xl:w-40 2xl:h-40',
+        'bottom-right': 'w-24 h-24 md:w-24 md:h-24 lg:w-40 lg:h-40 xl:w-52 xl:h-52 2xl:w-52 2xl:h-52'
       }
     };
 
@@ -629,23 +630,23 @@ const HeroSlide = () => {
         'top-left': '-left-4 -top-20 md:-left-12 md:-top-16  lg:-left-0 lg:-top-24 2xl:-left-60 2xl:-top-0',
         'top-right': '  -right-4 -top-20 md:-right-12 md:-top-16 lg:-right-0 lg:-top-24  2xl:-right-52 2xl:-top-0',
         'bottom-left':
-          'hidden -left-0 -bottom-10 md:-left-0 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-8 2xl:-bottom-20',
+          ' -left-0 -bottom-24 md:-left-4 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-36 2xl:-bottom-44',
         'bottom-right':
           '-right-0 -bottom-24 md:-right-4 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-36 2xl:-bottom-44'
       },
       1: {
-        'top-left': '-left-16 -top-20 md:-left-20 md:-top-24 lg:-left-0 lg:-top-24 2xl:-left-72 2xl:top-10',
-        'top-right': ' -right-16 -top-20 md:-right-20 md:-top-24 lg:-right-0 lg:-top-24  2xl:-right-72 2xl:-top-0',
+        'top-left': '-left-16 -top-20 md:-left-20 md:-top-24 lg:-left-0 lg:-top-24 2xl:-left-52 2xl:top-0',
+        'top-right': ' -right-16 -top-20 md:-right-20 md:-top-24 lg:-right-0 lg:-top-24  2xl:-right-48 2xl:-top-0',
         'bottom-left':
-          'hidden -left-16 -bottom-16 md:-left-20 md:-bottom-16 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
+          ' -left-16 -bottom-24 md:-left-20 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-36 2xl:-bottom-44',
         'bottom-right':
           ' -right-16 -bottom-24 md:-right-20 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-56 2xl:-bottom-44'
       },
       2: {
-        'top-left': '-left-16 -top-20 md:-left-24 md:-top-28 lg:-left-0 lg:-top-24 2xl:-left-52 2xl:top-28',
+        'top-left': '-left-16 -top-20 md:-left-24 md:-top-28 lg:-left-0 lg:-top-24 2xl:-left-52 2xl:-top-4',
         'top-right': ' -right-16 -top-20 md:-right-24 md:-top-28 lg:-right-0 lg:-top-24 2xl:-right-64 2xl:-top-0',
         'bottom-left':
-          'hidden -left-16 -bottom-16 md:-left-16 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-20 2xl:-bottom-32',
+          ' -left-16 -bottom-24 md:-left-24 md:-bottom-20 lg:-left-0 lg:-bottom-0 2xl:-left-36 2xl:-bottom-48',
         'bottom-right':
           '-right-16 -bottom-24 md:-right-24 md:-bottom-20 lg:-right-0 lg:-bottom-0 2xl:-right-48 2xl:-bottom-32'
       }
