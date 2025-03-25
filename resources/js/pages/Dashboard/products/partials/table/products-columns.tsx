@@ -34,16 +34,18 @@ export const columns: ColumnDef<ProductData>[] = [
     accessorKey: 'id',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Id" />,
     cell: ({ row }) => <div className="w-fit">{row.getValue('id')}</div>,
-    size: 5,
+    size: 28,
     enableSorting: true,
-    enableHiding: true
+    enableHiding: true,
+    
+
   },
 
   {
     accessorKey: 'ref',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Ref" />,
     cell: ({ row }) => <div className="w-fit">{row.getValue('ref')}</div>,
-    size: 5,
+    size: 28,
     enableSorting: true,
     enableHiding: true
   },
@@ -60,31 +62,32 @@ export const columns: ColumnDef<ProductData>[] = [
     },
     enableSorting: false,
     
-    size: 10
+    size: 28,
   },
   {
     accessorKey: 'name',
     header: ({ column }) => <DataTableColumnHeader column={column} title={'Name'} />,
     cell: ({ row }) => {
       let name: string = row.getValue('name') ?? 'N/A';
-      if (name != 'N/A' && name.length > 20) {
-        name = name.substring(0, 20) + '...';
-      }
+      // if (name != 'N/A' && name.length > 20) {
+      //   name = name.substring(0, 20) + '...';
+      // }
       return (
         <div className="flex space-x-2">
           <span className="font-medium truncate">{name}</span>
         </div>
       );
-    }
+    },
+    size: 250
   },
   {
     accessorKey: 'description',
     header: ({ column }) => <DataTableColumnHeader column={column} title={'Description'} />,
     cell: ({ row }) => {
       let description: string = row.getValue('description') ?? '';
-      if (description != 'N/A' && description.length > 20) {
-        description = description.substring(0, 20) + '...';
-      }
+      // if (description != 'N/A' && description.length > 20) {
+      //   description = description.substring(0, 20) + '...';
+      // }
       return (
         <div className="flex space-x-2">
           <span className="font-medium truncate">{description}</span>
@@ -131,7 +134,9 @@ export const columns: ColumnDef<ProductData>[] = [
         );
       }
     },
-    enableSorting: false
+    enableSorting: false,
+    size: 28,
+    
   },
   {
     accessorKey: 'product_type',
@@ -140,11 +145,12 @@ export const columns: ColumnDef<ProductData>[] = [
       let type: ProductTypeData = row.getValue('product_type');
 
       return (
-        <div className="flex space-x-2">
+        <div className="flex items-center justify-center">
           <Badge className="font-medium truncate">{type?.name ?? 'N/A'}</Badge>
         </div>
       );
-    }
+    },
+    size: 20,
   },
   {
     accessorKey: 'brand',
@@ -153,11 +159,12 @@ export const columns: ColumnDef<ProductData>[] = [
       let brand: BrandData = row.getValue('brand');
 
       return (
-        <div className="flex space-x-2">
+        <div className="flex items-center justify-center">
           <Badge className="font-medium truncate">{brand?.name ?? 'N/A'}</Badge>
         </div>
       );
-    }
+    },
+    size: 28
   },
   // {
   //   accessorKey: 'category',
@@ -205,7 +212,8 @@ export const columns: ColumnDef<ProductData>[] = [
           <span>{row.getValue('updated_at') ?? 'N/A'}</span>
         </div>
       );
-    }
+    },
+    size: 28,
     // filterFn: (row, id, value) => {
     //     return value.includes(row.getValue(id));
     // }
@@ -221,7 +229,8 @@ export const columns: ColumnDef<ProductData>[] = [
           <span className="">{createdBy}</span>
         </div>
       );
-    }
+    },
+    size: 28,
   },
   {
     accessorKey: 'last_updated_by',
@@ -234,7 +243,8 @@ export const columns: ColumnDef<ProductData>[] = [
           <span className="">{updatedBy}</span>
         </div>
       );
-    }
+    },
+    size: 28,
   },
   {
     id: 'actions',
