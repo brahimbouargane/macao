@@ -7,7 +7,7 @@ import onssa from '@/assets/images/onssa.webp';
 import wafer from '@/assets/images/wafer.webp';
 import { NewLayout } from '@/layouts/new-layout';
 import { Link } from '@inertiajs/react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   Box,
   ChevronLeft,
@@ -19,7 +19,8 @@ import {
   Shield,
   Truck,
   Twitter,
-  Weight
+  Weight,
+  X
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -28,6 +29,25 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
   const [activeTab, setActiveTab] = useState('info');
   const [showNotification, setShowNotification] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  const [position, setPosition] = useState({ x: 50, y: 50 });
+  const [hovered, setHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setPosition({ x, y });
+  };
+
+  const openLightbox = () => {
+    setIsLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+  };
 
   useEffect(() => {
     // Simulate loading state
@@ -57,6 +77,14 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
 
   const childrenTransition = {
     hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' }
+    }
+  };
+  const childrenTransition2 = {
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
@@ -180,6 +208,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
       }
     }
   };
+
   return (
     <>
       <motion.div
@@ -245,7 +274,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-[#fffcf488]">
               {/* Left Column - Product Image */}
               <motion.div className="space-y-6" variants={childrenTransition}>
-                <motion.div
+                {/* <motion.div
                   className="aspect-square rounded-lg overflow-hidden bg-[#fffcf488] relative group"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
@@ -258,7 +287,87 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
                   />
+                </motion.div> */}
+                {/* Original Image Component */}
+                {/* <motion.div
+                  className="aspect-square rounded-lg overflow-hidden bg-[#fffcf488] relative group cursor-zoom-in"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={openLightbox}
+                >
+                  <motion.img
+                    src="https://img.freepik.com/free-photo/assorted-biscuits-candies-cup-tea-gray-surface_114579-20940.jpg?t=st=1742916259~exp=1742919859~hmac=c816c97a77f55f378199139df830ef66b22e1f6616106b5d6cbbf520057b74da&w=826"
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                    <motion.div
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      initial={{ scale: 0.8 }}
+                      whileHover={{ scale: 1.1 }}
+                    ></motion.div>
+                  </div>
+                </motion.div> */}
+                <motion.div
+                  className="aspect-square rounded-lg overflow-hidden bg-[#fffcf488] relative group cursor-zoom-in"
+                  onClick={openLightbox}
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}
+                  onMouseMove={handleMouseMove}
+                >
+                  <motion.img
+                    src="https://img.freepik.com/free-photo/assorted-biscuits-candies-cup-tea-gray-surface_114579-20940.jpg?t=st=1742916259~exp=1742919859~hmac=c816c97a77f55f378199139df830ef66b22e1f6616106b5d6cbbf520057b74da&w=826"
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                    style={{
+                      transformOrigin: `${position.x}% ${position.y}%`
+                    }}
+                    animate={hovered ? { scale: 2 } : { scale: 1 }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                  />
+                  <div
+                    onClick={closeLightbox}
+                    className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center"
+                  />
                 </motion.div>
+
+                {/* Lightbox Overlay */}
+                <AnimatePresence>
+                  {isLightboxOpen && (
+                    <motion.div
+                      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <motion.div
+                        className="relative max-w-[90vw] max-h-[90vh] w-auto h-auto"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.9, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <button
+                          onClick={closeLightbox}
+                          className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
+                        >
+                          <X size={24} />
+                        </button>
+
+                        <img
+                          //   src={product.primaryImage.optimized || displayImages[selectedImageIndex]}
+                          src="https://img.freepik.com/free-photo/assorted-biscuits-candies-cup-tea-gray-surface_114579-20940.jpg?t=st=1742916259~exp=1742919859~hmac=c816c97a77f55f378199139df830ef66b22e1f6616106b5d6cbbf520057b74da&w=826"
+                          alt={product.name}
+                          className="max-w-full max-h-full object-contain rounded-lg"
+                        />
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* Right Column - Product Details */}
@@ -295,14 +404,14 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                 <motion.div className="grid grid-cols-2 gap-4" variants={childrenTransition}>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <Weight className="w-5 h-5 text-red-500 mt-1" />
+                      <Weight className="w-6 h-6 md:w-8 md:h-8 text-red-500 mt-1" />
                       <div>
                         <p className="font-medium text-gray-900">Poids net</p>
                         <p className="text-gray-600">{product.weight}g</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <Package className="w-5 h-5 text-red-500 mt-1" />
+                      <Package className="w-6 h-6 md:w-8 md:h-8 text-red-500 mt-1" />
                       <div>
                         <p className="font-medium text-gray-900">Emballage</p>
                         <p className="text-gray-600">{product.packaging}</p>
@@ -311,7 +420,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                   </div>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <Box className="w-5 h-5 text-red-500 mt-1" />
+                      <Box className="w-6 h-6 md:w-8 md:h-8 text-red-500 mt-1" />
                       <div>
                         <p className="font-medium text-gray-900">TC20' / TC40'</p>
                         <p className="text-gray-600">

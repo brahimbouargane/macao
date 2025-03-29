@@ -13,4 +13,5 @@ class HomeController extends Controller
     {
         return inertia('newhome');
     }
+
 }
