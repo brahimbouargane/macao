@@ -486,7 +486,7 @@ const HeroSlide = () => {
         id: 1,
         image: Carousel1,
         bgImage: bgChocolat,
-        overlayColor: '#5e0703',
+        overlayColor: '#b02c26',
         name: 'pâtisserie',
         description:
           'Délicieux gâteaux et pâtisseries faits avec soin pour toutes les occasions. Découvrez des créations artisanales qui allient tradition et raffinement pour régaler vos papilles.',
@@ -500,7 +500,7 @@ const HeroSlide = () => {
         id: 2,
         image: Carousel3,
         bgImage: bgChocolat,
-        overlayColor: '#2f470e',
+        overlayColor: '#6a8f3b',
         name: 'CONFISERIE',
         description:
           'Douceurs sucrées comme caramels, nougats et bonbons colorés. Une gamme variée de petits plaisirs pour satisfaire toutes vos envies gourmandes.',
@@ -513,7 +513,7 @@ const HeroSlide = () => {
         id: 3,
         image: Carousel2,
         bgImage: bgChocolat,
-        overlayColor: '#1E0807',
+        overlayColor: '#602e2c',
         name: 'chocolat',
         description:
           'Chocolats gourmands, des truffes aux tablettes, fabriqués avec du cacao premium. Laissez-vous tenter par des saveurs intenses et une texture fondante irrésistible.',

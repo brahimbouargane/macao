@@ -8,7 +8,7 @@ import bgimage2 from '@/assets/images/history_2.png';
 import bgimage3 from '@/assets/images/history_3.png';
 import bgimage4 from '@/assets/images/history_4.png';
 
-import logored from '@/assets/images/macoa-logo-small-red.svg';
+import logored from '@/assets/images/LOGO-MACAO.svg';
 
 import SEO from '@/components/seo';
 import { NewLayout } from '@/layouts/new-layout';
@@ -320,7 +320,7 @@ function History() {
           <div className="bg-white border-t-2 border-b-2 border-r-2 border-red-700 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] ml-auto relative">
             {/* Small logo top right */}
             <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
+              <div className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14">
                 <img src={logored} alt="pastore macao logo" />
               </div>
             </div>
