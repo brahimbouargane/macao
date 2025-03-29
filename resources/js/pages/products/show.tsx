@@ -319,17 +319,20 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                   onMouseMove={handleMouseMove}
                 >
                   <motion.img
-                    src="https://img.freepik.com/free-photo/assorted-biscuits-candies-cup-tea-gray-surface_114579-20940.jpg?t=st=1742916259~exp=1742919859~hmac=c816c97a77f55f378199139df830ef66b22e1f6616106b5d6cbbf520057b74da&w=826"
+                    src={product.primaryImage.optimized || displayImages[selectedImageIndex]}
                     alt={product.name}
                     className="w-full h-full object-cover"
                     style={{
                       transformOrigin: `${position.x}% ${position.y}%`
                     }}
+                    // Use direct animate prop instead of variants to isolate this animation
                     animate={hovered ? { scale: 2 } : { scale: 1 }}
                     transition={{ duration: 0.3, ease: 'easeOut' }}
                   />
                   <div
-                    onClick={closeLightbox}
+                    onClick={(e) => {
+                      closeLightbox();
+                    }}
                     className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center"
                   />
                 </motion.div>
@@ -359,8 +362,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                         </button>
 
                         <img
-                          //   src={product.primaryImage.optimized || displayImages[selectedImageIndex]}
-                          src="https://img.freepik.com/free-photo/assorted-biscuits-candies-cup-tea-gray-surface_114579-20940.jpg?t=st=1742916259~exp=1742919859~hmac=c816c97a77f55f378199139df830ef66b22e1f6616106b5d6cbbf520057b74da&w=826"
+                          src={product.primaryImage.optimized || displayImages[selectedImageIndex]}
                           alt={product.name}
                           className="max-w-full max-h-full object-contain rounded-lg"
                         />
@@ -458,7 +460,22 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
           </motion.div>
 
           {/* Features Section */}
-          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" variants={childrenTransition}>
+          {/* <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" variants={childrenTransition}>
+            <ProductFeature
+              icon={Shield}
+              title="Qualité garantie"
+              description="Produits certifiés aux normes internationales"
+            />
+            <ProductFeature icon={Truck} title="Livraison mondiale" description="Expédition rapide et sécurisée" />
+            <ProductFeature icon={Clock} title="Support 24/7" description="Une équipe à votre service" />
+          </motion.div> */}
+          {/* Features Section - Now with proper layout-level animation */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+            variants={childrenTransition}
+            initial="visible" // Set to visible initially to prevent re-animation
+            animate="visible" // Keep it visible
+          >
             <ProductFeature
               icon={Shield}
               title="Qualité garantie"
