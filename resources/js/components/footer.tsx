@@ -4,6 +4,7 @@ import onssa from '@/assets/images/onssa.webp';
 import video from '@/assets/images/test-footer-video.mp4';
 import { motion } from 'framer-motion';
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { Link } from './ui';
 
 const fadeInUp = {
@@ -30,8 +31,8 @@ const products = [
 
 const quickLinks = [
   { name: 'Notre histoire', href: '/history' },
-  { name: 'Rejoignez nous', href: '/career' }
-  //   { name: 'Catalogue', href: '/products/chocolat/Pâtes à tartiner' }
+  { name: 'Rejoignez nous', href: '/career' },
+  { name: 'Médiathèque', href: '/media' }
 ];
 
 const contactInfo = [
@@ -126,12 +127,28 @@ const CertificationLogo = ({ cert }) => (
 );
 
 export function Footer() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const handleEnded = () => {
+      video.currentTime = 0.45;
+      video.play();
+    };
+
+    video.addEventListener('ended', handleEnded);
+    return () => video.removeEventListener('ended', handleEnded);
+  }, []);
   return (
     <footer className="relative  text-white">
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
-        <video autoPlay loop muted playsInline className="object-cover w-full h-full ">
+        {/* <video autoPlay loop muted playsInline className="object-cover w-full h-full ">
+          <source src={video} type="video/mp4" />
+        </video> */}
+        <video ref={videoRef} autoPlay loop muted playsInline className="object-cover w-full h-full ">
           <source src={video} type="video/mp4" />
         </video>
+
         {/* Overlay to ensure text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-900/20 to-black/10" />
       </div>
@@ -143,9 +160,9 @@ export function Footer() {
         className="relative z-10 max-w-[98rem] mx-auto px-4 sm:px-6 lg:px-8 py-16"
       >
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
-          <motion.div variants={fadeInUp} className="space-y-6 md:col-span-3 lg:col-span-1">
+          <motion.div variants={fadeInUp} className="space-y-6 col-span-2 md:col-span-3 lg:col-span-1">
             <Link href="/" className="block">
               <img src={macaoImage} alt="Macao" className="h-20 w-auto" />
             </Link>
