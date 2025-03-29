@@ -76,7 +76,7 @@ function ContactHome() {
             <div className="absolute inset-0 bg-gradient-to-b from-red-900/95 via-red-800/90 to-black/95"></div>
 
             {/* Content - More condensed */}
-            <div className="relative z-10 p-4 pt-12 md:p-6 md:pt-16 text-white">
+            <div className="relative z-10 p-6 pt-12 md:p-10 md:pt-16 text-white">
               <div className="space-y-3 md:space-y-4">
                 {/* Company name and address - More compact */}
                 <div>

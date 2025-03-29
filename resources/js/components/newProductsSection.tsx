@@ -1,4 +1,4 @@
-import macao from '@/assets/images/macoa-logo-small-red.svg';
+import macao from '@/assets/images/LOGO-MACAO.svg';
 import product1Display from '@/assets/images/product1-display.webp';
 import product2Display from '@/assets/images/product2-display.webp';
 import product3Display from '@/assets/images/product3-display.webp';
@@ -478,7 +478,7 @@ const ProductShowcase = () => {
                       }}
                     >
                       <motion.div
-                        className="absolute top-2 right-2 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-red-700 font-bold"
+                        className="absolute top-4 right-4 w-6 h-6  md:w-8 md:h-8  flex items-center justify-center text-red-700 font-bold"
                         whileHover={{
                           scale: 1.2,
                           //   rotate: 25,
@@ -495,7 +495,7 @@ const ProductShowcase = () => {
                           }
                         }}
                       >
-                        <img src={macao} alt="macao pastore" className="h-10 w-10" />
+                        <img src={macao} alt="macao pastore" className="h-12 w-12" />
                       </motion.div>
                       <div className="bg-red-700">
                         <div className=" flex justify-center items-center rounded-br-[80px] bg-white py-20 px-10">

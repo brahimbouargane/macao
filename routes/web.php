@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
@@ -21,9 +22,15 @@ Route::get('contact', Controllers\ContactController::class)->name('contact');
 Route::get('history', Controllers\HistoryController::class)->name('history');
 Route::get('certification', Controllers\CertifactionController::class)->name('certification');
 Route::get('career', Controllers\CareerController::class)->name('career');
+Route::get('/blog/actualites-macao', [BlogController::class, 'actualites'])->name('blog.actualites');
+Route::get('/blog/actualites-macao/blog', [BlogController::class, 'displayBlog'])->name('blog.displayBlog');
+Route::get('/blog/recettes-produits-macao', [BlogController::class, 'recettes'])->name('blog.recettes');
+Route::get('media', [BlogController::class, 'media'])->name('media');
 Route::get('products/{parentCategory}/{childCategory}', [ProductController::class, 'showBySubcategory'])
 ->name('products.home');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.display');
+
+
 
 
 // Individual product route
