@@ -10,6 +10,7 @@ import imageblog from '@/assets/images/pic9.png';
 import { NewLayout } from '@/layouts/new-layout';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-aria-components';
 
 function Recettes() {
   const fadeInUp = {
@@ -110,12 +111,8 @@ function Recettes() {
                 variants={fadeInUp}
                 className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
               >
-                Notre Héritage Gourmand
+                recettes produits macao
               </motion.h1>
-              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                Depuis 1948, PASTOR MACAO transforme la passion et l’excellence en douceurs inoubliables, devenant le
-                leader marocain en confiserie, chocolat et pâtisserie.{' '}
-              </motion.p>
             </div>
           </motion.div>
         </div>
@@ -175,9 +172,9 @@ function BlogCard({ post }: { post: any }) {
         </div>
         <h3 className="text-xl font-bold mb-2 text-gray-800">{post.title}</h3>
         <p className="text-gray-700 mb-4">{post.excerpt}</p>
-        <a href="#" className="inline-flex items-center text-red-700 font-medium">
+        <Link href="/blog/actualites-macao/blog" className="inline-flex items-center text-red-700 font-medium">
           Read more <ArrowRight className="ml-1 h-4 w-4" />
-        </a>
+        </Link>
       </div>
     </div>
   );
