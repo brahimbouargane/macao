@@ -5,7 +5,6 @@ import facebook3 from '@/assets/images/facebook_3.jpg';
 import facebook4 from '@/assets/images/facebook_4.jpg';
 import insta1 from '@/assets/images/insta_1.jpeg';
 import insta2 from '@/assets/images/insta_2.jpeg';
-import insta3 from '@/assets/images/insta_3.jpeg';
 import insta4 from '@/assets/images/insta_4.jpeg';
 import youtube1 from '@/assets/images/youtube_1.jpg';
 import youtube2 from '@/assets/images/youtube_2.jpg';
@@ -52,8 +51,8 @@ const MEDIA_DATA: MediaItem[] = [
     src: 'https://www.youtube.com/embed/7AzkVCZgKuY',
     thumbnail: youtube1,
     title: 'كيك فروماج 1 و كيك مكاو 1 !',
-    category: 'Recipes',
-    tags: ['cake', 'recipe', 'tutorial'],
+    category: 'Recettes',
+    tags: ['gâteau', 'recette', 'tutoriel'],
     source: 'youtube',
     sourceUrl: 'https://www.youtube.com/watch?v=7AzkVCZgKuY',
     date: '9 months ago',
@@ -67,8 +66,8 @@ const MEDIA_DATA: MediaItem[] = [
     src: 'https://www.youtube.com/embed/5ViNPai-X5A',
     thumbnail: youtube2,
     title: 'MACAO est le leader marocain en confiserie',
-    category: 'Brand',
-    tags: ['brand', 'company', 'history'],
+    category: 'Marque',
+    tags: ['marque', 'entreprise', 'histoire'],
     source: 'youtube',
     sourceUrl: 'https://www.youtube.com/watch?v=5ViNPai-X5A',
     date: '1 year ago',
@@ -82,11 +81,11 @@ const MEDIA_DATA: MediaItem[] = [
     id: 'ig1',
     type: 'image',
     src: insta1,
-    title: 'Product Showcase',
-    category: 'Products',
-    tags: ['product', 'instagram'],
+    title: 'L’idéal pour le goûter',
+    category: 'Produits',
+    tags: ['produit', 'instagram'],
     source: 'instagram',
-    sourceUrl: 'https://www.instagram.com/macaopastor/',
+    sourceUrl: 'https://www.instagram.com/macaopastor/p/C7zTmKTtPP8/',
     date: '2 weeks ago'
   },
   {
@@ -94,11 +93,11 @@ const MEDIA_DATA: MediaItem[] = [
     type: 'image',
     src: insta2,
     thumbnail: insta2,
-    title: 'Making of Chocolate',
-    category: 'Behind the Scenes',
-    tags: ['chocolate', 'making', 'process'],
+    title: 'Le meilleur goûter avec nos savoureuses pépites de chocolat 😋',
+    category: 'Dans les Coulisses',
+    tags: ['chocolat', 'fabrication', 'processus'],
     source: 'instagram',
-    sourceUrl: 'https://www.instagram.com/macaopastor/',
+    sourceUrl: 'https://www.instagram.com/macaopastor/p/C8FBjs3Nc8s/',
     date: '1 month ago'
   },
 
@@ -107,23 +106,23 @@ const MEDIA_DATA: MediaItem[] = [
     id: 'fb1',
     type: 'image',
     src: facebook1,
-    title: 'New Product Launch',
-    category: 'Products',
-    tags: ['product', 'launch', 'new'],
+    title: 'Aux éclats du Cacao ✨ à consommer sans modération 🤭',
+    category: 'Produits',
+    tags: ['produit', 'lancement', 'nouveau'],
     source: 'facebook',
-    sourceUrl: 'https://www.facebook.com/MacaoPastor/',
+    sourceUrl: 'https://www.facebook.com/photo.php?fbid=789243226563618&set=pb.100064338445367.-2207520000&type=3',
     date: '3 weeks ago'
   },
   {
     id: 'fb2',
     type: 'image',
-    src: facebook1,
+    src: facebook2,
     thumbnail: facebook1,
-    title: 'Customer Testimonial',
-    category: 'Testimonials',
-    tags: ['customer', 'testimonial', 'review'],
+    title: 'Une excellente idée de célébrer le nouvel an en famille en préparant un délicieux cake riche en cacao ! ✨',
+    category: 'Témoignages',
+    tags: ['client', 'témoignage', 'avis'],
     source: 'facebook',
-    sourceUrl: 'https://www.facebook.com/MacaoPastor/',
+    sourceUrl: 'https://www.facebook.com/photo.php?fbid=791988859622388&set=pb.100064338445367.-2207520000&type=3',
     date: '2 months ago'
   },
 
@@ -132,57 +131,45 @@ const MEDIA_DATA: MediaItem[] = [
     id: '1',
     type: 'image',
     src: insta2,
-    title: 'Product Showcase',
-    category: 'Products',
-    tags: ['product', 'showcase', 'featured'],
-    source: 'internal'
+    title: 'Le meilleur goûter avec nos savoureuses pépites de chocolat 😋',
+    category: 'Produits',
+    tags: ['produit', 'présentation', 'mis en avant'],
+    sourceUrl: 'https://www.facebook.com/photo.php?fbid=901600768661196&set=pb.100064338445367.-2207520000&type=3',
+    source: 'facebook'
   },
-  {
-    id: '2',
-    type: 'image',
-    src: facebook2,
-    title: 'Brand Story',
-    category: 'Branding',
-    tags: ['brand', 'story', 'identity'],
-    source: 'internal'
-  },
+
   {
     id: '3',
     type: 'image',
     src: facebook3,
     thumbnail: facebook3,
-    title: 'Product Demo',
-    category: 'Products',
-    tags: ['demo', 'product', 'tutorial'],
-    source: 'internal'
+    title: 'Dites-nous 🤪 quel est votre dessert préféré ?',
+    category: 'Produits',
+    tags: ['démonstration', 'produit', 'tutoriel'],
+    sourceUrl: 'https://www.facebook.com/photo.php?fbid=773094451511829&set=pb.100064338445367.-2207520000&type=3',
+    source: 'facebook'
   },
   {
     id: '4',
     type: 'image',
     src: facebook4,
-    title: 'Team Photo',
-    category: 'Team',
-    tags: ['team', 'people', 'company'],
-    source: 'internal'
-  },
-  {
-    id: '5',
-    type: 'image',
-    src: insta3,
-    thumbnail: insta3,
-    title: 'Brand Commercial',
-    category: 'Marketing',
-    tags: ['commercial', 'marketing', 'brand'],
-    source: 'internal'
+    title: 'Votre Family préférée ? Vanille, Noisettes ou Cacao 😋',
+    category: 'Produits',
+    tags: ['équipe', 'personnel', 'entreprise'],
+    sourceUrl: 'https://www.instagram.com/p/C2wrflcNWSF/',
+    source: 'instagram',
+    date: '1 weeks ago'
   },
   {
     id: '6',
     type: 'image',
     src: insta4,
-    title: 'Office Space',
-    category: 'Company',
-    tags: ['office', 'workspace', 'environment'],
-    source: 'internal'
+    title: '🎁 ماكاو كعادتها ديما كتفكر فيكم 🤗',
+    category: 'Produits',
+    tags: ['bureau', 'espace de travail', 'environnement'],
+    sourceUrl: 'https://www.instagram.com/p/C5WqeKZNBhf/',
+    source: 'instagram',
+    date: '2 weeks ago'
   }
 ];
 
@@ -345,7 +332,11 @@ export default function Media() {
               >
                 Médiathèque
               </motion.h1>
-              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90"></motion.p>
+              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
+                {' '}
+                Explorez notre collection d'actifs médiatiques mettant en valeur notre marque, nos produits et nos
+                histoires à travers nos canaux médiatiques sociaux.
+              </motion.p>
             </div>
           </motion.div>
         </div>
@@ -353,19 +344,13 @@ export default function Media() {
       <section className="container mx-auto py-12 md:py-12">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col space-y-4">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Médiathèque</h2>
-            <p className="text-muted-foreground max-w-[700px]">
-              Explore our collection of media assets showcasing our brand, products, and stories from across our social
-              media channels.
-            </p>
-
-            {/* Search and Filter Section */}
+            {/* Section de recherche et de filtrage */}
             <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 my-6">
               <div className="relative flex-1">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
-                  placeholder="Search media..."
+                  placeholder="Rechercher un média..."
                   className="pl-8"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -379,9 +364,9 @@ export default function Media() {
                   onValueChange={(value) => setSelectedType(value as MediaType | 'all')}
                 >
                   <TabsList>
-                    <TabsTrigger value="all">All</TabsTrigger>
+                    <TabsTrigger value="all">Tous</TabsTrigger>
                     <TabsTrigger value="image">Images</TabsTrigger>
-                    <TabsTrigger value="video">Videos</TabsTrigger>
+                    <TabsTrigger value="video">Vidéos</TabsTrigger>
                   </TabsList>
                 </Tabs>
 
@@ -391,7 +376,7 @@ export default function Media() {
                   onValueChange={(value) => setSelectedSource(value as MediaSource | 'all')}
                 >
                   <TabsList>
-                    <TabsTrigger value="all">All Sources</TabsTrigger>
+                    <TabsTrigger value="all">Toutes les sources</TabsTrigger>
                     <TabsTrigger value="youtube" className="flex items-center">
                       <Youtube className="h-4 w-4 mr-1" /> YouTube
                     </TabsTrigger>
@@ -401,7 +386,7 @@ export default function Media() {
                     <TabsTrigger value="facebook" className="flex items-center">
                       <Facebook className="h-4 w-4 mr-1" /> Facebook
                     </TabsTrigger>
-                    <TabsTrigger value="internal">Internal</TabsTrigger>
+                    {/* <TabsTrigger value="internal">Interne</TabsTrigger> */}
                   </TabsList>
                 </Tabs>
 
@@ -410,7 +395,7 @@ export default function Media() {
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
-                  <option value="all">All Categories</option>
+                  <option value="all">Toutes les catégories</option>
                   {categories.map((category) => (
                     <option key={category} value={category}>
                       {category}
@@ -423,7 +408,7 @@ export default function Media() {
                   value={selectedTag}
                   onChange={(e) => setSelectedTag(e.target.value)}
                 >
-                  <option value="all">All Tags</option>
+                  <option value="all">Tous les tags</option>
                   {tags.map((tag) => (
                     <option key={tag} value={tag}>
                       {tag}
@@ -436,26 +421,26 @@ export default function Media() {
                   selectedCategory !== 'all' ||
                   selectedTag !== 'all' ||
                   selectedSource !== 'all') && (
-                  <Button variant="outline" size="icon" onClick={resetFilters} title="Clear filters">
+                  <Button variant="outline" size="icon" onClick={resetFilters} title="Effacer les filtres">
                     <X className="h-4 w-4" />
                   </Button>
                 )}
               </div>
             </div>
 
-            {/* Results Count */}
+            {/* Nombre de résultats */}
             <div className="text-sm text-muted-foreground mb-4">
-              Showing {filteredMedia.length} of {MEDIA_DATA.length} items
+              Affichage de {filteredMedia.length} sur {MEDIA_DATA.length} éléments
             </div>
 
-            {/* Loading State */}
+            {/* État de chargement */}
             {isLoading && (
               <div className="flex justify-center py-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
               </div>
             )}
 
-            {/* Media Grid */}
+            {/* Grille des médias */}
             {!isLoading && filteredMedia.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {filteredMedia.map((media) => (
@@ -471,42 +456,11 @@ export default function Media() {
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                       />
-                      {media.type === 'video' && (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="rounded-full bg-white p-3 shadow-sm">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="h-6 w-6"
-                            >
-                              <polygon points="5 3 19 12 5 21 5 3" />
-                            </svg>
-                          </div>
-                        </div>
-                      )}
                     </div>
                     <div className="absolute text-black bg-white bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 to-background/0 p-4 transition-opacity group-hover:opacity-100 opacity-0">
                       <h3 className="font-medium text-foreground line-clamp-1">{media.title}</h3>
                       <p className="text-sm text-muted-foreground">{media.category}</p>
                       {media.date && <p className="text-xs text-muted-foreground mt-1">{media.date}</p>}
-                    </div>
-                    <div className="absolute top-2 right-2 flex gap-1">
-                      <Badge variant="default" className="opacity-80">
-                        {media.type}
-                      </Badge>
-                      {media.source !== 'internal' && (
-                        <Badge variant="default" className="flex items-center opacity-80 ">
-                          {getSourceIcon(media.source)}
-                          <span className="capitalize">{media.source}</span>
-                        </Badge>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -515,16 +469,16 @@ export default function Media() {
               !isLoading && (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <Filter className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium">No media found</h3>
-                  <p className="text-muted-foreground">Try adjusting your search or filters</p>
+                  <h3 className="text-lg font-medium">Aucun média trouvé</h3>
+                  <p className="text-muted-foreground">Essayez d'ajuster votre recherche ou vos filtres</p>
                   <Button variant="outline" className="mt-4" onClick={resetFilters}>
-                    Reset Filters
+                    Réinitialiser les filtres
                   </Button>
                 </div>
               )
             )}
 
-            {/* Refresh Button */}
+            {/* Bouton de rafraîchissement */}
             <div className="flex justify-center mt-8">
               <Button
                 variant="outline"
@@ -535,7 +489,7 @@ export default function Media() {
                 {isLoading ? (
                   <span className="animate-spin h-4 w-4 border-t-2 border-b-2 border-current rounded-full mr-2"></span>
                 ) : null}
-                Refresh Social Media Content
+                Rafraîchir le contenu des réseaux sociaux
               </Button>
             </div>
           </div>
