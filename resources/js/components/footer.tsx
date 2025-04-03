@@ -2,10 +2,10 @@ import iso from '@/assets/images/iso.webp';
 import macaoImage from '@/assets/images/macao_logo.png';
 import onssa from '@/assets/images/onssa.webp';
 import video from '@/assets/images/test-footer-video.mp4';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import { Link } from './ui';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -122,7 +122,7 @@ const CertificationLogo = ({ cert }) => (
       alt={cert.alt}
       className="h-20 w-20 object-contain brightness-0 invert hover:brightness-100 hover:invert-0 transition-all duration-300"
     />
-    <span className="text-xs text-white mt-2 text-center">{cert.name}</span>
+    {/* <span className="text-xs text-white mt-2 text-center">{cert.name}</span> */}
   </motion.div>
 );
 
