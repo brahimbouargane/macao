@@ -1,4 +1,14 @@
+import choco from '@/assets/images/CHOCO.svg';
+import icon4 from '@/assets/images/icon10.svg';
+import icon2 from '@/assets/images/icon2.svg';
+import icon3 from '@/assets/images/icon3.svg';
+import icon5 from '@/assets/images/icon5.svg';
+import icon6 from '@/assets/images/icon6.svg';
+import icon7 from '@/assets/images/icon7.svg';
+import icon8 from '@/assets/images/icon8.svg';
+import icon9 from '@/assets/images/icon9.svg';
 import macaoLogoRed from '@/assets/images/macoa-logo-small.svg';
+
 import { motion, useAnimation, useInView } from 'framer-motion';
 import React, { useRef, useState } from 'react';
 
@@ -8,6 +18,19 @@ type TextSliderProps = {
   speed?: number;
   pauseOnHover?: boolean;
   className?: string;
+};
+
+const WORD_ICONS: Record<string, string> = {
+  SAVEURS: icon9,
+  SUCRÉ: icon3,
+  PÂTISSERIES: icon4,
+  GÂTEAUX: icon6,
+  BONBONS: icon2,
+  CHOCOLAT: icon7,
+  DÉLICES: icon8,
+  CONFISERIES: icon5,
+  TRADITION: choco,
+  CRÉATION: macaoLogoRed
 };
 
 const DEFAULT_TOP_WORDS = ['SAVEURS', 'SUCRÉ', 'PÂTISSERIES', 'GÂTEAUX', 'BONBONS'];
@@ -123,8 +146,8 @@ const TextSlider = ({
             whileHover="hover"
           >
             <motion.img
-              src={macaoLogoRed}
-              alt="Logo"
+              src={WORD_ICONS[word] || macaoLogoRed}
+              alt={word}
               className="w-8 h-8"
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.8 }}
@@ -151,8 +174,8 @@ const TextSlider = ({
             whileHover="hover"
           >
             <motion.img
-              src={macaoLogoRed}
-              alt="Logo"
+              src={WORD_ICONS[word] || macaoLogoRed}
+              alt={word}
               className="w-8 h-8"
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.8 }}
@@ -250,7 +273,7 @@ const TextSlider = ({
       </style>
 
       {/* Top Slider Track */}
-      <motion.div className="relative py-6 overflow-hidden border-b border-gray-100" variants={itemVariants}>
+      <motion.div className="relative py-6 overflow-hidden " variants={itemVariants}>
         <div className="flex whitespace-nowrap" style={{ ...topSlideStyles, ...calculateContentWidth() }}>
           {/* We need two sets to create a seamless loop effect */}
           <div className="flex shrink-0">

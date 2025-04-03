@@ -391,28 +391,6 @@ export default function Category3DCarousel() {
       >
         {/* Container for all elements - important for proper positioning */}
         <div className="relative w-16 h-16">
-          {/* Outermost pulsing circle */}
-          {/* <div
-            className={`absolute inset-0 m-auto rounded-full
-                       bg-red-600  animate-ping-slow
-                       transition-opacity duration-300 ${isActive ? 'opacity-40' : 'opacity-0'}`}
-          ></div> */}
-
-          {/* Middle pulsing circle with delay */}
-          {/* <div
-            className={`absolute inset-0 m-auto w-10 h-10 rounded-full
-                       bg-red-600 animate-ping-delayed
-                       transition-opacity duration-300 ${isActive ? 'opacity-50' : 'opacity-0'}`}
-          ></div> */}
-
-          {/* Base button with gradient */}
-          {/* <div
-            className={`absolute inset-0 w-16 h-16 rounded-full
-                       bg-gradient-to-r from-rose-300/80 via-rose-400/80 to-rose-300/80
-                       flex items-center justify-center z-10
-                       transition-all duration-300 ${isActive ? 'scale-100' : ''}`}
-          > */}
-          {/* Middle circle */}
           <div
             className={`w-12 h-12 rounded-full
                          bg-gradient-to-br from-rose-500/90 to-red-500/90
@@ -442,24 +420,26 @@ export default function Category3DCarousel() {
         animate={headerInView ? 'visible' : 'hidden'}
         variants={staggerChildren}
       >
-        <motion.h2
-          variants={fadeInUp}
-          className="text-gray-700 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
-        >
-          NOS CATeGORIES
-        </motion.h2>
-        <motion.h1
-          variants={fadeInLeft}
-          className="text-red-600 text-2xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2"
-        >
-          Tout un monde
-        </motion.h1>
-        <motion.h2
-          variants={fadeInRight}
-          className="text-red-600 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl"
-        >
-          de plaisir
-        </motion.h2>
+        <div>
+          <motion.h2
+            variants={fadeInUp}
+            className="text-gray-700 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+          >
+            NOS CATeGORIES
+          </motion.h2>
+          <motion.h1
+            variants={fadeInLeft}
+            className="text-red-600 text-2xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2"
+          >
+            Tout un monde
+          </motion.h1>
+          <motion.h2
+            variants={fadeInRight}
+            className="text-red-600 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl"
+          >
+            de plaisir
+          </motion.h2>
+        </div>
       </motion.div>
 
       {/* 3D Carousel Container */}
