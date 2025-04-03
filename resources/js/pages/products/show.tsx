@@ -527,7 +527,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                       whileHover={{ scale: 1.02 }}
                     >
                       <img src={iso} alt="ISO 9001:2015" className="h-20 w-20 object-contain " />
-                      <p className="font-semibold text-gray-900">ISO 9001:2015</p>
+                      {/* <p className="font-semibold text-gray-900">ISO 9001:2015</p> */}
                       <p className="text-sm text-gray-500">Management Qualité International</p>
                     </motion.div>
                     <motion.div
@@ -535,7 +535,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                       whileHover={{ scale: 1.02 }}
                     >
                       <img src={onssa} alt="ONSSA" className="h-20 w-20 object-contain " />
-                      <p className="font-semibold text-gray-900">ONSSA</p>
+                      {/* <p className="font-semibold text-gray-900">ONSSA</p> */}
                       <p className="text-sm text-gray-500">Sécurité Alimentaire Maroc</p>
                     </motion.div>
                   </div>
