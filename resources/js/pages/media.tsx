@@ -1,18 +1,12 @@
 import candies from '@/assets/images/banner-blog.jpg';
-import facebook1 from '@/assets/images/facebook_1.jpg';
-import facebook2 from '@/assets/images/facebook_2.jpg';
-import facebook3 from '@/assets/images/facebook_3.jpg';
-import facebook4 from '@/assets/images/facebook_4.jpg';
-import insta1 from '@/assets/images/insta_1.jpeg';
-import insta2 from '@/assets/images/insta_2.jpeg';
-import insta4 from '@/assets/images/insta_4.jpeg';
+import youtube4 from '@/assets/images/youtube4.jpg';
 import youtube1 from '@/assets/images/youtube_1.jpg';
 import youtube2 from '@/assets/images/youtube_2.jpg';
+
 import { Badge } from '@/components/ui/shadcn-badge';
 import { Button } from '@/components/ui/shadcn-button';
 import { Dialog, DialogClose, DialogContent } from '@/components/ui/shadcn-dailog';
 import { Input } from '@/components/ui/shadcn-input';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/shadcn-tabs';
 import { NewLayout } from '@/layouts/new-layout';
 import { motion } from 'framer-motion';
 import { Facebook, Filter, Instagram, Search, X, Youtube } from 'lucide-react';
@@ -65,7 +59,7 @@ const MEDIA_DATA: MediaItem[] = [
     type: 'video',
     src: 'https://www.youtube.com/embed/5ViNPai-X5A',
     thumbnail: youtube2,
-    title: 'MACAO est le leader marocain en confiserie',
+    title: '!  شوكولا ، و كاين ماكاو لانݣو شوكولا ، و هادي نصيحة ، من عند لالة حليمة',
     category: 'Marque',
     tags: ['marque', 'entreprise', 'histoire'],
     source: 'youtube',
@@ -75,102 +69,146 @@ const MEDIA_DATA: MediaItem[] = [
     embedCode:
       '<iframe width="2114" height="850" src="https://www.youtube.com/embed/5ViNPai-X5A" title="! ‎كاين شوكولا ، و كاين ماكاو لانݣو شوكولا ، و هادي نصيحة ، من عند لالة حليمة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
   },
-
-  // Instagram posts with local images
   {
-    id: 'ig1',
-    type: 'image',
-    src: insta1,
-    title: 'L’idéal pour le goûter',
-    category: 'Produits',
-    tags: ['produit', 'instagram'],
-    source: 'instagram',
-    sourceUrl: 'https://www.instagram.com/macaopastor/p/C7zTmKTtPP8/',
-    date: '2 weeks ago'
+    id: 'yt2',
+    type: 'video',
+    src: 'https://www.youtube.com/embed/5ViNPai-X5A',
+    thumbnail: youtube2,
+    title: '!  شوكولا ، و كاين ماكاو لانݣو شوكولا ، و هادي نصيحة ، من عند لالة حليمة',
+    category: 'Marque',
+    tags: ['marque', 'entreprise', 'histoire'],
+    source: 'youtube',
+    sourceUrl: 'https://www.youtube.com/watch?v=5ViNPai-X5A',
+    date: '1 year ago',
+    views: 216,
+    embedCode:
+      '<iframe width="2114" height="850" src="https://www.youtube.com/embed/5ViNPai-X5A" title="! ‎كاين شوكولا ، و كاين ماكاو لانݣو شوكولا ، و هادي نصيحة ، من عند لالة حليمة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
   },
   {
-    id: 'ig2',
-    type: 'image',
-    src: insta2,
-    thumbnail: insta2,
-    title: 'Le meilleur goûter avec nos savoureuses pépites de chocolat 😋',
-    category: 'Dans les Coulisses',
-    tags: ['chocolat', 'fabrication', 'processus'],
-    source: 'instagram',
-    sourceUrl: 'https://www.instagram.com/macaopastor/p/C8FBjs3Nc8s/',
-    date: '1 month ago'
-  },
-
-  // Facebook posts with local images
-  {
-    id: 'fb1',
-    type: 'image',
-    src: facebook1,
-    title: 'Aux éclats du Cacao ✨ à consommer sans modération 🤭',
-    category: 'Produits',
-    tags: ['produit', 'lancement', 'nouveau'],
-    source: 'facebook',
-    sourceUrl: 'https://www.facebook.com/photo.php?fbid=789243226563618&set=pb.100064338445367.-2207520000&type=3',
-    date: '3 weeks ago'
+    id: 'yt2',
+    type: 'video',
+    src: 'https://www.youtube.com/embed/5ViNPai-X5A',
+    thumbnail: youtube2,
+    title: '! شوكولا ، و كاين ماكاو لانݣو شوكولا ، و هادي نصيحة ، من عند لالة حليمة',
+    category: 'Marque',
+    tags: ['marque', 'entreprise', 'histoire'],
+    source: 'youtube',
+    sourceUrl: 'https://www.youtube.com/watch?v=5ViNPai-X5A',
+    date: '1 year ago',
+    views: 216,
+    embedCode:
+      '<iframe width="2114" height="850" src="https://www.youtube.com/embed/5ViNPai-X5A" title="! ‎كاين شوكولا ، و كاين ماكاو لانݣو شوكولا ، و هادي نصيحة ، من عند لالة حليمة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
   },
   {
-    id: 'fb2',
-    type: 'image',
-    src: facebook2,
-    thumbnail: facebook1,
-    title: 'Une excellente idée de célébrer le nouvel an en famille en préparant un délicieux cake riche en cacao ! ✨',
-    category: 'Témoignages',
-    tags: ['client', 'témoignage', 'avis'],
-    source: 'facebook',
-    sourceUrl: 'https://www.facebook.com/photo.php?fbid=791988859622388&set=pb.100064338445367.-2207520000&type=3',
-    date: '2 months ago'
-  },
-
-  // Internal media with local images
-  {
-    id: '1',
-    type: 'image',
-    src: insta2,
-    title: 'Le meilleur goûter avec nos savoureuses pépites de chocolat 😋',
-    category: 'Produits',
-    tags: ['produit', 'présentation', 'mis en avant'],
-    sourceUrl: 'https://www.facebook.com/photo.php?fbid=901600768661196&set=pb.100064338445367.-2207520000&type=3',
-    source: 'facebook'
-  },
-
-  {
-    id: '3',
-    type: 'image',
-    src: facebook3,
-    thumbnail: facebook3,
-    title: 'Dites-nous 🤪 quel est votre dessert préféré ?',
-    category: 'Produits',
-    tags: ['démonstration', 'produit', 'tutoriel'],
-    sourceUrl: 'https://www.facebook.com/photo.php?fbid=773094451511829&set=pb.100064338445367.-2207520000&type=3',
-    source: 'facebook'
-  },
-  {
-    id: '4',
-    type: 'image',
-    src: facebook4,
-    title: 'Votre Family préférée ? Vanille, Noisettes ou Cacao 😋',
-    category: 'Produits',
-    tags: ['équipe', 'personnel', 'entreprise'],
-    sourceUrl: 'https://www.instagram.com/p/C2wrflcNWSF/',
-    source: 'instagram',
-    date: '1 weeks ago'
-  },
-  {
-    id: '6',
-    type: 'image',
-    src: insta4,
-    title: '🎁 ماكاو كعادتها ديما كتفكر فيكم 🤗',
-    category: 'Produits',
-    tags: ['bureau', 'espace de travail', 'environnement'],
-    sourceUrl: 'https://www.instagram.com/p/C5WqeKZNBhf/',
-    source: 'instagram',
-    date: '2 weeks ago'
+    id: 'yt2',
+    type: 'video',
+    src: 'https://www.youtube.com/embed/MwREL4Qa-no&ab',
+    thumbnail: youtube4,
+    title: 'MACAO est le leader marocain en confiserie chocolaterie',
+    category: 'Marque',
+    tags: ['marque', 'entreprise', 'histoire'],
+    source: 'youtube',
+    sourceUrl: 'https://www.youtube.com/watch?v=MwREL4Qa-no&ab',
+    date: '1 year ago',
+    views: 216,
+    embedCode:
+      '<iframe width="2114" height="850" src="https://www.youtube.com/embed/MwREL4Qa-no" title="MACAO est le leader marocain en confiserie chocolaterie" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
   }
+  // Instagram posts with local images
+  //   {
+  //     id: 'ig1',
+  //     type: 'image',
+  //     src: insta1,
+  //     title: 'L’idéal pour le goûter',
+  //     category: 'Produits',
+  //     tags: ['produit', 'instagram'],
+  //     source: 'instagram',
+  //     sourceUrl: 'https://www.instagram.com/macaopastor/p/C7zTmKTtPP8/',
+  //     date: '2 weeks ago'
+  //   },
+  //   {
+  //     id: 'ig2',
+  //     type: 'image',
+  //     src: insta2,
+  //     thumbnail: insta2,
+  //     title: 'Le meilleur goûter avec nos savoureuses pépites de chocolat 😋',
+  //     category: 'Dans les Coulisses',
+  //     tags: ['chocolat', 'fabrication', 'processus'],
+  //     source: 'instagram',
+  //     sourceUrl: 'https://www.instagram.com/macaopastor/p/C8FBjs3Nc8s/',
+  //     date: '1 month ago'
+  //   },
+
+  //   // Facebook posts with local images
+  //   {
+  //     id: 'fb1',
+  //     type: 'image',
+  //     src: facebook1,
+  //     title: 'Aux éclats du Cacao ✨ à consommer sans modération 🤭',
+  //     category: 'Produits',
+  //     tags: ['produit', 'lancement', 'nouveau'],
+  //     source: 'facebook',
+  //     sourceUrl: 'https://www.facebook.com/photo.php?fbid=789243226563618&set=pb.100064338445367.-2207520000&type=3',
+  //     date: '3 weeks ago'
+  //   },
+  //   {
+  //     id: 'fb2',
+  //     type: 'image',
+  //     src: facebook2,
+  //     thumbnail: facebook1,
+  //     title: 'Une excellente idée de célébrer le nouvel an en famille en préparant un délicieux cake riche en cacao ! ✨',
+  //     category: 'Témoignages',
+  //     tags: ['client', 'témoignage', 'avis'],
+  //     source: 'facebook',
+  //     sourceUrl: 'https://www.facebook.com/photo.php?fbid=791988859622388&set=pb.100064338445367.-2207520000&type=3',
+  //     date: '2 months ago'
+  //   },
+
+  //   // Internal media with local images
+  //   {
+  //     id: '1',
+  //     type: 'image',
+  //     src: insta2,
+  //     title: 'Le meilleur goûter avec nos savoureuses pépites de chocolat 😋',
+  //     category: 'Produits',
+  //     tags: ['produit', 'présentation', 'mis en avant'],
+  //     sourceUrl: 'https://www.facebook.com/photo.php?fbid=901600768661196&set=pb.100064338445367.-2207520000&type=3',
+  //     source: 'facebook'
+  //   },
+
+  //   {
+  //     id: '3',
+  //     type: 'image',
+  //     src: facebook3,
+  //     thumbnail: facebook3,
+  //     title: 'Dites-nous 🤪 quel est votre dessert préféré ?',
+  //     category: 'Produits',
+  //     tags: ['démonstration', 'produit', 'tutoriel'],
+  //     sourceUrl: 'https://www.facebook.com/photo.php?fbid=773094451511829&set=pb.100064338445367.-2207520000&type=3',
+  //     source: 'facebook'
+  //   },
+  //   {
+  //     id: '4',
+  //     type: 'image',
+  //     src: facebook4,
+  //     title: 'Votre Family préférée ? Vanille, Noisettes ou Cacao 😋',
+  //     category: 'Produits',
+  //     tags: ['équipe', 'personnel', 'entreprise'],
+  //     sourceUrl: 'https://www.instagram.com/p/C2wrflcNWSF/',
+  //     source: 'instagram',
+  //     date: '1 weeks ago'
+  //   },
+  //   {
+  //     id: '6',
+  //     type: 'image',
+  //     src: insta4,
+  //     title: '🎁 ماكاو كعادتها ديما كتفكر فيكم 🤗',
+  //     category: 'Produits',
+  //     tags: ['bureau', 'espace de travail', 'environnement'],
+  //     sourceUrl: 'https://www.instagram.com/p/C5WqeKZNBhf/',
+  //     source: 'instagram',
+  //     date: '2 weeks ago'
+  //   }
 ];
 
 const fadeInUp = {
@@ -202,6 +240,7 @@ export default function Media() {
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [posts, setPosts] = useState({ youtube: [], instagram: [], facebook: [] });
 
   // Extract unique categories and tags
   const categories = Array.from(new Set(MEDIA_DATA.map((item) => item.category)));
@@ -265,6 +304,16 @@ export default function Media() {
     setIsLoading(true);
 
     try {
+      //   const fetchYouTubeVideos = async () => {
+      //     try {
+      //       const response = await axios.get(
+      //         `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${YOUTUBE_CHANNEL_ID}&maxResults=5&order=date&type=video&key=${YOUTUBE_API_KEY}`
+      //       );
+      //       setPosts((prev) => ({ ...prev, youtube: response.data.items }));
+      //     } catch (error) {
+      //       console.error('Error fetching YouTube videos:', error);
+      //     }
+      //   };
       // In a real implementation, these would be actual API calls to the respective platforms
       // For YouTube: fetch from https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g
       // For Instagram: fetch from https://www.instagram.com/macaopastor/
@@ -272,7 +321,6 @@ export default function Media() {
 
       // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
       // The data is already loaded in our MEDIA_DATA array for this demo
       // In a real implementation, we would update the state with the fetched data
     } catch (error) {
@@ -358,7 +406,7 @@ export default function Media() {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <Tabs
+                {/* <Tabs
                   defaultValue="all"
                   value={selectedType}
                   onValueChange={(value) => setSelectedType(value as MediaType | 'all')}
@@ -386,9 +434,9 @@ export default function Media() {
                     <TabsTrigger value="facebook" className="flex items-center">
                       <Facebook className="h-4 w-4 mr-1" /> Facebook
                     </TabsTrigger>
-                    {/* <TabsTrigger value="internal">Interne</TabsTrigger> */}
+                      <TabsTrigger value="internal">Interne</TabsTrigger>
                   </TabsList>
-                </Tabs>
+                </Tabs> */}
 
                 <select
                   className="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"

@@ -337,14 +337,14 @@ export default function Navbar() {
               alt="product macao logo"
               width={200}
               height={80}
-              className={`transition-all duration-200 ${isScrolled ? 'h-28 w-auto' : 'h-32 w-auto'}`}
+              className={`transition-all duration-200 ${isScrolled ? ' lg:h-28 w-auto' : 'h-[114px] md:h-[112px] lg:h-[128px] w-auto'}`}
             />
           </MotionLink>
         </div>
 
         {/* Right side navigation */}
         <div className="hidden lg:flex  items-center space-x-6 gap-8">
-          <div ref={dropdownBlogRef} className="relative" onMouseEnter={handleBlogOpen} onMouseLeave={handleBlogClose}>
+          {/* <div ref={dropdownBlogRef} className="relative" onMouseEnter={handleBlogOpen} onMouseLeave={handleBlogClose}>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -376,7 +376,14 @@ export default function Navbar() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </div> */}
+          <MotionLink
+            whileHover={{ scale: 1.1, rotate: 1 }}
+            href="/blog/actualites-macao"
+            className={`text-md font-custom font-semibold ${isActive('/actualites-macao') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
+          >
+            BLOG
+          </MotionLink>
           <MotionLink
             whileHover={{ scale: 1.1, rotate: 1 }}
             href="/career"
@@ -493,6 +500,14 @@ export default function Navbar() {
                     )}
                   </AnimatePresence>
                 </div>
+
+                <Link
+                  href="/blog/actualites-macao"
+                  className={`block text-lg font-custom  font-semibold ${isActive('/actualites-macao') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  BLOG
+                </Link>
 
                 <Link
                   href="/contact"

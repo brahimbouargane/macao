@@ -657,9 +657,9 @@ const HeroSlide = () => {
 
   const getImageContainerClass = useCallback((itemId) => {
     if (itemId === 1) {
-      return 'w-[350px] h-[350px] md:w-[450px] md:h-[450px] lg:w-[410px] lg:h-[400px] md:top-[-20px] lg:top-[-100px]';
+      return 'w-[350px] h-[350px] md:w-[450px] md:h-[450px] lg:w-[370px] lg:h-[370px] md:top-[-20px] lg:top-[-100px]';
     }
-    return 'w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[420px] md:top-[-20px] lg:top-[-100px]';
+    return 'w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[400px] lg:h-[400px] md:top-[-20px] lg:top-[-100px]';
   }, []);
 
   // Memoized navigation functions

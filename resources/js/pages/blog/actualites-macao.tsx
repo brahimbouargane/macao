@@ -111,7 +111,7 @@ function Actualites() {
                 variants={fadeInUp}
                 className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
               >
-                actualites macao
+                Blog Pastor macao
               </motion.h1>
             </div>
           </motion.div>
