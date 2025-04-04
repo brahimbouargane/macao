@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
 // Import images from your assets
+import Confiseries from '@/assets/images/Confiseries.webp';
 import PATISSERIE from '@/assets/images/PATISSERIE.webp';
-import choco from '@/assets/images/chocolat-cat.webp';
+import choco from '@/assets/images/chocolat.webp';
 import cw from '@/assets/images/cw.webp';
-import wafer from '@/assets/images/gaufrette.png';
-import Confiseries from '@/assets/images/saucette.webp';
+import wafer from '@/assets/images/gaufrette.webp';
 
 interface Category {
   title: string;
