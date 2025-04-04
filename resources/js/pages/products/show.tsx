@@ -43,10 +43,14 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
 
   const openLightbox = () => {
     setIsLightboxOpen(true);
+    // Optional: prevent body scrolling when lightbox is open
+    document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
     setIsLightboxOpen(false);
+    // Optional: restore body scrolling when lightbox is closed
+    document.body.style.overflow = 'auto';
   };
 
   useEffect(() => {
@@ -274,43 +278,6 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 bg-[#fffcf488]">
               {/* Left Column - Product Image */}
               <motion.div className="space-y-6" variants={childrenTransition}>
-                {/* <motion.div
-                  className="aspect-square rounded-lg overflow-hidden bg-[#fffcf488] relative group"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.img
-                    src={product.primaryImage.optimized || displayImages[selectedImageIndex]}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  />
-                </motion.div> */}
-                {/* Original Image Component */}
-                {/* <motion.div
-                  className="aspect-square rounded-lg overflow-hidden bg-[#fffcf488] relative group cursor-zoom-in"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                  onClick={openLightbox}
-                >
-                  <motion.img
-                    src="https://img.freepik.com/free-photo/assorted-biscuits-candies-cup-tea-gray-surface_114579-20940.jpg?t=st=1742916259~exp=1742919859~hmac=c816c97a77f55f378199139df830ef66b22e1f6616106b5d6cbbf520057b74da&w=826"
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                    <motion.div
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
-                      initial={{ scale: 0.8 }}
-                      whileHover={{ scale: 1.1 }}
-                    ></motion.div>
-                  </div>
-                </motion.div> */}
                 <motion.div
                   className="aspect-square rounded-lg overflow-hidden bg-[#fffcf488] relative group cursor-zoom-in"
                   onClick={openLightbox}
@@ -325,47 +292,75 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
                     style={{
                       transformOrigin: `${position.x}% ${position.y}%`
                     }}
-                    // Use direct animate prop instead of variants to isolate this animation
                     animate={hovered ? { scale: 2 } : { scale: 1 }}
                     transition={{ duration: 0.3, ease: 'easeOut' }}
                   />
-                  <div
-                    onClick={(e) => {
-                      closeLightbox();
-                    }}
-                    className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center"
-                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center" />
                 </motion.div>
 
                 {/* Lightbox Overlay */}
                 <AnimatePresence>
                   {isLightboxOpen && (
                     <motion.div
-                      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+                      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
+                      onClick={closeLightbox}
                     >
                       <motion.div
-                        className="relative max-w-[90vw] max-h-[90vh] w-auto h-auto"
+                        className="relative w-4/5 max-w-4xl bg-white/95 dark:bg-gray-800/95 rounded-2xl shadow-2xl overflow-hidden"
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                         transition={{ duration: 0.3 }}
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        <button
-                          onClick={closeLightbox}
-                          className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
-                        >
-                          <X size={24} />
-                        </button>
+                        {/* Header with product name and close button */}
+                        <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+                          <h3 className="font-medium text-lg text-gray-800 dark:text-gray-200">{product.name}</h3>
+                          <button
+                            onClick={closeLightbox}
+                            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                            aria-label="Close"
+                          >
+                            <X size={20} className="text-gray-600 dark:text-gray-400" />
+                          </button>
+                        </div>
 
-                        <img
-                          src={product.primaryImage.optimized || displayImages[selectedImageIndex]}
-                          alt={product.name}
-                          className="max-w-full max-h-full object-contain rounded-lg"
-                        />
+                        {/* Image container with padding */}
+                        <div className="p-6">
+                          <div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900">
+                            <img
+                              src={product.primaryImage.optimized}
+                              alt={product.name}
+                              className="w-full h-auto max-h-[60vh] object-cover"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Footer with additional controls or info (optional) */}
+                        {/* <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            {product.primaryImage?.alt || 'Product image'}
+                          </div>
+
+                          <div className="flex gap-2">
+                            <button
+                              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
+                              aria-label="Previous image"
+                            >
+                              <ChevronLeft size={18} className="text-gray-600 dark:text-gray-400" />
+                            </button>
+                            <button
+                              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
+                              aria-label="Next image"
+                            >
+                              <ChevronRight size={18} className="text-gray-600 dark:text-gray-400" />
+                            </button>
+                          </div>
+                        </div> */}
                       </motion.div>
                     </motion.div>
                   )}
