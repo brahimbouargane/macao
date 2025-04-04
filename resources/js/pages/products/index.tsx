@@ -1,8 +1,8 @@
 import candies from '@/assets/images/candies.webp';
 import macao from '@/assets/images/macoa-logo-small-red.svg';
 
+import choco from '@/assets/images/Banner-chocolat-à-tartiner.webp';
 import candy from '@/assets/images/candy.webp';
-import choco from '@/assets/images/chocolate.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import wafer from '@/assets/images/wafer.webp';
 import { Button } from '@/components/ui/shadcn-button';
@@ -290,6 +290,10 @@ const Products = () => {
     childCategory: { name: string };
   }>().props;
 
+  console.log('Products:', products);
+  console.log('Parent Category:', parentCategory);
+  console.log('Child Category:', childCategory);
+
   // Scroll animations
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -367,11 +371,7 @@ const Products = () => {
   return (
     <>
       {/* Hero Section */}
-      <motion.div
-        className={`relative overflow-hidden bg-gradient-to-r ${
-          categoryContent[parentCategory.name]?.bgColor || 'from-red-600 to-red-700'
-        }`}
-      >
+      <motion.div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -379,8 +379,7 @@ const Products = () => {
             transition={{ duration: 1.5 }}
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
-              opacity: '0.20'
+              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`
             }}
           />
         </div>
@@ -390,16 +389,16 @@ const Products = () => {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[400px] items-center justify-center pt-48 pb-20"
+            className="flex min-h-[500px] items-center justify-center pt-48 pb-20"
           >
-            <div className="text-center">
+            {/* <div className="text-center">
               <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold font-custom text-white md:text-6xl">
                 {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
               </motion.h1>
               <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
                 {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
               </motion.p>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </motion.div>

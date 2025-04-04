@@ -379,8 +379,8 @@ export default function Navbar() {
           </div> */}
           <MotionLink
             whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/blog/actualites-macao"
-            className={`text-md font-custom font-semibold ${isActive('/actualites-macao') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
+            href="/blog"
+            className={`text-md font-custom font-semibold ${isActive('/blog') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
           >
             BLOG
           </MotionLink>
@@ -502,8 +502,8 @@ export default function Navbar() {
                 </div>
 
                 <Link
-                  href="/blog/actualites-macao"
-                  className={`block text-lg font-custom  font-semibold ${isActive('/actualites-macao') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                  href="/blog"
+                  className={`block text-lg font-custom  font-semibold ${isActive('/blog') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   BLOG
