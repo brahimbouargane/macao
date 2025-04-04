@@ -1,50 +1,102 @@
-"use client"
+// import { Link as LinkPrimitive, type LinkProps as LinkPrimitiveProps } from 'react-aria-components';
+// import { tv } from 'tailwind-variants';
 
-import * as React from "react"
+// import { cr } from './primitive';
 
-import { Link as LinkPrimitive, type LinkProps as LinkPrimitiveProps } from "react-aria-components"
-import { tv } from "tailwind-variants"
+// const linkStyles = tv({
+//   base: [
+//     'relative focus-visible:outline-2 outline-offset-2 outline-0 focus:outline-none outline-primary transition-colors',
+//     'forced-colors:outline-[Highlight] forced-colors:disabled:text-[GrayText] disabled:focus-visible:outline-0',
+//     'disabled:cursor-default disabled:opacity-60'
+//   ],
+//   variants: {
+//     intent: {
+//       unstyled: 'text-current',
+//       primary: 'text-primary hover:text-primary/80 forced-colors:disabled:text-[GrayText]',
+//       danger: 'text-danger hover:text-danger/80 forced-colors:disabled:text-[GrayText]',
+//       'lad/primary': 'text-fg hover:text-primary dark:hover:text-primary/80 forced-colors:disabled:text-[GrayText]',
+//       secondary: 'text-secondary-fg hover:text-secondary-fg/80'
+//     }
+//   },
+//   defaultVariants: {
+//     intent: 'unstyled'
+//   }
+// });
 
-import { cr } from "./primitive"
+// interface LinkProps extends LinkPrimitiveProps {
+//   intent?: 'primary' | 'secondary' | 'danger' | 'lad/primary' | 'unstyled';
+// }
+
+// const Link = ({ className, ...props }: LinkProps) => {
+//   return (
+//     <LinkPrimitive
+//       {...props}
+//       className={cr(className, (className, ...renderProps) =>
+//         linkStyles({ ...renderProps, intent: props.intent, className })
+//       )}
+//     >
+//       {(values) => <>{typeof props.children === 'function' ? props.children(values) : props.children}</>}
+//     </LinkPrimitive>
+//   );
+// };
+
+// export { Link, LinkPrimitive, type LinkPrimitiveProps, type LinkProps };
+
+import { Link as LinkPrimitive, type LinkProps as LinkPrimitiveProps } from 'react-aria-components';
+import { tv } from 'tailwind-variants';
+
+import { cr } from './primitive';
 
 const linkStyles = tv({
   base: [
-    "relative focus-visible:outline-2 outline-offset-2 outline-0 focus:outline-none outline-primary transition-colors",
-    "forced-colors:outline-[Highlight] forced-colors:disabled:text-[GrayText] disabled:focus-visible:outline-0",
-    "disabled:cursor-default disabled:opacity-60"
+    'relative focus-visible:outline-2 outline-offset-2 outline-0 focus:outline-none outline-primary transition-colors',
+    'forced-colors:outline-[Highlight] forced-colors:disabled:text-[GrayText] disabled:focus-visible:outline-0',
+    'disabled:cursor-default disabled:opacity-60'
   ],
   variants: {
     intent: {
-      unstyled: "text-current",
-      primary: "text-primary hover:text-primary/80 forced-colors:disabled:text-[GrayText]",
-      danger: "text-danger hover:text-danger/80 forced-colors:disabled:text-[GrayText]",
-      "lad/primary":
-        "text-fg hover:text-primary dark:hover:text-primary/80 forced-colors:disabled:text-[GrayText]",
-      secondary: "text-secondary-fg hover:text-secondary-fg/80"
+      unstyled: 'text-current',
+      primary: 'text-primary hover:text-primary/80 forced-colors:disabled:text-[GrayText]',
+      danger: 'text-danger hover:text-danger/80 forced-colors:disabled:text-[GrayText]',
+      'lad/primary': 'text-fg hover:text-primary dark:hover:text-primary/80 forced-colors:disabled:text-[GrayText]',
+      secondary: 'text-secondary-fg hover:text-secondary-fg/80'
     }
   },
   defaultVariants: {
-    intent: "unstyled"
+    intent: 'unstyled'
   }
-})
+});
 
 interface LinkProps extends LinkPrimitiveProps {
-  intent?: "primary" | "secondary" | "danger" | "lad/primary" | "unstyled"
+  intent?: 'primary' | 'secondary' | 'danger' | 'lad/primary' | 'unstyled';
+  onClick?: (e: React.MouseEvent) => void;
 }
 
-const Link = ({ className, ...props }: LinkProps) => {
+const Link = ({ className, onClick, ...props }: any) => {
+  // Create a new onClick handler that incorporates scrolling to top
+  const handleClick = (e: React.MouseEvent) => {
+    // Call the original onClick if it exists
+    if (onClick) {
+      onClick(e);
+    }
+
+    // Set a small timeout to ensure the scroll happens after navigation starts
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  };
+
   return (
     <LinkPrimitive
       {...props}
+      onClick={handleClick}
       className={cr(className, (className, ...renderProps) =>
         linkStyles({ ...renderProps, intent: props.intent, className })
       )}
     >
-      {(values) => (
-        <>{typeof props.children === "function" ? props.children(values) : props.children}</>
-      )}
+      {(values) => <>{typeof props.children === 'function' ? props.children(values) : props.children}</>}
     </LinkPrimitive>
-  )
-}
+  );
+};
 
-export { Link, LinkPrimitive, type LinkPrimitiveProps, type LinkProps }
+export { Link, LinkPrimitive, type LinkPrimitiveProps, type LinkProps };

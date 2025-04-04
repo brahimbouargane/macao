@@ -58,13 +58,13 @@ const AnimatedNavLink = ({ href, children }) => {
       whileHover={{ x: 10 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >
-      <Link
+      <a
         href={href}
         className="text-gray-100 text-base flex items-center transition-colors duration-300 hover:text-red-700"
       >
         <ArrowRight className="h-4 w-4 text-red-700 mr-2 transform transition-all duration-300 opacity-0 group-hover:opacity-100" />
         <span>{children}</span>
-      </Link>
+      </a>
       <motion.div
         className="absolute bottom-0 left-0 h-0.5 bg-red-700"
         initial={{ width: 0 }}
@@ -81,6 +81,8 @@ const AnimatedContactLink = ({ href, icon: Icon, children }) => {
     <motion.div whileHover={{ x: 10 }} transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
       <Link
         href={href}
+        preserveState={false}
+        preserveScroll={false}
         className="text-gray-100 flex items-center space-x-3 group transition-colors duration-300 hover:text-red-700"
       >
         <IconComponent className="h-6 w-6 text-red-700 transition-transform duration-300 group-hover:scale-110" />
@@ -163,7 +165,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <motion.div variants={fadeInUp} className="space-y-6 col-span-2 md:col-span-3 lg:col-span-1">
-            <Link href="/" className="block">
+            <Link preserveScroll href="/" className="block">
               <img src={macaoImage} alt="Macao" className="h-20 w-auto" />
             </Link>
             <p className="text-gray-100 text-base leading-relaxed">
