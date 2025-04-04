@@ -21,16 +21,16 @@ type TextSliderProps = {
 };
 
 const WORD_ICONS: Record<string, string> = {
-  SAVEURS: icon9,
-  SUCRÉ: icon3,
-  PÂTISSERIES: icon4,
+  SAVEURS: icon4,
+  SUCRÉ: icon9,
+  PÂTISSERIES: icon3,
   GÂTEAUX: icon6,
   BONBONS: icon2,
-  CHOCOLAT: icon7,
+  CHOCOLAT: choco,
   DÉLICES: icon8,
   CONFISERIES: icon5,
-  TRADITION: choco,
-  CRÉATION: macaoLogoRed
+  TRADITION: macaoLogoRed,
+  CRÉATION: icon7
 };
 
 const DEFAULT_TOP_WORDS = ['SAVEURS', 'SUCRÉ', 'PÂTISSERIES', 'GÂTEAUX', 'BONBONS'];

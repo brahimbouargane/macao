@@ -1,12 +1,11 @@
-import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 // Import images from your assets
-import candy from '@/assets/images/candy.webp';
-import wafer from '@/assets/images/cat-1.webp';
-import candies from '@/assets/images/cat-44.webp';
-import choco from '@/assets/images/cat-55.webp';
-import leonardo from '@/assets/images/cat-99.webp';
+import PATISSERIE from '@/assets/images/PATISSERIE.webp';
+import choco from '@/assets/images/chocolat-cat.webp';
+import cw from '@/assets/images/cw.webp';
+import wafer from '@/assets/images/gaufrette.png';
+import Confiseries from '@/assets/images/saucette.webp';
 
 interface Category {
   title: string;
@@ -44,6 +43,7 @@ function CategoryCard3D({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   // Calculate 3D position
   const getStyles = () => {
     // Calculate relative position (-2, -1, 0, 1, 2)
@@ -147,7 +147,7 @@ function CategoryCard3D({
 
           {/* Red gradient overlay - added this element */}
           {position === 0 && (
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent  to-red-700 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-red-700 transition-opacity duration-500"></div>
           )}
 
           {/* Hover overlay with increased red opacity */}
@@ -157,7 +157,7 @@ function CategoryCard3D({
 
           {/* Title at bottom */}
           {position === 0 && (
-            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t to-red-700/60  pt-12 pb-4 px-4 transition-all duration-500 uppercase">
+            <div className="absolute bottom-10 left-0 right-0 bg-gradient-to-t to-red-700/60 pt-12 pb-4 px-4 transition-all duration-500 uppercase">
               <h2 className="text-white text-center text-4xl md:text-5xl drop-shadow-md font-custom font-bold uppercase">
                 {title}
               </h2>
@@ -205,6 +205,7 @@ function CategoryCard3D({
     </div>
   );
 }
+
 const categories: Category[] = [
   {
     title: 'Chocolats',
@@ -214,7 +215,7 @@ const categories: Category[] = [
   },
   {
     title: 'Confiseries',
-    image: candies,
+    image: Confiseries,
     href: '/products/confiserie/sucettes',
     description: 'Découvrez notre gamme de confiseries artisanales'
   },
@@ -226,78 +227,47 @@ const categories: Category[] = [
   },
   {
     title: 'Pâtisseries',
-    image: leonardo,
+    image: PATISSERIE,
     href: '/products/Produits%20pâtissiers/chocolats%20pâtissiers',
     description: 'Découvrez nos pâtisseries fraîchement préparées'
   },
   {
     title: 'Fêtes et événements',
-    image: candy,
+    image: cw,
     href: '/products/Fêtes%20et%20événements/Chocolats%20fins%20fourrés',
     description: 'Découvrez nos douceurs parfaites pour toutes vos célébrations'
   }
 ];
 
-const fadeInLeft = {
-  hidden: { opacity: 0, x: -100 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut'
-    }
-  }
-};
-
-const fadeInRight = {
-  hidden: { opacity: 0, x: 100 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut'
-    }
-  }
-};
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut'
-    }
-  }
-};
-
-const staggerChildren = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
 export default function Category3DCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Add refs for scroll detection
-  const headerRef = useRef(null);
-  const carouselRef = useRef(null);
-  const leftContentRef = useRef(null);
-  const rightContentRef = useRef(null);
+  // References for intersection observer
+  const sectionRef = useRef(null);
 
-  // Check if elements are in view
-  const headerInView = useInView(headerRef, { once: false, amount: 0.3 });
-  const carouselInView = useInView(carouselRef, { once: false, amount: 0.2 });
-  const leftContentInView = useInView(leftContentRef, { once: false, amount: 0.3 });
-  const rightContentInView = useInView(rightContentRef, { once: false, amount: 0.3 });
+  useEffect(() => {
+    // Simple intersection observer to trigger animations when component enters viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   const handleNext = () => {
     if (!isTransitioning) {
@@ -406,52 +376,53 @@ export default function Category3DCarousel() {
             </div>
           </div>
         </div>
-        {/* </div> */}
       </button>
     );
   };
 
   return (
-    <section className="mx-auto w-full max-w-full pt-8 sm:py-16 lg:py-24 relative overflow-hidden px-0 ">
-      <motion.div
-        ref={headerRef}
-        className="text-center mb-12"
-        initial="hidden"
-        animate={headerInView ? 'visible' : 'hidden'}
-        variants={staggerChildren}
-      >
+    <section
+      ref={sectionRef}
+      className="mx-auto w-full max-w-full pt-8 sm:py-16 lg:py-24 relative overflow-hidden px-0"
+    >
+      {/* Header Content with CSS Animations */}
+      <div className="text-center mb-12">
         <div>
-          <motion.h2
-            variants={fadeInUp}
-            className="text-gray-700 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg"
+          <h2
+            className={`text-gray-700 font-custom font-bold tracking-wide uppercase mb-3 sm:mb-4 text-sm sm:text-lg transition-all duration-700 ${
+              isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
+            }`}
+            style={{ transitionDelay: '100ms' }}
           >
             NOS CATeGORIES
-          </motion.h2>
-          <motion.h1
-            variants={fadeInLeft}
-            className="text-red-600 text-2xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2"
+          </h2>
+          <h1
+            className={`text-red-600 text-2xl font-custom font-bold uppercase md:text-5xl lg:text-6xl mb-2 transition-all duration-700 ${
+              isVisible ? 'opacity-100 transform translate-x-0' : 'opacity-0 transform -translate-x-12'
+            }`}
+            style={{ transitionDelay: '300ms' }}
           >
             Tout un monde
-          </motion.h1>
-          <motion.h2
-            variants={fadeInRight}
-            className="text-red-600 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl"
+          </h1>
+          <h2
+            className={`text-red-600 font-custom font-bold text-2xl uppercase md:text-3xl lg:text-4xl transition-all duration-700 ${
+              isVisible ? 'opacity-100 transform translate-x-0' : 'opacity-0 transform translate-x-12'
+            }`}
+            style={{ transitionDelay: '500ms' }}
           >
             de plaisir
-          </motion.h2>
+          </h2>
         </div>
-      </motion.div>
+      </div>
 
       {/* 3D Carousel Container */}
-      <motion.div
-        ref={carouselRef}
-        className="relative w-full h-[520px] lg:h-[600px] flex justify-center items-center  overflow-x-hidden"
-        initial={{ opacity: 0, y: 60 }}
-        animate={
-          carouselInView ? { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } } : { opacity: 0, y: 60 }
-        }
+      <div
+        className={`relative w-full h-[520px] lg:h-[600px] flex justify-center items-center overflow-x-hidden transition-all duration-1000 ${
+          isVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-16'
+        }`}
+        style={{ transitionDelay: '700ms' }}
       >
-        <div className="relative w-full max-w-md h-full transform-style-3d ">
+        <div className="relative w-full max-w-md h-full transform-style-3d">
           {categories.map((category, index) => (
             <CategoryCard3D
               key={category.title}
@@ -467,7 +438,7 @@ export default function Category3DCarousel() {
         {/* Custom Navigation Buttons */}
         <PulsingButton
           onClick={handlePrev}
-          className="absolute left-0 md:left-[20%] lg:left-[30%] z-10 w-16 h-16 md:ml-4 flex items-center justify-center rounded-full text-white/80 hover:text-white  transition-all duration-300"
+          className="absolute left-0 md:left-[20%] lg:left-[30%] z-10 w-16 h-16 md:ml-4 flex items-center justify-center rounded-full text-white/80 hover:text-white transition-all duration-300"
           aria-label="Previous slide"
         >
           <svg
@@ -486,7 +457,7 @@ export default function Category3DCarousel() {
 
         <PulsingButton
           onClick={handleNext}
-          className="absolute right-0 md:right-[20%] lg:right-[30%] z-10 w-16 h-16 md:mr-4 flex items-center justify-center rounded-full text-white/80 hover:text-white  transition-all duration-300"
+          className="absolute right-0 md:right-[20%] lg:right-[30%] z-10 w-16 h-16 md:mr-4 flex items-center justify-center rounded-full text-white/80 hover:text-white transition-all duration-300"
           aria-label="Next slide"
         >
           <svg
@@ -502,7 +473,7 @@ export default function Category3DCarousel() {
             <path d="M9 18l6-6-6-6" />
           </svg>
         </PulsingButton>
-      </motion.div>
+      </div>
     </section>
   );
 }
