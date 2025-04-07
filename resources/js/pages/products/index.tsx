@@ -1,10 +1,9 @@
-import candies from '@/assets/images/candies.webp';
 import macao from '@/assets/images/macoa-logo-small-red.svg';
-
-import choco from '@/assets/images/Banner-chocolat-à-tartiner.webp';
-import candy from '@/assets/images/candy.webp';
-import leonardo from '@/assets/images/Leonardo.webp';
-import wafer from '@/assets/images/wafer.webp';
+import choco from '@/assets/images/NewBannerChocolate.webp';
+import candies from '@/assets/images/NewBannerConfiseries.webp';
+import candy from '@/assets/images/NewBannerFetes.webp';
+import wafer from '@/assets/images/NewBannerGaufrettes.webp';
+import leonardo from '@/assets/images/NewBannerPatisseries.webp';
 import { Button } from '@/components/ui/shadcn-button';
 import { Input } from '@/components/ui/shadcn-input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/shadcn-select';
