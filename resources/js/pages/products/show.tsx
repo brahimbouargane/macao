@@ -1,10 +1,10 @@
-import candies from '@/assets/images/candies.webp';
-import candy from '@/assets/images/candy.webp';
-import choco from '@/assets/images/chocolate.webp';
 import iso from '@/assets/images/iso.webp';
-import leonardo from '@/assets/images/Leonardo.webp';
+import choco from '@/assets/images/NewBannerChocolate.webp';
+import candies from '@/assets/images/NewBannerConfiseries.webp';
+import candy from '@/assets/images/NewBannerFetes.webp';
+import wafer from '@/assets/images/NewBannerGaufrettes.webp';
+import leonardo from '@/assets/images/NewBannerPatisseries.webp';
 import onssa from '@/assets/images/onssa.webp';
-import wafer from '@/assets/images/wafer.webp';
 import { NewLayout } from '@/layouts/new-layout';
 import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -227,8 +227,8 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
             transition={{ duration: 1.5 }}
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`,
-              opacity: '0.20'
+              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`
+              //   opacity: '0.20'
             }}
           />
         </div>
@@ -240,14 +240,14 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
             animate="visible"
             className="flex max-h-[280px] items-center justify-center pt-48 pb-20"
           >
-            <div className="text-center">
+            {/* <div className="text-center">
               <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold text-white md:text-6xl">
                 {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
               </motion.h1>
               <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
                 {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
               </motion.p>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </motion.div>
