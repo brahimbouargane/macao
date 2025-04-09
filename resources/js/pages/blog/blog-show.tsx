@@ -1,133 +1,116 @@
-import imageblogmain from '@/assets/images/blog-main-page.jpg';
-import imageblogmain2 from '@/assets/images/blog-main-page2.jpg';
-import grid1 from '@/assets/images/gid-1.webp';
-import grid2 from '@/assets/images/grid-2.webp';
-import grid3 from '@/assets/images/grid-3.webp';
+import blogDefault from '@/assets/images/macao-blog.jpg';
 import imageblog from '@/assets/images/pic9.png';
-
 import { NewLayout } from '@/layouts/new-layout';
-import { ArrowRight, Facebook, Link, Twitter } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import { ArrowRight, Facebook, Link2, Twitter } from 'lucide-react';
 
-function BlogShow() {
+function BlogShow({ post, relatedPosts }) {
+  if (!post) {
+    return <div className="container mx-auto px-4 py-8 mt-36">Loading...</div>;
+  }
+  console.log(relatedPosts);
+
+  // Format the date for display without date-fns
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Date non disponible';
+
+    const date = new Date(dateString);
+    // Format as DD/MM/YYYY in French format
+    return date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  };
+
+  const readingTime = Math.ceil(post.content.split(' ').length / 200); // Estimate reading time
+
+  // Format the content - split by newlines and create paragraphs
+  const formatContent = (content) => {
+    if (!content) return [];
+    return content
+      .split('\n')
+      .filter((paragraph) => paragraph.trim() !== '')
+      .map((paragraph, index) => (
+        <p key={index} className="mb-4">
+          {paragraph.trim()}
+        </p>
+      ));
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 mt-36">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-4">
-        <a href="#" className="text-red-700 hover:underline">
+        <a href="/blog" className="text-red-700 hover:underline">
           Blog
         </a>
         <span>&gt;</span>
-        <a href="#" className="text-red-700 hover:underline">
-          Category
-        </a>
+        <p className="text-red-700 hover:underline">{post.category.charAt(0).toUpperCase() + post.category.slice(1)}</p>
       </div>
 
       {/* Article Title */}
-      <h1 className="text-3xl md:text-4xl font-bold text-red-700 mb-6">Le titre de l'article</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-red-700 mb-6">{post.title}</h1>
+
+      {/* Post Meta */}
+      <div className="flex flex-wrap items-center gap-4 mb-6 text-gray-600">
+        <div className="flex items-center">
+          <span className="font-medium mr-2">Date:</span>
+          {formatDate(post.date)}
+        </div>
+        <div className="flex items-center">
+          <span className="font-medium mr-2">Temps de lecture:</span>
+          {readingTime} min
+        </div>
+        <div className="flex items-center">
+          <span className="font-medium mr-2">Catégorie:</span>
+          <p className="text-red-700 hover:underline">
+            {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
+          </p>
+        </div>
+      </div>
 
       {/* Featured Image */}
       <div className="rounded-lg overflow-hidden mb-10">
         <img
-          src={imageblogmain}
-          alt="pastore macao"
+          src={blogDefault}
+          alt={post.title}
           width={800}
           height={400}
-          className="w-full h-[450px] rounded-lg "
+          className="w-full h-[450px] object-cover rounded-lg"
         />
       </div>
 
       {/* Article Content */}
-      <article className="prose prose-lg max-w-none">
-        <h2 className="text-2xl font-bold text-red-700 mb-4">Introduction</h2>
+      <article className="prose prose-lg max-w-5xl text-justify mx-auto">
+        <h2 className="text-4xl font-bold text-red-700 mb-4">Introduction</h2>
 
-        <p className="mb-4">
-          Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget
-          vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu
-          amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.
-        </p>
-
-        <p className="mb-4">
-          Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit, sed auctor.
-          Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique risus, at donec. In
-          turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est volutpat.
-        </p>
-
-        {/* Second Image with Caption */}
-        <figure className="my-8">
-          <img src={imageblogmain2} alt="pastore macao" width={800} height={400} className="w-full h-auto rounded-lg" />
-          <figcaption className="text-sm text-gray-600 mt-2">Image caption goes here</figcaption>
-        </figure>
-
-        <h3 className="text-xl font-bold text-red-700 mb-4">
-          Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet pellentesque
-          aenean hac vestibulum turpis mi blandit diam. Tempor integer aliquam in vitae malesuada fringilla.
-        </h3>
-
-        <p className="mb-4">
-          Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis risus. Sed
-          condimentum enim dignissim adipiscing faucibus consequat, urna. Viverra purus et erat auctor aliquam. Risus,
-          volutpat vulputate posuere purus sit congue convallis aliquet. Arcu id augue ut feugiat donec porttitor neque.
-          Mauris, neque vitae eu vestibulum, blandit ornare aenean nulla. Enim accumsan euismod nunc nunc. Placerat
-          arcu.
-        </p>
-
-        {/* Blockquote */}
-        <blockquote className="border-l-4 border-red-700 pl-4 italic my-6">
-          "Ipsum sit mattis nulla quam nulla. Gravida id gravida ac enim mauris id. Non pellentesque congue eget
-          consectetur turpis. Sapien, dictum molestie sem tempor. Diam elit, orci, tincidunt aenean tempus."
-        </blockquote>
-
-        <p className="mb-4">
-          Tristique odio senectus nam posuere ornare leo metus, ultricies. Blandit duis ultricies vulputate morbi
-          feugiat cras placerat elit. Aliquam tellus lorem aliquam et. Morbi, sed mattis pellentesque suscipit accumsan.
-          Cursus viverra aenean magna risus elementum faucibus molestie pellentesque. Arcu ultricies sed mauris
-          vestibulum.
-        </p>
-
-        <h2 className="text-2xl font-bold text-red-700 mb-4">Conclusion</h2>
-
-        <p className="mb-4">
-          Morbi sed imperdiet in ipsum, adipiscing elit dui lectus. Tellus id scelerisque est ultricies ultricies. Duis
-          est sit sed leo nisl, blandit elit sagittis. Quisque tristique consequat quam sed. Nisl at scelerisque amet
-          nulla purus habitasse.
-        </p>
-
-        <p className="mb-4">
-          Nunc sed faucibus bibendum feugiat sed interdum. Ipsum egestas condimentum mi massa. In tincidunt pharetra
-          consectetur sed duis facilisis metus. Etiam egestas in nec sed et. Quis lobortis at sit dictum eget nibh
-          tortor commodo cursus.
-        </p>
-
-        <p className="mb-4">
-          Odio felis sagittis, morbi feugiat tortor vitae feugiat fusce aliquet. Nam elementum urna nisi aliquet erat
-          dolor enim. Ornare id morbi eget ipsum. Aliquam senectus neque ut id eget consectetur dictum. Donec posuere
-          pharetra odio consequat scelerisque et sed commodo. Nulla adipiscing erat et erat. Condimentum lorem posuere
-          gravida enim posuere cursus diam.
-        </p>
+        {/* {formatContent(post.content)}  */}
+        <p>{post.content} </p>
       </article>
 
       {/* Share Section */}
       <div className="border-t border-b border-gray-200 py-6 my-8">
         <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-4">
           <div className="flex items-center gap-3">
-            <span className="font-medium text-gray-700">Share this post</span>
+            <span className="font-medium text-gray-700">Partager cet article</span>
             <div className="flex gap-2">
-              <button className="p-2 text-gray-600 hover:text-red-700">
-                <Link size={18} />
+              <button className="p-2 text-gray-600 hover:text-red-700" aria-label="Copier le lien">
+                <Link2 size={18} />
               </button>
-              <button className="p-2 text-gray-600 hover:text-red-700">
+              <button className="p-2 text-gray-600 hover:text-red-700" aria-label="Partager sur Twitter">
                 <Twitter size={18} />
               </button>
-              <button className="p-2 text-gray-600 hover:text-red-700">
+              <button className="p-2 text-gray-600 hover:text-red-700" aria-label="Partager sur Facebook">
                 <Facebook size={18} />
               </button>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">Tag one</span>
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">Tag two</span>
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">Tag three</span>
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">Tag four</span>
+            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">{post.category}</span>
+            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">Pastor Macao</span>
+            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">Chocolat</span>
+            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">Maroc</span>
           </div>
         </div>
       </div>
@@ -135,99 +118,71 @@ function BlogShow() {
       {/* Related Posts Section */}
       <div className="mt-16">
         <h2 className="text-2xl font-bold text-red-700 text-center mb-6">Nos dernières actualités</h2>
-        <p className="text-center text-gray-600 mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p className="text-center text-gray-600 mb-8">Découvrez d'autres articles passionnants de Pastor Macao.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {/* Blog Card 1 */}
-          <div className="rounded-[40px] overflow-hidden border border-gray-200 bg-white">
-            <div className="relative h-auto overflow-hidden">
-              <img src={grid3} alt="Blog post" className="object-cover" />
-            </div>
-            <div className="p-5">
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-red-700 text-sm font-medium">Category</span>
-                <span className="text-gray-500 text-sm">5 min read</span>
+          {relatedPosts.slice(0, 3).map((relatedPost) => (
+            <div className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={blogDefault}
+                  alt={relatedPost.title}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Blog title heading will go here</h3>
-              <p className="text-gray-600 mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
-              </p>
-              <a href="#" className="inline-flex items-center text-red-700 font-medium">
-                Read more <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
-            </div>
-          </div>
-
-          {/* Blog Card 2 */}
-          <div className="rounded-[40px] overflow-hidden border border-gray-200 bg-white">
-            <div className="relative h-auto overflow-hidden">
-              <img src={grid1} alt="Blog post" className="object-cover" />
-            </div>
-            <div className="p-5">
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-red-700 text-sm font-medium">Category</span>
-                <span className="text-gray-500 text-sm">5 min read</span>
+              <div className="p-5 flex flex-col flex-grow">
+                <div className="flex justify-end items-center mb-3">
+                  <span className="text-gray-500 text-sm">{relatedPost.readTime}</span>
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-gray-800">{relatedPost.title}</h3>
+                <p className="text-gray-700 mb-4 flex-grow">{relatedPost.excerpt}</p>
+                <Link
+                  href={route('blog.show', relatedPost.id)}
+                  className="inline-flex items-center text-red-700 font-medium hover:underline"
+                >
+                  Lire plus <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
               </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Blog title heading will go here</h3>
-              <p className="text-gray-600 mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
-              </p>
-              <a href="#" className="inline-flex items-center text-red-700 font-medium">
-                Read more <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
             </div>
-          </div>
-
-          {/* Blog Card 3 */}
-          <div className="rounded-[40px] overflow-hidden border border-gray-200 bg-white">
-            <div className="relative h-auto overflow-hidden">
-              <img src={grid2} alt="Blog post" className="object-cover" />
-            </div>
-            <div className="p-5">
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-red-700 text-sm font-medium">Category</span>
-                <span className="text-gray-500 text-sm">5 min read</span>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Blog title heading will go here</h3>
-              <p className="text-gray-600 mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
-              </p>
-              <a href="#" className="inline-flex items-center text-red-700 font-medium">
-                Read more <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* All Products Button */}
+        {/* All Articles Button */}
         <div className="flex justify-center">
           <a
-            href="#"
+            href="/blog"
             className="px-6 py-3 bg-red-600 text-white font-medium rounded-l-full rounded-br-full hover:bg-red-700 transition-colors"
           >
-            Tous les produits
+            Tous les articles
           </a>
         </div>
       </div>
+
+      {/* CTA Section */}
       <div className="mt-16 rounded-[80px] overflow-hidden">
         <div className="bg-red-700 text-white flex flex-col md:flex-row items-center">
           <div className="md:w-1/2">
-            <img src={imageblog} alt="Automatic delivery service" width={600} height={400} className="w-full h-auto" />
+            <img src={imageblog} alt="Pastor Macao products" className="w-full h-auto" />
           </div>
           <div className="p-8 md:p-12 md:w-1/2">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Lorem ipsum dolor</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Découvrez nos produits</h2>
             <p className="mb-6">
-              Lorem ipsum dolor sit amet consectetur. Massa felis massa enim tristique. Lectus eget viverra nunc nisi
-              risus mattis fusce eu. Blandit pellentesque lacus est ut ultricies.
+              Pastor Macao propose une gamme variée de produits chocolatés et de confiseries pour satisfaire toutes vos
+              envies gourmandes. De la pâte à tartiner aux tablettes en passant par les gaufrettes, il y en a pour tous
+              les goûts.
             </p>
-            <button className="bg-white text-red-700 px-6 py-3 rounded-l-full rounded-br-full font-medium">
-              Lorem ipsum
-            </button>
+            <a
+              href="/products/chocolat/pâtes%20à%20tartiner"
+              className="inline-block bg-white text-red-700 px-6 py-3 rounded-l-full rounded-br-full font-medium"
+            >
+              Nos produits
+            </a>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 export default BlogShow;
 BlogShow.layout = (page) => <NewLayout children={page} />;
