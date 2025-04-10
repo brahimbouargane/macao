@@ -83,7 +83,7 @@ function BlogShow({ post, relatedPosts }) {
 
       <div className="rounded-lg overflow-hidden mb-10">
         <img
-          src={post.image || blogDefault}
+          src={post.image ? `https://macao.digitalia-solutions.com/${post.image}` : blogDefault}
           alt={post.title}
           width={800}
           height={400}
