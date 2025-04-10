@@ -1,6 +1,5 @@
 import candies from '@/assets/images/banner-blog.jpg';
 import blogDefault from '@/assets/images/macao-blog.jpg';
-import imageblog from '@/assets/images/pic9.png';
 
 import { NewLayout } from '@/layouts/new-layout';
 import { Link } from '@inertiajs/react';
@@ -8,44 +7,77 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-function Actualites({ posts }) {
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut'
-      }
-    },
-    exit: {
-      opacity: 0,
-      y: -20,
-      transition: {
-        duration: 0.3
-      }
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut'
     }
-  };
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.3
+    }
+  }
+};
 
-  // State for filter and search
+function Actualites({ posts }) {
+  //   // State for filter and search
+  //   const [activeCategory, setActiveCategory] = useState('all');
+  //   const [searchTerm, setSearchTerm] = useState('');
+  //   const [filteredPosts, setFilteredPosts] = useState([]);
+
+  //   // Category labels for display
+  //   const categoryLabels = {
+  //     all: 'Tous les articles',
+  //     recettes: 'Recettes Produits Macao',
+  //     actualites: 'Actualités Macao'
+  //   };
+
+  //   // Filter posts based on category and search term
+  //   useEffect(() => {
+  //     // For debugging
+  //     console.log('Active category:', activeCategory);
+  //     console.log('Search term:', searchTerm);
+  //     console.log('Posts:', posts);
+
+  //     // Add safety check for posts
+  //     if (!Array.isArray(posts) || posts.length === 0) {
+  //       setFilteredPosts([]);
+  //       return;
+  //     }
+
+  //     const filtered = posts.filter((post) => {
+  //       // Safety check for post object
+  //       if (!post) return false;
+
+  //       // Check if the post has the category property and it matches the filter
+  //       const matchesCategory =
+  //         activeCategory === 'all' || (post.category && post.category.toLowerCase() === activeCategory.toLowerCase());
+
+  //       // Check if title or excerpt matches the search term
+  //       const matchesSearch =
+  //         searchTerm === '' ||
+  //         (post.title && post.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+  //         (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()));
+
+  //       return matchesCategory && matchesSearch;
+  //     });
+
+  //     setFilteredPosts(filtered);
+  //   }, [activeCategory, searchTerm, posts]);
+
+  //   console.log(filteredPosts);
+
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPosts, setFilteredPosts] = useState([]);
-
-  // Filter posts based on category and search term
-  useEffect(() => {
-    const filtered = posts.filter((post) => {
-      const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
-      const matchesSearch =
-        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
-
-    setFilteredPosts(filtered);
-  }, [activeCategory, searchTerm, posts]);
 
   // Category labels for display
   const categoryLabels = {
@@ -53,6 +85,41 @@ function Actualites({ posts }) {
     recettes: 'Recettes Produits Macao',
     actualites: 'Actualités Macao'
   };
+
+  // Filter posts based on category and search term
+  useEffect(() => {
+    // For debugging
+    console.log('Active category:', activeCategory);
+    console.log('Search term:', searchTerm);
+    console.log('Posts:', posts);
+
+    // Add safety check for posts
+    if (!Array.isArray(posts) || posts.length === 0) {
+      setFilteredPosts([]);
+      return;
+    }
+
+    const filtered = posts.filter((post) => {
+      // Safety check for post object
+      if (!post) return false;
+
+      // Check if the post has the category property and it matches the filter
+      const matchesCategory =
+        activeCategory === 'all' || (post.category && post.category.toLowerCase() === activeCategory.toLowerCase());
+
+      // Check if title or excerpt matches the search term
+      const matchesSearch =
+        searchTerm === '' ||
+        (post.title && post.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()));
+
+      return matchesCategory && matchesSearch;
+    });
+
+    setFilteredPosts(filtered);
+  }, [activeCategory, searchTerm, posts]);
+
+  console.log('Filtered posts:', filteredPosts);
 
   return (
     <>
@@ -157,7 +224,6 @@ function Actualites({ posts }) {
           </div>
         )}
 
-        {/* Blog Grid */}
         {filteredPosts.length > 0 && (
           <motion.div
             initial="hidden"
@@ -172,33 +238,6 @@ function Actualites({ posts }) {
             ))}
           </motion.div>
         )}
-
-        {/* Promotional Banner */}
-        <div className="mt-16 rounded-[80px] overflow-hidden">
-          <div className="bg-red-700 text-white flex flex-col md:flex-row items-center">
-            <div className="p-8 md:p-12 md:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Inscrivez-vous à notre newsletter</h2>
-              <p className="mb-6">
-                Recevez nos dernières recettes et actualités directement dans votre boîte mail. Nous partageons
-                régulièrement des astuces exclusives et des offres spéciales.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  placeholder="Votre email"
-                  className="px-4 py-3 rounded-l-full rounded-br-full text-gray-800 w-full sm:w-64"
-                  aria-label="Votre adresse email"
-                />
-                <button className="bg-black hover:bg-black/20 text-white px-6 py-3 rounded-l-full rounded-br-full font-medium transition-colors">
-                  S'inscrire
-                </button>
-              </div>
-            </div>
-            <div className="md:w-1/2">
-              <img src={imageblog} alt="Produits Macao" width={600} height={400} className="w-full h-auto" />
-            </div>
-          </div>
-        </div>
       </main>
     </>
   );
@@ -208,7 +247,7 @@ export default Actualites;
 Actualites.layout = (page) => <NewLayout children={page} />;
 
 // Blog Card Component
-function BlogCard({ post, categoryLabels }) {
+function BlogCard({ key, post, categoryLabels }) {
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -223,12 +262,13 @@ function BlogCard({ post, categoryLabels }) {
 
   return (
     <motion.div
+      key={key}
       variants={fadeInUp}
       className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
     >
       <div className="relative h-64 overflow-hidden">
         <img
-          src={blogDefault}
+          src={post.image || blogDefault}
           alt={post.title}
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
         />
