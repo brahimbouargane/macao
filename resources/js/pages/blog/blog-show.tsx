@@ -1,14 +1,30 @@
 import blogDefault from '@/assets/images/macao-blog.jpg';
 import imageblog from '@/assets/images/pic9.png';
 import { NewLayout } from '@/layouts/new-layout';
-import { Link } from '@inertiajs/react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Facebook, Link2, Twitter } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5
+    }
+  }
+};
 function BlogShow({ post, relatedPosts }) {
+  const [isRecipe, setIsRecipe] = useState(false);
+
+  useEffect(() => {
+    setIsRecipe(post.category === 'recettes');
+  }, [post]);
+
   if (!post) {
     return <div className="container mx-auto px-4 py-8 mt-36">Loading...</div>;
   }
-  console.log(relatedPosts);
 
   // Format the date for display without date-fns
   const formatDate = (dateString) => {
@@ -23,24 +39,24 @@ function BlogShow({ post, relatedPosts }) {
     });
   };
 
-  const readingTime = Math.ceil(post.content.split(' ').length / 200); // Estimate reading time
+  //   const readingTime = Math.ceil(post.content.split(' ').length / 200);
 
   // Format the content - split by newlines and create paragraphs
-  const formatContent = (content) => {
-    if (!content) return [];
-    return content
-      .split('\n')
-      .filter((paragraph) => paragraph.trim() !== '')
-      .map((paragraph, index) => (
-        <p key={index} className="mb-4">
-          {paragraph.trim()}
-        </p>
-      ));
-  };
+  //   const formatContent = (content) => {
+  //     if (!content) return [];
+  //     return content
+  //       .split('\n')
+  //       .filter((paragraph) => paragraph.trim() !== '')
+  //       .map((paragraph, index) => (
+  //         <p key={index} className="mb-4">
+  //           {paragraph.trim()}
+  //         </p>
+  //       ));
+  //   };
+  console.log('post:', post);
 
   return (
     <div className="container mx-auto px-4 py-8 mt-36">
-      {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-4">
         <a href="/blog" className="text-red-700 hover:underline">
           Blog
@@ -49,18 +65,13 @@ function BlogShow({ post, relatedPosts }) {
         <p className="text-red-700 hover:underline">{post.category.charAt(0).toUpperCase() + post.category.slice(1)}</p>
       </div>
 
-      {/* Article Title */}
-      <h1 className="text-3xl md:text-4xl font-bold text-red-700 mb-6">{post.title}</h1>
+      {/* <h1 className="text-3xl md:text-4xl font-bold text-red-700 mb-6">{post.title}</h1> */}
 
       {/* Post Meta */}
       <div className="flex flex-wrap items-center gap-4 mb-6 text-gray-600">
         <div className="flex items-center">
           <span className="font-medium mr-2">Date:</span>
           {formatDate(post.date)}
-        </div>
-        <div className="flex items-center">
-          <span className="font-medium mr-2">Temps de lecture:</span>
-          {readingTime} min
         </div>
         <div className="flex items-center">
           <span className="font-medium mr-2">Catégorie:</span>
@@ -70,7 +81,6 @@ function BlogShow({ post, relatedPosts }) {
         </div>
       </div>
 
-      {/* Featured Image */}
       <div className="rounded-lg overflow-hidden mb-10">
         <img
           src={blogDefault}
@@ -82,12 +92,58 @@ function BlogShow({ post, relatedPosts }) {
       </div>
 
       {/* Article Content */}
-      <article className="prose prose-lg max-w-5xl text-justify mx-auto">
+      {/* <article className="prose prose-lg max-w-5xl text-justify mx-auto">
         <h2 className="text-4xl font-bold text-red-700 mb-4">Introduction</h2>
 
-        {/* {formatContent(post.content)}  */}
         <p>{post.content} </p>
-      </article>
+      </article> */}
+      {/* Content Section */}
+      <motion.div variants={fadeInUp} initial="hidden" animate="visible" className="prose prose-lg max-w-none">
+        {isRecipe ? (
+          <div className="recipe-content">
+            {post.emoji && (
+              <div className="text-6xl mb-6 flex items-baseline">
+                {post.emoji} <h1 className="text-3xl md:text-4xl font-bold text-red-700 mb-6">{post.title}</h1>
+              </div>
+            )}
+            <h2 className="text-2xl font-bold mb-6 text-red-700">Ingrédients</h2>
+            <div className="bg-amber-50 rounded-3xl p-6 mb-10">
+              <ul className="list-disc pl-10 space-y-2">
+                {post.ingredients &&
+                  post.ingredients.map((ingredient, index) => (
+                    <li key={index} className="text-gray-800">
+                      {ingredient}
+                    </li>
+                  ))}
+              </ul>
+            </div>
+
+            <h2 className="text-2xl font-bold mb-6 text-red-700">Préparation</h2>
+            <div className="bg-amber-50 rounded-3xl p-6 mb-10">
+              <ol className="list-decimal pl-10 space-y-6">
+                {post.preparations &&
+                  post.preparations.map((step, index) => (
+                    <li key={index} className="text-gray-800">
+                      <p>{step}</p>
+                    </li>
+                  ))}
+              </ol>
+            </div>
+          </div>
+        ) : (
+          <div className="article-content">
+            {post.content && (
+              <>
+                <h1 className="text-3xl md:text-4xl font-bold text-red-700 mb-6">{post.title}</h1>
+
+                <article className="prose prose-lg max-w-7xl text-justify mx-auto">
+                  <p>{post.content} </p>
+                </article>
+              </>
+            )}
+          </div>
+        )}
+      </motion.div>
 
       {/* Share Section */}
       <div className="border-t border-b border-gray-200 py-6 my-8">
@@ -136,12 +192,12 @@ function BlogShow({ post, relatedPosts }) {
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-gray-800">{relatedPost.title}</h3>
                 <p className="text-gray-700 mb-4 flex-grow">{relatedPost.excerpt}</p>
-                <Link
+                <a
                   href={route('blog.show', relatedPost.id)}
                   className="inline-flex items-center text-red-700 font-medium hover:underline"
                 >
                   Lire plus <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
+                </a>
               </div>
             </div>
           ))}

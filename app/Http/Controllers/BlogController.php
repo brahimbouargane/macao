@@ -29,7 +29,7 @@ class BlogController extends Controller
                             innover tout en respectant ses racines, Pastor Macao demeure une source de fierté pour le Maroc et
                             un délice pour les papilles des gourmands.",
             'category' => 'actualites',
-            'image' => '/images/blog/histoire-pastor-macao.jpg',
+            'image' => null,
             'date' => '2024-01-15',
         ],
         2 => [
@@ -55,7 +55,7 @@ class BlogController extends Controller
                             gourmandise, qu'il soit quotidien ou exceptionnel, en offrant des douceurs adaptées à toutes les
                             occasions.",
             'category' => 'actualites',
-            'image' => '/images/blog/gamme-produits-macao.jpg',
+            'image' => null,
             'date' => '2024-01-25',
         ],
         3 => [
@@ -80,7 +80,7 @@ class BlogController extends Controller
                             de choix dans le cœur des gourmands et assure à l'entreprise une réputation d'excellence, tant au
                             niveau national qu'international.",
             'category' => 'actualites',
-            'image' => '/images/blog/qualite-innovation-macao.jpg',
+            'image' => null,
             'date' => '2024-02-10',
         ],
         4 => [
@@ -107,7 +107,7 @@ class BlogController extends Controller
                             démontrant que l’excellence artisanale marocaine peut séduire les palais du monde entier. Un pari
                             réussi, et un nouvel élan vers de futures conquêtes internationales.",
             'category' => 'actualites',
-            'image' => '/images/blog/gulfood-2024-macao.jpg',
+            'image' => null,
             'date' => '2024-02-28',
         ],
         5 => [
@@ -141,7 +141,7 @@ class BlogController extends Controller
                             Ainsi, entre tradition, accessibilité, innovation et ambition, le chocolat au Maroc est en pleine évolution
                             — et Pastor Macao en est l’un des moteurs les plus actifs.",
             'category' => 'actualites',
-            'image' => '/images/blog/chocolat-maroc-evolution.jpg',
+            'image' => null,
             'date' => '2024-03-15',
         ],
         6 => [
@@ -168,7 +168,7 @@ class BlogController extends Controller
                             tant sur le plan national qu’international. Son implication traduit une vision claire : celle
                             de faire du Maroc un acteur reconnu dans le domaine de la pâtisserie et du chocolat.",
             'category' => 'actualites',
-            'image' => '/images/blog/patisserie-marocaine-macao.jpg',
+            'image' => null,
             'date' => '2024-03-25',
         ],
         7 => [
@@ -196,7 +196,7 @@ class BlogController extends Controller
                             authenticité, Pastor Macao réussit le pari d’allier tradition et modernité. Une marque
                             connectée, à l’écoute, et toujours gourmande.",
             'category' => 'actualites',
-            'image' => '/images/blog/strategie-digitale-macao.jpg',
+            'image' => null,
             'date' => '2024-04-05',
         ],
         8 => [
@@ -222,9 +222,262 @@ class BlogController extends Controller
                             bonbon : c’est une madeleine de Proust à la marocaine, transmise de génération en
                             génération.",
             'category' => 'actualites',
-            'image' => '/images/blog/enfants-macao.jpg',
+            'image' => null,
             'date' => '2024-04-15',
         ],
+        9 => [
+            "id"=> 9,
+            "emoji"=> "🧁",
+            "title"=> "Fondant au chocolat au lait",
+            "imageUrl"=> "https=>//fr.freepik.com/photos-premium/gateaux-lave-au-chocolat-gateux-au-chocolat-decadents-individuels-centres-fondus-servis-cuillere_181335946.htm#fromView=search&page=1&position=11&uuid=96ce91f2-98fd-4f80-87d4-d59dc7a55e7c&query=Fondant+au+chocolat+au+lait",
+            "ingredients"=> [
+            "200 g de chocolat au lait Macao",
+            "100 g de beurre",
+            "100 g de sucre",
+            "3 œufs",
+            "50 g de farine"
+            ],
+            "preparations"=> [
+            "Préchauffez le four à 180°C (th.6).",
+            "Faites fondre le chocolat au lait Macao avec le beurre au bain-marie ou au micro-ondes.",
+            "Dans un bol, battez les œufs avec le sucre jusqu'à ce que le mélange blanchisse.",
+            "Incorporez le chocolat fondu, puis ajoutez la farine. Mélangez bien.",
+            "Versez la préparation dans un moule beurré et fariné.",
+            "Faites cuire pendant 15 à 18 minutes. L'extérieur doit être cuit, mais l'intérieur encore fondant.",
+            "Laissez tiédir avant de démouler."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog3.webp',
+           'date' => '2024-04-15',
+        ],
+        10 => [
+            "id"=> 10,
+            "emoji"=> "🍫",
+            "title"=> "Gâteau moelleux au chocolat noir",
+            "imageUrl"=> "https=>//fr.freepik.com/photos-premium/gateau-au-chocolat_2894133.htm#fromView=search&page=1&position=33&uuid=4d50b6b9-b5bd-4052-9e0c-83c527d03f00&query=G%C3%A2teau+moelleux+au+chocolat+noir",
+            "ingredients"=> [
+            "200 g de chocolat noir Macao",
+            "125 g de beurre",
+            "100 g de sucre",
+            "4 œufs",
+            "80 g de farine",
+            "1 c. à café de levure chimique"
+            ],
+            "preparations"=> [
+            "Faites fondre le chocolat noir avec le beurre.",
+            "Séparez les blancs des jaunes.",
+            "Battez les jaunes avec le sucre jusqu'à obtenir un mélange crémeux.",
+            "Ajoutez le mélange chocolat/beurre tiédi, puis la farine et la levure.",
+            "Montez les blancs en neige et incorporez-les délicatement.",
+            "Versez la pâte dans un moule et enfournez à 180°C pendant 25 à 30 minutes.",
+            "Laissez refroidir avant de déguster."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog1.webp',
+           'date' => '2024-04-15',
+            ],
+        11 => [
+            "id"=> 11,
+            "emoji"=> "🍪",
+            "title"=> "Cookies chocolat au lait & amandes effilées",
+            "imageUrl"=> "https=>//fr.freepik.com/photos-gratuite/arrangement-pepites-chocolat-savoureux-plat_31112444.htm#fromView=search&page=1&position=1&uuid=115c0ebc-5696-433f-9434-11ba49bffd54&query=Cookies+chocolat+au+lait+%26+amandes+effil%C3%A9es",
+            "ingredients"=> [
+            "100 g de chocolat au lait Macao (haché)",
+            "100 g de beurre mou",
+            "100 g de sucre roux",
+            "1 œuf",
+            "150 g de farine",
+            "50 g d'amandes effilées",
+            "1/2 sachet de levure chimique"
+            ],
+            "preparations"=> [
+            "Mélangez le beurre mou et le sucre jusqu'à ce que la texture soit crémeuse.",
+            "Ajoutez l'œuf, puis incorporez la farine, la levure, les amandes effilées et les morceaux de chocolat au lait.",
+            "Formez des petites boules, disposez-les sur une plaque recouverte de papier cuisson.",
+            "Aplatissez-les légèrement et enfournez 10 à 12 min à 180°C.",
+            "Laissez refroidir sur une grille."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog8.webp',
+           'date' => '2024-04-15',
+        ],
+        12 => [
+            "id" => 12,
+            "emoji" => "🟤",
+            "title" => "Brownies au cacao",
+            "imageUrl" => "https =>//fr.freepik.com/photos-gratuite/brownie-au-chocolat-pile-patisseries-plaque_5030109.htm#fromView=search&page=1&position=16&uuid=a5453e01-7ada-4197-971c-11323c6ab1f3&query=Brownies+au+cacao",
+            "ingredients" => [
+              "50 g de poudre de cacao Macao",
+              "150 g de beurre",
+              "120 g de sucre",
+              "2 œufs",
+              "70 g de farine",
+              "1 pincée de sel"
+            ],
+            "preparations" => [
+              "Faites fondre le beurre à feu doux.",
+              "Ajoutez la poudre de cacao et mélangez bien.",
+              "Incorporez le sucre, les œufs, puis la farine et une pincée de sel.",
+              "Versez dans un moule rectangulaire beurré.",
+              "Faites cuire 20 minutes à 180°C.",
+              "Laissez tiédir avant de couper en carrés."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog2.webp',
+           'date' => '2024-04-15',
+            ],
+            13 => [
+            "id" => 13,
+            "emoji" => "🧁",
+            "title" => "Muffins au cacao et poudre d'amandes",
+            "imageUrl" => "https =>//fr.freepik.com/photos-gratuite/vue-face-arrangement-boulangerie-sucree_9906783.htm#fromView=search&page=1&position=0&uuid=9890bd53-3070-4e6c-8fd7-08460e8d2eaf&query=Muffins+au+cacao+et+poudre+d%E2%80%99amandes",
+            "ingredients" => [
+              "50 g de poudre de cacao Macao",
+              "150 g de farine",
+              "50 g de poudre d'amande Macao",
+              "100 g de sucre",
+              "2 œufs",
+              "10 cl de lait",
+              "60 g de beurre fondu",
+              "1 sachet de levure chimique"
+            ],
+            "preparations" => [
+              "Mélangez les ingrédients secs  => farine, cacao, levure, poudre d'amandes, sucre.",
+              "Ajoutez les œufs battus, le lait et le beurre fondu.",
+              "Mélangez sans trop insister pour garder une texture moelleuse.",
+              "Répartissez dans des moules à muffins.",
+              "Faites cuire 20 à 25 minutes à 180°C.",
+              "Laissez tiédir avant de démouler."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog9.webp',
+           'date' => '2024-04-15',
+          ],
+          14 =>[
+            "id" => 14,
+            "emoji" => "🍰",
+            "title" => "Tarte au chocolat noir",
+            "imageUrl" => "https =>//fr.freepik.com/photos-gratuite/delicieuse-tarte-au-chocolat-prete-etre-servie_9422510.htm#fromView=search&page=1&position=17&uuid=977b674b-3866-4e22-921d-7eaec9bb4818&query=Tarte+au+chocolat+noir",
+            "ingredients" => [
+              "1 pâte sablée",
+              "200 g de chocolat noir Macao",
+              "20 cl de crème liquide",
+              "30 g de beurre"
+            ],
+            "preparations" => [
+              "Faites cuire la pâte à blanc 15 minutes à 180°C.",
+              "Faites chauffer la crème dans une casserole.",
+              "Ajoutez le chocolat noir en morceaux et mélangez hors du feu jusqu'à fonte complète.",
+              "Incorporez le beurre.",
+              "Versez sur le fond de tarte refroidi.",
+              "Laissez prendre au frais pendant 2 heures."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog6.webp',
+           'date' => '2024-04-15',
+            ],
+            15 => [
+            "id" => 15,
+            "emoji" => "🍞",
+            "title" => "Cake aux fruits confits",
+            "imageUrl" => "https =>//fr.freepik.com/photos-premium/vue-rapprochee-du-gateau-table_100559340.htm#fromView=search&page=1&position=5&uuid=b3e08f36-7086-4d49-8c27-814b5639f1e0&query=Cake+aux+fruits+confits",
+            "ingredients" => [
+              "150 g de fruits confits Macao",
+              "3 œufs",
+              "150 g de beurre",
+              "150 g de sucre",
+              "200 g de farine",
+              "1 sachet de levure",
+              "1 c. à soupe de Zhar (optionnel)"
+            ],
+            "preparations" => [
+              "Battez le beurre mou avec le sucre.",
+              "Incorporez les œufs un par un.",
+              "Ajoutez la farine, la levure et les fruits confits farinés (pour éviter qu'ils ne tombent au fond).",
+              "Versez dans un moule à cake.",
+              "Cuire 45 minutes à 180°C.",
+              "Laissez refroidir avant de démouler."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog4.webp',
+           'date' => '2024-04-15',
+            ],
+            16 =>[
+            "id" => 16,
+            "emoji" => "🌰",
+            "title" => "Gâteau aux amandes effilées",
+            "imageUrl" => "https =>//fr.freepik.com/photos-gratuite/tarta-santiago-torte-traditionnelle-tranches-amande-santiago-espagne-isolee-fond-blanc_197049818.htm#fromView=search&page=1&position=5&uuid=61254591-63a8-4b58-9c9e-b31911525457&query=G%C3%A2teau+aux+amandes+effil%C3%A9es",
+            "ingredients" => [
+              "100 g d'amandes effilées Macao",
+              "100 g de beurre",
+              "100 g de sucre",
+              "2 œufs",
+              "100 g de farine",
+              "1 c. à café de levure"
+            ],
+            "preparations" => [
+              "Faites fondre le beurre.",
+              "Battez les œufs avec le sucre, ajoutez le beurre fondu.",
+              "Incorporez la farine et la levure.",
+              "Versez dans un moule, parsemez d'amandes effilées.",
+              "Cuire 25 minutes à 180°C.",
+              "Dégustez tiède ou froid."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog10.webp',
+           'date' => '2024-04-15',
+            ],
+            17 =>[
+            "id" => 17,
+            "emoji" => "🍬",
+            "title" => "Ghoribas au chocolat noir & poudre d'amandes",
+            "imageUrl" => "https =>//fr.freepik.com/photos-gratuite/biscuits-froisses-tasses-cafe_5903655.htm#fromView=search&page=1&position=16&uuid=aaf16a75-4240-4021-8ba1-47864b69e3ec&query=Ghoribas+au+chocolat+noir+%26+poudre+d%E2%80%99amandes",
+            "ingredients" => [
+              "100 g de chocolat noir Macao",
+              "150 g de poudre d'amande Macao",
+              "80 g de sucre",
+              "1 œuf",
+              "Sucre glace pour enrober"
+            ],
+            "preparations" => [
+              "Faites fondre le chocolat noir.",
+              "Mélangez-le avec la poudre d'amande, le sucre et l'œuf.",
+              "Formez des petites boules, roulez-les dans le sucre glace.",
+              "Disposez sur une plaque de cuisson.",
+              "Cuire 10 à 12 min à 180°C.",
+              "Laissez refroidir avant de manipuler."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog5.webp',
+           'date' => '2024-04-15',
+            ],
+            18 =>[
+            "id" => 18,
+            "emoji" => "🥐",
+            "title" => "Brioches au cœur chocolat au lait",
+            "imageUrl" => "https =>//fr.freepik.com/photos-gratuite/delicieux-arrangement-brioches-cannelle_13248909.htm#fromView=search&page=1&position=23&uuid=410bba3a-18eb-43cb-a9e7-5b3e295e23cd&query=Brioches+au+c%C5%93ur+chocolat+au+lait",
+            "ingredients" => [
+              "250 g de farine",
+              "1 sachet de levure boulangère",
+              "30 g de sucre",
+              "1 œuf",
+              "100 ml de lait tiède",
+              "40 g de beurre mou",
+              "Carrés de chocolat au lait Macao"
+            ],
+            "preparations" => [
+              "Mélangez la farine, la levure, le sucre.",
+              "Ajoutez l'œuf, le lait tiède et pétrissez.",
+              "Incorporez le beurre mou en pétrissant bien.",
+              "Laissez lever la pâte 1h dans un endroit chaud.",
+              "Dégazez la pâte, formez des boules avec un carré de chocolat au centre.",
+              "Déposez-les sur une plaque, laissez lever 30 min.",
+              "Badigeonnez de lait, puis enfournez 15-20 min à 180°C."
+            ],
+            'category' => 'recettes',
+            'image' => '/public/images/blog7.webp',
+           'date' => '2024-04-15',
+          ]
     ];
 
     public function actualites()
