@@ -53,7 +53,6 @@ function BlogShow({ post, relatedPosts }) {
   //         </p>
   //       ));
   //   };
-  console.log('post:', post);
 
   return (
     <div className="container mx-auto px-4 py-8 mt-36">
@@ -181,7 +180,7 @@ function BlogShow({ post, relatedPosts }) {
             <div className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
               <div className="relative h-64 overflow-hidden">
                 <img
-                  src={post.image ? `https://macao.digitalia-solutions.com/${post.image}` : blogDefault}
+                  src={relatedPost.image ? `https://macao.digitalia-solutions.com/${relatedPost.image}` : blogDefault}
                   alt={relatedPost.title}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
