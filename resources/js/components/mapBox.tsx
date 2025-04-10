@@ -160,7 +160,7 @@ const LeafletMap = () => {
       <div id="map" className="absolute inset-0 z-0 rounded-lg overflow-hidden"></div>
 
       {/* Enhanced Info card with gradient and animations */}
-      <div className="absolute bottom-6 left-6 bg-gradient-to-br from-white to-gray-50 p-6 shadow-2xl max-w-sm z-[400] rounded-lg border-l-4 border-red-600 transition-transform hover:translate-y-[-2px]">
+      <div className="absolute bottom-6 left-6 bg-gradient-to-br from-white to-gray-50 p-6 shadow-2xl max-w-sm z-[40] rounded-lg border-l-4 border-red-600 transition-transform hover:translate-y-[-2px]">
         <div className="flex items-start gap-4">
           <div className="text-red-600 mt-1 bg-red-50 p-2 rounded-full">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
