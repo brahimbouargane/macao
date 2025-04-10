@@ -247,7 +247,7 @@ class BlogController extends Controller
             "Laissez tiédir avant de démouler."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog3.webp',
+            'image' => 'public/images/blog3.webp',
            'date' => '2024-04-15',
         ],
         10 => [
@@ -273,7 +273,7 @@ class BlogController extends Controller
             "Laissez refroidir avant de déguster."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog1.webp',
+            'image' => 'public/images/blog1.webp',
            'date' => '2024-04-15',
             ],
         11 => [
@@ -298,7 +298,7 @@ class BlogController extends Controller
             "Laissez refroidir sur une grille."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog8.webp',
+            'image' => 'public/images/blog8.webp',
            'date' => '2024-04-15',
         ],
         12 => [
@@ -323,7 +323,7 @@ class BlogController extends Controller
               "Laissez tiédir avant de couper en carrés."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog2.webp',
+            'image' => 'public/images/blog2.webp',
            'date' => '2024-04-15',
             ],
             13 => [
@@ -350,7 +350,7 @@ class BlogController extends Controller
               "Laissez tiédir avant de démouler."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog9.webp',
+            'image' => 'public/images/blog9.webp',
            'date' => '2024-04-15',
           ],
           14 =>[
@@ -373,7 +373,7 @@ class BlogController extends Controller
               "Laissez prendre au frais pendant 2 heures."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog6.webp',
+            'image' => 'public/images/blog6.webp',
            'date' => '2024-04-15',
             ],
             15 => [
@@ -399,7 +399,7 @@ class BlogController extends Controller
               "Laissez refroidir avant de démouler."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog4.webp',
+            'image' => 'public/images/blog4.webp',
            'date' => '2024-04-15',
             ],
             16 =>[
@@ -424,7 +424,7 @@ class BlogController extends Controller
               "Dégustez tiède ou froid."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog10.webp',
+            'image' => 'public/images/blog10.webp',
            'date' => '2024-04-15',
             ],
             17 =>[
@@ -448,7 +448,7 @@ class BlogController extends Controller
               "Laissez refroidir avant de manipuler."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog5.webp',
+            'image' => 'public/images/blog5.webp',
            'date' => '2024-04-15',
             ],
             18 =>[
@@ -475,7 +475,7 @@ class BlogController extends Controller
               "Badigeonnez de lait, puis enfournez 15-20 min à 180°C."
             ],
             'category' => 'recettes',
-            'image' => '/public/images/blog7.webp',
+            'image' => 'public/images/blog7.webp',
            'date' => '2024-04-15',
           ]
     ];
