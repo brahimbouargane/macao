@@ -106,14 +106,14 @@ function Recettes() {
             animate="visible"
             className="flex min-h-[350px] items-center justify-center py-20"
           >
-            <div className="text-center mt-28">
+            {/* <div className="text-center mt-28">
               <motion.h1
                 variants={fadeInUp}
                 className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
               >
                 recettes produits macao
               </motion.h1>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </motion.div>
