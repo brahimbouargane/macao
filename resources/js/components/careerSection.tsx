@@ -1,5 +1,5 @@
-import carrere from '@/assets/images/careere.webp';
 import office from '@/assets/images/office.webp';
+import carrere from '@/assets/images/rubiruqework.webp';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/shadcn-alert';
 import { Button } from '@/components/ui/shadcn-button';
@@ -71,18 +71,14 @@ const CareersSection = () => {
             <div className="w-full h-full rounded-full bg-black backdrop-blur-sm"></div>
         </div> */}
       {/* Hero Banner Section */}
-      <div className="relative h-[28rem] overflow-hidden bg-gradient-to-r from-red-600 to-red-800">
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
+      <div className="relative h-[22rem] overflow-hidden bg-gradient-to-r from-red-600 to-red-800">
         <img
           src={carrere}
           alt="Careers Banner"
           className="w-full h-full object-cover object-center transform scale-105 animate-slow-zoom"
         />
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 mt-20">
           <h1 className="text-7xl font-bold text-white font-custom mb-6 animate-fade-in">Carrières</h1>
-          <p className="text-2xl text-white/90 max-w-2xl text-center animate-fade-in-delayed">
-            Rejoignez une équipe passionnée et contribuez à façonner l'avenir
-          </p>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-900 to-transparent"></div>
       </div>

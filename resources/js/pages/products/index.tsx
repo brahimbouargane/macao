@@ -1,9 +1,5 @@
 import macao from '@/assets/images/macoa-logo-small-red.svg';
-import choco from '@/assets/images/NewBannerChocolate.webp';
-import candies from '@/assets/images/NewBannerConfiseries.webp';
-import candy from '@/assets/images/NewBannerFetes.webp';
-import wafer from '@/assets/images/NewBannerGaufrettes.webp';
-import leonardo from '@/assets/images/NewBannerPatisseries.webp';
+import { CategoryBanner } from '@/components/CategoryImageDisplay';
 import { Button } from '@/components/ui/shadcn-button';
 import { Input } from '@/components/ui/shadcn-input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/shadcn-select';
@@ -34,45 +30,6 @@ interface Product {
   product_type: { name: string };
   primaryImage: { optimized: string };
 }
-
-// Category content configuration
-const categoryContent = {
-  Confiserie: {
-    title: 'DÉLICES SUCRÉS MACAO',
-    subtitle: 'Une gamme complète de confiseries artisanales',
-    bgColor: 'from-red-700 to-red-800',
-    bgImage: candies,
-    overlayOpacity: 'opacity-80'
-  },
-  Chocolat: {
-    title: 'CHOCOLAT EXQUIS',
-    subtitle: 'Des créations chocolatées pour tous les plaisirs.',
-    bgColor: 'from-amber-900 to-amber-950',
-    bgImage: choco,
-    overlayOpacity: '50'
-  },
-  Gaufrettes: {
-    title: 'GAUFRETTES CROUSTILLANTES',
-    subtitle: 'La légèreté et le croustillant à la perfection',
-    bgColor: 'from-orange-600 to-orange-700',
-    bgImage: wafer,
-    overlayOpacity: '40'
-  },
-  'Produits pâtissiers': {
-    title: 'PÂTISSERIE RAFFINÉE',
-    subtitle: "L'excellence de la pâtisserie traditionnelle",
-    bgColor: 'from-rose-800 to-rose-900',
-    bgImage: leonardo,
-    overlayOpacity: '45'
-  },
-  'Fêtes et événements': {
-    title: 'CÉLÉBREZ VOS MOMENTS',
-    subtitle: 'Des créations spéciales pour vos occasions',
-    bgColor: 'from-purple-700 to-purple-800',
-    bgImage: candy,
-    overlayOpacity: '55'
-  }
-};
 
 // Animation variants
 const fadeInUp = {
@@ -289,8 +246,17 @@ const Products = () => {
     childCategory: { name: string };
   }>().props;
 
+  // Initial selected category is either the current childCategory or null
+  //   useEffect(() => {
+  //     setSelectedCategory(childCategory?.name || null);
+  //     // Add to active filters if it exists
+  //     if (childCategory?.name && !activeFilters.includes(childCategory.name)) {
+  //       setActiveFilters([...activeFilters, childCategory.name]);
+  //     }
+  //   }, [childCategory]);
+
   console.log('Products:', products);
-  console.log('Parent Category:', parentCategory);
+  console.log('Parent Category:', parentCategory.childCategoriesNames);
   console.log('Child Category:', childCategory);
 
   // Scroll animations
@@ -366,11 +332,13 @@ const Products = () => {
       setSelectedCategory(null);
     }
   };
+  // Get active category for banner
+  const activeCategoryForBanner = selectedCategory || childCategory?.name || parentCategory.name;
 
   return (
     <>
       {/* Hero Section */}
-      <motion.div className="relative overflow-hidden">
+      {/* <motion.div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -388,19 +356,14 @@ const Products = () => {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[500px] items-center justify-center pt-48 pb-20"
-          >
-            {/* <div className="text-center">
-              <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold font-custom text-white md:text-6xl">
-                {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
-              </motion.h1>
-              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
-              </motion.p>
-            </div> */}
-          </motion.div>
+            className="flex min-h-[350px] items-center justify-center pt-48 pb-20"
+          ></motion.div>
         </div>
-      </motion.div>
+      </motion.div> */}
+      <CategoryBanner
+        parentCategory={parentCategory}
+        selectedChildCategory={activeCategoryForBanner !== parentCategory.name ? activeCategoryForBanner : null}
+      />
 
       {/* Main Content */}
       <div className="min-h-screen bg-gradient-to-b from-[#f8f4f0] to-[#f0e9e4] ">
