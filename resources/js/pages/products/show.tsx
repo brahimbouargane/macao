@@ -1,9 +1,9 @@
+import candy from '@/assets/images/defaultb1.webp';
+import wafer from '@/assets/images/defaultb2.webp';
+import choco1 from '@/assets/images/defaultb3.webp';
+import leonardo from '@/assets/images/defaultb4.webp';
+import candies from '@/assets/images/defaultb5.webp';
 import iso from '@/assets/images/iso.webp';
-import choco from '@/assets/images/NewBannerChocolate.webp';
-import candies from '@/assets/images/NewBannerConfiseries.webp';
-import candy from '@/assets/images/NewBannerFetes.webp';
-import wafer from '@/assets/images/NewBannerGaufrettes.webp';
-import leonardo from '@/assets/images/NewBannerPatisseries.webp';
 import onssa from '@/assets/images/onssa.webp';
 import { NewLayout } from '@/layouts/new-layout';
 import { Link } from '@inertiajs/react';
@@ -169,7 +169,7 @@ const ProductShow = ({ product, relatedProducts, parentCategory }) => {
       title: 'CHOCOLAT EXQUIS',
       subtitle: 'Des créations chocolatées pour tous les plaisirs.',
       bgColor: 'from-amber-800 to-amber-900',
-      bgImage: choco,
+      bgImage: choco1,
       overlayOpacity: '50'
     },
     Gaufrettes: {
