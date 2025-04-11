@@ -283,9 +283,9 @@ function History() {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[500px] items-center justify-center py-20"
+            className="flex min-h-[350px] items-center justify-center py-20"
           >
-            <div className="text-center mt-28">
+            {/* <div className="text-center mt-28">
               <motion.h1
                 variants={fadeInUp}
                 className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
@@ -296,7 +296,7 @@ function History() {
                 Depuis 1948, PASTOR MACAO transforme la passion et l’excellence en douceurs inoubliables, devenant le
                 leader marocain en confiserie, chocolat et pâtisserie.{' '}
               </motion.p>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </motion.div>

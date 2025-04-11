@@ -1,3 +1,4 @@
+import banner from '@/assets/images/contactbannerpng.webp';
 import LeafletMap from '@/components/mapBox';
 import { Button } from '@/components/ui/shadcn-button';
 import { Input } from '@/components/ui/shadcn-input';
@@ -9,31 +10,51 @@ import { motion } from 'framer-motion';
 import { Clock, Mail, MapPin, MessageSquare, Phone, Send, User } from 'lucide-react';
 import { useState } from 'react';
 
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut'
+    }
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.3
+    }
+  }
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+      ease: 'easeOut'
+    }
+  }
+};
+
 export default function Contact() {
   const [selectedDepartment, setSelectedDepartment] = useState('commercial');
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.2,
-        ease: 'easeOut'
-      }
-    }
-  };
 
   const departments = {
     commercial: {
@@ -53,34 +74,37 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Banner Section */}
-      <div className="relative pt-28 pb-10 h-64 md:h-80 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-800 to-red-600">
-          <div className="absolute inset-0 bg-[url('/api/placeholder/1920/400')] opacity-30 bg-cover bg-center" />
-        </div>
-        <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center items-center text-center">
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4"
-          >
-            Contactez-nous
-          </motion.h1>
+      <motion.div className="relative overflow-hidden">
+        <div className="absolute inset-0">
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="w-24 h-1 bg-red-500 mb-4"
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${banner || '/placeholder.svg'})`
+            }}
           />
-          {/* <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-white/90 text-lg max-w-2xl"
-          >
-            Nous sommes là pour vous aider
-          </motion.p> */}
         </div>
-      </div>
+
+        <div className="relative mx-auto px-4">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            className="flex min-h-[350px] items-center justify-center pt-48 pb-20"
+          >
+            {/* <div className="text-center">
+                 <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold font-custom text-white md:text-6xl">
+                   {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
+                 </motion.h1>
+                 <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
+                   {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
+                 </motion.p>
+               </div> */}
+          </motion.div>
+        </div>
+      </motion.div>
 
       {/* Main Contact Section */}
       <motion.section
