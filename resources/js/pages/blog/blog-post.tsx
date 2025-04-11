@@ -1,4 +1,4 @@
-import candies from '@/assets/images/banner-blog.jpg';
+import banner from '@/assets/images/Rubrique blog.webp';
 import blogDefault from '@/assets/images/macao-blog.jpg';
 
 import { NewLayout } from '@/layouts/new-layout';
@@ -123,7 +123,7 @@ function Actualites({ posts }) {
 
   return (
     <>
-      <motion.div className="relative overflow-hidden bg-gradient-to-r from-amber-900 to-amber-950">
+      {/* <motion.div className="relative overflow-hidden bg-gradient-to-r from-amber-900 to-amber-950">
         <div className="absolute inset-0">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -153,6 +153,37 @@ function Actualites({ posts }) {
                 Blog Macao
               </motion.h1>
             </div>
+          </motion.div>
+        </div>
+      </motion.div> */}
+      <motion.div className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.div
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${banner || '/placeholder.svg'})`
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto px-4">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            className="flex min-h-[350px] items-center justify-center pt-48 pb-20"
+          >
+            {/* <div className="text-center">
+                 <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold font-custom text-white md:text-6xl">
+                   {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
+                 </motion.h1>
+                 <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
+                   {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
+                 </motion.p>
+               </div> */}
           </motion.div>
         </div>
       </motion.div>
