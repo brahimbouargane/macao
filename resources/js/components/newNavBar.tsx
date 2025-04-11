@@ -90,7 +90,7 @@ const dropdownVariants = {
 
 const CategoryCard = ({ category, index }) => {
   return (
-    <div className={`p-4 md:px-8 md:py-6 bg-[#EDEDED] rounded-l-[80px] rounded-tr-[80px]`}>
+    <div className={`p-4 md:px-8 md:py-6 bg-[#EDEDED] rounded-l-[80px] rounded-tr-[80px] shadow-lg`}>
       <div className="flex items-center font-custom  gap-2 mb-4">
         {category.icon && <category.icon className="h-5 w-5 text-primary" />}
         {category.iconImage && <img src={category.iconImage} alt={`${category.title} icon`} className="h-5 w-5" />}
