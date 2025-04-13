@@ -218,42 +218,84 @@ const childCategoryContent = {
     overlayOpacity: 'opacity-80'
   },
   'Pâte à mâcher': {
-    title: 'UN GOÛT INFINI, À MÀCHER... SANS MODéRATION !',
+    title: (
+      <>
+        UN GOÛT INFINI, À MÀCHER...
+        <br />
+        SANS MODÉRATION !
+      </>
+    ),
+    // title: 'UN GOÛT INFINI, À MÀCHER... SANS MODéRATION !',
     subtitle: 'La gourmandise authentique',
     bgColor: 'from-red-700 to-red-800',
     bgImage: confis1,
     overlayOpacity: 'opacity-80'
   },
   'Gommes gélifiées': {
-    title: 'UN GOÛT FRUITé & GéLIFIéE, LAISSEZ-VOUS EMPORTER.',
+    // title: 'UN GOÛT FRUITé & GÉLIFIÉE, LAISSEZ-VOUS EMPORTER.',
+    title: (
+      <>
+        UN GOÛT FRUITÉ & GÉLIFIÉE,
+        <br />
+        SANS MODÉRATION !
+      </>
+    ),
     subtitle: 'Fraîcheur et amusement à chaque bouchée',
     bgColor: 'from-red-700 to-red-800',
     bgImage: confis1,
     overlayOpacity: 'opacity-80'
   },
   Dragées: {
-    title: "DES DRAGéEs, DES SOUVENIRS, UN GOÛT D'éTERNITé",
+    // title: "DES DRAGÉEs, DES SOUVENIRS, UN GOÛT D'ÉTERNITÉ",
+    title: (
+      <>
+        DES DRAGÉEs, DES SOUVENIRS,
+        <br />
+        UN GOÛT D'ÉTERNITÉ
+      </>
+    ),
     subtitle: 'Saveurs exotiques et traditions millénaires',
     bgColor: 'from-red-700 to-red-800',
     bgImage: confis2,
     overlayOpacity: 'opacity-80'
   },
   Caramel: {
-    title: 'LE PETITE PLAISIR, QUI FAIT GRANDIR LES SOURIRES.',
+    // title: 'LE PETITE PLAISIR, QUI FAIT GRANDIR LES SOURIRES.',
+    title: (
+      <>
+        LE PETITE PLAISIR,
+        <br />
+        QUI FAIT GRANDIR LES SOURIRES.
+      </>
+    ),
     subtitle: 'Élégance et raffinement pour vos célébrations',
     bgColor: 'from-red-700 to-red-800',
     bgImage: confis1,
     overlayOpacity: 'opacity-80'
   },
-  'Bonbons durs sans sucre': {
-    title: 'SUCCOMBEZ AU GOÛT, SANS SUCRE AJOUTé !',
+  'BONBONS DURS SANS SUCRE': {
+    title: (
+      <>
+        SUCCOMBEZ AU GOÛT,
+        <br />
+        SANS SUCRE AJOUTÉ !
+      </>
+    ),
+    // title: 'SUCCOMBEZ AU GOÛT, SANS SUCRE AJOUTÉ !',
     subtitle: 'Textures moelleuses et saveurs onctueuses',
     bgColor: 'from-red-700 to-red-800',
     bgImage: confis1,
     overlayOpacity: 'opacity-80'
   },
-  'Bonbons Durs': {
-    title: 'UN BONBON DUR, UNE EXPLOSION DE GOÛT QUI DURE !',
+  'BONBONS DURS': {
+    title: (
+      <>
+        UN BONBON DUR,
+        <br />
+        UNE EXPLOSION DE GOÛT QUI DURE !
+      </>
+    ),
+    // title: 'UN BONBON DUR, UNE EXPLOSION DE GOÛT QUI DURE !',
     subtitle: "L'intensité et le caractère d'une confiserie d'exception",
     bgColor: 'from-red-700 to-red-800',
     bgImage: confis1,
@@ -263,28 +305,55 @@ const childCategoryContent = {
   // Chocolat child categories (example - replace with your actual categories)
 
   'Pâtes à tartiner': {
-    title: 'Le chocolat préféré des petits… et des grands aussi !',
+    title: (
+      <>
+        Le chocolat PRÉFÉRÉ des petits…
+        <br />
+        et des grands aussi !
+      </>
+    ),
+    // title: 'Le chocolat prÉfÉrÉ des petits… et des grands aussi !',
     subtitle: "Savourez l'intensité du chocolat pur",
     bgColor: 'from-amber-900 to-amber-950',
     bgImage: choco1, // Always use the same image for all Chocolat child categories
     overlayOpacity: '50'
   },
   'Chocolats variés': {
-    title: 'À EMPORTER PARTOUT, À SAVOURER À TOUT MOMENT.',
+    title: (
+      <>
+        À EMPORTER PARTOUT,
+        <br />À SAVOURER À TOUT MOMENT.
+      </>
+    ),
+    // title: 'À EMPORTER PARTOUT, À SAVOURER À TOUT MOMENT.',
     subtitle: 'Des créations raffinées pour les connaisseurs',
     bgColor: 'from-amber-900 to-amber-950',
     bgImage: choco1,
     overlayOpacity: '50'
   },
   'Chocolats sans sucre': {
-    title: 'TOUT LE PLAISIR DU CHOCOLAT, SANS LE SUCRE',
+    title: (
+      <>
+        TOUT LE PLAISIR DU CHOCOLAT,
+        <br />
+        SANS LE SUCRE
+      </>
+    ),
+    // title: 'TOUT LE PLAISIR DU CHOCOLAT, SANS LE SUCRE',
     subtitle: 'Des créations raffinées pour les connaisseurs',
     bgColor: 'from-amber-900 to-amber-950',
     bgImage: choco1,
     overlayOpacity: '50'
   },
-  'Tablettes de chocolat': {
-    title: "L'ART DU CHOCOLAT DANS CHAQUE CARRé.",
+  'Tablettes de chocolats': {
+    title: (
+      <>
+        L'ART DU CHOCOLAT
+        <br />
+        DANS CHAQUE CARRé
+      </>
+    ),
+    // title: "L'ART DU CHOCOLAT DANS CHAQUE CARRé.",
     subtitle: "Savourez l'intensité du chocolat pur",
     bgColor: 'from-amber-900 to-amber-950',
     bgImage: choco1, // Always use the same image for all Chocolat child categories
@@ -293,14 +362,28 @@ const childCategoryContent = {
 
   // Gaufrettes child categories (example - replace with your actual categories)
   'Gaufrettes enrobées': {
-    title: "le croquant de la gaufrette, l'enrobage fondant.",
+    title: (
+      <>
+        le croquant de la gaufrette,
+        <br />
+        l'enrobage fondant.
+      </>
+    ),
+    // title: "le croquant de la gaufrette, l'enrobage fondant.",
     subtitle: 'Le goût authentique des gaufrettes traditionnelles',
     bgColor: 'from-orange-600 to-orange-700',
     bgImage: gauf1, // Use first image
     overlayOpacity: '40'
   },
   'Gaufrettes fourrées': {
-    title: 'Un cœur crémeux, un enrobage croquant',
+    title: (
+      <>
+        Un cœur crémeux,
+        <br />
+        un enrobage croquant
+      </>
+    ),
+    // title: 'Un cœur crémeux, un enrobage croquant',
     subtitle: 'Un coeur fondant pour un plaisir intensifié',
     bgColor: 'from-orange-600 to-orange-700',
     bgImage: gauf2, // Use second image
@@ -309,28 +392,56 @@ const childCategoryContent = {
 
   // Produits pâtissiers child categories (example - replace with your actual categories)
   'Chocolats pâtissiers': {
-    title: 'UN CHOCOLAT DE QUALITé, POUR DES DESSERTS PARFAITS.',
+    title: (
+      <>
+        UN CHOCOLAT DE QUALITé,
+        <br />
+        POUR DES DESSERTS PARFAITS.
+      </>
+    ),
+    // title: 'UN CHOCOLAT DE QUALITé, POUR DES DESSERTS PARFAITS.',
     subtitle: 'La pâtisserie française dans sa plus belle expression',
     bgColor: 'from-rose-800 to-rose-900',
     bgImage: pat1, // Use first image
     overlayOpacity: '45'
   },
   'Fourrage & décoration': {
-    title: 'LA TOUCHE SUCRéE ET créative qui fait tout la différence.',
+    title: (
+      <>
+        LA TOUCHE SUCRéE ET créative
+        <br />
+        qui fait tout la différence.
+      </>
+    ),
+    // title: 'LA TOUCHE SUCRéE ET créative qui fait tout la différence.',
     subtitle: 'Le croustillant doré du petit-déjeuner parfait',
     bgColor: 'from-rose-800 to-rose-900',
     bgImage: pat2, // Use second image
     overlayOpacity: '45'
   },
   'Poudre de cacao sucré': {
-    title: 'du cacao pur pour des recettes riches en saveurs.',
+    title: (
+      <>
+        du cacao pur pour des recettes
+        <br />
+        riches en saveurs.
+      </>
+    ),
+    // title: 'du cacao pur pour des recettes riches en saveurs.',
     subtitle: 'Des créations délicates aux textures harmonieuses',
     bgColor: 'from-rose-800 to-rose-900',
     bgImage: pat3, // Use third image
     overlayOpacity: '45'
   },
   'Fruits confits': {
-    title: 'une touche fruitée, une douceur confite.',
+    title: (
+      <>
+        une touche fruitée,
+        <br />
+        une douceur confite.
+      </>
+    ),
+    // title: 'une touche fruitée, une douceur confite.',
     subtitle: 'Parfaits pour accompagner vos moments de pause',
     bgColor: 'from-rose-800 to-rose-900',
     bgImage: pat4, // Use fourth image
@@ -339,28 +450,56 @@ const childCategoryContent = {
 
   // Fêtes et événements child categories (example - replace with your actual categories)
   'Chocolats fins fourrés': {
-    title: 'le chocolat fin fourré qui allie  finesse et délice.',
+    title: (
+      <>
+        le chocolat fin fourré
+        <br />
+        qui allie finesse et délice.
+      </>
+    ),
+    // title: 'le chocolat fin fourré qui allie  finesse et délice.',
     subtitle: 'Célébrez vos moments spéciaux avec élégance',
     bgColor: 'from-purple-700 to-purple-800',
     bgImage: fete1, // Use first image
     overlayOpacity: '55'
   },
   'Confiserie fine': {
-    title: 'des confiseries fines, pour les palais exigeants.',
+    title: (
+      <>
+        des confiseries fines,
+        <br />
+        pour les palais exigeants.
+      </>
+    ),
+    // title: 'des confiseries fines, pour les palais exigeants.',
     subtitle: "L'excellence pour votre jour le plus important",
     bgColor: 'from-purple-700 to-purple-800',
     bgImage: fete1, // Use second image
     overlayOpacity: '55'
   },
   Nougat: {
-    title: 'l’authenticité du nougat, un plaisir sucré à partager.',
+    title: (
+      <>
+        l’authenticité du nougat,
+        <br />
+        un plaisir sucré à partager.
+      </>
+    ),
+    // title: 'l’authenticité du nougat, un plaisir sucré à partager.',
     subtitle: 'Respectueux des traditions et du goût',
     bgColor: 'from-purple-700 to-purple-800',
     bgImage: fete3, // Use third image
     overlayOpacity: '55'
   },
   'Fruits confits - f&e': {
-    title: 'des fruits confits, une explosion de saveurs à savourer.',
+    title: (
+      <>
+        des fruits confits, une explosion
+        <br />
+        de saveurs à savourer.
+      </>
+    ),
+    // title: 'des fruits confits, une explosion de saveurs à savourer.',
     subtitle: 'Des solutions sur mesure pour vos réceptions professionnelles',
     bgColor: 'from-purple-700 to-purple-800',
     bgImage: fete4, // Use fourth image
@@ -438,6 +577,37 @@ export const CategoryBanner = ({ parentCategory, selectedChildCategory }) => {
   }, [bannerContent.overlayOpacity]);
 
   return (
+    // <motion.div className="relative overflow-hidden">
+    //   <div className="absolute inset-0">
+    //     <motion.div
+    //       initial={{ scale: 1.1 }}
+    //       animate={{ scale: 1 }}
+    //       transition={{ duration: 1.5 }}
+    //       className={`absolute inset-0 bg-cover bg-center bg-gradient-to-r ${bannerContent.bgColor || ''}`}
+    //       style={{
+    //         backgroundImage: bgImage ? `url(${bgImage})` : undefined
+    //       }}
+    //     />
+    //     {/* Overlay with configurable opacity */}
+    //     <div className="absolute inset-0 bg-black opacity-20"></div>
+    //   </div>
+
+    //   <div className="relative mx-auto px-4">
+    //     <motion.div
+    //       variants={fadeInUp}
+    //       initial="hidden"
+    //       animate="visible"
+    //       className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
+    //     >
+    //       {bannerContent.title && (
+    //         <h1 className="text-5xl font-extrabold font-custom tracking-tight md:text-8xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]">
+    //           {bannerContent.title}
+    //         </h1>
+    //       )}
+    //     </motion.div>
+    //   </div>
+    // </motion.div>
+
     <motion.div className="relative overflow-hidden">
       <div className="absolute inset-0">
         <motion.div
@@ -453,16 +623,18 @@ export const CategoryBanner = ({ parentCategory, selectedChildCategory }) => {
         <div className="absolute inset-0 bg-black opacity-20"></div>
       </div>
 
-      <div className="relative mx-auto px-4">
+      <div className="relative mx-auto px-4 ">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
+          className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
         >
           {bannerContent.title && (
-            <h1 className="text-5xl font-extrabold font-custom tracking-tight md:text-8xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]">
-              {bannerContent.title}
+            <h1 className="text-5xl uppercase font-extrabold font-custom tracking-tight md:text-8xl  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] whitespace-pre-line leading-tight">
+              {typeof bannerContent.title === 'string'
+                ? bannerContent.title.replace(/\s+/g, ' ') // Clean up extra spaces in strings
+                : bannerContent.title}
             </h1>
           )}
         </motion.div>
