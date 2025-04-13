@@ -273,13 +273,15 @@ function History() {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
+            className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl font-extrabold font-custom tracking-tight md:text-7xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+              className="text-5xl uppercase font-extrabold font-custom tracking-tight md:text-7xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] leading-tight"
             >
-              DERRIÉRE CHAQUE BOUCHÉE, IL Y A UNE HISTOIRE, VOICI LA NÔTRE.
+              <span className="inline-block"> DERRIÉRE CHAQUE BOUCHÉE,</span>{' '}
+              <span className="inline-block">IL Y A UNE </span>{' '}
+              <span className="inline-block">HISTOIRE, VOICI LA NÔTRE.</span>
             </motion.h1>
           </motion.div>
         </div>
