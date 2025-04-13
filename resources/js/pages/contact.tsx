@@ -1,4 +1,4 @@
-import banner from '@/assets/images/contactbannerpng.webp';
+import banner from '@/assets/images/24.webp';
 import LeafletMap from '@/components/mapBox';
 import { Button } from '@/components/ui/shadcn-button';
 import { Input } from '@/components/ui/shadcn-input';
@@ -92,16 +92,14 @@ export default function Contact() {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] items-center justify-center pt-48 pb-20"
+            className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
           >
-            {/* <div className="text-center">
-                 <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold font-custom text-white md:text-6xl">
-                   {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
-                 </motion.h1>
-                 <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                   {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
-                 </motion.p>
-               </div> */}
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl font-extrabold font-custom tracking-tight md:text-7xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+            >
+              UNE QUESTION ? UNE ENVIE DE CHOCOLAT ? PARLONS-EN
+            </motion.h1>
           </motion.div>
         </div>
       </motion.div>

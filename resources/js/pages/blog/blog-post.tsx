@@ -1,4 +1,4 @@
-import banner from '@/assets/images/Rubrique blog.webp';
+import banner from '@/assets/images/23.webp';
 import blogDefault from '@/assets/images/macao-blog.jpg';
 
 import { NewLayout } from '@/layouts/new-layout';
@@ -123,39 +123,6 @@ function Actualites({ posts }) {
 
   return (
     <>
-      {/* <motion.div className="relative overflow-hidden bg-gradient-to-r from-amber-900 to-amber-950">
-        <div className="absolute inset-0">
-          <motion.div
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${candies || '/placeholder.svg'})`,
-              opacity: '0.20'
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black opacity-50 to-transparent" />
-        </div>
-
-        <div className="container relative mx-auto px-4">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            className="flex min-h-[350px] items-center justify-center py-20"
-          >
-            <div className="text-center mt-28">
-              <motion.h1
-                variants={fadeInUp}
-                className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
-              >
-                Blog Macao
-              </motion.h1>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div> */}
       <motion.div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
@@ -174,16 +141,14 @@ function Actualites({ posts }) {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] items-center justify-center pt-48 pb-20"
+            className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
           >
-            {/* <div className="text-center">
-                 <motion.h1 variants={fadeInUp} className="mb-6 text-4xl font-bold font-custom text-white md:text-6xl">
-                   {categoryContent[parentCategory.name]?.title || 'MACAO CÉLÈBRE VOS FÊTES'}
-                 </motion.h1>
-                 <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                   {categoryContent[parentCategory.name]?.subtitle || 'Découvrez notre collection'}
-                 </motion.p>
-               </div> */}
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl font-extrabold font-custom tracking-tight md:text-7xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+            >
+              CÔTÉ BLOG : LÀ OÙ L'INFO SE DÉGUSTE ET LES RECETTES INSPIRENT.
+            </motion.h1>
           </motion.div>
         </div>
       </motion.div>

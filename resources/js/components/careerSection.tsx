@@ -1,14 +1,45 @@
 import office from '@/assets/images/office.webp';
-import carrere from '@/assets/images/rubiruqework.webp';
+import banner from '@/assets/images/rubiruqework.webp';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/shadcn-alert';
 import { Button } from '@/components/ui/shadcn-button';
 import { Input } from '@/components/ui/shadcn-input';
 import { Label } from '@/components/ui/shadcn-label';
 import { Textarea } from '@/components/ui/shadcn-textarea';
+import { motion } from 'framer-motion';
 import { AlertCircle, ArrowRight, Briefcase, CheckCircle, Star, Users } from 'lucide-react';
 import { useState } from 'react';
 import { Container } from './ui';
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut'
+    }
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.3
+    }
+  }
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      ease: 'easeInOut'
+    }
+  }
+};
 
 const CareersSection = () => {
   const [formData, setFormData] = useState({
@@ -58,37 +89,42 @@ const CareersSection = () => {
 
   return (
     <div className="w-full bg-gray-50 text-gray-800">
-      {/* <div className="absolute -bottom-[80%] left-10 w-20 h-20 animate-float">
-            <div className="w-full h-full rounded-full bg-black backdrop-blur-sm"></div>
+      <motion.div className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.div
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${banner || '/placeholder.svg'})`
+            }}
+          />
         </div>
-        <div className="absolute bottom-40 right-20 w-16 h-16 animate-float-delayed">
-            <div className="w-full h-full rounded-full bg-black backdrop-blur-sm"></div>
+
+        <div className="relative mx-auto px-4">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
+          >
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl font-extrabold font-custom tracking-tight md:text-7xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+            >
+              Rejoignez Notre Équipe
+            </motion.h1>
+          </motion.div>
         </div>
-        <div className="absolute top-3/4 left-10 w-20 h-20 animate-float">
-            <div className="w-full h-full rounded-full bg-black backdrop-blur-sm"></div>
-        </div>
-        <div className="absolute -bottom-full right-20 w-16 h-16 animate-float-delayed">
-            <div className="w-full h-full rounded-full bg-black backdrop-blur-sm"></div>
-        </div> */}
-      {/* Hero Banner Section */}
-      <div className="relative h-[22rem] overflow-hidden bg-gradient-to-r from-red-600 to-red-800">
-        <img
-          src={carrere}
-          alt="Careers Banner"
-          className="w-full h-full object-cover object-center transform scale-105 animate-slow-zoom"
-        />
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 mt-20">
-          <h1 className="text-7xl font-bold text-white font-custom mb-6 animate-fade-in">Carrières</h1>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-900 to-transparent"></div>
-      </div>
+      </motion.div>
       <Container>
         <div className=" mx-auto px-4 py-24">
           {/* Main Content Section */}
           <div className="text-center mb-20">
-            <h2 className="text-6xl font-bold font-custom mb-6 bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
+            {/* <h2 className="text-6xl font-bold font-custom mb-6 bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
               Rejoignez Notre Équipe
-            </h2>
+            </h2> */}
             <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
               Nous sommes toujours à la recherche de talents exceptionnels pour rejoindre notre équipe en pleine
               croissance. Découvrez comment vous pouvez contribuer à notre succès tout en développant votre carrière.
