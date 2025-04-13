@@ -338,28 +338,7 @@ const Products = () => {
   return (
     <>
       {/* Hero Section */}
-      {/* <motion.div className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <motion.div
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${categoryContent[parentCategory.name]?.bgImage || '/placeholder.svg'})`
-            }}
-          />
-        </div>
 
-        <div className="relative mx-auto px-4">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            className="flex min-h-[350px] items-center justify-center pt-48 pb-20"
-          ></motion.div>
-        </div>
-      </motion.div> */}
       <CategoryBanner
         parentCategory={parentCategory}
         selectedChildCategory={activeCategoryForBanner !== parentCategory.name ? activeCategoryForBanner : null}
