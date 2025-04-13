@@ -1,4 +1,4 @@
-import candies from '@/assets/images/history_banner.png';
+import banner from '@/assets/images/25.webp';
 // import commercial from '@/assets/images/commercial.webp';
 // import composition from '@/assets/images/composition.webp';
 // import iso from '@/assets/images/iso.jpg';
@@ -255,15 +255,7 @@ function History() {
     <div className="relative min-h-screen">
       <SEO title="Macao" description="Welcome to our amazing website" keywords="keyword1, keyword2, keyword3" />
       <Head title="Macao" />
-      <motion.div
-        // ref={scrollRef}
-        // style={{
-        //   opacity: headerOpacity,
-        //   y: headerY,
-        //   scale: headerScale
-        // }}
-        className="relative  overflow-hidden bg-gradient-to-r from-amber-900 to-amber-950"
-      >
+      <motion.div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
             initial={{ scale: 1.1 }}
@@ -271,32 +263,24 @@ function History() {
             transition={{ duration: 1.5 }}
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: `url(${candies || '/placeholder.svg'})`,
-              opacity: '0.20'
+              backgroundImage: `url(${banner || '/placeholder.svg'})`
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black opacity-50 to-transparent" />
         </div>
 
-        <div className="container relative mx-auto px-4">
+        <div className="relative mx-auto px-4">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] items-center justify-center py-20"
+            className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
           >
-            {/* <div className="text-center mt-28">
-              <motion.h1
-                variants={fadeInUp}
-                className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
-              >
-                Notre Héritage Gourmand
-              </motion.h1>
-              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                Depuis 1948, PASTOR MACAO transforme la passion et l’excellence en douceurs inoubliables, devenant le
-                leader marocain en confiserie, chocolat et pâtisserie.{' '}
-              </motion.p>
-            </div> */}
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl font-extrabold font-custom tracking-tight md:text-7xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+            >
+              DERRIÉRE CHAQUE BOUCHÉE, IL Y A UNE HISTOIRE, VOICI LA NÔTRE.
+            </motion.h1>
           </motion.div>
         </div>
       </motion.div>

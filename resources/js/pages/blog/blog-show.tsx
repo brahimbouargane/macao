@@ -1,6 +1,6 @@
+import banner from '@/assets/images/23.webp';
 import blogDefault from '@/assets/images/macao-blog.jpg';
 import imageblog from '@/assets/images/pic9.png';
-import banner from '@/assets/images/Rubrique blog.webp';
 
 import { NewLayout } from '@/layouts/new-layout';
 import { motion } from 'framer-motion';
@@ -74,8 +74,15 @@ function BlogShow({ post, relatedPosts }) {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] items-center justify-center pt-48 pb-20"
-          ></motion.div>
+            className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
+          >
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl font-extrabold font-custom tracking-tight md:text-7xl md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+            >
+              CÔTÉ BLOG : LÀ OÙ L'INFO SE DÉGUSTE ET LES RECETTES INSPIRENT.
+            </motion.h1>
+          </motion.div>
         </div>
       </motion.div>
       <div className="container mx-auto px-4 py-8 mt-4">
