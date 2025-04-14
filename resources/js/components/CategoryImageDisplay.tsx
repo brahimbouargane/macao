@@ -263,7 +263,7 @@ const childCategoryContent = {
     // title: 'LE PETITE PLAISIR, QUI FAIT GRANDIR LES SOURIRES.',
     title: (
       <>
-        LE PETITE PLAISIR,
+        LE PETIT PLAISIR,
         <br />
         QUI FAIT GRANDIR LES SOURIRES.
       </>
@@ -463,7 +463,7 @@ const childCategoryContent = {
     bgImage: fete1, // Use first image
     overlayOpacity: '55'
   },
-  'Confiserie fine': {
+  'confiserie fine': {
     title: (
       <>
         des confiseries fines,
@@ -477,7 +477,7 @@ const childCategoryContent = {
     bgImage: fete1, // Use second image
     overlayOpacity: '55'
   },
-  Nougat: {
+  nougat: {
     title: (
       <>
         l’authenticité du nougat,
@@ -491,7 +491,7 @@ const childCategoryContent = {
     bgImage: fete3, // Use third image
     overlayOpacity: '55'
   },
-  'Fruits confits - f&e': {
+  'fruits confits - f&e': {
     title: (
       <>
         des fruits confits, une explosion
@@ -623,7 +623,7 @@ export const CategoryBanner = ({ parentCategory, selectedChildCategory }) => {
         <div className="absolute inset-0 bg-black opacity-20"></div>
       </div>
 
-      <div className="relative mx-auto px-4 ">
+      <div className="relative mx-auto px-4 ml-10 ">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -631,7 +631,7 @@ export const CategoryBanner = ({ parentCategory, selectedChildCategory }) => {
           className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
         >
           {bannerContent.title && (
-            <h1 className="text-5xl uppercase font-extrabold font-custom tracking-tight md:text-8xl  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] whitespace-pre-line leading-tight">
+            <h1 className="text-5xl uppercase font-bold font-banner tracking-tight md:text-7xl  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] whitespace-pre-line leading-tight">
               {typeof bannerContent.title === 'string'
                 ? bannerContent.title.replace(/\s+/g, ' ') // Clean up extra spaces in strings
                 : bannerContent.title}
