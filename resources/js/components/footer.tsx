@@ -7,6 +7,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Youtube } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
+const MotionLink = motion(Link);
+
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -58,13 +60,13 @@ const AnimatedNavLink = ({ href, children }) => {
       whileHover={{ x: 10 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >
-      <a
+      <Link
         href={href}
         className="text-gray-100 text-base flex items-center transition-colors duration-300 hover:text-red-700"
       >
         <ArrowRight className="h-4 w-4 text-red-700 mr-2 transform transition-all duration-300 opacity-0 group-hover:opacity-100" />
         <span>{children}</span>
-      </a>
+      </Link>
       <motion.div
         className="absolute bottom-0 left-0 h-0.5 bg-red-700"
         initial={{ width: 0 }}
@@ -174,16 +176,15 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
-                <motion.a
+                <Link
                   key={social.name}
                   href={social.href}
-                  target="_blank"
-                  whileHover={{ scale: 1.2, y: -5 }}
-                  transition={{ type: 'spring', stiffness: 400 }}
+                  //   whileHover={{ scale: 1.2, y: -5 }}
+                  //   transition={{ type: 'spring', stiffness: 400 }}
                   className="text-gray-100 hover:text-red-700 transition-all duration-300"
                 >
                   <social.icon className="h-5 w-5" />
-                </motion.a>
+                </Link>
               ))}
             </div>
           </motion.div>

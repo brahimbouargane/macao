@@ -59,7 +59,6 @@ const CareersSection = () => {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log(formData);
       setSubmitStatus('success');
 
       setTimeout(() => {
@@ -102,16 +101,16 @@ const CareersSection = () => {
           />
         </div>
 
-        <div className="relative mx-auto px-4">
+        <div className="relative px-4 ml-10">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] flex-col text-center md:text-justify justify-center pt-36 pb-12 text-white"
+            className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl uppercase  font-bold font-banner  tracking-wide md:text-[65px] md:max-w-[90%] mx-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+              className="text-5xl uppercase  font-bold font-banner  tracking-wide md:text-[65px] md:max-w-[90%]  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
             >
               Rejoignez Notre Équipe
             </motion.h1>

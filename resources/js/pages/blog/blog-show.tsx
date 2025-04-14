@@ -3,6 +3,7 @@ import blogDefault from '@/assets/images/macao-blog.jpg';
 import imageblog from '@/assets/images/pic9.png';
 
 import { NewLayout } from '@/layouts/new-layout';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Facebook, Link2, Twitter } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -89,9 +90,9 @@ function BlogShow({ post, relatedPosts }) {
       </motion.div>
       <div className="container mx-auto px-4 py-8 mt-4">
         <div className="flex items-center gap-2 text-sm mb-4">
-          <a href="/blog" className="text-red-700 hover:underline">
+          <Link href="/blog" className="text-red-700 hover:underline">
             Blog
-          </a>
+          </Link>
           <span>&gt;</span>
           <p className="text-red-700 hover:underline">
             {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
@@ -207,39 +208,43 @@ function BlogShow({ post, relatedPosts }) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {relatedPosts.slice(0, 3).map((relatedPost) => (
-              <div className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={relatedPost.image ? `https://macao.digitalia-solutions.com/${relatedPost.image}` : blogDefault}
-                    alt={relatedPost.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="p-5 flex flex-col flex-grow">
-                  <div className="flex justify-end items-center mb-3">
-                    <span className="text-gray-500 text-sm">{relatedPost.readTime}</span>
+              <Link href={route('blog.show', relatedPost.id)}>
+                <div className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={
+                        relatedPost.image ? `https://macao.digitalia-solutions.com/${relatedPost.image}` : blogDefault
+                      }
+                      alt={relatedPost.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-800">{relatedPost.title}</h3>
-                  <p className="text-gray-700 mb-4 flex-grow">{relatedPost.excerpt}</p>
-                  <a
-                    href={route('blog.show', relatedPost.id)}
-                    className="inline-flex items-center text-red-700 font-medium hover:underline"
-                  >
-                    Lire plus <ArrowRight className="ml-1 h-4 w-4" />
-                  </a>
+                  <div className="p-5 flex flex-col flex-grow">
+                    <div className="flex justify-end items-center mb-3">
+                      <span className="text-gray-500 text-sm">{relatedPost.readTime}</span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-3 text-gray-800">{relatedPost.title}</h3>
+                    <p className="text-gray-700 mb-4 flex-grow">{relatedPost.excerpt}</p>
+                    <Link
+                      href={route('blog.show', relatedPost.id)}
+                      className="inline-flex items-center text-red-700 font-medium hover:underline"
+                    >
+                      Lire plus <ArrowRight className="ml-1 h-4 w-4" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
           {/* All Articles Button */}
           <div className="flex justify-center">
-            <a
+            <Link
               href="/blog"
               className="px-6 py-3 bg-red-600 text-white font-medium rounded-l-full rounded-br-full hover:bg-red-700 transition-colors"
             >
               Tous les articles
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -256,12 +261,12 @@ function BlogShow({ post, relatedPosts }) {
                 vos envies gourmandes. De la pâte à tartiner aux tablettes en passant par les gaufrettes, il y en a pour
                 tous les goûts.
               </p>
-              <a
+              <Link
                 href="/products/chocolat/pâtes%20à%20tartiner"
                 className="inline-block bg-white text-red-700 px-6 py-3 rounded-l-full rounded-br-full font-medium"
               >
                 Nos produits
-              </a>
+              </Link>
             </div>
           </div>
         </div>

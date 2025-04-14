@@ -1,4 +1,4 @@
-import candies from '@/assets/images/banner-blog.jpg';
+import banner from '@/assets/images/26.webp';
 import youtube4 from '@/assets/images/youtube4.jpg';
 import youtube1 from '@/assets/images/youtube_1.jpg';
 import youtube2 from '@/assets/images/youtube_2.jpg';
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/shadcn-button';
 import { Dialog, DialogClose, DialogContent } from '@/components/ui/shadcn-dailog';
 import { Input } from '@/components/ui/shadcn-input';
 import { NewLayout } from '@/layouts/new-layout';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { Facebook, Filter, Instagram, Search, X, Youtube } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -352,7 +353,7 @@ export default function Media() {
   return (
     <>
       <motion.div className="relative  overflow-hidden bg-gradient-to-r from-amber-900 to-amber-950">
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <motion.div
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
@@ -364,30 +365,37 @@ export default function Media() {
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black opacity-50 to-transparent" />
-        </div>
+        </div> */}
+        <motion.div className="relative overflow-hidden">
+          <div className="absolute inset-0">
+            <motion.div
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.5 }}
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${banner || '/placeholder.svg'})`
+              }}
+            />
+          </div>
 
-        <div className="container relative mx-auto px-4">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            className="flex min-h-[350px] items-center justify-center py-20"
-          >
-            <div className="text-center mt-28">
+          <div className="relative mx-auto px-4  ml-10 ">
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
+            >
               <motion.h1
                 variants={fadeInUp}
-                className="mb-6 font-custom text-4xl font-bold text-white md:text-6xl uppercase"
+                className="text-5xl uppercase  font-bold font-banner tracking-wide md:text-[65px] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] leading-tight"
               >
-                Médiathèque
+                <span className="inline-block">Plongez dans l’univers visuel</span> <br />
+                <span className="inline-block">de Pastor Macao</span>{' '}
               </motion.h1>
-              <motion.p variants={fadeInUp} className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
-                {' '}
-                Explorez notre collection d'actifs médiatiques mettant en valeur notre marque, nos produits et nos
-                histoires à travers nos canaux médiatiques sociaux.
-              </motion.p>
-            </div>
-          </motion.div>
-        </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </motion.div>
       <section className="container mx-auto py-12 md:py-12">
         <div className="container px-4 md:px-6">
@@ -399,7 +407,7 @@ export default function Media() {
                 <Input
                   type="search"
                   placeholder="Rechercher un média..."
-                  className="pl-8"
+                  className="pl-8 rounded-full"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -439,7 +447,7 @@ export default function Media() {
                 </Tabs> */}
 
                 <select
-                  className="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                  className="h-10 rounded-full text-black border border-input bg-background px-4 py-2 text-sm ring-offset-background"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -452,7 +460,7 @@ export default function Media() {
                 </select>
 
                 <select
-                  className="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                  className="h-10 rounded-full border text-black border-input bg-background px-6 py-2 text-sm ring-offset-background"
                   value={selectedTag}
                   onChange={(e) => setSelectedTag(e.target.value)}
                 >
@@ -527,12 +535,12 @@ export default function Media() {
             )}
 
             {/* Bouton de rafraîchissement */}
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-8 text-black rounded-full hover:text-white">
               <Button
                 variant="outline"
                 onClick={fetchSocialMedia}
                 disabled={isLoading}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2  rounded-full"
               >
                 {isLoading ? (
                   <span className="animate-spin h-4 w-4 border-t-2 border-b-2 border-current rounded-full mr-2"></span>
@@ -636,14 +644,14 @@ export default function Media() {
                   <div className="mt-auto pt-6 flex flex-col gap-2">
                     {selectedMedia.sourceUrl && (
                       <Button className="w-full" asChild>
-                        <a
+                        <Link*
                           href={selectedMedia.sourceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
                         >
                           View Original
-                        </a>
+                        </Link>
                       </Button>
                     )}
                   </div>
