@@ -632,7 +632,7 @@ export const CategoryBanner = ({ parentCategory, selectedChildCategory }) => {
           className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
         >
           {bannerContent.title && (
-            <h1 className="text-5xl uppercase font-bold font-banner tracking-wide md:text-[65px]  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] whitespace-pre-line leading-tight">
+            <h1 className="text-5xl uppercase font-banner font-bold tracking-wide md:text-[65px]  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] whitespace-pre-line leading-tight">
               {typeof bannerContent.title === 'string'
                 ? bannerContent.title.replace(/\s+/g, ' ') // Clean up extra spaces in strings
                 : bannerContent.title}
