@@ -2,6 +2,7 @@ import cardBgImage from '@/assets/images/g5500-6.svg';
 import bgimage from '@/assets/images/show-section.png';
 
 import { Button } from '@/components/ui/shadcn-button';
+import { Link } from '@inertiajs/react';
 import { motion, useInView, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
@@ -246,7 +247,7 @@ export default function ChocolateHeroSection() {
                 </motion.p>
 
                 <motion.div variants={itemVariants} className=" md:mt-8 lg:mt-40">
-                  <a href="/history">
+                  <Link href="/history">
                     <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
                       <Button className="bg-black hover:bg-gray-800 font-body font-bold text-white rounded-l-full rounded-br-full px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm md:text-lg md:py-4 md:px-6 transform transition-all duration-300 hover:scale-105 ">
                         Découvrir
@@ -264,7 +265,7 @@ export default function ChocolateHeroSection() {
                         </motion.span>
                       </Button>
                     </motion.div>
-                  </a>
+                  </Link>
                 </motion.div>
               </motion.div>
             </motion.div>

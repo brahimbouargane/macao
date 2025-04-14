@@ -7,6 +7,7 @@ import grid6 from '@/assets/images/grid-6.webp';
 import gridlogo from '@/assets/images/grid-logo.webp';
 import logomacao from '@/assets/images/macao_logo.png';
 import { cn } from '@/utils/classes';
+import { Link } from '@inertiajs/react';
 import { Facebook, Instagram } from 'lucide-react';
 
 const ImageGrid = () => {
@@ -93,9 +94,9 @@ const ImageGrid = () => {
             )}
           >
             {image.href ? (
-              <a href={image.href} target="_blank" rel="noreferrer" className="block w-full h-full  rounded-2xl">
+              <Link href={image.href} target="_blank" rel="noreferrer" className="block w-full h-full  rounded-2xl">
                 <ImageContent image={image} />
-              </a>
+              </Link>
             ) : (
               <ImageContent image={image} />
             )}

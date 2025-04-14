@@ -255,10 +255,6 @@ const Products = () => {
   //     }
   //   }, [childCategory]);
 
-  console.log('Products:', products);
-  console.log('Parent Category:', parentCategory.childCategoriesNames);
-  console.log('Child Category:', childCategory);
-
   // Scroll animations
   const { scrollYProgress } = useScroll({
     target: scrollRef,
