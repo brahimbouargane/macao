@@ -39,9 +39,9 @@ export default function ForgotPassword({ status }: ForgotPasswordProps) {
 
   return (
     <>
-      <div className={cn(`w-full px-4 flex items-center justify-center bg-red-500 h-full`)}>
+      <div className={cn(`w-full px-4 flex items-center justify-center bg-red-500 h-screen`)}>
         <Head title="Forgot Password" />
-        <Card className="w-full max-w-lg bg-zinc-50">
+        <Card className="w-full max-w-lg bg-zinc-50 ">
           <Card.Header className="flex items-center justify-between text-center">
             <Logo className="mb-4" />
             <Card.Title className="text-xl ">{__(translations, 'Forgot your password?')}</Card.Title>
@@ -77,7 +77,7 @@ export default function ForgotPassword({ status }: ForgotPasswordProps) {
                 </Button>
                 <Link
                   href="/login"
-                  className="flex bg-primary p-2 rounded-md text-sm text-white items-center justify-between gap-2 transition-all duration-200 hover:-rotate-3"
+                  className="flex items-center justify-between gap-2 p-2 text-sm text-white transition-all duration-200 rounded-md bg-primary hover:-rotate-3"
                   disabled={processing}
                 >
                   {__(translations, 'Go Back')}
