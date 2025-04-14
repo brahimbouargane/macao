@@ -1,5 +1,4 @@
 import banner from '@/assets/images/23.webp';
-import blogDefault from '@/assets/images/macao-blog.jpg';
 
 import { NewLayout } from '@/layouts/new-layout';
 import { Link } from '@inertiajs/react';
@@ -88,11 +87,6 @@ function Actualites({ posts }) {
 
   // Filter posts based on category and search term
   useEffect(() => {
-    // For debugging
-    console.log('Active category:', activeCategory);
-    console.log('Search term:', searchTerm);
-    console.log('Posts:', posts);
-
     // Add safety check for posts
     if (!Array.isArray(posts) || posts.length === 0) {
       setFilteredPosts([]);
@@ -118,8 +112,6 @@ function Actualites({ posts }) {
 
     setFilteredPosts(filtered);
   }, [activeCategory, searchTerm, posts]);
-
-  console.log('Filtered posts:', filteredPosts);
 
   return (
     <>
@@ -259,36 +251,38 @@ function BlogCard({ key, post, categoryLabels }) {
   };
 
   return (
-    <motion.div
-      key={key}
-      variants={fadeInUp}
-      className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
-    >
-      <div className="relative h-64 overflow-hidden">
-        <img
-          src={post.image || blogDefault}
-          alt={post.title}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-        />
-        <div className="absolute top-4 right-4">
-          <span className="bg-black text-white px-3 py-1 rounded-full text-sm font-medium">
-            {categoryLabels[post.category]}
-          </span>
+    <Link href={route('blog.show', post.id)}>
+      <motion.div
+        key={key}
+        variants={fadeInUp}
+        className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
+      >
+        <div className="relative h-64 overflow-hidden">
+          <img
+            src={post.image}
+            alt={post.title}
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div className="absolute top-4 right-4">
+            <span className="bg-black text-white px-3 py-1 rounded-full text-sm font-medium">
+              {categoryLabels[post.category]}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="p-5 flex flex-col flex-grow">
-        <div className="flex justify-end items-center mb-3">
-          <span className="text-gray-500 text-sm">{post.readTime}</span>
+        <div className="p-5 flex flex-col flex-grow">
+          <div className="flex justify-end items-center mb-3">
+            <span className="text-gray-500 text-sm">{post.readTime}</span>
+          </div>
+          <h3 className="text-xl font-bold mb-3 text-gray-800">{post.title}</h3>
+          <p className="text-gray-700 mb-4 flex-grow">{post.excerpt}</p>
+          <Link
+            href={route('blog.show', post.id)}
+            className="inline-flex items-center text-red-700 font-medium hover:underline"
+          >
+            Lire plus <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
         </div>
-        <h3 className="text-xl font-bold mb-3 text-gray-800">{post.title}</h3>
-        <p className="text-gray-700 mb-4 flex-grow">{post.excerpt}</p>
-        <Link
-          href={route('blog.show', post.id)}
-          className="inline-flex items-center text-red-700 font-medium hover:underline"
-        >
-          Lire plus <ArrowRight className="ml-1 h-4 w-4" />
-        </Link>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 }

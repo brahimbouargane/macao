@@ -6,6 +6,7 @@ import PATISSERIE from '@/assets/images/PATISSERIE.webp';
 import choco from '@/assets/images/chocolat.webp';
 import cw from '@/assets/images/cw.webp';
 import wafer from '@/assets/images/gaufrette.webp';
+import { Link } from '@inertiajs/react';
 
 interface Category {
   title: string;
@@ -127,7 +128,7 @@ function CategoryCard3D({
       style={getStyles()}
       aria-label={`Voir la catégorie ${title}`}
     >
-      <a href={href}>
+      <Link href={href}>
         <div className="aspect-[3/4] relative bg-gray-100 overflow-hidden rounded-[30px]">
           <img
             src={image}
@@ -180,7 +181,7 @@ function CategoryCard3D({
                 {description}
               </p>
 
-              <a
+              <Link
                 href={href}
                 className="inline-flex font-custom font-medium items-center justify-center px-6 py-2
                     bg-white text-red-500 rounded-full shadow-md hover:shadow-lg
@@ -197,11 +198,11 @@ function CategoryCard3D({
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </a>
+              </Link>
             </div>
           )}
         </div>
-      </a>
+      </Link>
     </div>
   );
 }

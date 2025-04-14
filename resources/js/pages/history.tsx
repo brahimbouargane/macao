@@ -3,8 +3,8 @@ import banner from '@/assets/images/25.webp';
 // import composition from '@/assets/images/composition.webp';
 // import iso from '@/assets/images/iso.jpg';
 // import showcase from '@/assets/images/showcasing.webp';
+import bgimage2 from '@/assets/images/history.webp';
 import bgimage from '@/assets/images/history_1.png';
-import bgimage2 from '@/assets/images/history_2.png';
 import bgimage3 from '@/assets/images/history_3.png';
 import bgimage4 from '@/assets/images/history_4.png';
 

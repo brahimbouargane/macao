@@ -29,7 +29,7 @@ class BlogController extends Controller
                             innover tout en respectant ses racines, Pastor Macao demeure une source de fierté pour le Maroc et
                             un délice pour les papilles des gourmands.",
             'category' => 'actualites',
-            'image' => null,
+            'image' => 'images/15.webp',
             'date' => '2024-01-15',
         ],
         2 => [
@@ -55,7 +55,7 @@ class BlogController extends Controller
                             gourmandise, qu'il soit quotidien ou exceptionnel, en offrant des douceurs adaptées à toutes les
                             occasions.",
             'category' => 'actualites',
-            'image' => null,
+            'image' => 'images/11.webp',
             'date' => '2024-01-25',
         ],
         3 => [
@@ -79,7 +79,7 @@ class BlogController extends Controller
                             Pastor Macao une place de choix dans le cœur des gourmands et assure à l'entreprise une réputation
                             d'excellence, tant au niveau national qu'international.",
             'category' => 'actualites',
-            'image' => null,
+            'image' => 'images/13.webp',
             'date' => '2024-02-10',
         ],
         4 => [
@@ -106,7 +106,7 @@ class BlogController extends Controller
                             démontrant que l’excellence artisanale marocaine peut séduire les palais du monde entier, Un pari
                             réussi, et un nouvel élan vers de futures conquêtes internationales.",
             'category' => 'actualites',
-            'image' => null,
+            'image' => 'images/16.webp',
             'date' => '2024-02-28',
         ],
         5 => [
@@ -140,7 +140,7 @@ class BlogController extends Controller
                             Ainsi, entre tradition, accessibilité, innovation et ambition, le chocolat au Maroc est en pleine évolution
                             — et Pastor Macao en est l’un des moteurs les plus actifs.",
             'category' => 'actualites',
-            'image' => null,
+            'image' => 'images/12.webp',
             'date' => '2024-03-15',
         ],
         6 => [
@@ -167,7 +167,7 @@ class BlogController extends Controller
                             tant sur le plan national qu’international, Son implication traduit une vision claire celle
                             de faire du Maroc un acteur reconnu dans le domaine de la pâtisserie et du chocolat.",
             'category' => 'actualites',
-            'image' => null,
+            'image' => 'images/17.webp',
             'date' => '2024-03-25',
         ],
         7 => [
@@ -194,7 +194,7 @@ class BlogController extends Controller
                             authenticité, Pastor Macao réussit le pari d’allier tradition et modernité, Une marque
                             connectée, à l’écoute, et toujours gourmande.",
             'category' => 'actualites',
-            'image' => null,
+            'image' => 'images/14.webp',
             'date' => '2024-04-05',
         ],
         8 => [
@@ -220,7 +220,7 @@ class BlogController extends Controller
                             bonbon c’est une madeleine de Proust à la marocaine, transmise de génération en
                             génération.",
             'category' => 'actualites',
-            'image' => null,
+           'image' => 'images/18.webp',
             'date' => '2024-04-15',
         ],
         9 => [

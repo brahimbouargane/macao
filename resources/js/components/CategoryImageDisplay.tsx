@@ -235,7 +235,7 @@ const childCategoryContent = {
     // title: 'UN GOÛT FRUITé & GÉLIFIÉE, LAISSEZ-VOUS EMPORTER.',
     title: (
       <>
-        UN GOÛT FRUITÉ & GÉLIFIÉE,
+        UN GOÛT FRUITÉ & GÉLIFIÉ,
         <br />
         SANS MODÉRATION !
       </>
@@ -494,9 +494,9 @@ const childCategoryContent = {
   'Fruits Confits - F&E': {
     title: (
       <>
-        des fruits confits, une explosion
+        Des fruits confits, une explosion
         <br />
-        de saveurs à savourer.
+        de saveurs qui éveillent les papilles.
       </>
     ),
     // title: 'des fruits confits, une explosion de saveurs à savourer.',
