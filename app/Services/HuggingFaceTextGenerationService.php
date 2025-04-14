@@ -12,8 +12,8 @@ class HuggingFaceTextGenerationService
 
     public function __construct()
     {
-        $this->apiUrl = config('services.huggingface.api_url');
-        $this->apiToken = config('services.huggingface.api_token');
+        $this->apiUrl = config('services.huggingface.api_url')  ?? '';
+        $this->apiToken = config('services.huggingface.api_token') ?? '' ;
     }
 
     /**
