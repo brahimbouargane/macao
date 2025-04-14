@@ -33,7 +33,7 @@ const config = withTV({
         secondary: ['Montserrat', 'sans-serif'],
         body: ['Open Sans', 'sans-serif'],
         custom: ['azzawilafont', 'sans-serif'],
-        banner: ['spartan', 'sans-serif']
+        banner: ['League Spartan', 'sans-serif']
       },
       colors: {
         light: 'hsl(var(--light))',
