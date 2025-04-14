@@ -87,7 +87,7 @@ export default function Contact() {
           />
         </div>
 
-        <div className="relative mx-auto px-4">
+        <div className="relative mx-auto px-4  ml-10 ">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
@@ -96,7 +96,7 @@ export default function Contact() {
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl uppercase font-extrabold font-custom tracking-tight md:text-7xl  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] whitespace-pre-line leading-tight"
+              className="text-5xl uppercase  font-bold font-banner tracking-tight md:text-7xl  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] whitespace-pre-line leading-tight"
             >
               UNE QUESTION ? UNE ENVIE DE CHOCOLAT ?<br /> PARLONS-EN
             </motion.h1>
