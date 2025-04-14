@@ -644,7 +644,7 @@ export default function Media() {
                   <div className="mt-auto pt-6 flex flex-col gap-2">
                     {selectedMedia.sourceUrl && (
                       <Button className="w-full" asChild>
-                        <Link*
+                        <Link
                           href={selectedMedia.sourceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
