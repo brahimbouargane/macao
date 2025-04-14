@@ -33,14 +33,6 @@ export default function CVSubmissionModal() {
       // Simulating an API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      console.log({
-        name,
-        email,
-        phone,
-        coverLetter,
-        fileName: file ? file.name : 'Aucun fichier téléchargé'
-      });
-
       setSubmitStatus('success');
       // Close the modal after successful submission after a short delay
       setTimeout(() => {

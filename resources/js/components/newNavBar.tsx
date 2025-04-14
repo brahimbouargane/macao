@@ -380,6 +380,7 @@ export default function Navbar() {
           <MotionLink
             whileHover={{ scale: 1.1, rotate: 1 }}
             href="/blog"
+            preserveScroll={false}
             className={`text-md font-custom font-semibold ${isActive('/blog') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
           >
             BLOG
@@ -387,6 +388,7 @@ export default function Navbar() {
           <MotionLink
             whileHover={{ scale: 1.1, rotate: 1 }}
             href="/career"
+            preserveScroll={false}
             className={`text-md font-custom font-semibold ${isActive('/career') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
           >
             NOUS REJOINDRE

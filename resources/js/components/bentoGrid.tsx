@@ -6,6 +6,7 @@ import candy from '@/assets/images/candy.webp';
 import choco from '@/assets/images/chocolate.webp';
 import leonardo from '@/assets/images/Leonardo.webp';
 import wafer from '@/assets/images/wafer.webp';
+import { Link } from '@inertiajs/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -182,13 +183,13 @@ const CategoryCard = ({ category, className }) => {
                         group-hover:opacity-100 transition-all duration-300"
         >
           <p className="text-white mb-4">{category.description}</p>
-          <a
+          <Link
             href={category.href}
             className="inline-block bg-white text-red-600 px-6 py-2 font-medium
                        hover:bg-red-50 transition-colors duration-300"
           >
             Découvrir
-          </a>
+          </Link>
         </div>
       </div>
     </motion.div>
