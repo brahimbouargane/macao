@@ -1,4 +1,4 @@
-import office from '@/assets/images/office.webp';
+import office from '@/assets/images/group-people.webp';
 import banner from '@/assets/images/rubiruqework.webp';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/shadcn-alert';
@@ -184,7 +184,7 @@ const CareersSection = () => {
                   ))}
                 </div>
               </div>
-              <div className="relative h-64 rounded-[20px] overflow-hidden">
+              <div className="relative h-72 rounded-[20px] overflow-hidden">
                 <img src={office} alt="Office Life" className="w-full h-full object-cover" />
               </div>
             </div>
