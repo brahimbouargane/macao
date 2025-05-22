@@ -337,7 +337,7 @@ export default function Navbar() {
               alt="product macao logo"
               width={200}
               height={80}
-              className={`transition-all duration-200 ${isScrolled ? ' lg:h-28 w-auto' : 'h-[114px] md:h-[112px] lg:h-[128px] w-auto'}`}
+              className={`transition-all duration-200 ${isScrolled ? ' lg:h-44 w-auto' : 'h-[162px] md:h-[170px] lg:h-[190px] w-auto'}`}
             />
           </MotionLink>
         </div>
