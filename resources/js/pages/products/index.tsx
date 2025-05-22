@@ -191,10 +191,10 @@ const ProductCard = ({ product, onError, index = 0 }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.div className="relative h-full group cursor-pointer">
-        <div className="w-full h-full rounded-tl-[80px] border-2 border-b-0 border-[#AA071A] overflow-hidden">
+        <div className="w-full h-full  border-2 border-b-0 border-[#AA071A] overflow-hidden">
           {/* SVG Container with your custom shape */}
           <svg
-            className="w-full h-full drop-shadow-lg shadow-[#AA071A] rounded-tl-[80px]"
+            className="w-full h-full drop-shadow-lg shadow-[#AA071A] "
             viewBox="0 0 468 581"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +260,7 @@ const ProductCard = ({ product, onError, index = 0 }) => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isHovered ? 1 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg"
+                  className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-none"
                 >
                   <Button
                     variant="outline"
