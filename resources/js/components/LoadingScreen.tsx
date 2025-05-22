@@ -33,7 +33,7 @@ const LoadingScreen: React.FC<PropsWithChildren> = ({ children }) => {
           <motion.img
             src={macaoImage}
             alt="Logo"
-            className=""
+            className="h-48 w-48"
             animate={{
               scale: [1, 1.2, 1],
               opacity: [0.7, 1, 0.7]
