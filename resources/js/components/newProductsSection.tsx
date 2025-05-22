@@ -456,9 +456,89 @@ const ProductShowcase = () => {
                 }}
               >
                 {filteredProducts.map((product, index) => (
+                  //   <motion.div
+                  //     key={product.id}
+                  //     className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4 "
+                  //     initial={{ opacity: 0, y: 20 }}
+                  //     animate={{
+                  //       opacity: 1,
+                  //       y: 0,
+                  //       transition: {
+                  //         delay: index * 0.1,
+                  //         duration: 0.5
+                  //       }
+                  //     }}
+                  //   >
+                  //     <motion.div
+                  //       className="relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[80px] rounded-bl-[80px] transition-all duration-300"
+                  //       whileHover={{
+                  //         scale: 1.01,
+                  //         boxShadow: '0px 10px 25px rgba(170, 7, 26, 0.2)',
+                  //         transition: { duration: 0.3 }
+                  //       }}
+                  //     >
+                  //       <motion.div
+                  //         className="absolute top-4 right-4 w-6 h-6  md:w-8 md:h-8  flex items-center justify-center text-red-700 font-bold"
+                  //         whileHover={{
+                  //           scale: 1.2,
+                  //           //   rotate: 25,
+                  //           transition: { duration: 0.3 }
+                  //         }}
+                  //         initial={{ rotate: 0 }}
+                  //         animate={{
+                  //           rotate: [0, 5, -5, 0],
+                  //           transition: {
+                  //             repeat: Infinity,
+                  //             repeatType: 'mirror',
+                  //             duration: 2,
+                  //             ease: 'easeInOut'
+                  //           }
+                  //         }}
+                  //       >
+                  //         <img src={macao} alt="macao pastore" className="h-12 w-12" />
+                  //       </motion.div>
+                  //       <div className="bg-red-700">
+                  //         <div className=" flex justify-center items-center rounded-br-[80px] bg-white py-20 px-10">
+                  //           <img src={product.image} alt={product.name} className="h-full w-full " />
+                  //         </div>
+                  //         <div className="relative flex px-4 py-6 text-center justify-center items-center">
+                  //           <motion.h3
+                  //             className="font-custom font-bold h-full lg:h-[56px] text-white text-base sm:text-lg tracking-wide"
+                  //             initial={{ opacity: 0 }}
+                  //             animate={{ opacity: 1 }}
+                  //             transition={{ delay: 0.2, duration: 0.5 }}
+                  //           >
+                  //             {product.name}
+                  //           </motion.h3>
+                  //         </div>
+
+                  //         <motion.div
+                  //           className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white font-bold"
+                  //           whileHover={{
+                  //             scale: 1.2,
+                  //             rotate: 90,
+                  //             transition: { duration: 0.3 }
+                  //           }}
+                  //           initial={{ rotate: 0 }}
+                  //           animate={{
+                  //             rotate: [0, 5, -5, 0],
+                  //             transition: {
+                  //               repeat: Infinity,
+                  //               repeatType: 'mirror',
+                  //               duration: 2,
+                  //               ease: 'easeInOut'
+                  //             }
+                  //           }}
+                  //         >
+                  //           <span className="text-xl sm:text-2xl">+</span>
+                  //         </motion.div>
+                  //       </div>
+                  //     </motion.div>
+                  //   </motion.div>
+
                   <motion.div
                     key={product.id}
-                    className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4 "
+                    className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{
                       opacity: 1,
@@ -468,70 +548,116 @@ const ProductShowcase = () => {
                         duration: 0.5
                       }
                     }}
+                    whileHover={{
+                      scale: 1.01,
+                      y: -5,
+                      transition: { duration: 0.3 }
+                    }}
                   >
-                    <motion.div
-                      className="relative h-full overflow-hidden border-2 border-[#AA071A] rounded-tl-[80px] rounded-bl-[80px] transition-all duration-300"
-                      whileHover={{
-                        scale: 1.01,
-                        boxShadow: '0px 10px 25px rgba(170, 7, 26, 0.2)',
-                        transition: { duration: 0.3 }
-                      }}
-                    >
-                      <motion.div
-                        className="absolute top-4 right-4 w-6 h-6  md:w-8 md:h-8  flex items-center justify-center text-red-700 font-bold"
-                        whileHover={{
-                          scale: 1.2,
-                          //   rotate: 25,
-                          transition: { duration: 0.3 }
-                        }}
-                        initial={{ rotate: 0 }}
-                        animate={{
-                          rotate: [0, 5, -5, 0],
-                          transition: {
-                            repeat: Infinity,
-                            repeatType: 'mirror',
-                            duration: 2,
-                            ease: 'easeInOut'
-                          }
-                        }}
-                      >
-                        <img src={macao} alt="macao pastore" className="h-12 w-12" />
-                      </motion.div>
-                      <div className="bg-red-700">
-                        <div className=" flex justify-center items-center rounded-br-[80px] bg-white py-20 px-10">
-                          <img src={product.image} alt={product.name} className="h-full w-full " />
-                        </div>
-                        <div className="relative flex px-4 py-6 text-center justify-center items-center">
-                          <motion.h3
-                            className="font-custom font-bold h-full lg:h-[56px] text-white text-base sm:text-lg tracking-wide"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                          >
-                            {product.name}
-                          </motion.h3>
-                        </div>
-
-                        <motion.div
-                          className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-white font-bold"
-                          whileHover={{
-                            scale: 1.2,
-                            rotate: 90,
-                            transition: { duration: 0.3 }
-                          }}
-                          initial={{ rotate: 0 }}
-                          animate={{
-                            rotate: [0, 5, -5, 0],
-                            transition: {
-                              repeat: Infinity,
-                              repeatType: 'mirror',
-                              duration: 2,
-                              ease: 'easeInOut'
-                            }
-                          }}
+                    <motion.div className="relative h-full group cursor-pointer">
+                      <div className="w-full h-full rounded-tl-[80px]  border-2 border-b-0 border-[#AA071A] overflow-hidden">
+                        {/* SVG Container with your custom shape */}
+                        <svg
+                          className="w-full h-full drop-shadow-lg shadow-[#AA071A] rounded-tl-[80px]"
+                          viewBox="0 0 468 581"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <span className="text-xl sm:text-2xl">+</span>
-                        </motion.div>
+                          <defs>
+                            {/* Define clipPath using your shape */}
+                            <clipPath id={`card-shape-${product.id}`}>
+                              <path d="M139.818 558.668C118.354 564.55 56.9567 581 0 581V0H468V580.818C430.623 553.294 361.959 534.81 283.505 534.81C205.051 534.81 164.781 551.877 139.818 558.704" />
+                            </clipPath>
+                          </defs>
+
+                          {/* White top section */}
+                          <path d="M0 0H468V500H0V0Z" fill="white" stroke="#AA071A" strokeWidth="1" />
+
+                          {/* Red bottom section with custom curve */}
+                          <path
+                            d="M0 415H468V580.818C430.623 553.294 361.959 534.81 283.505 534.81C205.051 534.81 164.781 551.877 139.818 558.704C118.354 564.55 56.9567 581 0 581V415Z"
+                            fill="#AA071A"
+                          />
+
+                          {/* Content Container using foreignObject */}
+                          <foreignObject
+                            x="0"
+                            y="0"
+                            width="468"
+                            height="581"
+                            clipPath={`url(#card-shape-${product.id})`}
+                          >
+                            <div className="w-full h-full flex flex-col relative">
+                              {/* Top Section - Logo */}
+                              <div className="absolute top-2 right-2 z-10">
+                                <motion.div
+                                  className="w-14 h-14"
+                                  whileHover={{
+                                    scale: 1.2,
+                                    transition: { duration: 0.3 }
+                                  }}
+                                  initial={{ rotate: 0 }}
+                                  animate={{
+                                    rotate: [0, 5, -5, 0],
+                                    transition: {
+                                      repeat: Infinity,
+                                      repeatType: 'mirror',
+                                      duration: 2,
+                                      ease: 'easeInOut'
+                                    }
+                                  }}
+                                >
+                                  <img src={macao} alt="macao pastore" className="h-full w-full" />
+                                </motion.div>
+                              </div>
+
+                              {/* Product Image Section - Takes up white area */}
+                              <div className="flex-1 flex justify-center items-center px-8 pt-0 pb-32">
+                                <div className="w-full max-w-xs h-64 flex justify-center items-center">
+                                  <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="max-w-full max-h-full object-contain"
+                                  />
+                                </div>
+                              </div>
+
+                              {/* Product Name Section - In red area */}
+                              <div className="absolute bottom-24 left-0 right-0 px-8 text-center">
+                                <motion.h3
+                                  className="font-custom font-bold text-white text-lg md:text-2xl tracking-wide leading-tight"
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ delay: 0.2, duration: 0.5 }}
+                                >
+                                  {product.name}
+                                </motion.h3>
+                              </div>
+
+                              {/* Plus Icon - Bottom right in red area */}
+                              <motion.div
+                                className="absolute bottom-8 right-2 w-8 h-8 flex items-center justify-center text-white font-bold"
+                                whileHover={{
+                                  scale: 1.2,
+                                  rotate: 90,
+                                  transition: { duration: 0.3 }
+                                }}
+                                initial={{ rotate: 0 }}
+                                animate={{
+                                  rotate: [0, 5, -5, 0],
+                                  transition: {
+                                    repeat: Infinity,
+                                    repeatType: 'mirror',
+                                    duration: 2,
+                                    ease: 'easeInOut'
+                                  }
+                                }}
+                              >
+                                <span className="text-3xl">+</span>
+                              </motion.div>
+                            </div>
+                          </foreignObject>
+                        </svg>
                       </div>
                     </motion.div>
                   </motion.div>
