@@ -419,7 +419,7 @@ const childCategoryContent = {
     bgImage: pat2, // Use second image
     overlayOpacity: '45'
   },
-  'Poudre de cacao sucré': {
+  'Poudre de cacao sucrée': {
     title: (
       <>
         du cacao pur pour des recettes
