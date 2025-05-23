@@ -24,8 +24,8 @@ const staggerContainer = {
 };
 
 const products = [
-  { name: 'Chocolat', href: '/products/chocolat/Pâtes à tartiner' },
-  { name: 'Confiserie', href: '/products/confiserie/Sucettes' },
+  { name: 'Chocolats', href: '/products/chocolat/Pâtes à tartiner' },
+  { name: 'Confiseries', href: '/products/confiserie/Sucettes' },
   { name: 'Gaufrettes', href: '/products/Gaufrettes/Gaufrettes enrobées' },
   { name: 'Produits pâtissiers', href: '/products/Produits pâtissiers/Chocolats pâtissiers' },
   { name: 'Fêtes et événements', href: '/products/Fêtes et événements/Chocolats fins fourrés' }

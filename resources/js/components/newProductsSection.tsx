@@ -555,7 +555,7 @@ const ProductShowcase = () => {
                     }}
                   >
                     <motion.div className="relative h-full group cursor-pointer">
-                      <div className="w-full h-full   border-2 border-b-0 border-[#AA071A] overflow-hidden">
+                      <div className="w-full h-full  border-b-0 border-[#AA071A] overflow-hidden">
                         {/* SVG Container with your custom shape */}
                         <svg
                           className="w-full h-full drop-shadow-lg shadow-[#AA071A] "
@@ -571,7 +571,7 @@ const ProductShowcase = () => {
                           </defs>
 
                           {/* White top section */}
-                          <path d="M0 0H468V500H0V0Z" fill="white" stroke="#AA071A" strokeWidth="1" />
+                          <path d="M0 0H468V500H0V0Z" fill="white" stroke="#AA071A" strokeWidth="6" />
 
                           {/* Red bottom section with custom curve */}
                           <path
