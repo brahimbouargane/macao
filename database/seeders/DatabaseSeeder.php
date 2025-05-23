@@ -5324,7 +5324,7 @@ class DatabaseSeeder extends Seeder
                 // ?Poudre de cacao sucré
                 [
                     "parent_category_name" => "Produits pâtissiers",
-                    "category_name" => "Poudre de cacao sucré",
+                    "category_name" => "Poudre de cacao sucrée",
                     "product_name" => "CHOCODÉJ",
                     "product_description" => "Poudre de Cacao Sucré",
                     "ref" => "0202R02",
