@@ -60,7 +60,7 @@ const tabsData = {
     {
       id: '4',
       title: 'CHOCODÉJ',
-      subtitle: 'Poudre de Cacao Sucré',
+      subtitle: 'Poudre de Cacao Sucrée',
       details: 'En savoir plus',
       image: pro6,
       href: '/products/chocolat-light-noir'

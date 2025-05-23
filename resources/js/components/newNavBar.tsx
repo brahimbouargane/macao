@@ -35,7 +35,7 @@ const featuredCategories = [
     title: 'Produits pâtissiers',
     description: "L'excellence de la pâtisserie française",
     highlight: 'Création Artisanale',
-    items: ['Chocolats pâtissiers', 'Fourrage & décoration', 'Poudre de cacao sucré', 'Fruits confits']
+    items: ['Chocolats pâtissiers', 'Fourrage & décoration', 'Poudre de cacao sucrée', 'Fruits confits']
   },
   {
     id: 'gaufrettes',
