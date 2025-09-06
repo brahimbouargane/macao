@@ -1,6 +1,12 @@
 export default function __(translations: any[],key: any, replacements?: Record<string, string>) {
-  
-    let translation = translations[key] || key;
+
+    let translation = null;
+
+    if (translations) {
+      return translations[key] || key;
+    } else {
+      return key;
+    }
 
 
     // // Handle replacements (if provided)

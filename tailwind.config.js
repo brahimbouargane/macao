@@ -8,12 +8,32 @@ const config = withTV({
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     './storage/framework/views/*.php',
     './resources/views/**/*.blade.php',
-    './resources/js/**/*.{js,jsx,ts,tsx}'
+    './resources/js/**/*.{js,jsx,ts,tsx}',
+    './node_modules/@inertiaui/modal-react/src/**/*.{js,jsx}'
   ],
   theme: {
+    screens: {
+      xs: '360px',
+      sm: '640px',
+      md: '768px',
+      slg: '850px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1400px',
+      '3xl': '1550px',
+      '4xl': '1700px',
+      tablet: '640px',
+      laptop: '1024px',
+      desktop: '1280px'
+    },
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...fontFamily.sans]
+        sans: ['Figtree', ...fontFamily.sans],
+        primary: ['Playfair Display', 'serif'],
+        secondary: ['Montserrat', 'sans-serif'],
+        body: ['Open Sans', 'sans-serif'],
+        custom: ['azzawilafont', 'sans-serif'],
+        banner: ['League Spartan', 'sans-serif']
       },
       colors: {
         light: 'hsl(var(--light))',
@@ -85,10 +105,48 @@ const config = withTV({
         lg: 'calc(var(--radius))',
         md: 'calc(var(--radius) - 2.5px)',
         sm: 'calc(var(--radius) - 5px)'
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-25%)' }
+        },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' }
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' }
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' }
+        }
+      },
+      animation: {
+        marquee: 'marquee var(--animation-duration) linear infinite'
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        float: 'float 6s ease-in-out infinite',
+        'float-delayed': 'float 6s ease-in-out infinite 2s'
       }
     }
   },
-  plugins: [require('tailwindcss-animate'), require('tailwindcss-react-aria-components')]
+  plugins: [
+    require('tailwindcss-animate'),
+    require('tailwindcss-react-aria-components'),
+    require('tailwindcss-animated'),
+    function ({ addUtilities }) {
+      addUtilities({
+        '.pause': {
+          'animation-play-state': 'paused'
+        }
+      });
+    }
+  ]
 });
 
 export default config;

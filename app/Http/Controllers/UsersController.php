@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Data\UserData;
+use App\Enums\AppPermissionsEnum;
+use App\Enums\AppRoles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -24,17 +27,16 @@ class UsersController extends Controller implements HasMiddleware
     {
 
 
-
+        Gate::authorize(AppPermissionsEnum::VIEW_ANY_USER, User::class);
         $perPageValue = $request->input('per_page');
         if (!in_array($perPageValue, ['10', '20', "30", "40", "50", "200"])) {
             $perPageValue = "10";
         }
 
-
-
             return Inertia::render('Dashboard/users/index', [
                 'paginationData' => UserData::collect(
                     User::query()
+                ->excludeDeveloper()
                         // Apply advanced filtering
                         ->advancedFilter()
                         // Paginate with configurable per page
@@ -42,6 +44,7 @@ class UsersController extends Controller implements HasMiddleware
                         // Preserve query parameters in pagination links
                         ->withQueryString()
                 ),
+            "usersOptions" => User::excludeDeveloper()->get(['id', 'name']),
 
             ]);
         
@@ -63,17 +66,22 @@ class UsersController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
+        Gate::authorize(AppPermissionsEnum::CREATE_USER, User::class);
+
         $validated =   $request->validate([
             'name' => ['required', 'min:5', 'max:255'],
             "email" => ['required', 'email', 'unique:users,email', 'lowercase', "max:255"],
+            "role" => ['required', 'string', Rule::in(AppRoles::options())],
             "password" => ['required', 'min:8', 'confirmed', 'max:255'],
         ]);
 
-        $user =  User::create($validated);
+        $user =  User::create([
+            ...$validated,
+            "role" => \strval($validated['role']),
+            "created_by" =>  \auth('web')->user()->id
+        ]);
 
 
-
-        return \to_route('users.index');
     }
 
     /**
@@ -105,15 +113,20 @@ class UsersController extends Controller implements HasMiddleware
     {
 
 
-        $validated = $request->validate([
+        Gate::authorize(AppPermissionsEnum::UPDATE_USER, User::class);
+
+        $validated = $request->validate([ 
             'name' => ['required', 'min:5', 'max:255'],
-            "email" => ['required', "lowercase", 'email', Rule::unique(User::class)->ignore($user->id)],
-            "password" => ['nullable', 'min:8', 'confirmed'],
+            "email" => ['required', "lowercase", 'max:255', 'email', Rule::unique(User::class)->ignore($user->id)],
+            "role" => ['required', 'string', Rule::in(AppRoles::options())],
+            "password" => ['nullable', 'min:8', 'confirmed', 'max:255'],
         ]);
 
 
         $user->email = $validated['email'];
         $user->name = $validated['name'];
+        $user->role = strval($validated['role']);
+        $user->last_updated_by = \auth('web')->user()->id;
 
         // the email was changed
         if ($user->isDirty('email')) {
@@ -127,7 +140,7 @@ class UsersController extends Controller implements HasMiddleware
         $user->save();
 
 
-        return \to_route('users.index');
+        //return \to_route('users.index');
     }
 
     /**
@@ -135,6 +148,8 @@ class UsersController extends Controller implements HasMiddleware
      */
     public function destroy(User $user)
     {
+        Gate::authorize(AppPermissionsEnum::DELETE_USER, User::class);
+
 
         $user->delete();
     }
@@ -144,6 +159,6 @@ class UsersController extends Controller implements HasMiddleware
     {
         $user->email_verified_at = now();
         $user->save();
-        return \to_route('users.index');
+        //return \to_route('users.index');
     }
 }
