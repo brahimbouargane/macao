@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'huggingface' => [
+    'api_url' => env('HUGGING_FACE_API_URL'),
+    'api_token' => env('HUGGING_FACE_API_TOKEN'),
+],
+
 ];

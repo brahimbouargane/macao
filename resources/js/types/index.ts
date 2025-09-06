@@ -1,3 +1,14 @@
+export enum AppPermissionsEnum {
+  'VIEW_ANY_USER' = 'view-any',
+  'VIEW_USER' = 'view',
+  'CREATE_USER' = 'create',
+  'UPDATE_USER' = 'update',
+  'DELETE_USER' = 'delete'
+}
+export enum AppRoles {
+  'ADMIN' = 'admin',
+  'MANAGER' = 'manager'
+}
 export type AuthData = {
   user: AuthenticatedUserData;
 };
@@ -5,22 +16,51 @@ export type AuthenticatedUserData = {
   id: number;
   email: string;
   name: string;
-  avatar: string | null;
+  role: string;
+  avatar: ImageConversionData | null;
   email_verified_at: string | null;
+};
+export type BrandData = {
+  id: string;
+  name: string;
+  productsCount: string | null;
+  created_at: string | null;
+  updated_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
+};
+export type CanData = {
+  VIEW_ANY_USER: boolean;
+  VIEW_USER: boolean;
+  CREATE_USER: boolean;
+  UPDATE_USER: boolean;
+  DELETE_USER: boolean;
 };
 export type CategoryData = {
   id: string;
   name: string;
   description: string | null;
   image: string | null;
-  parentCategory: CategoryData | null;
-  parent_id: string | null;
+  optimizedImage: string | null;
+  parentCategories: Array<CategoryData> | null;
+  childCategoriesNames: Array<any> | null;
+  parentCategoriesNames: Array<any> | null;
   created_at: string | null;
   updated_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
 };
 export type FlashMessageData = {
   type: string;
   message: string;
+};
+export type ImageConversionData = {
+  thumbnail: string | null;
+  optimized: string | null;
 };
 export type LinkData = {
   url: string | null;
@@ -30,16 +70,19 @@ export type LinkData = {
 export type ModelsCountData = {
   user: number;
   category: number;
+  product: number;
+  brand: number;
+  type: number;
 };
 export type PagePropsData = {
   auth: AuthData;
   flashMessage: FlashMessageData;
   locale: string;
   modelsCount: ModelsCountData;
-  paginationData: PaginationData;
   user: UserData;
   component: string;
   translations: Array<any>;
+  can: CanData;
 };
 export type PaginationData = {
   current_page: number;
@@ -56,12 +99,69 @@ export type PaginationData = {
   to: number;
   total: number;
 };
+export type ProductData = {
+  id: string;
+  ref: string;
+  name: string | null;
+  description: string | null;
+  name_en: string | null;
+  description_en: string | null;
+  primaryImage: ImageConversionData | null;
+  categories: Array<CategoryData> | null;
+  categoriesNames: Array<any> | null;
+  secondaryImages: Array<ImageConversionData> | null;
+  brand: BrandData | null;
+  product_type: ProductTypeData | null;
+  price: number | null;
+  weight: number | null;
+  packaging: string | null;
+  tc_20: string | null;
+  tc_40: string | null;
+  active: boolean;
+  updated_at: string | null;
+  created_at: string;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
+};
+export type ProductTypeData = {
+  id: string;
+  name: string;
+  productsCount: string | null;
+  created_at: string | null;
+  updated_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
+};
+export type ReferenceData = {
+  id: string;
+  ref: string;
+  weight: number;
+  packaging: string;
+  tc_20: string;
+  tc_40: string;
+  product_id: string | null;
+  updated_at: string | null;
+  created_at: string;
+};
 export type UserData = {
   id: string;
   name: string;
   email: string;
-  avatar: string | null;
+  role: string;
+  avatar: ImageConversionData | null;
   email_verified_at: string | null;
+  created_by_user_name: string | null;
+  last_updated_by_user_name: string | null;
+  created_by: string | null;
+  last_updated_by: string | null;
   created_at: string;
   updated_at: string;
+};
+export type UserReferenceData = {
+  id: string;
+  name: string;
 };

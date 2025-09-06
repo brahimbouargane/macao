@@ -34,8 +34,13 @@ const Textarea = ({
   ...props
 }: TextareaProps) => {
   return (
-    <TextFieldPrimitive {...props} className={ctr(className, "group flex flex-col gap-y-1.5")}>
-      {label && <Label>{label}</Label>}
+    <TextFieldPrimitive {...props} className={ctr(className, 'group flex flex-col gap-y-1.5')}>
+      {label && (
+        <Label>
+          {label}
+          {props.isRequired && <span className="text-danger"> *</span>}
+        </Label>
+      )}
       <TextAreaPrimitive
         placeholder={placeholder}
         className={cr(className, (className, renderProps) =>
@@ -48,7 +53,7 @@ const Textarea = ({
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </TextFieldPrimitive>
-  )
+  );
 }
 
 export { Textarea, type TextareaProps }

@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Data\ImageConversionData;
+use App\Models\Scopes\ExcludeAdminScope;
+use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -15,10 +19,12 @@ use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
-class User extends Authenticatable implements  HasMedia
+class User extends Authenticatable implements HasMedia
 {
     use HasFactory, Notifiable,  InteractsWithMedia;
 
+
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -27,11 +33,18 @@ class User extends Authenticatable implements  HasMedia
     protected $fillable = [
         'name',
         'email',
+        "role",
         'password',
+        "created_by",
+        "last_updated_by"
     ];
 
     // To automatically include this custom attribute when converting the model to an array or JSON
-    protected $appends = ['avatar'];
+    protected $appends = [
+        'avatar',
+        "created_by_user_name",
+        "last_updated_by_user_name"
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -69,17 +82,33 @@ class User extends Authenticatable implements  HasMedia
                     $value = is_array($value) ?  \implode($value) : $value;
                     // Assuming you want to search across multiple fields
                     return $query->where(function ($query) use ($value) {
-                        $query->where('email', 'like', "%{$value}%");
+                    $query->where('email', 'like', "%{$value}%")
+                        ->orWhere('name', 'like', "%{$value}%")
+                    ;
                     });
                 }),
+
+            // Custom filter
+            ...\createNumberFilters('id'),
+            ...\createStringFilters('name'),
+            ...\createStringFilters('email'),
+            ...\createOneToManyStatusFilters("role"),
+            ...\createDateFilters('created_at'),
+            ...\createDateFilters('updated_at'),
+            ...\createOneToManyStatusFilters('created_by'),
+            ...\createOneToManyStatusFilters('last_updated_by'),
+                //-----------------------
             ])
             // Allow sorting on specific columns
             ->allowedSorts([
                 'id',
+            'name',
+            'role',
                 'email',
                 'created_at',
                 'updated_at',
-                'email_verified_at',
+            'created_by',
+            'last_updated_by',
 
             ])
             ->allowedFields([
@@ -90,12 +119,39 @@ class User extends Authenticatable implements  HasMedia
     }
 
     //-----------Custom attributes--------------------------------
-    public function getAvatarAttribute()
-    {
-        return $this->getFirstMedia("avatars")  ? $this->getFirstMedia("avatars")->getUrl('thumbnail') : null;
-    }
- 
 
+    public function getAvatarAttribute(): ImageConversionData
+    {
+        $media = $this->getFirstMedia('avatars');
+
+        return new ImageConversionData(
+            thumbnail: $media ? $media->getUrl('thumbnail') : null,
+            optimized: $media ? $media->getUrl('optimized') : null,
+        );
+    }
+
+    public function getCreatedByUserNameAttribute()
+    {
+        if (!$this->created_by) {
+            return null;
+        }
+
+        $creator = self::find($this->created_by);
+
+        return $creator ? $creator->name : null;
+    }
+
+
+    public function getLastUpdatedByUserNameAttribute()
+    {
+        if (!$this->last_updated_by) {
+            return null;
+        }
+
+        $updater = self::find($this->last_updated_by);
+
+        return $updater ?  $updater->name : null;
+    }
 
     //-----------Media library--------------------------------
     public function registerMediaCollections(): void
@@ -116,8 +172,7 @@ class User extends Authenticatable implements  HasMedia
             ->format('webp');
         $this
             ->addMediaConversion('optimized')
-            ->performOnCollections('avatars')
-            ->nonQueued()
+        ->performOnCollections('avatars')
             ->format('webp');
     }
 
@@ -138,6 +193,9 @@ class User extends Authenticatable implements  HasMedia
 
     public static function booted()
     {
+
+
+
         //--------------Caching----------------
         static::created(function ($model) {
             $count = $model::count();
@@ -151,5 +209,29 @@ class User extends Authenticatable implements  HasMedia
             $modelName = strtolower(basename(str_replace('\\', '/', get_class($model))));
             Cache::forever($modelName . '_count', $count);
         });
+    }
+
+    // override class methods
+    public function sendPasswordResetNotification(#[\SensitiveParameter] $token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
+    }
+
+
+    //-------ScopedFilters------------
+    public function scopeExcludeDeveloper($query)
+    {
+        // Get the developer email from the config
+        $developerEmail = config('app.developer_email');
+
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Apply the filter only if the logged-in user is not the developer
+        if ($user && $user->email !== $developerEmail) {
+            return $query->where('email', '!=', $developerEmail);
+        }
+
+        return $query;
     }
 }
