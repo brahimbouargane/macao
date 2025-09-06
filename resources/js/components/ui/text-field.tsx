@@ -1,40 +1,38 @@
-"use client"
+import * as React from 'react';
 
-import * as React from "react"
-
-import type { TextInputDOMProps } from "@react-types/shared"
-import { IconEye, IconEyeClosed } from "justd-icons"
+import type { TextInputDOMProps } from '@react-types/shared';
+import { IconEye, IconEyeClosed } from 'justd-icons';
 import {
   Button as ButtonPrimitive,
   TextField as TextFieldPrimitive,
   type TextFieldProps as TextFieldPrimitiveProps
-} from "react-aria-components"
+} from 'react-aria-components';
 
-import type { FieldProps } from "./field"
-import { Description, FieldError, FieldGroup, Input, Label } from "./field"
-import { Loader } from "./loader"
-import { ctr } from "./primitive"
+import type { FieldProps } from './field';
+import { Description, FieldError, FieldGroup, Input, Label } from './field';
+import { Loader } from './loader';
+import { ctr } from './primitive';
 
-type InputType = Exclude<TextInputDOMProps["type"], "password">
+type InputType = Exclude<TextInputDOMProps['type'], 'password'>;
 
 interface BaseTextFieldProps extends TextFieldPrimitiveProps, FieldProps {
-  prefix?: React.ReactNode
-  suffix?: React.ReactNode
-  isPending?: boolean
-  className?: string
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
+  isPending?: boolean;
+  className?: string;
 }
 
 interface RevealableTextFieldProps extends BaseTextFieldProps {
-  isRevealable: true
-  type: "password"
+  isRevealable: true;
+  type: 'password';
 }
 
 interface NonRevealableTextFieldProps extends BaseTextFieldProps {
-  isRevealable?: never
-  type?: InputType
+  isRevealable?: never;
+  type?: InputType;
 }
 
-type TextFieldProps = RevealableTextFieldProps | NonRevealableTextFieldProps
+type TextFieldProps = RevealableTextFieldProps | NonRevealableTextFieldProps;
 
 const TextField = ({
   placeholder,
@@ -49,20 +47,21 @@ const TextField = ({
   type,
   ...props
 }: TextFieldProps) => {
-  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
-  const inputType = isRevealable ? (isPasswordVisible ? "text" : "password") : type
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const inputType = isRevealable ? (isPasswordVisible ? 'text' : 'password') : type;
 
   const handleTogglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev)
-  }
+    setIsPasswordVisible((prev) => !prev);
+  };
   return (
-    <TextFieldPrimitive
-      type={inputType}
-      {...props}
-      className={ctr(className, "group  flex flex-col gap-y-1.5")}
-    >
-      {label && <Label>{label}</Label>}
-      <FieldGroup data-loading={isPending ? "true" : undefined}>
+    <TextFieldPrimitive type={inputType} {...props} className={ctr(className, 'group  flex flex-col gap-y-1.5 ')}>
+      {label && (
+        <Label>
+          {label} {props.isRequired && <span className="text-danger"> *</span>}
+        </Label>
+      )}
+
+      <FieldGroup data-loading={isPending ? 'true' : undefined} className={'bg-bg'}>
         {prefix ? (
           <span data-slot="prefix" className="atrs x2e2">
             {prefix}
@@ -87,7 +86,7 @@ const TextField = ({
       {description && <Description>{description}</Description>}
       <FieldError>{errorMessage}</FieldError>
     </TextFieldPrimitive>
-  )
-}
+  );
+};
 
-export { TextField, TextFieldPrimitive, type TextFieldProps }
+export { TextField, TextFieldPrimitive, type TextFieldProps };

@@ -1,7 +1,7 @@
 import { FlashMessageData } from '@/types/index';
 import { usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
-import { toast } from 'sonner';
+import toast from 'react-hot-toast';
 import { Toast } from 'ui';
 
 export function FlashMessage() {
