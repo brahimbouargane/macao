@@ -25,7 +25,7 @@ export function DataTableColumnHeader<TData, TValue>({
     }
     const hasPageBeenRendered = useRef(false);
 
-    const builder = useQueryBuilderCategoriesContext();
+    const { builder } = useQueryBuilderCategoriesContext();
     // to trigger the sort for the first time
     const [updated, setUpdated] = useState(0);
     const [sortDirection, setSortDirection] = useState('asc');
