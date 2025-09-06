@@ -1,7 +1,8 @@
 # Macao Project
+
 <img src="./public/images/avatar-placeholder.svg" height="100px">
 
-## Installation 
+## Installation tt
 
 - composer install
 - npm install
