@@ -128,39 +128,40 @@ function Actualites({ posts }) {
           />
         </div>
 
-        <div className="relative mx-auto px-4  ml-10 ">
+        <div className="relative mx-auto px-4 ">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
+            className="flex min-h-[470px] flex-col text-center justify-center pt-10 text-white"
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl uppercase  font-bold font-banner tracking-wide md:text-[65px] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] leading-tight"
+              className="text-5xl uppercase font-bold font-custom tracking-wide md:text-[65px] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] leading-tight"
             >
-              <span className="inline-block">CÔTÉ BLOG :</span>{' '}
-              <span className="inline-block">LÀ OÙ L'INFO SE DÉGUSTE</span>{' '}
-              <span className="inline-block">ET LES RECETTES INSPIRENT.</span>
+              <span className="inline-block">CÔTÉ BLOG</span>{' '}
             </motion.h1>
+            <motion.p variants={fadeInUp} className="text-gray-300">
+              <span className="inline-block"> LÀ OÙ L'INFO SE DÉGUSTE ET LES RECETTES INSPIRENT.</span>
+            </motion.p>
           </motion.div>
         </div>
       </motion.div>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Filter and Search Section */}
-        <div className="mb-12">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+        <div className="mb-6">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <div className="flex flex-wrap gap-4 mb-4 md:mb-0">
               {Object.entries(categoryLabels).map(([key, label]) => (
                 <button
                   key={key}
                   onClick={() => setActiveCategory(key)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-200
+                  className={`px-6 py-3 font-medium transition-all duration-200
                     ${
                       activeCategory === key
-                        ? 'bg-red-700 text-white shadow-lg'
-                        : 'bg-white text-gray-700 border border-gray-300 hover:border-red-700 hover:text-red-700'
+                        ? 'bg-primary text-white shadow-lg'
+                        : 'bg-white text-gray-700 border border-gray-300 hover:border-primary hover:text-primary'
                     }`}
                   aria-pressed={activeCategory === key}
                 >
@@ -175,7 +176,7 @@ function Actualites({ posts }) {
                   placeholder="Rechercher un article..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-3 w-full md:w-64 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-700 focus:border-transparent"
+                  className="pl-10 pr-4 py-3 w-full md:w-64 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   aria-label="Rechercher un article"
                 />
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -207,7 +208,7 @@ function Actualites({ posts }) {
                 setActiveCategory('all');
                 setSearchTerm('');
               }}
-              className="bg-red-700 text-white px-6 py-3 rounded-full font-medium hover:bg-red-800 transition-colors"
+              className="bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary/80 transition-colors"
             >
               Voir tous les articles
             </button>
@@ -221,7 +222,7 @@ function Actualites({ posts }) {
             variants={{
               visible: { transition: { staggerChildren: 0.1 } }
             }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
           >
             {filteredPosts.map((post) => (
               <BlogCard key={post.id} post={post} categoryLabels={categoryLabels} />
@@ -255,29 +256,27 @@ function BlogCard({ key, post, categoryLabels }) {
       <motion.div
         key={key}
         variants={fadeInUp}
-        className="rounded-[40px] overflow-hidden border-2 border-red-700 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
+        className="overflow-hidden transition-shadow duration-300 h-full flex flex-col"
       >
-        <div className="relative h-64 overflow-hidden">
+        <div className="relative h-80 overflow-hidden">
           <img
             src={post.image}
             alt={post.title}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
           />
-          <div className="absolute top-4 right-4">
-            <span className="bg-black text-white px-3 py-1 rounded-full text-sm font-medium">
+          <div className="absolute top-6 right-4">
+            <span className="bg-white text-black px-3 py-3 text-sm font-medium">
               {categoryLabels[post.category]}
             </span>
           </div>
         </div>
-        <div className="p-5 flex flex-col flex-grow">
-          <div className="flex justify-end items-center mb-3">
-            <span className="text-gray-500 text-sm">{post.readTime}</span>
-          </div>
-          <h3 className="text-xl font-bold mb-3 text-gray-800">{post.title}</h3>
+        <div className="py-5 flex flex-col flex-grow">
+          <p className="text-gray-500 text-base">{new Date(post.date).getDate()}-{new Date(post.date).getMonth() + 1}-{new Date(post.date).getFullYear()}</p>
+          <h3 className="text-2xl font-bold font-custom mb-1 text-gray-800 uppercase">{post.title}</h3>
           <p className="text-gray-700 mb-4 flex-grow">{post.excerpt}</p>
           <Link
             href={route('blog.show', post.id)}
-            className="inline-flex items-center text-red-700 font-medium hover:underline"
+            className="inline-flex items-center font-banner text-primary font-medium hover:underline uppercase"
           >
             Lire plus <ArrowRight className="ml-1 h-4 w-4" />
           </Link>

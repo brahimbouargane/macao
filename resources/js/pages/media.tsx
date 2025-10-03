@@ -384,7 +384,7 @@ export default function Media() {
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
-              className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
+              className="flex min-h-[470px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
             >
               <motion.h1
                 variants={fadeInUp}
@@ -399,6 +399,24 @@ export default function Media() {
       </motion.div>
       <section className="container mx-auto py-12 md:py-12">
         <div className="container px-4 md:px-6">
+          <div className="flex flex-col gap-10 mb-32">
+            <motion.div variants={fadeInUp} className="flex flex-col items-center gap-3">
+              <motion.p
+                variants={fadeInUp}
+                className="text-primary text-sm md:text-sm uppercase flex items-center gap-8 "
+              >
+                <div className="w-16 h-0.5 bg-primary" />
+                Explorer notre histoire
+                <div className="w-16 h-0.5 bg-primary" />
+              </motion.p>
+              <motion.h2
+                variants={fadeInUp}
+                className="text-4xl font-custom uppercase font-bold text-black tracking-wide leading-tight"
+              >
+                PASTOR MACAO SAVOUREZ LA VIE
+              </motion.h2>
+            </motion.div>
+          </div>
           <div className="flex flex-col space-y-4">
             {/* Section de recherche et de filtrage */}
             <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 my-6">

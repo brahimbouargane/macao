@@ -77,8 +77,9 @@ const Header = () => {
   // If not home page, return simple header with just navbar
   if (!isHomePage) {
     return (
-      <div className="relative">
-        <div className="fixed top-0  left-0 right-0 bg-transparent backdrop-blur-sm z-50">
+      <div className="relative mb-16">
+        {/* <div className="fixed top-0  left-0 right-0 bg-transparent backdrop-blur-sm z-50"> */}
+        <div className="z-50">
           <Navbar />
         </div>
       </div>
@@ -86,12 +87,12 @@ const Header = () => {
   }
 
   return (
-    <div className="relative ">
+    <div className="relative pt-16">
       {/* Hero Carousel */}
       <HeroSlide />
       {/* <LuxuryPastryHero /> */}
 
-      <div className="fixed top-0  left-0 right-0  z-50">
+      <div className="">
         <Navbar />
       </div>
     </div>

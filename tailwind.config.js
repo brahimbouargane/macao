@@ -28,11 +28,11 @@ const config = withTV({
     },
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...fontFamily.sans],
+        sans: ['DM Sans', ...fontFamily.sans],
         primary: ['Playfair Display', 'serif'],
         secondary: ['Montserrat', 'sans-serif'],
         body: ['Open Sans', 'sans-serif'],
-        custom: ['azzawilafont', 'sans-serif'],
+        custom: ['Marcellus', 'sans-serif'],
         banner: ['League Spartan', 'sans-serif']
       },
       colors: {
@@ -47,6 +47,8 @@ const config = withTV({
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           fg: 'hsl(var(--primary-fg))',
+          light: 'hsl(var(--primary-light))',
+          dark: 'hsl(var(--primary-dark))',
           50: 'hsl(204.7 99% 97%)',
           100: 'hsl(206.15 100% 92%)',
           200: 'hsl(206.57 99% 86%)',

@@ -1,13 +1,13 @@
 export enum AppPermissionsEnum {
-  'VIEW_ANY_USER' = 'view-any',
-  'VIEW_USER' = 'view',
-  'CREATE_USER' = 'create',
-  'UPDATE_USER' = 'update',
-  'DELETE_USER' = 'delete'
+  VIEW_ANY_USER = 'view-any',
+  VIEW_USER = 'view',
+  CREATE_USER = 'create',
+  UPDATE_USER = 'update',
+  DELETE_USER = 'delete'
 }
 export enum AppRoles {
-  'ADMIN' = 'admin',
-  'MANAGER' = 'manager'
+  ADMIN = 'admin',
+  MANAGER = 'manager'
 }
 export type AuthData = {
   user: AuthenticatedUserData;

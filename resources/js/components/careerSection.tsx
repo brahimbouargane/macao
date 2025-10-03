@@ -99,6 +99,7 @@ const CareersSection = () => {
               backgroundImage: `url(${banner || '/placeholder.svg'})`
             }}
           />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
 
         <div className="relative px-4 ml-10">
@@ -106,19 +107,40 @@ const CareersSection = () => {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
+            className="flex min-h-[470px] flex-col text-center justify-center pt-36 pb-12 text-white"
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl uppercase  font-bold font-banner  tracking-wide md:text-[65px] md:max-w-[90%]  text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)]"
+              className="text-4xl font-custom uppercase font-bold tracking-wide md:text-[55px] text-white leading-tight"
             >
               Rejoignez Notre Équipe
             </motion.h1>
+            <motion.p variants={fadeInUp} className="text-gray-300 text-sm md:text-sm">
+              DERRIÉRE CHAQUE BOUCHÉE, IL Y A UNE HISTOIRE, VOICI LA NÔTRE.
+            </motion.p>
           </motion.div>
         </div>
       </motion.div>
       <Container>
         <div className=" mx-auto px-4 py-24">
+          <div className="flex flex-col gap-10 mb-32">
+            <motion.div variants={fadeInUp} className="flex flex-col items-center gap-3">
+              <motion.p
+                variants={fadeInUp}
+                className="text-primary text-sm md:text-sm uppercase flex items-center gap-8 "
+              >
+                <div className="w-16 h-0.5 bg-primary" />
+                Notre Équipe
+                <div className="w-16 h-0.5 bg-primary" />
+              </motion.p>
+              <motion.h2
+                variants={fadeInUp}
+                className="text-4xl font-custom uppercase font-bold text-black tracking-wide leading-tight"
+              >
+                Rejoignez Notre Équipe
+              </motion.h2>
+            </motion.div>
+          </div>
           {/* Main Content Section */}
           <div className="text-center mb-20">
             {/* <h2 className="text-6xl font-bold font-custom mb-6 bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">

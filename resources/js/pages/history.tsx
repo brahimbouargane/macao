@@ -1,19 +1,13 @@
 import banner from '@/assets/images/25.webp';
-// import commercial from '@/assets/images/commercial.webp';
-// import composition from '@/assets/images/composition.webp';
-// import iso from '@/assets/images/iso.jpg';
-// import showcase from '@/assets/images/showcasing.webp';
 import bgimage2 from '@/assets/images/history.webp';
 import bgimage from '@/assets/images/history_1.png';
 import bgimage3 from '@/assets/images/history_3.png';
 import bgimage4 from '@/assets/images/history_4.png';
 
-import logored from '@/assets/images/LOGO-MACAO.svg';
-
 import SEO from '@/components/seo';
 import { NewLayout } from '@/layouts/new-layout';
 import { Head } from '@inertiajs/react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef } from 'react';
 
 const fadeInUp = {
@@ -46,215 +40,67 @@ const fadeIn = {
   }
 };
 
-const ContentBlock = ({ imageOnLeft, title, content, imageSrc }) => {
-  return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1]
-          }
-        }
-      }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
-      className="container mx-auto px-4 py-24"
-    >
-      <div
-        className={`flex flex-col ${imageOnLeft ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 relative`}
-      >
-        {/* Image Container with hover effect and subtle border */}
-        <motion.div
-          className="w-full md:w-1/2 relative group"
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.3 }}
-        >
-          {/* <div className="absolute inset-0 bg-red-500/10 group-hover:bg-red-500/0 transition-colors duration-300 rounded-lg" /> */}
-          <div className="absolute inset-0 border-2 border-red-500/20 rounded-lg transform -rotate-1" />
-          <div className="absolute inset-0 border-2 border-gray-900/10 rounded-lg transform rotate-1" />
-          <img
-            src={imageSrc || '/api/placeholder/600/400'}
-            alt={title}
-            className="w-full rounded-lg object-cover shadow-xl relative z-10"
-          />
-        </motion.div>
-
-        {/* Content Container with sophisticated styling */}
-        <div className="w-full md:w-1/2 relative">
-          <motion.div
-            initial={{ opacity: 0, x: imageOnLeft ? 20 : -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative"
-          >
-            {/* Decorative elements */}
-            <div className="absolute -top-6 -left-6 w-12 h-12 bg-red-500/10 rounded-full" />
-            <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-gray-100 rounded-full" />
-
-            {/* Logo */}
-            {/* <motion.img
-              src={pastoLogo}
-              alt="Logo Pastor Macao"
-              className="w-24 h-24 mb-8"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            /> */}
-
-            {/* Title with decorative underline */}
-            <div className="relative mb-6">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">{title}</h2>
-              <div className="h-1 w-20 bg-red-500 rounded-full" />
-            </div>
-
-            {/* Content with enhanced typography */}
-            <p className="text-lg leading-relaxed text-gray-700 space-y-4 text-justify">
-              {content.split('.').map(
-                (sentence, index) =>
-                  sentence.trim() && (
-                    <motion.span
-                      key={index}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                      className="block mb-4"
-                    >
-                      {sentence.trim() + '.'}
-                    </motion.span>
-                  )
-              )}
-            </p>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-const FlexibleSection = ({
-  imagePosition = 'left', // 'left' or 'right'
-  bgImage,
-  logo,
-  title,
-  tagline,
-  foundedYear,
-  brandName,
-  paragraphs
-}) => {
-  // Common classes
-  const containerClasses =
-    'min-h-[400px] sm:min-h-[450px] md:h-[600px] lg:h-[650px] max-w-[90%] mx-auto relative overflow-hidden';
-
-  // Classes that change based on image position
-  const getContainerRoundedClasses = () => {
-    if (imagePosition === 'left') {
-      return 'rounded-l-[200px] rounded-br-[200px]';
-    } else {
-      return 'rounded-r-[200px] rounded-bl-[200px]';
-    }
-  };
-
-  const getContentRoundedClasses = () => {
-    if (imagePosition === 'left') {
-      return 'rounded-l-[200px]';
-    } else {
-      return 'rounded-r-[200px]';
-    }
-  };
-
-  const getContentPositionClasses = () => {
-    if (imagePosition === 'left') {
-      return 'ml-auto';
-    } else {
-      return 'mr-auto';
-    }
-  };
-
-  const getBorderClasses = () => {
-    if (imagePosition === 'left') {
-      return 'border-t-2 border-b-2 border-r-2';
-    } else {
-      return 'border-t-2 border-b-2 border-l-2';
-    }
-  };
-
-  const getLogoPosition = () => {
-    if (imagePosition === 'left') {
-      return 'top-4 right-4';
-    } else {
-      return 'top-4 left-4';
-    }
-  };
-
-  const getImagePositionClasses = () => {
-    if (imagePosition === 'left') {
-      return 'left-0';
-    } else {
-      return 'right-0';
-    }
-  };
+// Timeline step component to match the image design
+const TimelineStep = ({ title, subtitle, description, imageSrc, step, isLast = false }) => {
+  const isEven = step % 2 === 0;
 
   return (
-    <div className={`bg-gray-500 ${getContainerRoundedClasses()} ${containerClasses}`}>
-      {/* Background image section */}
-      <div className={`absolute inset-0 ${getImagePositionClasses()} w-[60%] z-0`}>
-        <img src={bgImage} alt="Background image" className="object-fill absolute h-full w-full" />
-      </div>
+    <div className="relative mb-24">
+      {/* Timeline line */}
+      {!isLast && (
+        <div className="absolute left-1/2 top-0 w-0.5 h-[60rem] bg-gradient-to-b from-primary to-primary transform -translate-x-0.5 z-0" />
+      )}
 
-      {/* Content section */}
-      <div
-        className={`bg-white ${getBorderClasses()} border-red-700 ${getContentRoundedClasses()} h-full w-[52%] ${getContentPositionClasses()} relative`}
+      {/* Timeline circle */}
+      <div className="absolute left-1/2 top-[51%] w-6 h-6 bg-primary rounded-full transform -translate-x-1/2 z-10 border-4 border-white shadow-lg" />
+
+      {/* Content */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+        className={`flex flex-col ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 pt-8`}
       >
-        {/* Logo */}
-        <div className={`absolute ${getLogoPosition()}`}>
-          <div className="flex items-center justify-center w-12 h-12">
-            <img src={logo} alt="Brand logo" />
+        {/* Image */}
+        <div className="w-full md:w-1/2 flex justify-center">
+          <div className="relative group">
+            <img
+              src={imageSrc}
+              alt={title}
+              className="w-auto h-72 object-cover shadow-xl transition-transform duration-300"
+            />
+            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" /> */}
           </div>
         </div>
 
-        {/* Content */}
-        <div className="pt-20 pb-28 px-20 flex flex-col justify-center h-full">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-600 mb-2 leading-tight">
-            {title}
-            <br />
-            <span className="block">{tagline}</span>
-          </h1>
-
-          <div className="mt-6">
-            <p className="text-gray-800 mb-6 text-base">
-              <strong>Founded in {foundedYear},</strong> {brandName}
-            </p>
-
-            {paragraphs.map((paragraph, index) => (
-              <p key={index} className="text-gray-700 mb-4 text-sm md:text-base">
-                {paragraph}
-              </p>
-            ))}
+        {/* Text content */}
+        <div className={`w-full md:w-1/2 flex ${isEven ? 'flex-row-reverse' : 'flex-row'} gap-4 items-center`}>
+          <div className="h-0.5 w-44 bg-primary rounded-full" />
+          <div className="space-y-3">
+            <h3 className="text-4xl text-primary leading-tight font-custom uppercase">{title}</h3>
+            <p className="text-lg text-black font-medium leading-relaxed">{subtitle}</p>
+            <p className="text-gray-700 leading-relaxed text-justify text-sm">{description}</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
 
 function History() {
   const scrollRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: scrollRef,
-    offset: ['start start', 'end start']
-  });
-
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const headerScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
-  const headerY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
 
   return (
-    <div className="relative min-h-screen">
-      <SEO title="Macao" description="Welcome to our amazing website" keywords="keyword1, keyword2, keyword3" />
-      <Head title="Macao" />
+    <div className="relative min-h-screen bg-white">
+      <SEO
+        title="Macao - Notre Histoire"
+        description="Découvrez l'histoire de Pastor Macao"
+        keywords="histoire, chocolat, confiserie, macao"
+      />
+      <Head title="Histoire" />
+
+      {/* Hero Section */}
       <motion.div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
@@ -266,234 +112,157 @@ function History() {
               backgroundImage: `url(${banner || '/placeholder.svg'})`
             }}
           />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
 
-        <div className="relative mx-auto px-4  ml-10 ">
+        <div className="relative mx-auto px-4">
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="flex min-h-[350px] flex-col text-center md:text-left justify-center pt-36 pb-12 text-white"
+            className="flex min-h-[470px] flex-col text-center justify-center pt-20 pb-12 text-white"
           >
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl uppercase  font-bold font-banner tracking-wide md:text-[65px] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%),_0_2px_15px_rgb(255_255_255_/_30%)] leading-tight"
+              className="text-4xl font-custom uppercase font-bold tracking-wide md:text-[55px] text-white leading-tight"
             >
-              <span className="inline-block"> DERRIÉRE CHAQUE BOUCHÉE,</span>{' '}
-              <span className="inline-block">IL Y A UNE </span>{' '}
-              <span className="inline-block">HISTOIRE, VOICI LA NÔTRE.</span>
+              NOTRE HISTOIRE
             </motion.h1>
+            <motion.p variants={fadeInUp} className="text-gray-300 text-sm md:text-sm">
+              DERRIÉRE CHAQUE BOUCHÉE, IL Y A UNE HISTOIRE, VOICI LA NÔTRE.
+            </motion.p>
           </motion.div>
         </div>
       </motion.div>
       {/* Content Blocks */}
-      <div className="bg-white py-8 md:py-12 font-custom">
-        {/* First Section */}
-        <motion.div
-          className="mb-8 md:mb-16 bg-gray-500 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] rounded-br-[50px] sm:rounded-br-[100px] md:rounded-br-[150px] lg:rounded-br-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeIn}
-        >
-          <div className="absolute inset-0 left-0 w-1/2 sm:w-[55%] md:w-[60%] z-0">
-            <img
-              src={bgimage}
-              alt="Chocolatier preparing gourmet chocolates"
-              className="object-cover sm:object-fill absolute h-full w-full"
-            />
-          </div>
-          <div className="bg-white border-t-2 border-b-2 border-r-2 border-red-700 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] ml-auto relative">
-            {/* Small logo top right */}
-            <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-              <div className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14">
-                <img src={logored} alt="pastore macao logo" />
-              </div>
-            </div>
 
-            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
-              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-red-600 mb-2 leading-tight">
-                PASTOR MACAO SAVOUREZ LA VIE
-              </h1>
-
-              <div className="mt-3 sm:mt-6">
-                <h2 className="text-red-600 font-bold mb-2 sm:mb-4 md:mb-6 uppercase text-lg sm:text-lg md:text-2xl">
-                  <span className="text-black">Fondé en</span> 1954, PASTOR MACAO
-                </h2>
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16 max-w-6xl">
+        <div className="flex flex-col gap-10 mb-32">
+          <motion.div variants={fadeInUp} className="flex flex-col items-center gap-3">
+            <motion.p
+              variants={fadeInUp}
+              className="text-primary text-sm md:text-sm uppercase flex items-center gap-8 "
+            >
+              <div className="w-16 h-0.5 bg-primary" />
+              Explorer notre histoire
+              <div className="w-16 h-0.5 bg-primary" />
+            </motion.p>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl font-custom uppercase font-bold text-black tracking-wide leading-tight"
+            >
+              PASTOR MACAO SAVOUREZ LA VIE
+            </motion.h2>
+          </motion.div>
+        </div>
+        {/* Timeline Section */}
+        <div className="relative">
+          <TimelineStep
+            title={<>PASTOR MACAO <br/> SAVOUREZ LA VIE</>}
+            subtitle={
+              <>
+                Fondé en <span className="text-primary">1954, PASTOR MACAO</span>
+              </>
+            }
+            description={
+              <>
+                <p className="mb-3">
                   est le leader marocain en confiserie-chocolaterie, offrant des produits de qualité pour tous les goûts
                   aux meilleurs prix.
                 </p>
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                <p className="mb-3">
                   Notre gamme de produits Halal, conçue avec les meilleurs ingrédients, répond aux normes de qualité les
                   plus strictes et est reconnue internationalement.
                 </p>
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
-                  Nos sites technologiques innovants répondent à toutes les demandes du marché.
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+                <p>Nos sites technologiques innovants répondent à toutes les demandes du marché.</p>
+              </>
+            }
+            imageSrc={bgimage}
+            step={1}
+          />
 
-        {/* Second Section - Mirror of first section with right alignment */}
-        <motion.div
-          className="my-8 md:my-16 bg-gray-500 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] rounded-bl-[50px] sm:rounded-bl-[100px] md:rounded-bl-[150px] lg:rounded-bl-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeIn}
-        >
-          <div className="absolute inset-0 right-0 w-1/2 sm:w-[55%] md:w-[60%] ml-auto z-0">
-            <img
-              src={bgimage2}
-              alt="Chocolatier preparing gourmet chocolates"
-              className="object-cover sm:object-fill absolute h-full w-full"
-            />
-          </div>
-          <div className="bg-white border-t-2 border-b-2 border-l-2 border-red-700 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] mr-auto relative">
-            {/* Small logo top left */}
-            <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
-                <img src={logored} alt="pastore macao logo" />
-              </div>
-            </div>
-
-            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
-              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight">
-                L'historique
-              </h1>
-
-              <div className="mt-3 sm:mt-6">
-                <h2 className="text-black font-bold mb-2 sm:mb-4 md:mb-6 uppercase text-base sm:text-lg md:text-2xl text-justify">
-                  <span className="text-red-600">PASTOR MACAO</span> a démarré en{' '}
-                  <span className="text-red-600 text-lg sm:text-lg md:text-2xl">1948</span>
-                </h2>
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+          <TimelineStep
+            title="L'HISTORIQUE"
+            subtitle={
+              <>
+                PASTOR MACAO a démarré en <span className="text-primary">1948</span>
+              </>
+            }
+            description={
+              <>
+                <p className="mb-3">
                   Devenue société de confiserie-chocolaterie en 1954, notre exigence d'excellence a fait de nous le
                   leader marocain du secteur.
                 </p>
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                <p className="mb-3">
                   Nos produits font partie du quotidien de millions de marocains et notre éléphant blanc sur fond rouge
                   est reconnu par tous.
                 </p>
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                <p>
                   Aujourd'hui, notre savoir-faire et notre gamme élaborée selon les normes strictes sont appréciés dans
                   plusieurs pays.
                 </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+              </>
+            }
+            imageSrc={bgimage2}
+            step={2}
+          />
 
-        {/* Third Section - Same pattern as first */}
-        <motion.div
-          className="my-8 md:my-16 bg-gray-500 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] rounded-br-[50px] sm:rounded-br-[100px] md:rounded-br-[150px] lg:rounded-br-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeIn}
-        >
-          <div className="absolute inset-0 left-0 w-1/2 sm:w-[55%] md:w-[60%] z-0">
-            <img
-              src={bgimage3}
-              alt="Chocolatier preparing gourmet chocolates"
-              className="object-cover sm:object-fill absolute h-full w-full"
-            />
-          </div>
-          <div className="bg-white border-t-2 border-b-2 border-r-2 border-red-700 rounded-l-[50px] sm:rounded-l-[100px] md:rounded-l-[150px] lg:rounded-l-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] ml-auto relative">
-            {/* Small logo top right */}
-            <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
-                <img src={logored} alt="pastore macao logo" />
-              </div>
-            </div>
-
-            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
-              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight text-start">
-                Une qualité supérieure constante
-              </h1>
-
-              <div className="mt-3 sm:mt-6">
-                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase text-justify">
-                  La confiance, la satisfaction et <span className="text-red-600">la santé</span>
-                </p>
-
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
-                  de nos consommateurs sont au sommet de nos priorités.
-                </p>
-
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+          <TimelineStep
+            title="UNE QUALITÉ SUPÉRIEURE CONSTANTE"
+            subtitle={
+              <>
+                La confiance, la satisfaction et <span className="text-primary">la santé</span>
+              </>
+            }
+            description={
+              <>
+                <p className="mb-3">de nos consommateurs sont au sommet de nos priorités.</p>
+                <p className="mb-3">
                   Tous nos produits suivent les normes les plus strictes et utilisent des matières premières premium
                   pour garantir goût et excellence.
                 </p>
-
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                <p className="mb-3">
                   Nos processus sophistiqués et sites technologiques assurent traçabilité, qualité et sécurité, avec des
                   équipes formées et encadrées pour l'excellence.
                 </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+              </>
+            }
+            imageSrc={bgimage3}
+            step={3}
+          />
 
-        {/* Fourth Section - Same pattern as second */}
-        <motion.div
-          className="my-8 md:my-16 bg-gray-500 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] rounded-bl-[50px] sm:rounded-bl-[100px] md:rounded-bl-[150px] lg:rounded-bl-[200px] min-h-[300px] sm:min-h-[400px] md:h-[500px] lg:h-[700px] max-w-[95%] sm:max-w-[90%] mx-auto relative overflow-hidden"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeIn}
-        >
-          <div className="absolute inset-0 right-0 w-1/2 sm:w-[55%] md:w-[60%] ml-auto z-0">
-            <img
-              src={bgimage4}
-              alt="Chocolatier preparing gourmet chocolates"
-              className="object-cover sm:object-fill absolute h-full w-full"
-            />
-          </div>
-          <div className="bg-white border-t-2 border-b-2 border-l-2 border-red-700 rounded-r-[50px] sm:rounded-r-[100px] md:rounded-r-[150px] lg:rounded-r-[200px] h-full w-[60%] sm:w-[55%] md:w-[52%] mr-auto relative">
-            {/* Small logo top left */}
-            <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-              <div className="flex items-center justify-center w-8 h-8 sm:w-12 sm:h-12">
-                <img src={logored} alt="pastore macao logo" />
-              </div>
-            </div>
-
-            <div className="pt-10 sm:pt-16 md:pt-20 pb-10 sm:pb-16 md:pb-28 px-4 sm:px-10 md:px-16 lg:px-20 flex flex-col justify-center h-full">
-              <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl uppercase font-bold text-red-600 mb-2 leading-tight text-start">
-                Un partenaire fiable et responsable
-              </h1>
-
-              <div className="mt-3 sm:mt-6">
-                <p className="text-gray-800 mb-2 sm:mb-4 md:mb-6 text-sm md:text-base font-bold uppercase text-justify">
-                  <strong className="text-red-600">PASTOR MACAO</strong> place la sécurité alimentaire au cœur de ses
-                  priorités.
-                </p>
-
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+          <TimelineStep
+            title="UN PARTENAIRE FIABLE ET RESPONSABLE"
+            subtitle={
+              <>
+                <span className="text-primary">PASTOR MACAO</span> place la sécurité alimentaire au cœur de ses
+                priorités
+              </>
+            }
+            description={
+              <>
+                <p className="mb-3">
                   Nous effectuons des contrôles rigoureux pour respecter les normes marocaines et internationales.
                   Certifiée ISO 9001 et autorisée par l'ONSSA à exporter.
                 </p>
-
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                <p className="mb-3">
                   Notre laboratoire R&D développe constamment de nouveaux produits, comme notre gamme de chocolat sans
                   sucre.
                 </p>
-
-                <p className="text-gray-700 mb-2 sm:mb-4 text-xs sm:text-sm md:text-base text-justify">
+                <p>
                   En choisissant PASTOR MACAO, vous avez la garantie d'un partenaire fiable offrant des produits
                   premiums de qualité supérieure.
                 </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+              </>
+            }
+            imageSrc={bgimage4}
+            step={4}
+            isLast={true}
+          />
+        </div>
       </div>
-
-      {/* <Container>
-        <ContactSection id="contact" />
-      </Container> */}
     </div>
   );
 }

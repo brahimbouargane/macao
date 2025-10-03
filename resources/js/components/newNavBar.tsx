@@ -1,7 +1,7 @@
 import macaoImage from '@/assets/images/LOGO-MACAO.svg';
 import { Link, usePage } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, Facebook, Instagram, Linkedin, Menu, X, Youtube } from 'lucide-react';
+import { ChevronDown, ChevronRight, Facebook, Instagram, Linkedin, Menu, X, Youtube } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const MotionLink = motion(Link);
@@ -90,12 +90,14 @@ const dropdownVariants = {
 
 const CategoryCard = ({ category, index }) => {
   return (
-    <div className={`p-4 md:px-8 md:py-6 bg-[#EDEDED] rounded-l-[80px] rounded-tr-[80px] shadow-md`}>
-      <div className="flex items-center font-custom  gap-2 mb-4">
+    <div className={`p-4 md:px-8 md:py-6 ${index % 2 === 0 ? 'bg-primary' : 'bg-white'}`}>
+      <div className="flex items-center gap-2 mb-4">
         {category.icon && <category.icon className="h-5 w-5 text-primary" />}
         {category.iconImage && <img src={category.iconImage} alt={`${category.title} icon`} className="h-5 w-5" />}
-        <h2 className="text-xl font-custom  md:text-2xl italic mb-2">
-          <span className="text-red-700">{category.title}</span>
+        <h2
+          className={`text-xl md:text-2xl italic mb-2 border-b border-dashed pb-1 ${index % 2 === 0 ? 'border-white' : 'border-black'}`}
+        >
+          <span className={`${index % 2 === 0 ? 'text-white' : 'text-black'}`}>{category.title}</span>
         </h2>
       </div>
 
@@ -104,10 +106,10 @@ const CategoryCard = ({ category, index }) => {
           <li key={itemIndex} role="none">
             <Link
               href={`/products/${category.id}/${item.toLowerCase()}`}
-              className="text-gray-600 font-custom  hover:text-primary text-sm md:text-base block transition-colors duration-200"
+              className={`${index % 2 === 0 ? 'text-white hover:text-black' : 'text-black hover:text-primary'} text-sm md:text-base transition-colors duration-200 flex items-center`}
               role="menuitem"
             >
-              {item}
+              <ChevronRight className={`h-4 w-4 ${index % 2 === 0 ? 'text-white' : 'text-black'}`} /> {item}
             </Link>
           </li>
         ))}
@@ -118,10 +120,10 @@ const CategoryCard = ({ category, index }) => {
 const BlogCard = ({ category, index }) => {
   return (
     <div className={`p-4 md:px-8 md:py-6 bg-[#EDEDED] rounded-l-[80px] rounded-tr-[80px]`}>
-      <div className="flex items-center font-custom  gap-2 mb-4">
+      <div className="flex items-center gap-2 mb-4">
         {category.icon && <category.icon className="h-5 w-5 text-primary" />}
         {category.iconImage && <img src={category.iconImage} alt={`${category.title} icon`} className="h-5 w-5" />}
-        <h2 className="text-xl font-custom  md:text-2xl italic mb-2">
+        <h2 className="text-xl  md:text-2xl italic mb-2">
           <span className="text-red-700">{category.title}</span>
         </h2>
       </div>
@@ -131,7 +133,7 @@ const BlogCard = ({ category, index }) => {
           <li key={itemIndex} role="none">
             <Link
               href={`/${category.id}/${item.toLowerCase()}`}
-              className="text-gray-600 font-custom  hover:text-primary text-sm md:text-base block transition-colors duration-200"
+              className="text-gray-600  hover:text-primary text-sm md:text-base block transition-colors duration-200"
               role="menuitem"
             >
               {item}
@@ -254,170 +256,137 @@ export default function Navbar() {
     };
   }, [handleBlogClose]);
   return (
-    <nav
-      className={`fixed top-0 left-0 py-2 w-full z-50 transition-all duration-200 ${
-        isScrolled ? 'bg-transparent' : 'bg-transparent'
-      }`}
-    >
-      {/* <div className="container z-50 flex h-16 items-center justify-between px-4 sticky top-0 bg-transparent"> */}
-      <div className="md:container font-custom  mx-auto bg-black rounded-full flex h-16  items-center justify-between px-8">
-        <button
-          className="lg:hidden text-white hover:text-primary"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-expanded={isMobileMenuOpen}
-          aria-controls="mobile-menu"
-        >
-          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
-        {/* Left side navigation */}
-        <div className=" hidden lg:flex  items-center space-x-6 gap-8">
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/"
-            className={`text-md font-custom font-semibold ${isActive('/') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
-          >
-            ACCUEIL
+    <nav className={`fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-100 transition-all duration-200`}>
+      <div className="mx-auto px-4 lg:px-14">
+        <div className="flex items-center justify-between h-24">
+          {/* Left side - Logo */}
+          <MotionLink whileHover={{ scale: 1.05 }} href="/" className="flex items-center">
+            <div className="flex items-center">
+              <img src={macaoImage} alt="product macao logo" className="h-32 w-auto" />
+              <p className="text-2xl text-black font-bold uppercase">Macao</p>
+            </div>
           </MotionLink>
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/history"
-            className={`text-md font-custom font-semibold ${isActive('/history') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
-          >
-            NOTRE HISTOIRE
-          </MotionLink>
-          <div ref={dropdownRef} className="relative" onMouseEnter={handleOpen} onMouseLeave={handleClose}>
-            <motion.button
+
+          {/* Center - Navigation */}
+          <div className="hidden lg:flex items-center space-x-8">
+            <MotionLink
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`text-md font-custom font-semibold ${url.startsWith('/products') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center`}
-              aria-expanded={isProductsOpen}
-              id="products-menu"
+              href="/"
+              className={`text-sm font-extrabold uppercase tracking-wide ${
+                isActive('/') ? 'text-primary' : 'text-gray-700'
+              } hover:text-primary transition-colors`}
             >
-              NOS PRODUITS
-              <ChevronDown
-                className={`ml-1 h-5 w-5 transform transition-transform duration-300 ${
-                  isProductsOpen ? 'rotate-180' : ''
-                }`}
-              />
-            </motion.button>
+              ACCUEIL
+            </MotionLink>
 
-            <AnimatePresence>
-              {isProductsOpen && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="absolute font-custom rounded-[80px]  top-[80px] md:-left-28 lg:-left-80 w-[90vw] max-w-[1500px] gap-2  grid grid-cols-1 md:grid-cols-5 z-50"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="products-menu"
-                >
-                  {featuredCategories.map((category, index) => (
-                    <CategoryCard key={category.id} category={category} index={index} />
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+            <div ref={dropdownRef} className="relative" onMouseEnter={handleOpen} onMouseLeave={handleClose}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                className={`text-sm font-extrabold uppercase tracking-wide flex items-center ${
+                  url.startsWith('/products') ? 'text-primary' : 'text-gray-700'
+                } hover:text-primary transition-colors`}
+                aria-expanded={isProductsOpen}
+                id="products-menu"
+              >
+                NOS PRODUITS
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transform transition-transform duration-300 ${
+                    isProductsOpen ? 'rotate-180' : ''
+                  }`}
+                />
+              </motion.button>
 
-        {/* Center logo */}
+              <AnimatePresence>
+                {isProductsOpen && (
+                  <motion.div
+                    variants={dropdownVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="absolute top-12 -left-96 mt-2 w-[90vw] max-w-[1200px] grid grid-cols-1 md:grid-cols-5 z-50 bg-white shadow-xl rounded-lg border border-gray-100"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="products-menu"
+                  >
+                    {featuredCategories.map((category, index) => (
+                      <CategoryCard key={category.id} category={category} index={index} />
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
-        <div className="flex-1 flex justify-center">
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/"
-            className={`flex items-center transition-all duration-200 ${
-              isScrolled ? 'relative top-6' : 'relative top-8'
-            }`}
-          >
-            <img
-              src={macaoImage}
-              alt="product macao logo"
-              width={200}
-              height={80}
-              className={`transition-all duration-200 ${isScrolled ? ' lg:h-44 w-auto' : 'h-[162px] md:h-[170px] lg:h-[190px] w-auto'}`}
-            />
-          </MotionLink>
-        </div>
-
-        {/* Right side navigation */}
-        <div className="hidden lg:flex  items-center space-x-6 gap-8">
-          {/* <div ref={dropdownBlogRef} className="relative" onMouseEnter={handleBlogOpen} onMouseLeave={handleBlogClose}>
-            <motion.button
+            <MotionLink
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`text-md font-custom font-semibold ${url.startsWith('/blog') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center`}
-              aria-expanded={isBlogOpen}
-              id="products-menu"
+              href="/blog"
+              className={`text-sm font-extrabold uppercase tracking-wide ${
+                isActive('/blog') ? 'text-primary' : 'text-gray-700'
+              } hover:text-primary transition-colors`}
             >
               BLOG
-              <ChevronDown
-                className={`ml-1 h-5 w-5 transform transition-transform duration-300 ${isBlogOpen ? 'rotate-180' : ''}`}
-              />
-            </motion.button>
+            </MotionLink>
 
-            <AnimatePresence>
-              {isBlogOpen && (
-                <motion.div
-                  variants={dropdownVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="absolute font-custom rounded-[80px]  top-[80px] md:-left-28 lg:-left-20 w-[20vw] max-w-[1500px] grid  z-50"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="products-menu"
-                >
-                  {blog.map((category, index) => (
-                    <BlogCard key={category.id} category={category} index={index} />
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div> */}
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/blog"
-            preserveScroll={false}
-            className={`text-md font-custom font-semibold ${isActive('/blog') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
-          >
-            BLOG
-          </MotionLink>
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/career"
-            preserveScroll={false}
-            className={`text-md font-custom font-semibold ${isActive('/career') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
-          >
-            NOUS REJOINDRE
-          </MotionLink>
-          <MotionLink
-            whileHover={{ scale: 1.1, rotate: 1 }}
-            href="/contact"
-            className={`text-md font-custom font-semibold ${isActive('/contact') ? 'text-primary' : 'text-white'} hover:text-primary relative after:absolute after:bottom-[-8px] after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full`}
-          >
-            CONTACT
-          </MotionLink>
+            <MotionLink
+              whileHover={{ scale: 1.05 }}
+              href="/history"
+              className={`text-sm font-extrabold uppercase tracking-wide ${
+                isActive('/history') ? 'text-primary' : 'text-gray-700'
+              } hover:text-primary transition-colors`}
+            >
+              NOTRE HISTOIRE
+            </MotionLink>
+
+            <MotionLink
+              whileHover={{ scale: 1.05 }}
+              href="/career"
+              className={`text-sm font-extrabold uppercase tracking-wide ${
+                isActive('/career') ? 'text-primary' : 'text-gray-700'
+              } hover:text-primary transition-colors`}
+            >
+              NOUS REJOINDRE
+            </MotionLink>
+
+            <MotionLink
+              whileHover={{ scale: 1.05 }}
+              href="/contact"
+              className={`text-sm font-extrabold uppercase tracking-wide ${
+                isActive('/contact') ? 'text-primary' : 'text-gray-700'
+              } hover:text-primary transition-colors`}
+            >
+              CONTACTS
+            </MotionLink>
+          </div>
+
+          {/* Right side - Actions */}
           <div className="flex items-center space-x-4">
-            {[
-              { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
-              { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },
-              { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
-              { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
-            ].map(({ icon: Icon, href }) => (
-              <MotionTag
-                key={href}
-                href={href}
-                target="_blank"
-                className="text-white hover:text-red-600"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Icon className="h-5 w-5" />
-              </MotionTag>
-            ))}
+            <div className="flex items-center space-x-2">
+              {[
+                { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
+                { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/company/pastor-macao-s-a/' },
+                { icon: Youtube, href: 'https://www.youtube.com/channel/UCGoKUNUIEgPpUkV_Po_r__g' }
+              ].map(({ icon: Icon, href }) => (
+                <MotionTag
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  className="text-black hover:text-red-600"
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                >
+                  <Icon className="h-5 w-5" />
+                </MotionTag>
+              ))}
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              className="lg:hidden text-gray-700 hover:text-primary"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
       </div>
@@ -429,7 +398,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'tween', duration: 0.3 }}
-            className="lg:hidden font-custom  fixed inset-0 z-50 bg-white"
+            className="lg:hidden  fixed inset-0 z-50 bg-white"
           >
             <div className="min-w-screen bg-white z-50 px-4 py-6">
               <div className="flex justify-between items-center mb-8">
@@ -444,14 +413,14 @@ export default function Navbar() {
               <nav className="space-y-6">
                 <Link
                   href="/"
-                  className={`block text-lg font-custom  font-semibold ${isActive('/') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                  className={`block text-lg  font-semibold ${isActive('/') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   ACCUEIL
                 </Link>
                 <Link
                   href="/history"
-                  className={`block text-lg font-custom  font-semibold ${isActive('/history') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                  className={`block text-lg  font-semibold ${isActive('/history') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   NOTRE HISTOIRE
@@ -460,7 +429,7 @@ export default function Navbar() {
                 {/* Mobile Products Menu */}
                 <div className="space-y-4">
                   <button
-                    className={`flex items-center justify-between w-full text-lg font-custom  font-semibold ${url.startsWith('/products') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                    className={`flex items-center justify-between w-full text-lg  font-semibold ${url.startsWith('/products') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                     onClick={isProductsOpen ? handleClose : handleOpen}
                   >
                     NOS PRODUITS
@@ -475,7 +444,7 @@ export default function Navbar() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="pl-4 max-h-80 overflow-y-auto font-custom "
+                        className="pl-4 max-h-80 overflow-y-auto "
                       >
                         <div className="grid grid-cols-2 gap-4">
                           {featuredCategories.map((category) => (
@@ -505,7 +474,7 @@ export default function Navbar() {
 
                 <Link
                   href="/blog"
-                  className={`block text-lg font-custom  font-semibold ${isActive('/blog') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                  className={`block text-lg  font-semibold ${isActive('/blog') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   BLOG
@@ -513,21 +482,21 @@ export default function Navbar() {
 
                 <Link
                   href="/contact"
-                  className={`block text-lg font-custom  font-semibold ${isActive('/contact') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                  className={`block text-lg  font-semibold ${isActive('/contact') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   CONTACT
                 </Link>
                 <Link
                   href="/career"
-                  className={`block text-lg font-custom  font-semibold ${isActive('/career') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
+                  className={`block text-lg  font-semibold ${isActive('/career') ? 'text-primary' : 'text-gray-600'} hover:text-primary`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   NOUS REJOINDRE
                 </Link>
 
                 {/* Social Media Links */}
-                <div className="flex font-custom  items-center space-x-4 pt-4">
+                <div className="flex  items-center space-x-4 pt-4">
                   {[
                     { icon: Facebook, href: 'https://www.facebook.com/MacaoPastor/' },
                     { icon: Instagram, href: 'https://www.instagram.com/macaopastor/' },

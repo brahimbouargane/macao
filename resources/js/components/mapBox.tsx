@@ -26,14 +26,14 @@ const LeafletMap = () => {
       className: 'custom-div-icon',
       html: `
         <div style="
-          background: linear-gradient(45deg, #dc2626, #ef4444);
+          background: linear-gradient(45deg, #c19d56, #86624a);
           width: 40px;
           height: 40px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+          box-shadow: 0 4px 12px rgba(193, 157, 86, 0.4);
           animation: bounce 2s infinite;
           border: 2px solid white;
         ">
@@ -61,10 +61,10 @@ const LeafletMap = () => {
       <div class="p-6 min-w-[250px]" style="
         background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
         border-radius: 8px;
-        border-left: 4px solid #dc2626;
+        border-left: 4px solid #c19d56;
       ">
-        <h3 class="font-bold text-red-600 mb-3 text-lg" style="
-          background: linear-gradient(to right, #dc2626, #ef4444);
+        <h3 class="font-bold text-primary mb-3 text-lg" style="
+          background: linear-gradient(to right, #c19d56, #86624a);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         ">PASTOR S.A.</h3>
@@ -76,7 +76,7 @@ const LeafletMap = () => {
           href="https://maps.google.com/?q=33.567853,-7.649992"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center text-sm text-red-600 hover:text-red-700 font-medium transition-all duration-300 hover:translate-x-1"
+          class="inline-flex items-center text-sm text-primary hover:text-primary/80 font-medium transition-all duration-300 hover:translate-x-1"
           style="text-decoration: none;"
         >
           Obtenir l'itinéraire
@@ -122,7 +122,7 @@ const LeafletMap = () => {
       .leaflet-control-zoom-in,
       .leaflet-control-zoom-out {
         background: white !important;
-        color: #dc2626 !important;
+        color: #c19d56 !important;
         border: none !important;
         width: 30px !important;
         height: 30px !important;
@@ -132,7 +132,7 @@ const LeafletMap = () => {
       }
       .leaflet-control-zoom-in:hover,
       .leaflet-control-zoom-out:hover {
-        background: #dc2626 !important;
+        background: #c19d56 !important;
         color: white !important;
       }
       .leaflet-popup-content-wrapper {
@@ -162,14 +162,14 @@ const LeafletMap = () => {
       {/* Enhanced Info card with gradient and animations */}
       <div className="absolute bottom-6 left-6 bg-gradient-to-br from-white to-gray-50 p-6 shadow-2xl max-w-sm z-[40] rounded-lg border-l-4 border-red-600 transition-transform hover:translate-y-[-2px]">
         <div className="flex items-start gap-4">
-          <div className="text-red-600 mt-1 bg-red-50 p-2 rounded-full">
+          <div className="text-primary mt-1 bg-primary/10 p-2 rounded-full">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
           </div>
           <div>
-            <h3 className="font-bold text-lg bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
+            <h3 className="font-bold text-lg bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
               PASTOR S.A.
             </h3>
             <p className="text-sm text-gray-600 mt-2 leading-relaxed">
@@ -182,7 +182,7 @@ const LeafletMap = () => {
                 href="https://maps.google.com/?q=33.567853,-7.649992"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-sm text-red-600 hover:text-red-700 font-medium transition-all duration-300 hover:translate-x-1"
+                className="inline-flex items-center text-sm text-primary hover:text-primary/80 font-medium transition-all duration-300 hover:translate-x-1"
               >
                 Obtenir l'itinéraire
                 <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
